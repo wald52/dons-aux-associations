@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://data.economie.gouv.fr https://opendata.paris.fr https://datasubvention.beta.gouv.fr https://www.data.gouv.fr https://data.ofgl.fr https://*.data.gouv.fr https://*.opendata.* https://*.gouv.fr; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;">
+    <title>Cartographie des Dons Publics aux Associations</title>
+    <link rel="stylesheet" href="src/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+    <header>
+        <div class="header-content">
+            <div class="header-row">
+                <div>
+                    <h1>Cartographie des Dons Publics aux Associations</h1>
+                    <p class="subtitle">Explorez les subventions publiques versées aux associations — par l'État, les régions, les départements, les communes et les EPCI</p>
+                </div>
+                <div class="header-actions">
+                    <button id="darkModeToggle" aria-label="Activer le mode sombre">🌙</button>
+                </div>
+            </div>
+            <div class="sources">
+                <span>Sources officielles :</span>
+                <a href="https://data.economie.gouv.fr/explore/dataset/plf-jaune-associations-subventionnees/" target="_blank" rel="noopener">PLF Jaune</a>
+                <a href="https://datasubvention.beta.gouv.fr/" target="_blank" rel="noopener">Data.Subvention</a>
+                <a href="https://www.data.gouv.fr/datasets/subventions-aux-associations-2" target="_blank" rel="noopener">data.gouv.fr</a>
+                <a href="https://data.ofgl.fr/" target="_blank" rel="noopener">OFGL</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="controls" role="toolbar" aria-label="Filtres et recherche">
+            <div class="search-box">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="searchInput" placeholder="Rechercher une association, un donateur..." aria-label="Rechercher">
+                <button id="searchBtn">Rechercher</button>
+                <button id="resetFilters" class="reset-btn" title="Réinitialiser tous les filtres">✕ Réinitialiser</button>
+            </div>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="mapLevel" class="filter-label">Carte :</label>
+                    <select id="mapLevel" aria-label="Découpage géographique de la carte">
+                        <option value="departments">Par département</option>
+                        <option value="regions">Par région</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="entityType" class="filter-label">Donateur :</label>
+                    <select id="entityType" aria-label="Type d'entité donatrice">
+                        <option value="all">Tous les donateurs</option>
+                    </select>
+                </div>
+                
+                <select id="amountRange" aria-label="Tranche de montant">
+                    <option value="all">Tous les montants</option>
+                    <option value="0-10000">0 - 10 000 €</option>
+                    <option value="10000-50000">10 000 - 50 000 €</option>
+                    <option value="50000-100000">50 000 - 100 000 €</option>
+                    <option value="100000-500000">100 000 - 500 000 €</option>
+                    <option value="500000+">500 000 € +</option>
+                </select>
+                
+                <select id="yearFilter" aria-label="Année">
+                    <option value="all">Toutes les années</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="dashboard" id="dashboard">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <span class="stat-icon">💰</span>
+                    <span class="stat-value" id="totalAmount">--</span>
+                    <span class="stat-label">Montant total</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🏛️</span>
+                    <span class="stat-value" id="totalAssociations">--</span>
+                    <span class="stat-label">Associations</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🏢</span>
+                    <span class="stat-value" id="totalEntities">--</span>
+                    <span class="stat-label">Donateurs</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">📄</span>
+                    <span class="stat-value" id="totalSubventions">--</span>
+                    <span class="stat-label">Subventions</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">📅</span>
+                    <span class="stat-value" id="totalYears">--</span>
+                    <span class="stat-label">Années</span>
+                </div>
+            </div>
+            <div class="coverage-bar" id="coverageBar"></div>
+        </div>
+
+        <div id="main-content">
+            <div class="map-container">
+                <div id="mapWrapper">
+                    <span id="mapLoading">Chargement de la carte...</span>
+                    <svg id="franceMap" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" aria-label="Carte de France des subventions">
+                        <rect width="800" height="600" fill="var(--bg)" />
+                    </svg>
+                    <div id="tooltip" class="tooltip" role="tooltip"></div>
+                </div>
+                <div id="mapLegend" class="map-legend">
+                    <h3>Total des subventions reçues</h3>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="charts-panel">
+                    <h2>Analyse des données</h2>
+                    <div class="charts-grid">
+                        <div class="chart-box">
+                            <h3>Top 10 associations</h3>
+                            <div class="chart-container">
+                                <canvas id="topAssociationsChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-box">
+                            <h3>Par type de donateur</h3>
+                            <div class="chart-container">
+                                <canvas id="entityTypeChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-box chart-box-wide">
+                            <h3>Évolution par année</h3>
+                            <div class="chart-container">
+                                <canvas id="evolutionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div class="results-panel">
+                <div class="results-header">
+                    <h2>Liste des subventions</h2>
+                    <div class="results-actions">
+                        <span class="results-count" id="resultsCount">0</span>
+                        <span class="results-subtitle" id="resultsSubtitle"></span>
+                        <button id="exportCsv" class="export-btn" title="Exporter en CSV">📥 Export CSV</button>
+                    </div>
+                </div>
+                <div class="sort-controls">
+                    <button class="sort-btn active" data-sort="amount" data-order="desc">
+                        Montant <span class="arrow">↓</span>
+                    </button>
+                    <button class="sort-btn" data-sort="name" data-order="asc">
+                        Association <span class="arrow">↑</span>
+                    </button>
+                    <button class="sort-btn" data-sort="year" data-order="desc">
+                        Année <span class="arrow">↓</span>
+                    </button>
+                    <button class="sort-btn" data-sort="department" data-order="asc">
+                        Département <span class="arrow">↑</span>
+                    </button>
+                    <button class="sort-btn" data-sort="entityType" data-order="asc">
+                        Type donateur <span class="arrow">↑</span>
+                    </button>
+                </div>
+                <div id="resultsList" class="results-list">
+                    <p class="placeholder">Chargement des données...</p>
+                </div>
+                <div id="pagination" class="pagination" style="display:none;">
+                    <button id="prevPage" class="page-btn">← Précédent</button>
+                    <span id="pageInfo" class="page-info"></span>
+                    <button id="nextPage" class="page-btn">Suivant →</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="detailModal" class="modal" role="dialog" aria-modal="true">
+            <div class="modal-content">
+                <span class="close-modal" tabindex="0" role="button" aria-label="Fermer">&times;</span>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Données issues de sources officielles ouvertes sous licence Etalab 2.0 | 
+            <a href="https://www.data.gouv.fr/fr/pages/faq/" target="_blank" rel="noopener">Licence ouverte</a>
+        </p>
+    </footer>
+
+    <script>window.__DATA_SOURCES = []; window.__registerDataSource = function(id, data) { window.__DATA_SOURCES.push({id: id, data: data}); };</script>
+    <script src="data/departments.js"></script>
+
+    <!-- Jeu de démonstration (1 616 lignes, chargement rapide) -->
+    <script src="data/sample-data.js"></script>
+
+    <!-- PLF Jaune (12 sources, 654 000 lignes, ~425 Mo) -->
+    <script src="data/sources/plf-jaune-2012.js"></script>
+    <script src="data/sources/plf-jaune-2013.js"></script>
+    <script src="data/sources/plf-jaune-2014.js"></script>
+    <script src="data/sources/plf-jaune-2015.js"></script>
+    <script src="data/sources/plf-jaune-2016.js"></script>
+    <script src="data/sources/plf-jaune-2017.js"></script>
+    <script src="data/sources/plf-jaune-2018.js"></script>
+    <script src="data/sources/plf-jaune-2019.js"></script>
+    <script src="data/sources/plf-jaune-2020.js"></script>
+    <script src="data/sources/plf-jaune-2021.js"></script>
+    <script src="data/sources/plf-jaune-2022.js"></script>
+    <script src="data/sources/plf-jaune-2023.js"></script>
+    <script src="data/sources/plf-jaune-2025.js"></script>
+
+    <!-- Paris (76 000 lignes, 43 Mo) -->
+    <script src="data/sources/paris.js"></script>
+
+    <!-- Départements SCDL -->
+    <script src="data/sources/cd-mayenne.js"></script>
+    <script src="data/sources/cd-isere.js"></script>
+    <script src="data/sources/cd-loire-atlantique.js"></script>
+    <script src="data/sources/cd-maine-loire-conventions.js"></script>
+    <script src="data/sources/cd-maine-loire-conventions-2025.js"></script>
+    <script src="data/sources/cd-hautes-pyrenees.js"></script>
+    <script src="data/sources/cd-ille-vilaine.js"></script>
+    <script src="data/sources/cd-ille-vilaine-2021.js"></script>
+    <script src="data/sources/cd-ille-vilaine-2022v2.js"></script>
+    <script src="data/sources/cd-savoie.js"></script>
+    <script src="data/sources/cd-maine-loire-subventions.js"></script>
+    <script src="data/sources/cd-finistere.js"></script>
+    <script src="data/sources/cd-nievre.js"></script>
+    <script src="data/sources/cd-dordogne.js"></script>
+    <script src="data/sources/cd-loire.js"></script>
+    <script src="data/sources/cd-savoie-2018.js"></script>
+    <script src="data/sources/cd-savoie-2019.js"></script>
+    <script src="data/sources/cd-savoie-2020.js"></script>
+    <script src="data/sources/cd-savoie-2021.js"></script>
+    <script src="data/sources/cd-savoie-2022.js"></script>
+    <script src="data/sources/cd-savoie-2023.js"></script>
+    <script src="data/sources/cd-lot.js"></script>
+    <script src="data/sources/cd-bas-rhin.js"></script>
+    <script src="data/sources/cd-cotes-armor.js"></script>
+    <script src="data/sources/cd-cotes-armor-2002.js"></script>
+
+    <!-- Villes -->
+    <script src="data/sources/ville-lyon.js"></script>
+    <script src="data/sources/ville-grenoble-2015.js"></script>
+    <script src="data/sources/ville-grenoble-2016.js"></script>
+
+    <!-- Communes -->
+    <script src="data/sources/commune-soissons.js"></script>
+    <script src="data/sources/commune-bar-le-duc.js"></script>
+    <script src="data/sources/commune-sarcelles.js"></script>
+    <script src="data/sources/commune-meze.js"></script>
+    <script src="data/sources/commune-iffendic.js"></script>
+    <script src="data/sources/commune-pleumeleuc.js"></script>
+    <script src="data/sources/commune-talensac.js"></script>
+    <script src="data/sources/commune-breteil.js"></script>
+    <script src="data/sources/commune-sixt-sur-aff.js"></script>
+    <script src="data/sources/commune-saint-gonlay.js"></script>
+    <script src="data/sources/commune-la-nouaye.js"></script>
+
+    <!-- Villes supplémentaires -->
+    <script src="data/sources/ville-redon-2017.js"></script>
+    <script src="data/sources/ville-redon-2018.js"></script>
+    <script src="data/sources/ville-sailly.js"></script>
+    <script src="data/sources/ville-longjumeau.js"></script>
+    <script src="data/sources/ville-lisieux-2018.js"></script>
+    <script src="data/sources/ville-manosque-2025.js"></script>
+    <script src="data/sources/ville-carquefou-2025.js"></script>
+    <script src="data/sources/ville-roubaix.js"></script>
+
+    <!-- Subventions diverses -->
+    <script src="data/sources/subv-associations-2024.js"></script>
+    <script src="data/sources/subv-votees-23k.js"></script>
+    <script src="data/sources/subv-communales.js"></script>
+    <script src="data/sources/subv-sup-23k-2024.js"></script>
+
+    <!-- Villes batch 2 -->
+    <script src="data/sources/ville-bauge-anjou.js"></script>
+    <script src="data/sources/ville-arras-2018.js"></script>
+    <script src="data/sources/ville-arras-2017.js"></script>
+    <script src="data/sources/ville-nogent-2012.js"></script>
+    <script src="data/sources/ville-nogent-2013.js"></script>
+    <script src="data/sources/ville-nogent-2014.js"></script>
+    <script src="data/sources/ville-roscloff-2017.js"></script>
+    <script src="data/sources/ville-vitry-2017.js"></script>
+
+    <!-- EPCI -->
+    <script src="data/sources/agglo-nevers.js"></script>
+    <script src="data/sources/metropole-lyon.js"></script>
+    <script src="data/sources/metropole-nantes.js"></script>
+    <script src="data/sources/metropole-toulouse.js"></script>
+    <script src="data/sources/metropole-bordeaux.js"></script>
+    <script src="data/sources/pays-basque-2023.js"></script>
+    <script src="data/sources/cci-rouen-2024.js"></script>
+
+    <!-- Batch 9 : ANCT, PO66, Quimper, QBO, etc. -->
+    <script src="data/sources/anct-politique-ville.js"></script>
+    <script src="data/sources/cd-pyrenees-orientales.js"></script>
+    <script src="data/sources/ville-quimper.js"></script>
+    <script src="data/sources/agglo-quimper-bretagne-occidentale.js"></script>
+    <script src="data/sources/commune-communay.js"></script>
+    <script src="data/sources/agglo-saintes-grandes-rives.js"></script>
+    <script src="data/sources/commune-rillieux-la-pape.js"></script>
+    <script src="data/sources/commune-sautron.js"></script>
+    <script src="data/sources/agglo-val-de-fensch.js"></script>
+    <script src="data/sources/agglo-pays-de-l-or.js"></script>
+    <script src="data/sources/cd-gironde.js"></script>
+    <script src="data/sources/reserve-ministerielle.js"></script>
+    <script src="data/sources/ville-dreux.js"></script>
+    <script src="data/sources/agglo-grand-chambery.js"></script>
+    <script src="data/sources/efs-cpdl.js"></script>
+    <script src="data/sources/commune-bouaye.js"></script>
+    <script src="data/sources/ville-charleville-mezieres.js"></script>
+    <script src="data/sources/metropole-grenoble.js"></script>
+    <script src="data/sources/cd-somme.js"></script>
+    <script src="data/sources/ville-nancy.js"></script>
+    <script src="data/sources/ville-bayonne.js"></script>
+    <script src="data/sources/ville-villejuif.js"></script>
+    <script src="data/sources/efs-aura.js"></script>
+    <script src="data/sources/commune-saint-laurent-de-mure.js"></script>
+    <script src="data/sources/ditp.js"></script>
+    <script src="data/sources/agglo-lorient.js"></script>
+    <script src="data/sources/cnsa.js"></script>
+    <script src="data/sources/feder-hauts-de-france.js"></script>
+    <script src="data/sources/ecole-beaux-arts-nantes.js"></script>
+    <script src="data/sources/commune-sautron-23k.js"></script>
+    <script src="data/sources/ville-grenoble.js"></script>
+    <script src="data/sources/cd-eure-et-loir.js"></script>
+    <script src="data/sources/cc-pays-des-ecrins.js"></script>
+    <script src="data/sources/sdis-gironde.js"></script>
+    <script src="data/sources/cnds-2015.js"></script>
+    <script src="data/sources/ars-pays-de-la-loire.js"></script>
+    <script src="data/sources/metropole-clermont.js"></script>
+    <script src="data/sources/ville-bar-le-duc.js"></script>
+    <script src="data/sources/cd-haute-garonne.js"></script>
+    <script src="data/sources/ville-boulogne-billancourt.js"></script>
+    <script src="data/sources/ville-soissons-2018-2021.js"></script>
+    <script src="data/sources/agglo-mulhouse.js"></script>
+    <script src="data/sources/etat-dilcrah.js"></script>
+    <script src="data/sources/etat-cabinet-pm.js"></script>
+    <script src="data/sources/etat-bop177.js"></script>
+    <script src="data/sources/cd-charente-maritime.js"></script>
+    <script src="data/sources/cd-cher.js"></script>
+    <script src="data/sources/cd-hauts-de-seine.js"></script>
+    <script src="data/sources/cd-aube.js"></script>
+    <script src="data/sources/ville-vaulx.js"></script>
+    <script src="data/sources/ville-orvault.js"></script>
+    <script src="data/sources/ville-asnieres.js"></script>
+    <script src="data/sources/ville-lisieux.js"></script>
+    <script src="data/sources/ville-redon.js"></script>
+    <script src="data/sources/ville-iffendic.js"></script>
+    <script src="data/sources/ville-talensac.js"></script>
+    <script src="data/sources/ville-poinconnet.js"></script>
+    <script src="data/sources/ville-lannion.js"></script>
+    <script src="data/sources/efs-siege.js"></script>
+    <script src="data/sources/efs-ocpm.js"></script>
+    <script src="data/sources/cc-quercy-vert.js"></script>
+
+    <!-- Régions -->
+    <script src="data/sources/region-idf.js"></script>
+    <script src="data/sources/region-centre.js"></script>
+
+    <!-- Départements batch 3 -->
+    <script src="data/sources/dept-seine-saint-denis.js"></script>
+
+    <!-- Villes batch 3 -->
+    <script src="data/sources/ville-rennes.js"></script>
+    <script src="data/sources/ville-marseille.js"></script>
+    <script src="data/sources/ville-tours.js"></script>
+    <script src="data/sources/ville-nantes.js"></script>
+    <script src="data/sources/ville-toulouse.js"></script>
+
+    <!-- État/DILCRAH -->
+    <script src="data/sources/dilcrah-2024.js"></script>
+    <script src="data/sources/dilcrah-2025.js"></script>
+    <script src="data/sources/ministere-agriculture.js"></script>
+    <script src="data/sources/culture.js"></script>
+    <script src="data/sources/ville-boulogne.js"></script>
+    <script src="data/sources/ville-anglet.js"></script>
+    <script src="data/sources/ville-sarcelles-2025.js"></script>
+    <script src="data/sources/ville-villemomble.js"></script>
+    <script src="data/sources/ville-issy.js"></script>
+    <script src="data/sources/epci-gpso.js"></script>
+    <script src="data/sources/idf-sante.js"></script>
+    <script src="data/sources/ville-meudon.js"></script>
+
+    <!-- Communes batch 2 -->
+    <script src="data/sources/communes-pays-loire.js"></script>
+    <script src="data/sources/communes-centre.js"></script>
+
+    <script src="data/loader.js"></script>
+    <script type="module" src="src/app.js"></script>
+</body>
+</html>

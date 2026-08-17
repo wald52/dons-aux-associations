@@ -1,0 +1,1 @@
+fr,lillemetropole,data)/data/ogcapi/collections/subventions_aux_associations/items 20241212173439 https://data.lillemetropole.fr/data/ogcapi/collections/subventions_aux_associations/items application/geo+json 200 6RB6R5SUTXWKZP3BWOFTGPAKJHVBUXVF 1805

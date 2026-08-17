@@ -1,0 +1,4 @@
+fr,lillemetropole,data)/catalogue/dataset/conventions-subventions-lille-lomme-hellemmes 20240715123242 https://data.lillemetropole.fr/catalogue/dataset/conventions-subventions-lille-lomme-hellemmes text/html 200 IFBN7BDQUUI4XKCSXR2UEG2SG7RWTIZJ 7869
+fr,lillemetropole,data)/catalogue/dataset/conventions-subventions-lille-lomme-hellemmes 20250411043209 https://data.lillemetropole.fr/catalogue/dataset/conventions-subventions-lille-lomme-hellemmes text/html 200 SQKOSBRAGG2B2NKAILSJBLJ6TOLAO4DL 6958
+fr,lillemetropole,data)/catalogue/dataset/subvention 20240715112947 https://data.lillemetropole.fr/catalogue/dataset/subvention text/html 200 IFBN7BDQUUI4XKCSXR2UEG2SG7RWTIZJ 7852
+fr,lillemetropole,data)/data/ogcapi/collections/subventions_aux_associations/items 20241212173439 https://data.lillemetropole.fr/data/ogcapi/collections/subventions_aux_associations/items application/geo+json 200 6RB6R5SUTXWKZP3BWOFTGPAKJHVBUXVF 1805
