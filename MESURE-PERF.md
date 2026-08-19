@@ -67,6 +67,22 @@ l'ordre (`READY_PROBES` dans le script) :
 - Le comptage par `grep` du diagnostic initial (1 578 180) sous-estimait de
   1,1 % : **1 595 805** relevé par l'application fait foi.
 
+### Reproductibilité
+
+Deux relevés successifs sur le même état donnent :
+
+| Mesure | Relevé 1 | Relevé 2 | Écart |
+|---|---|---|---|
+| Octets transférés | 835,04 Mo | 835,04 Mo | 0 % |
+| Enregistrements | 1 595 805 | 1 595 805 | 0 % |
+| Premier affichage | 12,96 s | 12,85 s | 0,8 % |
+| Données exploitables | 57,75 s | 52,99 s | **8,2 %** |
+
+Les octets et les volumes sont déterministes ; les **temps varient de l'ordre
+de 10 %** parce qu'ils sont dominés par le parsing, donc par la charge CPU du
+moment. Ne pas conclure d'un gain inférieur à 10 % sur un temps : relancer
+deux ou trois fois et comparer les ordres de grandeur.
+
 ## Cibles après refonte
 
 | Mesure | v0 | Cible phase 2 |
