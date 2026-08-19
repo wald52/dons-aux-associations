@@ -199,6 +199,18 @@ sera repris sans modification du code.
 - Prioriser par **population couverte**, pas par nombre de fichiers.
 - Afficher la couverture en permanence dans l'interface.
 
+### Phase 5 — Design et compréhension — **fait**
+
+```bash
+python3 scripts/pipeline/build_methode.py   # page sources & méthode
+```
+
+Système visuel unifié avec `carte-finances-locales` (même bleu institutionnel),
+bandeau de navigation commun aux quatre pages, rampe de carte séquentielle à
+une seule teinte, `methode.html` engendrée depuis les données elles-mêmes.
+Accessibilité : thème sombre pensé pour sa surface et non inversé, relief
+obligatoire là où la couleur passe sous le seuil de contraste.
+
 ### Phase 5 — Design et compréhension (~1 semaine, en dernier)
 - Identité visuelle cohérente avec `carte-finances-locales`.
 - Rendre l'incertitude lisible (couverture partielle, doublons possibles, années absentes).

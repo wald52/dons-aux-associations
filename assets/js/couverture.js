@@ -9,10 +9,14 @@
 (function () {
   "use strict";
 
+  // États, pas séries : ce sont des statuts. Deux d'entre eux passent sous le
+  // seuil de contraste de 3:1 sur fond clair — d'où le relief obligatoire,
+  // fourni ici par la légende, la hachure de l'état intermédiaire et le
+  // tableau qui répète la carte en toutes lettres.
   var ETATS = {
-    donnees: { libelle: "Données présentes", couleur: "var(--couv-ok)" },
-    publie_non_lu: { libelle: "Publie, mais non exploité", couleur: "var(--couv-partiel)" },
-    sans_donnees: { libelle: "Aucune donnée trouvée", couleur: "var(--couv-vide)" }
+    donnees: { libelle: "Données présentes", couleur: "var(--etat-ok)", hachure: false },
+    publie_non_lu: { libelle: "Publie, mais non exploité", couleur: "var(--etat-partiel)", hachure: true },
+    sans_donnees: { libelle: "Aucune donnée trouvée", couleur: "var(--etat-vide)", hachure: false }
   };
   var LIBELLE_NIVEAU = {
     commune: "Communes", epci: "Intercommunalités",
@@ -77,7 +81,8 @@
         if (!paire[1]) return;
         var seg = el("i");
         seg.style.width = (paire[1] / d.univers * 100) + "%";
-        seg.style.background = ETATS[paire[0]].couleur;
+        seg.style.backgroundColor = ETATS[paire[0]].couleur;
+        if (ETATS[paire[0]].hachure) seg.classList.add("hachure");
         seg.title = ETATS[paire[0]].libelle + " : " + fmt.format(paire[1]);
         jauge.appendChild(seg);
       });
@@ -97,7 +102,8 @@
     Object.keys(ETATS).forEach(function (k) {
       var s = el("span", "puce");
       var p = el("i");
-      p.style.background = ETATS[k].couleur;
+      p.style.backgroundColor = ETATS[k].couleur;
+      if (ETATS[k].hachure) p.classList.add("hachure");
       s.appendChild(p);
       s.appendChild(document.createTextNode(" " + ETATS[k].libelle));
       leg.appendChild(s);
@@ -108,6 +114,27 @@
     var svg = $("#carte");
     svg.setAttribute("viewBox", etat.carte.viewBox);
     vider(svg);
+
+    // Motif de hachures : sur fond clair, l'ocre de l'état intermédiaire passe
+    // sous le seuil de contraste. La texture fournit le second canal, qui
+    // survit au daltonisme, à l'impression et au contraste forcé.
+    var NS = "http://www.w3.org/2000/svg";
+    var defs = document.createElementNS(NS, "defs");
+    var motif = document.createElementNS(NS, "pattern");
+    motif.setAttribute("id", "hachures");
+    motif.setAttribute("width", "5"); motif.setAttribute("height", "5");
+    motif.setAttribute("patternUnits", "userSpaceOnUse");
+    motif.setAttribute("patternTransform", "rotate(45)");
+    var fond = document.createElementNS(NS, "rect");
+    fond.setAttribute("width", "5"); fond.setAttribute("height", "5");
+    fond.setAttribute("fill", "var(--etat-partiel)");
+    var trait = document.createElementNS(NS, "line");
+    trait.setAttribute("x1", "0"); trait.setAttribute("y1", "0");
+    trait.setAttribute("x2", "0"); trait.setAttribute("y2", "5");
+    trait.setAttribute("stroke", "rgba(0,0,0,.34)");
+    trait.setAttribute("stroke-width", "2");
+    motif.appendChild(fond); motif.appendChild(trait);
+    defs.appendChild(motif); svg.appendChild(defs);
     var deps = etat.couverture.departements;
     var noms = etat.meta.departements.valeurs;
     var infobulle = $("#infobulle");
@@ -126,7 +153,8 @@
       p.setAttribute("d", etat.carte.traces[code]);
       var d = deps[code];
       var e = d ? d[0] : "sans_donnees";
-      p.style.fill = ETATS[e].couleur;
+      p.style.fill = ETATS[e].hachure ? "url(#hachures)" : ETATS[e].couleur;
+      if (ETATS[e].hachure) p.classList.add("partiel");
       var nom = noms[code] ? noms[code][0] : code;
       p.setAttribute("aria-label", nom + " : " + ETATS[e].libelle);
       p.addEventListener("mousemove", function (ev) {
@@ -141,6 +169,46 @@
       p.addEventListener("mouseleave", function () { infobulle.classList.remove("visible"); });
       svg.appendChild(p);
     });
+  }
+
+  /** Le tableau EST le relief exigé : une couleur sous 3:1 ne peut pas porter
+   *  seule l'information, et un lecteur au clavier ou en lecture d'écran doit
+   *  obtenir la même chose que la carte. */
+  function dessinerTable() {
+    var t = $("#table-departements");
+    if (!t) return;
+    vider(t);
+    var noms = etat.meta.departements.valeurs;
+    var deps = etat.couverture.departements;
+    var thead = el("thead");
+    var trh = el("tr");
+    ["Département", "État", "Versements", "Montant"].forEach(function (h) {
+      trh.appendChild(el("th", null, h));
+    });
+    thead.appendChild(trh);
+    t.appendChild(thead);
+    var tbody = el("tbody");
+    Object.keys(noms).sort().forEach(function (code) {
+      var d = deps[code];
+      var e = d ? d[0] : "sans_donnees";
+      var tr = el("tr");
+      tr.appendChild(el("td", null, (noms[code] ? noms[code][0] : code) + " (" + code + ")"));
+      var tdE = el("td");
+      var puce = el("span", "puce");
+      var i = el("i");
+      i.style.backgroundColor = ETATS[e].couleur;
+      if (ETATS[e].hachure) i.classList.add("hachure");
+      puce.appendChild(i);
+      puce.appendChild(document.createTextNode(" " + ETATS[e].libelle));
+      tdE.appendChild(puce);
+      tr.appendChild(tdE);
+      tr.appendChild(el("td", "num", d && d[1] ? fmt.format(d[1]) : "—"));
+      var m = el("td", "num montant");
+      m.textContent = d && d[2] ? fmt.format(Math.round(d[2] / 1e6)) + " M€" : "—";
+      tr.appendChild(m);
+      tbody.appendChild(tr);
+    });
+    t.appendChild(tbody);
   }
 
   function dessinerChantiers() {
@@ -187,6 +255,7 @@
       dessinerResume();
       dessinerNiveaux();
       dessinerCarte();
+      dessinerTable();
       dessinerChantiers();
       window.__DATA_READY = true;
     } catch (e) {

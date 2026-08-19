@@ -4,9 +4,9 @@
  * Bumper CACHE à chaque publication, sinon les visiteurs déjà venus
  * continueraient de voir l'ancienne version.
  */
-const CACHE = "dons-associations-v3";
+const CACHE = "dons-associations-v4";
 const PRECACHE = [
-  "./", "./index.html", "./recherche.html", "./couverture.html", "./assets/css/style.css",
+  "./", "./index.html", "./recherche.html", "./couverture.html", "./methode.html", "./assets/css/style.css",
   "./assets/js/app.js", "./assets/js/recherche.js", "./assets/js/couverture.js",
   "./data/aggregates/meta.json.gz", "./data/aggregates/cube.json.gz",
   "./data/aggregates/map-departements.json.gz", "./data/aggregates/top.json.gz"

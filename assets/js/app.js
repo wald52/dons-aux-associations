@@ -107,7 +107,10 @@
 
   // --- carte ---------------------------------------------------------------
 
-  var PALETTE = ["--carte-1", "--carte-2", "--carte-3", "--carte-4", "--carte-5"];
+  // Grandeur continue : UNE seule teinte, du clair au foncé. Jamais
+  // d'arc-en-ciel — la couleur doit se lire comme un ordre, pas comme des
+  // catégories. Les pas viennent d'une rampe validée (cf. style.css).
+  var PALETTE = ["--seq-1", "--seq-2", "--seq-3", "--seq-4", "--seq-5"];
 
   /** Seuils par quantiles : une échelle linéaire écraserait tout, Paris pesant
    *  plusieurs fois le département médian. */
@@ -135,7 +138,7 @@
       var d = donnees[code];
       p.style.fill = d
         ? "var(" + PALETTE[classe(d[1], bornes)] + ")"
-        : "var(--carte-vide)";
+        : "var(--seq-vide)";
       p.classList.toggle("actif", etat.departement === code);
     });
 
@@ -348,10 +351,15 @@
     el.appendChild(document.createTextNode(
       etat.meta.couverture.note + " " +
       fmtNombre.format(etat.meta.couverture.lignes_sans_departement) +
-      " versements n'ont pas de département exploitable et n'apparaissent donc pas sur la carte. " +
-      "La déduplication entre sources a retiré " + fmtNombre.format(d.lignes_ecartees) +
-      " doublons (" + euros(d.montant_ecarte_eur) + ")."
-    ));
+      " versements n'indiquent aucun département : ils comptent dans les totaux, " +
+      "mais restent invisibles sur la carte. " +
+      fmtNombre.format(d.lignes_ecartees) + " doublons entre sources ont par ailleurs été " +
+      "retirés (" + euros(d.montant_ecarte_eur) + "). "));
+    var lien = document.createElement("a");
+    lien.href = "methode.html";
+    lien.textContent = "Sources et méthode";
+    el.appendChild(lien);
+    el.appendChild(document.createTextNode("."));
   }
 
   // --- démarrage -----------------------------------------------------------

@@ -136,6 +136,22 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   `subv-associations-2024` porte `"Source data.gouv.fr"` en donateur : c'est un
   attribuant non récupéré, classé « État » par défaut. Cela gonfle l'État.
 
+- **La page `methode.html` est ENGENDRÉE, jamais écrite à la main.**
+  `build_methode.py` la reconstruit depuis `quality-report.json`,
+  `couverture.json` et les manifestes : ses chiffres ne peuvent pas diverger
+  de ceux du site. Une page de méthode écrite à la main ment dès la
+  publication suivante.
+
+- **Deux couleurs de la couverture passent sous 3:1 sur fond clair** (l'ocre
+  « publie mais non exploité » et le gris « aucune donnée »). C'est assumé —
+  un gris de « pas de donnée » DOIT lire gris — mais impose un relief :
+  légende visible, hachures sur l'état intermédiaire, et tableau reprenant la
+  carte en toutes lettres. Ne pas retirer l'un des trois.
+
+- **Un style en ligne `background` écrase le `background-image` d'une classe.**
+  Poser `backgroundColor` pour que les hachures survivent. Sur un tracé SVG,
+  la texture demande un `<pattern>` dans `<defs>`, pas du CSS.
+
 - **Le SIREN d'une collectivité dit son niveau, par construction INSEE** :
   `21…` commune, `22…` département, `23…` région, `24…` à `27…` groupement,
   `20…` établissement public de coopération. Vérifié sur le corpus. C'est
@@ -334,7 +350,10 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       `couverture.html`. **2 012 328 lignes**, 126,6 Md€, 269 sources.
       Reste à faire : les 100 fichiers XLSX encore écartés, les tableaux
       pivotés par année, et la levée des quarantaines Lyon / Boulogne.
-- [ ] **Phase 5** — design et lisibilité.
+- [x] **Phase 5** — design et lisibilité. Système visuel unifié (bleu
+      institutionnel commun avec `carte-finances-locales`), bandeau de
+      navigation, `methode.html` engendrée depuis les données, tableau de
+      couverture et hachures comme relief d'accessibilité.
 
 Détail de chaque phase dans `ROADMAP.md`.
 
@@ -355,6 +374,7 @@ python3 scripts/pipeline/build_search_index.py   # index de recherche croisée
 python3 scripts/pipeline/fetch_scdl.py           # moissonneur générique data.gouv.fr
 python3 scripts/pipeline/normalize_scdl.py       # famille scdl
 python3 scripts/pipeline/build_couverture.py     # carte de couverture
+python3 scripts/pipeline/build_methode.py        # page sources & méthode
 ```
 
 **`normalize_legacy.py` ne peut plus tourner en l'état** : ses entrées

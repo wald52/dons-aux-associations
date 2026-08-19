@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T18:52:30Z",
+  "generated_at": "2026-08-19T19:18:06Z",
   "referentiel": {
     "source": "wald52/carte-finances-locales (OFGL / BANATIC / INSEE)",
     "millesime": 2024,
@@ -10,7 +10,7 @@
       "regions": 18
     }
   },
-  "note": "Couverture géographique des BÉNÉFICIAIRES, pas des donateurs : un département apparaît dès qu'une association qui y siège a reçu une subvention, d'où qu'elle vienne. La couverture des collectivités DONATRICES, elle, reste très partielle et relève de la phase 4.",
+  "note": "La carte situe les associations qui REÇOIVENT, pas les collectivités qui versent : un département se colore dès qu'une association qui y siège a touché une subvention, d'où qu'elle vienne.",
   "departements": {
     "univers": 101,
     "avec_donnees": 101,

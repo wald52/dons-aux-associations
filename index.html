@@ -10,14 +10,26 @@
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<nav class="bandeau">
+  <div class="bandeau-inner">
+    <a class="marque" href="index.html">Dons publics aux associations
+      <span>Qui finance les associations en France</span></a>
+    <div class="menu">
+      <a href="index.html" aria-current="page">Carte</a>
+      <a href="recherche.html">Recherche croisée</a>
+      <a href="couverture.html">Ce qu'on ne sait pas</a>
+      <a href="methode.html">Sources &amp; méthode</a>
+    </div>
+  </div>
+</nav>
 <div class="enveloppe">
 
   <header>
-    <h1>Dons publics aux associations</h1>
-    <p>Les subventions versées aux associations en France, par l'État, ses opérateurs,
+    <h1>Où va l'argent public versé aux associations&nbsp;?</h1>
+    <p class="chapeau">Deux millions de subventions versées par l'État, ses opérateurs,
        les régions, les départements, les intercommunalités et les communes.
-       <a href="recherche.html">Recherche croisée&nbsp;→</a>
-       <a href="couverture.html">Ce que ce site ne sait pas&nbsp;→</a></p>
+       Cliquez un département pour son détail, ou
+       <a href="recherche.html">cherchez une association</a> pour voir tous ses financeurs.</p>
   </header>
 
   <p id="chargement" class="chargement">Chargement des données…</p>
@@ -68,9 +80,11 @@
 
     <footer>
       Données issues des portails publics d'open data, sous Licence Ouverte 2.0.
-      Méthode, schéma et limites : <a href="https://github.com/wald52/dons-aux-associations">dépôt du projet</a>.
-      Les montants sont ceux publiés par les administrations, sans correction ;
-      les écarts constatés sont signalés dans le rapport de qualité et non redressés.
+      Les montants sont ceux publiés par les administrations, <strong>sans correction</strong> :
+      les écarts constatés sont signalés, jamais redressés.
+      <a href="methode.html">Sources et méthode</a> ·
+      <a href="couverture.html">Ce que ce site ne sait pas</a> ·
+      <a href="https://github.com/wald52/dons-aux-associations">code et données</a>.
     </footer>
   </div>
 

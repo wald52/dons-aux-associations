@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T18:57:55Z",
+  "generated_at": "2026-08-19T19:18:27Z",
   "methode": "Appariement par nom entre le référentiel INSEE et les libellés de donateurs de la table canonique. Un nom peut échouer à s'apparier alors que la donnée existe : la couverture affichée est donc un MINIMUM, jamais une surestimation.",
   "etats": {
     "donnees": "des subventions versées par cette collectivité sont présentes",

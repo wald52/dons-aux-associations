@@ -10,14 +10,25 @@
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<nav class="bandeau">
+  <div class="bandeau-inner">
+    <a class="marque" href="index.html">Dons publics aux associations
+      <span>Qui finance les associations en France</span></a>
+    <div class="menu">
+      <a href="index.html">Carte</a>
+      <a href="recherche.html">Recherche croisée</a>
+      <a href="couverture.html" aria-current="page">Ce qu'on ne sait pas</a>
+      <a href="methode.html">Sources &amp; méthode</a>
+    </div>
+  </div>
+</nav>
 <div class="enveloppe">
 
   <header>
-    <nav class="fil"><a href="index.html">← Carte</a> · <a href="recherche.html">Recherche croisée</a></nav>
     <h1>Ce que ce site ne sait pas</h1>
-    <p>Un département gris sur la carte peut vouloir dire deux choses très différentes :
-       <b>personne n'y verse de subvention</b>, ou <b>nous n'avons pas la donnée</b>.
-       Cette page dit laquelle, échelon par échelon.</p>
+    <p class="chapeau">Un département gris sur la carte peut vouloir dire deux choses très
+       différentes : <strong>personne n'y verse de subvention</strong>, ou
+       <strong>nous n'avons pas la donnée</strong>. Cette page dit laquelle, échelon par échelon.</p>
   </header>
 
   <p id="chargement" class="chargement">Chargement…</p>
@@ -40,6 +51,11 @@
       <svg id="carte" viewBox="0 0 800 620" role="img"
            aria-label="Couverture des données par département"></svg>
     </div>
+
+    <h2 class="titre-section">Départements, un par un</h2>
+    <p class="sous-titre">Le tableau dit la même chose que la carte, en toutes lettres —
+       une couleur seule ne doit jamais porter une information.</p>
+    <div class="table-enveloppe"><table id="table-departements"></table></div>
 
     <h2 class="titre-section">Ce qui reste à faire</h2>
     <div id="chantiers"></div>
