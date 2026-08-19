@@ -283,8 +283,10 @@ def coverage(table):
     return {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "referentiel": ref_meta(),
-        "note": ("Couverture des bénéficiaires. Seul le PLF Jaune (État) est ingéré "
-                 "à ce stade : la couverture des collectivités reste à faire (phase 4)."),
+        "note": ("Couverture géographique des BÉNÉFICIAIRES, pas des donateurs : "
+                 "un département apparaît dès qu'une association qui y siège a reçu "
+                 "une subvention, d'où qu'elle vienne. La couverture des collectivités "
+                 "DONATRICES, elle, reste très partielle et relève de la phase 4."),
         "departements": {
             "univers": len(ref["departements"]),
             "avec_donnees": with_data,

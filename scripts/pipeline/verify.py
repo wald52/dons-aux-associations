@@ -121,10 +121,19 @@ def main():
     check("amount_eur sommable sans précaution",
           not any(C.amount_is_implausible(a) for a in amt),
           f"{sum(1 for a in amt if C.amount_is_implausible(a))} valeurs aberrantes")
+    # Deux motifs de mise à l'écart : une valeur qui n'est pas un montant, et
+    # une source dont l'unité monétaire est douteuse. Dans les deux cas la
+    # valeur publiée est conservée et `amount_eur` est nul.
+    MOTIFS = ("amount_implausible", "amount_unit_suspect")
+    ecartees = [i for i in range(n) if rej[i] is not None]
     check("valeurs écartées conservées et signalées",
-          all(rej[i] is None or (flags[i] and "amount_implausible" in flags[i]) for i in range(n))
-          and all(amt[i] is None for i in range(n) if rej[i] is not None),
-          f"{sum(1 for x in rej if x is not None)} lignes dans amount_rejected_eur")
+          all(any(m in (flags[i] or []) for m in MOTIFS) for i in ecartees)
+          and all(amt[i] is None for i in ecartees),
+          f"{len(ecartees):,} lignes dans amount_rejected_eur")
+    check("aucune valeur écartée sans motif",
+          not [i for i in range(n)
+               if rej[i] is None and any(m in (flags[i] or []) for m in MOTIFS)],
+          "cohérence drapeau / colonne")
 
     # 7. Le total publié exclut bien agrégats et invraisemblables ------------
     gran = table.column("granularity").to_pylist()

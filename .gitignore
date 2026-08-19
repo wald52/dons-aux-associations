@@ -27,3 +27,9 @@ data/raw/
 data/canonical/parts/
 __pycache__/
 *.pyc
+
+# Fichiers .js de l'ancien site : leur contenu est intégralement absorbé dans
+# data/canonical/, qui est versionné. Les garder ferait dépasser la limite de
+# 1 Go de GitHub Pages. Pour rejouer normalize_legacy.py, les récupérer depuis
+# l'historique : git checkout 0b14348 -- data/sources
+data/sources/

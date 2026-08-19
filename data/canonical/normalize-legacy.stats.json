@@ -1,6 +1,6 @@
 {
   "family": "legacy",
-  "normalized_at": "2026-08-19T01:29:41Z",
+  "normalized_at": "2026-08-19T02:17:07Z",
   "files_total": 153,
   "rows_read": 885545,
   "rows_kept": 886265,
@@ -613,6 +613,7 @@
         "no_rna": 5442,
         "no_source_url": 5442,
         "beneficiary_not_association": 1796,
+        "texte_illisible": 2986,
         "no_siret": 97,
         "siret_invalid": 91
       },
@@ -898,7 +899,8 @@
       "drop_reasons": {},
       "flags": {
         "no_rna": 144,
-        "no_source_url": 144
+        "no_source_url": 144,
+        "texte_illisible": 89
       },
       "by_granularity": {
         "individual": 144
@@ -1938,6 +1940,7 @@
         "no_siret": 188,
         "no_rna": 188,
         "no_source_url": 188,
+        "texte_illisible": 17,
         "beneficiary_not_association": 7
       },
       "by_granularity": {
@@ -1966,6 +1969,7 @@
         "no_rna": 218,
         "no_source_url": 218,
         "amount_zero": 56,
+        "texte_illisible": 18,
         "beneficiary_not_association": 10
       },
       "by_granularity": {
@@ -2278,7 +2282,8 @@
         "no_siret": 509,
         "no_rna": 515,
         "beneficiary_not_association": 124,
-        "no_source_url": 515
+        "no_source_url": 515,
+        "texte_illisible": 4
       },
       "by_granularity": {
         "individual": 515
@@ -2383,6 +2388,7 @@
       "flags": {
         "year_missing": 9081,
         "no_rna": 9081,
+        "amount_unit_suspect": 9081,
         "no_source_url": 9081,
         "no_siret": 241,
         "siret_invalid": 3,
@@ -2395,7 +2401,7 @@
         "epci": 9081
       },
       "parquet": "data/canonical/parts/legacy-metropole-lyon.parquet",
-      "amount_total": 48001211807.0
+      "amount_total": 0
     },
     {
       "source_id": "metropole-nantes",
@@ -2468,7 +2474,8 @@
         "no_source_url": 1840,
         "no_siret": 23,
         "siret_invalid": 23,
-        "beneficiary_not_association": 1
+        "beneficiary_not_association": 1,
+        "texte_illisible": 406
       },
       "by_granularity": {
         "individual": 1840
@@ -2523,6 +2530,7 @@
         "siret_invalid": 68,
         "no_rna": 79,
         "no_source_url": 79,
+        "texte_illisible": 30,
         "beneficiary_not_association": 1
       },
       "by_granularity": {
@@ -2688,6 +2696,7 @@
         "no_siret": 137,
         "no_rna": 137,
         "donor_unattributed": 137,
+        "texte_illisible": 51,
         "no_source_url": 137
       },
       "by_granularity": {
@@ -2842,6 +2851,7 @@
       "flags": {
         "no_siret": 22,
         "no_rna": 22,
+        "texte_illisible": 22,
         "no_source_url": 22
       },
       "by_granularity": {
@@ -2992,6 +3002,7 @@
       "drop_reasons": {},
       "flags": {
         "no_rna": 14,
+        "texte_illisible": 5,
         "no_source_url": 14
       },
       "by_granularity": {
@@ -3330,6 +3341,7 @@
         "no_siret": 12,
         "siret_scientific_notation": 12,
         "no_rna": 13,
+        "texte_illisible": 5,
         "no_source_url": 13,
         "year_invalid": 1,
         "beneficiary_not_association": 1
@@ -3725,7 +3737,8 @@
         "no_rna": 46,
         "no_source_url": 46,
         "siret_scientific_notation": 19,
-        "beneficiary_not_association": 1
+        "beneficiary_not_association": 1,
+        "texte_illisible": 1
       },
       "by_granularity": {
         "individual": 46
@@ -3753,6 +3766,7 @@
         "no_rna": 585,
         "no_source_url": 585,
         "beneficiary_not_association": 15,
+        "texte_illisible": 512,
         "siret_scientific_notation": 182
       },
       "by_granularity": {
@@ -3983,7 +3997,8 @@
       "flags": {
         "no_siret": 107,
         "no_rna": 107,
-        "no_source_url": 107
+        "no_source_url": 107,
+        "texte_illisible": 48
       },
       "by_granularity": {
         "individual": 107

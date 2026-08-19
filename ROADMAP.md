@@ -137,6 +137,18 @@ ne pouvait pas voir. 20 contrôles automatiques.
 **Livrable** — `data/canonical/subventions.parquet` + `quality-report.json`,
 reconstructibles d'une commande.
 
+### Phase 2 — Nouvelle architecture de chargement — **fait**
+
+```bash
+python3 scripts/pipeline/build_carte.py       # carte depuis le GeoJSON officiel
+python3 scripts/pipeline/build_aggregates.py  # agrégats du premier écran
+```
+
+Premier écran : **103 Ko gzippés** (carte 77, cube 19, méta 2,5, top 4,3).
+Détail d'un département : un fragment de **2,5 Ko en moyenne**, chargé au clic.
+Premier affichage **0,11 s**, données exploitables **0,63 s**, mémoire **10 Mo**.
+Dépôt ramené de 981 Mo à 133 Mo suivis.
+
 ### Phase 2 — Nouvelle architecture de chargement (~1 semaine)
 - Précalculer les agrégats (département × année × type de donateur, régions, totaux).
 - **Supprimer les 168 balises `<script>`**.

@@ -83,6 +83,20 @@ de 10 %** parce qu'ils sont dominés par le parsing, donc par la charge CPU du
 moment. Ne pas conclure d'un gain inférieur à 10 % sur un temps : relancer
 deux ou trois fois et comparer les ordres de grandeur.
 
+## Relevé après phase 2 — `phase2` (19/08/2026)
+
+| Mesure | v0 | phase 2 | Gain |
+|---|---|---|---|
+| Octets transférés | ~73,6 Mo | **0,13 Mo** | ×566 |
+| Requêtes | 171 | **7** | ×24 |
+| Premier affichage | 12,96 s | **0,11 s** | ×118 |
+| Données exploitables | 57,75 s | **0,63 s** | ×92 |
+| Mémoire JS | 1 965 Mo | **10 Mo** | ×196 |
+| Balises `<script>` | 170 | **1** | — |
+
+Les quatre cibles ci-dessous sont atteintes. La mémoire passe de 55 % du
+plafond du moteur à 0,3 % : le site cesse d'être hors de portée d'un téléphone.
+
 ## Cibles après refonte
 
 | Mesure | v0 | Cible phase 2 |

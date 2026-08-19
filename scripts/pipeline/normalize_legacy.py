@@ -47,6 +47,22 @@ OUT_DIR = os.path.join(ROOT, "data", "canonical", "parts")
 SKIP_PREFIXES = ("plf-jaune",)      # remplacés par le moissonnage amont
 SKIP_NAMES = {"_template"}
 
+# Sources dont l'UNITÉ monétaire est douteuse. Leurs montants sont mis de côté
+# (dans `amount_rejected_eur`) plutôt que sommés, tant que l'amont n'a pas été
+# revérifié. Les lignes restent comptées : le département montre son activité,
+# mais aucun montant faux n'est affiché.
+#
+# `metropole-lyon` : 9 081 lignes totalisant 48 Md€, quand le budget annuel de
+# la Métropole avoisine 3,8 Md€. La médiane y est de 1 584 200 €, le minimum de
+# 100, et 85 % des valeurs sont multiples de 100 : tout indique des CENTIMES
+# lus comme des euros (48 Md€ de centimes = 480 M€, ordre de grandeur juste).
+# L'API data.grandlyon.com ayant changé, la vérification amont reste à faire —
+# on ne divise donc pas par cent de notre propre autorité (cf. la doctrine :
+# pas de correction de montant non vérifiée).
+UNITE_DOUTEUSE = {
+    "metropole-lyon": "montants vraisemblablement en centimes, vérification amont à faire",
+}
+
 
 def parse_year(value):
     """(année, drapeau) — None si hors bornes plausibles."""
@@ -190,6 +206,14 @@ def normalize_source(path, ingested_at):
                 flags.append("amount_negative")
             if C.amount_is_implausible(rec["amount"]):
                 flags.append("amount_implausible")
+            unite_douteuse = name in UNITE_DOUTEUSE
+            if unite_douteuse:
+                flags.append("amount_unit_suspect")
+            # Certains fichiers portent des caractères de remplacement (U+FFFD) :
+            # l'encodage a été perdu à la conversion d'origine, et les octets
+            # d'origine avec. Signalé ici, corrigible seulement en re-moissonnant.
+            if "\ufffd" in (rec["name"] or "") or "\ufffd" in (rec["purpose"] or ""):
+                flags.append("texte_illisible")
 
             url, lbl = split_source(rec["source"])
             if not url:
@@ -219,8 +243,10 @@ def normalize_source(path, ingested_at):
                  donor_name_raw=rec["donor_name"] or None, donor_name_norm=donor_norm,
                  donor_siren=rec["donor_siren"], donor_level=level,
                  donor_program=rec["program"] or None,
-                 amount_eur=None if C.amount_is_implausible(rec["amount"]) else rec["amount"],
-                 amount_rejected_eur=rec["amount"] if C.amount_is_implausible(rec["amount"]) else None,
+                 amount_eur=(None if (C.amount_is_implausible(rec["amount"]) or unite_douteuse)
+                             else rec["amount"]),
+                 amount_rejected_eur=(rec["amount"] if (C.amount_is_implausible(rec["amount"])
+                                                        or unite_douteuse) else None),
                  year=year,
                  year_provenance="published" if year else "unknown",
                  date_convention=rec["date_convention"],

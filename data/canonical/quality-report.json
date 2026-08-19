@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T01:33:38Z",
+  "generated_at": "2026-08-19T02:24:49Z",
   "parts": [
     "data/canonical/parts/legacy-agglo-grand-chambery.parquet",
     "data/canonical/parts/legacy-agglo-lorient.parquet",
@@ -169,10 +169,10 @@
     "data/canonical/parts/plf-jaune-2025.parquet"
   ],
   "rows_total": 1692962,
-  "amount_individual_eur": 163781358325.8,
+  "amount_individual_eur": 115780146518.8,
   "amount_aggregate_eur": 1760666660.94,
-  "amount_rejected_eur": 236888733000042.0,
-  "rows_rejected": 3,
+  "amount_rejected_eur": 236936734211849.0,
+  "rows_rejected": 9084,
   "years_covered": [
     2001,
     2002,
@@ -224,7 +224,9 @@
     "siret_scientific_notation": 29214,
     "siret_invalid": 25523,
     "year_missing": 14677,
+    "amount_unit_suspect": 9081,
     "amount_negative": 5944,
+    "texte_illisible": 4194,
     "amount_zero": 262,
     "donor_unattributed": 191,
     "year_invalid": 162,
@@ -759,6 +761,7 @@
         "dep_unknown": 5442,
         "no_rna": 5442,
         "no_source_url": 5442,
+        "texte_illisible": 2986,
         "beneficiary_not_association": 1796,
         "no_siret": 97,
         "siret_invalid": 91
@@ -997,7 +1000,8 @@
       ],
       "flags": {
         "no_rna": 144,
-        "no_source_url": 144
+        "no_source_url": 144,
+        "texte_illisible": 89
       },
       "beneficiary_kinds": {
         "association": 78,
@@ -1801,6 +1805,7 @@
         "no_siret": 188,
         "no_rna": 188,
         "no_source_url": 188,
+        "texte_illisible": 17,
         "beneficiary_not_association": 7
       },
       "beneficiary_kinds": {
@@ -1822,6 +1827,7 @@
         "no_rna": 218,
         "no_source_url": 218,
         "amount_zero": 56,
+        "texte_illisible": 18,
         "beneficiary_not_association": 10
       },
       "beneficiary_kinds": {
@@ -2070,7 +2076,8 @@
         "no_rna": 515,
         "no_source_url": 515,
         "no_siret": 509,
-        "beneficiary_not_association": 124
+        "beneficiary_not_association": 124,
+        "texte_illisible": 4
       },
       "beneficiary_kinds": {
         "inconnu": 360,
@@ -2154,12 +2161,13 @@
     },
     "metropole-lyon": {
       "rows": 9081,
-      "amount_individual_eur": 48001211807.0,
+      "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
       "years": [],
       "flags": {
         "year_missing": 9081,
         "no_rna": 9081,
+        "amount_unit_suspect": 9081,
         "no_source_url": 9081,
         "no_siret": 241,
         "beneficiary_not_association": 71,
@@ -2245,6 +2253,7 @@
         "dep_unknown": 1840,
         "no_rna": 1840,
         "no_source_url": 1840,
+        "texte_illisible": 406,
         "no_siret": 23,
         "siret_invalid": 23,
         "beneficiary_not_association": 1
@@ -2299,6 +2308,7 @@
         "no_source_url": 79,
         "no_siret": 68,
         "siret_invalid": 68,
+        "texte_illisible": 30,
         "beneficiary_not_association": 1
       },
       "beneficiary_kinds": {
@@ -2690,7 +2700,8 @@
         "no_siret": 137,
         "no_rna": 137,
         "donor_unattributed": 137,
-        "no_source_url": 137
+        "no_source_url": 137,
+        "texte_illisible": 51
       },
       "beneficiary_kinds": {
         "inconnu": 104,
@@ -2784,6 +2795,7 @@
       "flags": {
         "no_siret": 22,
         "no_rna": 22,
+        "texte_illisible": 22,
         "no_source_url": 22
       },
       "beneficiary_kinds": {
@@ -2891,7 +2903,8 @@
       ],
       "flags": {
         "no_rna": 14,
-        "no_source_url": 14
+        "no_source_url": 14,
+        "texte_illisible": 5
       },
       "beneficiary_kinds": {
         "inconnu": 13,
@@ -3123,6 +3136,7 @@
         "no_source_url": 13,
         "no_siret": 12,
         "siret_scientific_notation": 12,
+        "texte_illisible": 5,
         "year_invalid": 1,
         "beneficiary_not_association": 1
       },
@@ -3439,7 +3453,8 @@
         "no_rna": 46,
         "no_source_url": 46,
         "siret_scientific_notation": 19,
-        "beneficiary_not_association": 1
+        "beneficiary_not_association": 1,
+        "texte_illisible": 1
       },
       "beneficiary_kinds": {
         "inconnu": 39,
@@ -3463,6 +3478,7 @@
       "flags": {
         "no_rna": 585,
         "no_source_url": 585,
+        "texte_illisible": 512,
         "no_siret": 189,
         "siret_scientific_notation": 182,
         "beneficiary_not_association": 15,
@@ -3640,7 +3656,8 @@
       "flags": {
         "no_siret": 107,
         "no_rna": 107,
-        "no_source_url": 107
+        "no_source_url": 107,
+        "texte_illisible": 48
       },
       "beneficiary_kinds": {
         "inconnu": 94,
@@ -3692,8 +3709,8 @@
     },
     {
       "type": "montants_invraisemblables_exclus",
-      "rows": 3,
-      "amount_eur": 236888733000042.0,
+      "rows": 9084,
+      "amount_eur": 236936734211849.0,
       "commentaire": "Valeurs supérieures à dix milliards d'euros pour une attribution unique : ce ne sont pas des montants. Cas constaté, un SIRET recopié dans la colonne montant par un convertisseur défaillant. Conservées dans la table avec le drapeau amount_implausible ; la valeur publiée est conservée dans `amount_rejected_eur`, et `amount_eur` est nul — une somme sur `amount_eur` est donc juste sans précaution particulière."
     },
     {

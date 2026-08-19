@@ -73,29 +73,36 @@ du volume.
 
 ---
 
-## 3. Arborescence actuelle (avant refonte)
+## 3. Arborescence
 
 ```
 .
-├── index.html              # page unique ; contient 168 <script> de données EN DUR
-├── src/
-│   ├── app.js              # orchestrateur
-│   ├── state.js            # état centralisé
-│   └── modules/            # filtres, tri, carte, graphiques, export, recherche…
+├── index.html                  # une seule balise <script> (contre 170 en v0)
+├── sw.js                       # service worker — bumper CACHE à chaque publication
+├── assets/css/style.css
+├── assets/js/app.js            # application, ~400 lignes
 ├── data/
-│   ├── sources/*.js        # 167 fichiers, 835 Mo — LE problème
-│   ├── loader.js           # agrège et normalise au chargement, dans le navigateur
-│   ├── sources-index.js    # métadonnées de chargement paresseux — INUTILISÉ
-│   ├── departments.js      # référentiel départements maison
-│   ├── geo/ svg/           # contours et cartes
-├── scripts/convert-*.js    # 15 convertisseurs écrits à la main, un par source
-├── scripts/bench/          # banc de mesure (phase 0)
-├── bench/v0.json           # relevé de référence
-├── ROADMAP.md              # le plan de sortie — À LIRE
-├── SCHEMA.md               # schéma canonique cible — À LIRE avant la phase 1
-├── MESURE-PERF.md          # méthode de mesure et cibles
-└── SOURCES.md              # inventaire des sources (556 repérées, 167 intégrées)
+│   ├── aggregates/             # CE QUE LE SITE CHARGE : 103 Ko au premier écran
+│   │   ├── meta / cube / top / map-departements  (.json.gz)
+│   │   └── departements/<code>.json.gz           # détail au clic, ~2,5 Ko
+│   ├── canonical/
+│   │   ├── subventions/year=AAAA/*.parquet       # table canonique, 28 partitions
+│   │   ├── quality-report.json                   # FAIT FOI
+│   │   └── coverage.json
+│   ├── referentiel/            # univers INSEE (communes, EPCI, dépts, régions)
+│   ├── geo/*.geojson.gz        # contours, source de la carte
+│   └── raw/                    # téléchargements bruts — NON versionné
+├── scripts/pipeline/           # le pipeline (Python)
+├── scripts/bench/measure.js    # banc de mesure
+├── bench/v0.json, phase2.json  # relevés
+├── ROADMAP.md, SCHEMA.md, MESURE-PERF.md, SOURCES.md
 ```
+
+**`data/sources/*.js` (835 Mo) et `src/` ont été retirés du dépôt en phase 2.**
+Leur contenu est intégralement absorbé dans `data/canonical/`, qui est versionné.
+Les garder faisait dépasser la limite de 1 Go de GitHub Pages (981 Mo suivis
+avant, 133 Mo après). Pour rejouer `normalize_legacy.py`, les récupérer depuis
+l'historique : `git checkout 0b14348 -- data/sources`.
 
 ---
 
@@ -132,6 +139,24 @@ du volume.
 - **Le push de tags est refusé** dans les sessions distantes (HTTP 403 du
   proxy). L'état de référence d'avant refonte est `origin/main` @ `0b14348`,
   tag `v0` en local seulement. Le push de branches, lui, fonctionne.
+
+- **`metropole-lyon` est en QUARANTAINE d'unité.** Ses 9 081 lignes totalisent
+  48 Md€ quand le budget annuel de la Métropole avoisine 3,8 Md€. La médiane y
+  est de 1 584 200 €, le minimum de 100, et 85 % des valeurs sont multiples de
+  100 : tout indique des **centimes lus comme des euros**. L'API
+  data.grandlyon.com ayant changé, la vérification amont reste à faire — on ne
+  divise donc pas par cent de sa propre autorité. Les montants sont mis dans
+  `amount_rejected_eur`, les lignes restent comptées. Cette seule quarantaine
+  fait passer le total affiché de 163,8 à 115,8 Md€. **À rouvrir en phase 4.**
+
+- **Douglas-Peucker sur un anneau fermé supprime tout.** Ses deux extrémités
+  étant confondues, la distance à la corde est nulle partout. Il faut couper
+  l'anneau à son point le plus éloigné du départ et simplifier les deux moitiés.
+  Sans cela, `build_carte.py` produit une carte vide sans lever d'erreur.
+
+- **Le SVG livré avec l'ancien site ignore l'outre-mer** et nomme la Corse en
+  minuscules (`2a`). La carte est donc reconstruite depuis le GeoJSON, avec les
+  cinq DOM en médaillons.
 
 - **Le PLF Jaune change de structure tous les 3 ou 4 ans.** Quatre schémas de
   colonnes coexistent (2012 / 2013-2017 / 2018+2020 / 2021 et suivants), avec
@@ -235,7 +260,10 @@ du volume.
       complète : **1 692 962 lignes**, 163,8 Md€ d'attributions individuelles,
       2001-2027, 101 départements sur 101. 20 contrôles automatiques dans
       `scripts/pipeline/verify.py`.
-- [ ] **Phase 2** — nouvelle architecture de chargement.
+- [x] **Phase 2** — nouvelle architecture de chargement. Agrégats précalculés,
+      carte reconstruite depuis le GeoJSON, service worker, dépôt allégé.
+      **0,11 s** au premier affichage contre 12,96 s, **10 Mo** de mémoire
+      contre 1 965, **0,13 Mo** transférés contre 73,6.
 - [ ] **Phase 3** — recherche croisée.
 - [ ] **Phase 4** — exhaustivité (moissonneur SCDL, carte de couverture).
 - [ ] **Phase 5** — design et lisibilité.
@@ -252,8 +280,15 @@ python3 scripts/pipeline/fetch_plf_jaune.py      # moissonne data.gouv.fr
 python3 scripts/pipeline/normalize_plf_jaune.py  # famille plf_jaune
 python3 scripts/pipeline/normalize_legacy.py     # 152 sources héritées
 python3 scripts/pipeline/build_canonical.py      # assemblage + dédup + rapport
-python3 scripts/pipeline/verify.py               # 20 contrôles, doit rester vert
+python3 scripts/pipeline/verify.py               # 21 contrôles, doit rester vert
+python3 scripts/pipeline/build_carte.py          # carte depuis le GeoJSON
+python3 scripts/pipeline/build_aggregates.py     # agrégats servis au navigateur
 ```
+
+**`normalize_legacy.py` ne peut plus tourner en l'état** : ses entrées
+(`data/sources/*.js`) ont été retirées du dépôt. Les récupérer d'abord par
+`git checkout 0b14348 -- data/sources`. Idem pour `build_canonical.py`, qui lit
+`data/canonical/parts/` (non versionné) : il faut rejouer les normaliseurs.
 
 Tous les scripts sont idempotents : `build_canonical.py` rejoué produit un
 Parquet identique octet pour octet. **`verify.py` doit rester vert** après toute

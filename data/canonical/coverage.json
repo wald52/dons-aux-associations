@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T01:33:43Z",
+  "generated_at": "2026-08-19T02:24:54Z",
   "referentiel": {
     "source": "wald52/carte-finances-locales (OFGL / BANATIC / INSEE)",
     "millesime": 2024,
@@ -10,7 +10,7 @@
       "regions": 18
     }
   },
-  "note": "Couverture des bénéficiaires. Seul le PLF Jaune (État) est ingéré à ce stade : la couverture des collectivités reste à faire (phase 4).",
+  "note": "Couverture géographique des BÉNÉFICIAIRES, pas des donateurs : un département apparaît dès qu'une association qui y siège a reçu une subvention, d'où qu'elle vienne. La couverture des collectivités DONATRICES, elle, reste très partielle et relève de la phase 4.",
   "departements": {
     "univers": 101,
     "avec_donnees": 101,
@@ -504,7 +504,7 @@
         "reg_code": "84",
         "statut": "avec_donnees",
         "rows": 41765,
-        "amount_eur": 50096603334.22
+        "amount_eur": 2095391527.22
       },
       "70": {
         "nom": "Haute-Saône",
