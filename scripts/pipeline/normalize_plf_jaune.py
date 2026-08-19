@@ -93,32 +93,9 @@ def data_year_for(header, rows_sample, plf_year, millesime_col):
     return (plf_year - 2 if plf_year else None), "plf_minus_2"
 
 
-SCHEMA = pa.schema([
-    ("row_id", pa.string()), ("business_key", pa.string()),
-    ("beneficiary_name_raw", pa.string()), ("beneficiary_name_norm", pa.string()),
-    ("beneficiary_siret", pa.string()), ("beneficiary_siren", pa.string()),
-    ("beneficiary_rna", pa.string()), ("beneficiary_kind", pa.string()),
-    ("beneficiary_commune_insee", pa.string()), ("beneficiary_dep_code", pa.string()),
-    ("beneficiary_reg_code", pa.string()), ("beneficiary_address_raw", pa.string()),
-    ("donor_name_raw", pa.string()), ("donor_name_norm", pa.string()),
-    ("donor_siren", pa.string()), ("donor_level", pa.string()),
-    ("donor_commune_insee", pa.string()), ("donor_dep_code", pa.string()),
-    ("donor_reg_code", pa.string()), ("donor_program", pa.string()),
-    ("amount_eur", pa.float64()), ("year", pa.int32()), ("year_provenance", pa.string()),
-    ("date_convention", pa.string()),
-    ("purpose_raw", pa.string()), ("purpose_norm", pa.string()),
-    ("granularity", pa.string()), ("is_convention", pa.bool_()),
-    ("quality_flags", pa.list_(pa.string())), ("confidence", pa.string()),
-    ("source_id", pa.string()), ("source_label", pa.string()), ("source_url", pa.string()),
-    ("source_row_ref", pa.string()), ("source_family", pa.string()),
-    ("license", pa.string()), ("ingested_at", pa.string()),
-])
-
-
-def business_key(siret, name_norm, donor_norm, year, amount, purpose_norm):
-    parts = [siret or name_norm or "", donor_norm or "", str(year or ""),
-             f"{amount:.2f}" if amount is not None else "", (purpose_norm or "")[:120]]
-    return hashlib.sha1("||".join(parts).encode("utf-8")).hexdigest()[:20]
+# Schéma et clé métier sont définis une seule fois, dans common.py.
+SCHEMA = C.CANONICAL_SCHEMA
+business_key = C.business_key
 
 
 def normalize_file(path, entry, ingested_at):
@@ -262,6 +239,8 @@ def normalize_file(path, entry, ingested_at):
             flags.append("amount_zero")
         elif amount < 0:
             flags.append("amount_negative")
+        if C.amount_is_implausible(amount):
+            flags.append("amount_implausible")
 
         # Donateur : l'État. Le programme budgétaire est le grain le plus fin
         # que l'annexe publie ; le ministère n'est présent que 2013-2017.
@@ -309,7 +288,12 @@ def normalize_file(path, entry, ingested_at):
         out["donor_dep_code"].append(None)
         out["donor_reg_code"].append(None)
         out["donor_program"].append(donor_program)
-        out["amount_eur"].append(amount)
+        # Une valeur invraisemblable n'est pas un montant : elle est écartée de
+        # `amount_eur` — que l'on peut donc sommer sans précaution — et conservée
+        # verbatim dans `amount_rejected_eur`, pour ne rien perdre.
+        rejected = C.amount_is_implausible(amount)
+        out["amount_eur"].append(None if rejected else amount)
+        out["amount_rejected_eur"].append(amount if rejected else None)
         out["year"].append(year)
         out["year_provenance"].append("published" if year_prov != "plf_minus_2" else "inferred")
         out["date_convention"].append(C.clean_text(r.get(c_date))[:10] if c_date else None)

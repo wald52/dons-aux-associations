@@ -111,6 +111,19 @@ Résultat : **808 174 lignes** sur 13 millésimes (2010-2023), en **55,7 Mo** de
 Parquet — contre 654 000 lignes et ~450 Mo de JavaScript auparavant.
 Interrogeable en SQL en 13 à 151 ms.
 
+### Phase 1b — Les 152 sources héritées — **fait**
+
+```bash
+python3 scripts/pipeline/normalize_legacy.py
+python3 scripts/pipeline/build_canonical.py
+python3 scripts/pipeline/verify.py
+```
+
+Table canonique complète : **1 692 962 lignes**, 163,8 Md€ d'attributions
+individuelles, 2001-2027, **101 départements sur 101**. La déduplication par
+clé métier retire 1 477 lignes de double comptage (10,3 M€) que l'ancien site
+ne pouvait pas voir. 20 contrôles automatiques.
+
 ### Phase 1 — Pipeline canonique (1-2 semaines, le gros morceau)
 - Scripts Python idempotents avec cache local, même convention que `carte-finances-locales`.
 - Un normaliseur **par famille de format** (SCDL, PLF Jaune, portails maison), pas par source.

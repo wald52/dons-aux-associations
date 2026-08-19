@@ -1,0 +1,4024 @@
+{
+  "family": "legacy",
+  "normalized_at": "2026-08-19T01:29:41Z",
+  "files_total": 153,
+  "rows_read": 885545,
+  "rows_kept": 886265,
+  "rows_dropped": 48,
+  "sources": [
+    {
+      "source_id": "agglo-grand-chambery",
+      "registered_id": "agglo-grand-chambery",
+      "file": "data/sources/agglo-grand-chambery.js",
+      "rows_read": 507,
+      "rows_kept": 507,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 507
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 507,
+        "beneficiary_not_association": 30,
+        "no_source_url": 507,
+        "no_siret": 9,
+        "siret_invalid": 3,
+        "year_invalid": 1
+      },
+      "by_granularity": {
+        "individual": 507
+      },
+      "donor_levels": {
+        "epci": 507
+      },
+      "parquet": "data/canonical/parts/legacy-agglo-grand-chambery.parquet",
+      "amount_total": 10576953.37
+    },
+    {
+      "source_id": "agglo-lorient",
+      "registered_id": "agglo-lorient",
+      "file": "data/sources/agglo-lorient.js",
+      "rows_read": 374,
+      "rows_kept": 374,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 374
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 374,
+        "no_rna": 374,
+        "no_source_url": 374,
+        "beneficiary_not_association": 12
+      },
+      "by_granularity": {
+        "individual": 370,
+        "aggregate": 4
+      },
+      "donor_levels": {
+        "epci": 374
+      },
+      "parquet": "data/canonical/parts/legacy-agglo-lorient.parquet",
+      "amount_total": 72559965.87
+    },
+    {
+      "source_id": "agglo-mulhouse",
+      "registered_id": "agglo-mulhouse",
+      "file": "data/sources/agglo-mulhouse.js",
+      "rows_read": 216,
+      "rows_kept": 216,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 216
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 216,
+        "no_rna": 216,
+        "no_source_url": 216,
+        "beneficiary_not_association": 3
+      },
+      "by_granularity": {
+        "individual": 216
+      },
+      "donor_levels": {
+        "epci": 216
+      },
+      "parquet": "data/canonical/parts/legacy-agglo-mulhouse.parquet",
+      "amount_total": 852415.88
+    },
+    {
+      "source_id": "agglo-nevers",
+      "registered_id": "agglo-nevers",
+      "file": "data/sources/agglo-nevers.js",
+      "rows_read": 16,
+      "rows_kept": 16,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 16
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 16,
+        "no_source_url": 16
+      },
+      "by_granularity": {
+        "individual": 16
+      },
+      "donor_levels": {
+        "epci": 16
+      },
+      "parquet": "data/canonical/parts/legacy-agglo-nevers.parquet",
+      "amount_total": 3386906.0
+    },
+    {
+      "source_id": "agglo-pays-de-l-or",
+      "registered_id": "agglo-pays-de-l-or",
+      "file": "data/sources/agglo-pays-de-l-or.js",
+      "rows_read": 9,
+      "rows_kept": 9,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 9
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 9,
+        "siret_invalid": 9,
+        "no_rna": 9,
+        "amount_negative": 1,
+        "no_source_url": 9
+      },
+      "by_granularity": {
+        "individual": 9
+      },
+      "donor_levels": {
+        "epci": 9
+      },
+      "parquet": "data/canonical/parts/legacy-agglo-pays-de-l-or.parquet",
+      "amount_total": 1500.0
+    },
+    {
+      "source_id": "agglo-quimper-bretagne-occidentale",
+      "registered_id": "agglo-quimper-bretagne-occidentale",
+      "file": "data/sources/agglo-quimper-bretagne-occidentale.js",
+      "rows_read": 90,
+      "rows_kept": 90,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 90
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 42,
+        "dep_unknown": 90,
+        "no_siret": 90,
+        "no_rna": 90,
+        "no_source_url": 90,
+        "beneficiary_not_association": 15
+      },
+      "by_granularity": {
+        "individual": 90
+      },
+      "donor_levels": {
+        "epci": 90
+      },
+      "parquet": "data/canonical/parts/legacy-agglo-quimper-bretagne-occidentale.parquet",
+      "amount_total": 31155879.92
+    },
+    {
+      "source_id": "agglo-saintes-grandes-rives",
+      "registered_id": "agglo-saintes-grandes-rives",
+      "file": "data/sources/agglo-saintes-grandes-rives.js",
+      "rows_read": 183,
+      "rows_kept": 183,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 183
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 183,
+        "no_rna": 183,
+        "no_source_url": 183,
+        "beneficiary_not_association": 11,
+        "no_siret": 25,
+        "amount_negative": 1
+      },
+      "by_granularity": {
+        "individual": 183
+      },
+      "donor_levels": {
+        "epci": 183
+      },
+      "parquet": "data/canonical/parts/legacy-agglo-saintes-grandes-rives.parquet",
+      "amount_total": 3778106.59
+    },
+    {
+      "source_id": "agglo-val-de-fensch",
+      "registered_id": "agglo-val-de-fensch",
+      "file": "data/sources/agglo-val-de-fensch.js",
+      "rows_read": 148,
+      "rows_kept": 148,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 148
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 148,
+        "no_rna": 148,
+        "no_source_url": 148,
+        "beneficiary_not_association": 10
+      },
+      "by_granularity": {
+        "individual": 148
+      },
+      "donor_levels": {
+        "epci": 148
+      },
+      "parquet": "data/canonical/parts/legacy-agglo-val-de-fensch.parquet",
+      "amount_total": 9132056.41
+    },
+    {
+      "source_id": "anct-politique-ville-2",
+      "registered_id": "anct-politique-ville-2",
+      "file": "data/sources/anct-politique-ville-2.js",
+      "rows_read": 129356,
+      "rows_kept": 129356,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 129356
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_from_name": 106709,
+        "no_siret": 5089,
+        "siret_scientific_notation": 5065,
+        "no_rna": 129356,
+        "beneficiary_not_association": 20035,
+        "no_source_url": 129356,
+        "dep_unknown": 22647,
+        "siret_invalid": 24
+      },
+      "by_granularity": {
+        "individual": 129356
+      },
+      "donor_levels": {
+        "etat": 129356
+      },
+      "parquet": "data/canonical/parts/legacy-anct-politique-ville-2.parquet",
+      "amount_total": 1604498145.38
+    },
+    {
+      "source_id": "anct-politique-ville",
+      "registered_id": "anct-politique-ville",
+      "file": "data/sources/anct-politique-ville.js",
+      "rows_read": 137619,
+      "rows_kept": 137619,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 137619
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 116292,
+        "no_rna": 137619,
+        "beneficiary_not_association": 20815,
+        "no_source_url": 137619,
+        "no_siret": 22458,
+        "siret_invalid": 32,
+        "dep_from_name": 21327,
+        "siret_scientific_notation": 22412
+      },
+      "by_granularity": {
+        "individual": 137619
+      },
+      "donor_levels": {
+        "etat": 137619
+      },
+      "parquet": "data/canonical/parts/legacy-anct-politique-ville.parquet",
+      "amount_total": 1762473251.28
+    },
+    {
+      "source_id": "ars-pays-de-la-loire",
+      "registered_id": "ars-pays-de-la-loire",
+      "file": "data/sources/ars-pays-de-la-loire.js",
+      "rows_read": 1903,
+      "rows_kept": 1903,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 1903
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 1903,
+        "no_rna": 1903,
+        "no_source_url": 1903,
+        "no_siret": 12,
+        "siret_invalid": 12,
+        "beneficiary_not_association": 384
+      },
+      "by_granularity": {
+        "individual": 1903
+      },
+      "donor_levels": {
+        "operateur": 1903
+      },
+      "parquet": "data/canonical/parts/legacy-ars-pays-de-la-loire.parquet",
+      "amount_total": 255099452.06
+    },
+    {
+      "source_id": "cc-pays-des-ecrins",
+      "registered_id": "cc-pays-des-ecrins",
+      "file": "data/sources/cc-pays-des-ecrins.js",
+      "rows_read": 83,
+      "rows_kept": 83,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 83
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 83,
+        "no_rna": 83,
+        "no_source_url": 83
+      },
+      "by_granularity": {
+        "individual": 83
+      },
+      "donor_levels": {
+        "epci": 83
+      },
+      "parquet": "data/canonical/parts/legacy-cc-pays-des-ecrins.parquet",
+      "amount_total": 1553900.0
+    },
+    {
+      "source_id": "cc-quercy-vert",
+      "registered_id": "cc-quercy-vert",
+      "file": "data/sources/cc-quercy-vert.js",
+      "rows_read": 20,
+      "rows_kept": 20,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 20
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 20,
+        "no_source_url": 20,
+        "no_siret": 9,
+        "siret_invalid": 9
+      },
+      "by_granularity": {
+        "individual": 20
+      },
+      "donor_levels": {
+        "epci": 20
+      },
+      "parquet": "data/canonical/parts/legacy-cc-quercy-vert.parquet",
+      "amount_total": 1359220.0
+    },
+    {
+      "source_id": "cci-rouen-2024",
+      "registered_id": "cci-rouen-2024",
+      "file": "data/sources/cci-rouen-2024.js",
+      "rows_read": 38,
+      "rows_kept": 38,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 38
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 38,
+        "no_rna": 38,
+        "no_source_url": 38
+      },
+      "by_granularity": {
+        "individual": 38
+      },
+      "donor_levels": {
+        "operateur": 38
+      },
+      "parquet": "data/canonical/parts/legacy-cci-rouen-2024.parquet",
+      "amount_total": 12311.75
+    },
+    {
+      "source_id": "cd-aube",
+      "registered_id": "cd-aube",
+      "file": "data/sources/cd-aube.js",
+      "rows_read": 37,
+      "rows_kept": 37,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 37
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 37,
+        "no_rna": 37,
+        "no_source_url": 37,
+        "no_siret": 1,
+        "siret_invalid": 1,
+        "beneficiary_not_association": 6
+      },
+      "by_granularity": {
+        "individual": 37
+      },
+      "donor_levels": {
+        "departement": 37
+      },
+      "parquet": "data/canonical/parts/legacy-cd-aube.parquet",
+      "amount_total": 7562429.0
+    },
+    {
+      "source_id": "cd-bas-rhin",
+      "registered_id": "cd-bas-rhin",
+      "file": "data/sources/cd-bas-rhin.js",
+      "rows_read": 3345,
+      "rows_kept": 3345,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 3345
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 3345,
+        "no_source_url": 3345,
+        "beneficiary_not_association": 651
+      },
+      "by_granularity": {
+        "individual": 3345
+      },
+      "donor_levels": {
+        "departement": 3345
+      },
+      "parquet": "data/canonical/parts/legacy-cd-bas-rhin.parquet",
+      "amount_total": 73627234.56
+    },
+    {
+      "source_id": "cd-charente-maritime",
+      "registered_id": "cd-charente-maritime",
+      "file": "data/sources/cd-charente-maritime.js",
+      "rows_read": 1989,
+      "rows_kept": 1989,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 1989
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 1989,
+        "no_source_url": 1989,
+        "beneficiary_not_association": 583,
+        "no_siret": 6
+      },
+      "by_granularity": {
+        "individual": 1989
+      },
+      "donor_levels": {
+        "departement": 1989
+      },
+      "parquet": "data/canonical/parts/legacy-cd-charente-maritime.parquet",
+      "amount_total": 270238305.7
+    },
+    {
+      "source_id": "cd-cher",
+      "registered_id": "cd-cher",
+      "file": "data/sources/cd-cher.js",
+      "rows_read": 5,
+      "rows_kept": 5,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 5
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 5,
+        "siret_invalid": 5,
+        "no_rna": 5,
+        "no_source_url": 5
+      },
+      "by_granularity": {
+        "individual": 5
+      },
+      "donor_levels": {
+        "departement": 5
+      },
+      "parquet": "data/canonical/parts/legacy-cd-cher.parquet",
+      "amount_total": 362000.0
+    },
+    {
+      "source_id": "cd-cotes-armor-2002",
+      "registered_id": "cd-cotes-armor-2002",
+      "file": "data/sources/cd-cotes-armor-2002.js",
+      "rows_read": 15319,
+      "rows_kept": 16087,
+      "rows_dropped": 0,
+      "shapes": {
+        "exercice": 15319
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 16087,
+        "no_siret": 16087,
+        "no_rna": 16087,
+        "no_source_url": 16087,
+        "beneficiary_not_association": 75,
+        "amount_zero": 4
+      },
+      "by_granularity": {
+        "individual": 16087
+      },
+      "donor_levels": {
+        "departement": 16087
+      },
+      "parquet": "data/canonical/parts/legacy-cd-cotes-armor-2002.parquet",
+      "amount_total": 286989122.58
+    },
+    {
+      "source_id": "cd-cotes-armor",
+      "registered_id": "cd-cotes-armor",
+      "file": "data/sources/cd-cotes-armor.js",
+      "rows_read": 14289,
+      "rows_kept": 14289,
+      "rows_dropped": 0,
+      "shapes": {
+        "scdl": 14289
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 14289,
+        "no_rna": 14289,
+        "no_source_url": 14289,
+        "no_siret": 1996,
+        "beneficiary_not_association": 35,
+        "amount_zero": 20,
+        "siret_invalid": 11
+      },
+      "by_granularity": {
+        "individual": 14289
+      },
+      "donor_levels": {
+        "departement": 14289
+      },
+      "parquet": "data/canonical/parts/legacy-cd-cotes-armor.parquet",
+      "amount_total": 239947114.15
+    },
+    {
+      "source_id": "cd-dordogne",
+      "registered_id": "cd-dordogne",
+      "file": "data/sources/cd-dordogne.js",
+      "rows_read": 6922,
+      "rows_kept": 6922,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 6922
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 6922,
+        "no_source_url": 6922,
+        "amount_zero": 27,
+        "no_siret": 1,
+        "siret_invalid": 1
+      },
+      "by_granularity": {
+        "individual": 6922
+      },
+      "donor_levels": {
+        "departement": 6922
+      },
+      "parquet": "data/canonical/parts/legacy-cd-dordogne.parquet",
+      "amount_total": 120449218.66
+    },
+    {
+      "source_id": "cd-eure-et-loir",
+      "registered_id": "cd-eure-et-loir",
+      "file": "data/sources/cd-eure-et-loir.js",
+      "rows_read": 25,
+      "rows_kept": 25,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 25
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 25,
+        "no_source_url": 25
+      },
+      "by_granularity": {
+        "individual": 25
+      },
+      "donor_levels": {
+        "departement": 25
+      },
+      "parquet": "data/canonical/parts/legacy-cd-eure-et-loir.parquet",
+      "amount_total": 2049590.0
+    },
+    {
+      "source_id": "cd-finistere",
+      "registered_id": "cd-finistere",
+      "file": "data/sources/cd-finistere.js",
+      "rows_read": 5442,
+      "rows_kept": 5442,
+      "rows_dropped": 0,
+      "shapes": {
+        "scdl": 5442
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 5442,
+        "no_rna": 5442,
+        "no_source_url": 5442,
+        "beneficiary_not_association": 1796,
+        "no_siret": 97,
+        "siret_invalid": 91
+      },
+      "by_granularity": {
+        "individual": 5442
+      },
+      "donor_levels": {
+        "departement": 5442
+      },
+      "parquet": "data/canonical/parts/legacy-cd-finistere.parquet",
+      "amount_total": 583579334.03
+    },
+    {
+      "source_id": "cd-gironde",
+      "registered_id": "cd-gironde",
+      "file": "data/sources/cd-gironde.js",
+      "rows_read": 14734,
+      "rows_kept": 14734,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 14734
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 14734,
+        "no_source_url": 14734,
+        "beneficiary_not_association": 73
+      },
+      "by_granularity": {
+        "individual": 14734
+      },
+      "donor_levels": {
+        "departement": 14734
+      },
+      "parquet": "data/canonical/parts/legacy-cd-gironde.parquet",
+      "amount_total": 142891904.38
+    },
+    {
+      "source_id": "cd-haute-garonne",
+      "registered_id": "cd-haute-garonne",
+      "file": "data/sources/cd-haute-garonne.js",
+      "rows_read": 28,
+      "rows_kept": 28,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 28
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 28,
+        "no_source_url": 28
+      },
+      "by_granularity": {
+        "individual": 28
+      },
+      "donor_levels": {
+        "departement": 28
+      },
+      "parquet": "data/canonical/parts/legacy-cd-haute-garonne.parquet",
+      "amount_total": 2950174.0
+    },
+    {
+      "source_id": "cd-hautes-pyrenees",
+      "registered_id": "cd-hautes-pyrenees",
+      "file": "data/sources/cd-hautes-pyrenees.js",
+      "rows_read": 255,
+      "rows_kept": 255,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 255
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 255,
+        "no_source_url": 255
+      },
+      "by_granularity": {
+        "individual": 255
+      },
+      "donor_levels": {
+        "departement": 255
+      },
+      "parquet": "data/canonical/parts/legacy-cd-hautes-pyrenees.parquet",
+      "amount_total": 31029593.95
+    },
+    {
+      "source_id": "cd-hauts-de-seine",
+      "registered_id": "cd-hauts-de-seine",
+      "file": "data/sources/cd-hauts-de-seine.js",
+      "rows_read": 1193,
+      "rows_kept": 1193,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 1193
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 1193,
+        "no_source_url": 1193,
+        "beneficiary_not_association": 21
+      },
+      "by_granularity": {
+        "individual": 1193
+      },
+      "donor_levels": {
+        "departement": 1193
+      },
+      "parquet": "data/canonical/parts/legacy-cd-hauts-de-seine.parquet",
+      "amount_total": 187880038.0
+    },
+    {
+      "source_id": "cd-ille-vilaine-2021",
+      "registered_id": "cd-ille-vilaine-2021",
+      "file": "data/sources/cd-ille-vilaine-2021.js",
+      "rows_read": 928,
+      "rows_kept": 928,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 928
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 928,
+        "no_source_url": 928,
+        "beneficiary_not_association": 26
+      },
+      "by_granularity": {
+        "individual": 928
+      },
+      "donor_levels": {
+        "departement": 928
+      },
+      "parquet": "data/canonical/parts/legacy-cd-ille-vilaine-2021.parquet",
+      "amount_total": 18382624.63
+    },
+    {
+      "source_id": "cd-ille-vilaine-2022v2",
+      "registered_id": "cd-ille-vilaine-2022v2",
+      "file": "data/sources/cd-ille-vilaine-2022v2.js",
+      "rows_read": 954,
+      "rows_kept": 954,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 954
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 954,
+        "no_source_url": 954,
+        "beneficiary_not_association": 27
+      },
+      "by_granularity": {
+        "individual": 954
+      },
+      "donor_levels": {
+        "departement": 954
+      },
+      "parquet": "data/canonical/parts/legacy-cd-ille-vilaine-2022v2.parquet",
+      "amount_total": 17854137.66
+    },
+    {
+      "source_id": "cd-ille-vilaine",
+      "registered_id": "cd-ille-vilaine",
+      "file": "data/sources/cd-ille-vilaine.js",
+      "rows_read": 972,
+      "rows_kept": 972,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 972
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 972,
+        "siret_scientific_notation": 972,
+        "no_rna": 972,
+        "beneficiary_not_association": 25
+      },
+      "by_granularity": {
+        "individual": 972
+      },
+      "donor_levels": {
+        "departement": 972
+      },
+      "parquet": "data/canonical/parts/legacy-cd-ille-vilaine.parquet",
+      "amount_total": 17905648.85
+    },
+    {
+      "source_id": "cd-isere",
+      "registered_id": "cd-isere",
+      "file": "data/sources/cd-isere.js",
+      "rows_read": 208,
+      "rows_kept": 208,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 208
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 208,
+        "no_source_url": 208,
+        "no_siret": 3,
+        "beneficiary_not_association": 3
+      },
+      "by_granularity": {
+        "individual": 208
+      },
+      "donor_levels": {
+        "departement": 208
+      },
+      "parquet": "data/canonical/parts/legacy-cd-isere.parquet",
+      "amount_total": 13647664.14
+    },
+    {
+      "source_id": "cd-loire-atlantique",
+      "registered_id": "cd-loire-atlantique",
+      "file": "data/sources/cd-loire-atlantique.js",
+      "rows_read": 28679,
+      "rows_kept": 28631,
+      "rows_dropped": 48,
+      "shapes": {
+        "scdl": 28679
+      },
+      "drop_reasons": {
+        "montant illisible": 32,
+        "sans nom de bénéficiaire": 16
+      },
+      "flags": {
+        "dep_unknown": 28631,
+        "no_rna": 28631,
+        "beneficiary_not_association": 1495,
+        "no_source_url": 28631,
+        "no_siret": 21129,
+        "siret_invalid": 21011,
+        "amount_zero": 38,
+        "year_missing": 169
+      },
+      "by_granularity": {
+        "individual": 28631
+      },
+      "donor_levels": {
+        "departement": 28631
+      },
+      "parquet": "data/canonical/parts/legacy-cd-loire-atlantique.parquet",
+      "amount_total": 779248423.26
+    },
+    {
+      "source_id": "cd-loire",
+      "registered_id": "cd-loire",
+      "file": "data/sources/cd-loire.js",
+      "rows_read": 153,
+      "rows_kept": 153,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 153
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 153,
+        "dep_unknown": 153,
+        "no_rna": 153,
+        "no_source_url": 153,
+        "beneficiary_not_association": 6
+      },
+      "by_granularity": {
+        "individual": 153
+      },
+      "donor_levels": {
+        "departement": 153
+      },
+      "parquet": "data/canonical/parts/legacy-cd-loire.parquet",
+      "amount_total": 11494013.0
+    },
+    {
+      "source_id": "cd-lot",
+      "registered_id": "cd-lot",
+      "file": "data/sources/cd-lot.js",
+      "rows_read": 144,
+      "rows_kept": 144,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 144
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 144,
+        "no_source_url": 144
+      },
+      "by_granularity": {
+        "individual": 144
+      },
+      "donor_levels": {
+        "departement": 144
+      },
+      "parquet": "data/canonical/parts/legacy-cd-lot.parquet",
+      "amount_total": 8951828.78
+    },
+    {
+      "source_id": "cd-maine-loire-conventions-2025",
+      "registered_id": "cd-maine-loire-conventions-2025",
+      "file": "data/sources/cd-maine-loire-conventions-2025.js",
+      "rows_read": 42,
+      "rows_kept": 42,
+      "rows_dropped": 0,
+      "shapes": {
+        "scdl": 42
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 42,
+        "no_siret": 42,
+        "no_rna": 42,
+        "no_source_url": 42,
+        "year_missing": 1
+      },
+      "by_granularity": {
+        "individual": 42
+      },
+      "donor_levels": {
+        "departement": 42
+      },
+      "parquet": "data/canonical/parts/legacy-cd-maine-loire-conventions-2025.parquet",
+      "amount_total": 2207089.55
+    },
+    {
+      "source_id": "cd-maine-loire-conventions",
+      "registered_id": "cd-maine-loire-conventions",
+      "file": "data/sources/cd-maine-loire-conventions.js",
+      "rows_read": 91,
+      "rows_kept": 91,
+      "rows_dropped": 0,
+      "shapes": {
+        "scdl": 91
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 91,
+        "no_rna": 91,
+        "no_source_url": 91,
+        "year_missing": 5,
+        "no_siret": 2,
+        "siret_invalid": 2
+      },
+      "by_granularity": {
+        "individual": 91
+      },
+      "donor_levels": {
+        "departement": 91
+      },
+      "parquet": "data/canonical/parts/legacy-cd-maine-loire-conventions.parquet",
+      "amount_total": 9168585.88
+    },
+    {
+      "source_id": "cd-maine-loire-subventions",
+      "registered_id": "cd-maine-loire-subventions",
+      "file": "data/sources/cd-maine-loire-subventions.js",
+      "rows_read": 15684,
+      "rows_kept": 15684,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 15684
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 15684,
+        "no_source_url": 15684,
+        "no_siret": 820,
+        "beneficiary_not_association": 1102,
+        "siret_invalid": 292,
+        "dep_unknown": 2
+      },
+      "by_granularity": {
+        "individual": 15624,
+        "aggregate": 60
+      },
+      "donor_levels": {
+        "departement": 15684
+      },
+      "parquet": "data/canonical/parts/legacy-cd-maine-loire-subventions.parquet",
+      "amount_total": 212674801.05
+    },
+    {
+      "source_id": "cd-mayenne",
+      "registered_id": "cd-mayenne",
+      "file": "data/sources/cd-mayenne.js",
+      "rows_read": 623,
+      "rows_kept": 623,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 623
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 623,
+        "no_source_url": 623,
+        "beneficiary_not_association": 67,
+        "no_siret": 1,
+        "siret_invalid": 1
+      },
+      "by_granularity": {
+        "individual": 623
+      },
+      "donor_levels": {
+        "departement": 623
+      },
+      "parquet": "data/canonical/parts/legacy-cd-mayenne.parquet",
+      "amount_total": 1428177917.0
+    },
+    {
+      "source_id": "cd-nievre",
+      "registered_id": "cd-nievre",
+      "file": "data/sources/cd-nievre.js",
+      "rows_read": 5183,
+      "rows_kept": 5183,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 5183
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 5183,
+        "no_source_url": 5183,
+        "beneficiary_not_association": 18,
+        "no_siret": 26,
+        "siret_invalid": 26
+      },
+      "by_granularity": {
+        "individual": 5183
+      },
+      "donor_levels": {
+        "departement": 5183
+      },
+      "parquet": "data/canonical/parts/legacy-cd-nievre.parquet",
+      "amount_total": 53545953.36
+    },
+    {
+      "source_id": "cd-pyrenees-orientales",
+      "registered_id": "cd-pyrenees-orientales",
+      "file": "data/sources/cd-pyrenees-orientales.js",
+      "rows_read": 6870,
+      "rows_kept": 6870,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 6870
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 6755,
+        "no_source_url": 6870,
+        "no_siret": 265,
+        "siret_invalid": 192,
+        "beneficiary_not_association": 151,
+        "year_missing": 25
+      },
+      "by_granularity": {
+        "individual": 6870
+      },
+      "donor_levels": {
+        "departement": 6870
+      },
+      "parquet": "data/canonical/parts/legacy-cd-pyrenees-orientales.parquet",
+      "amount_total": 308427713.09
+    },
+    {
+      "source_id": "cd-savoie-2018",
+      "registered_id": "cd-savoie-2018",
+      "file": "data/sources/cd-savoie-2018.js",
+      "rows_read": 108,
+      "rows_kept": 108,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 108
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 108,
+        "no_source_url": 108,
+        "beneficiary_not_association": 3
+      },
+      "by_granularity": {
+        "individual": 108
+      },
+      "donor_levels": {
+        "departement": 108
+      },
+      "parquet": "data/canonical/parts/legacy-cd-savoie-2018.parquet",
+      "amount_total": 10601868.31
+    },
+    {
+      "source_id": "cd-savoie-2019",
+      "registered_id": "cd-savoie-2019",
+      "file": "data/sources/cd-savoie-2019.js",
+      "rows_read": 111,
+      "rows_kept": 111,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 111
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 111,
+        "no_source_url": 111,
+        "no_siret": 1,
+        "beneficiary_not_association": 4
+      },
+      "by_granularity": {
+        "individual": 111
+      },
+      "donor_levels": {
+        "departement": 111
+      },
+      "parquet": "data/canonical/parts/legacy-cd-savoie-2019.parquet",
+      "amount_total": 13000027.0
+    },
+    {
+      "source_id": "cd-savoie-2020",
+      "registered_id": "cd-savoie-2020",
+      "file": "data/sources/cd-savoie-2020.js",
+      "rows_read": 172,
+      "rows_kept": 172,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 172
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 172,
+        "siret_scientific_notation": 172,
+        "no_rna": 172,
+        "no_source_url": 172,
+        "beneficiary_not_association": 5
+      },
+      "by_granularity": {
+        "individual": 172
+      },
+      "donor_levels": {
+        "departement": 172
+      },
+      "parquet": "data/canonical/parts/legacy-cd-savoie-2020.parquet",
+      "amount_total": 21075793.8
+    },
+    {
+      "source_id": "cd-savoie-2021",
+      "registered_id": "cd-savoie-2021",
+      "file": "data/sources/cd-savoie-2021.js",
+      "rows_read": 128,
+      "rows_kept": 128,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 128
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 128,
+        "no_source_url": 128,
+        "beneficiary_not_association": 5
+      },
+      "by_granularity": {
+        "individual": 128
+      },
+      "donor_levels": {
+        "departement": 128
+      },
+      "parquet": "data/canonical/parts/legacy-cd-savoie-2021.parquet",
+      "amount_total": 12997465.37
+    },
+    {
+      "source_id": "cd-savoie-2022",
+      "registered_id": "cd-savoie-2022",
+      "file": "data/sources/cd-savoie-2022.js",
+      "rows_read": 148,
+      "rows_kept": 148,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 148
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 148,
+        "no_rna": 148,
+        "no_source_url": 148,
+        "beneficiary_not_association": 8
+      },
+      "by_granularity": {
+        "individual": 148
+      },
+      "donor_levels": {
+        "departement": 148
+      },
+      "parquet": "data/canonical/parts/legacy-cd-savoie-2022.parquet",
+      "amount_total": 15487876.93
+    },
+    {
+      "source_id": "cd-savoie-2023",
+      "registered_id": "cd-savoie-2023",
+      "file": "data/sources/cd-savoie-2023.js",
+      "rows_read": 178,
+      "rows_kept": 178,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 178
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 178,
+        "no_rna": 178,
+        "no_source_url": 178,
+        "beneficiary_not_association": 9
+      },
+      "by_granularity": {
+        "individual": 178
+      },
+      "donor_levels": {
+        "departement": 178
+      },
+      "parquet": "data/canonical/parts/legacy-cd-savoie-2023.parquet",
+      "amount_total": 16527285.71
+    },
+    {
+      "source_id": "cd-savoie",
+      "registered_id": "cd-savoie",
+      "file": "data/sources/cd-savoie.js",
+      "rows_read": 111,
+      "rows_kept": 111,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 111
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 111,
+        "siret_scientific_notation": 111,
+        "no_rna": 111,
+        "beneficiary_not_association": 3
+      },
+      "by_granularity": {
+        "individual": 111
+      },
+      "donor_levels": {
+        "departement": 111
+      },
+      "parquet": "data/canonical/parts/legacy-cd-savoie.parquet",
+      "amount_total": 11339319.75
+    },
+    {
+      "source_id": "cd-somme",
+      "registered_id": "cd-somme",
+      "file": "data/sources/cd-somme.js",
+      "rows_read": 1765,
+      "rows_kept": 1765,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 1765
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 1765,
+        "no_source_url": 1765,
+        "beneficiary_not_association": 84,
+        "no_siret": 264,
+        "siret_scientific_notation": 263,
+        "siret_invalid": 1
+      },
+      "by_granularity": {
+        "individual": 1765
+      },
+      "donor_levels": {
+        "departement": 1765
+      },
+      "parquet": "data/canonical/parts/legacy-cd-somme.parquet",
+      "amount_total": 345160442.32
+    },
+    {
+      "source_id": "cnds-2015",
+      "registered_id": "cnds-2015",
+      "file": "data/sources/cnds-2015.js",
+      "rows_read": 52182,
+      "rows_kept": 52182,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 52182
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 3896,
+        "no_siret": 52182,
+        "no_rna": 52182,
+        "no_source_url": 52182,
+        "beneficiary_not_association": 283
+      },
+      "by_granularity": {
+        "individual": 52182
+      },
+      "donor_levels": {
+        "operateur": 52182
+      },
+      "parquet": "data/canonical/parts/legacy-cnds-2015.parquet",
+      "amount_total": 145493354.0
+    },
+    {
+      "source_id": "cnsa",
+      "registered_id": "cnsa",
+      "file": "data/sources/cnsa.js",
+      "rows_read": 361,
+      "rows_kept": 361,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 361
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 361,
+        "no_rna": 361,
+        "no_source_url": 361,
+        "amount_negative": 12,
+        "beneficiary_not_association": 2
+      },
+      "by_granularity": {
+        "individual": 361
+      },
+      "donor_levels": {
+        "operateur": 361
+      },
+      "parquet": "data/canonical/parts/legacy-cnsa.parquet",
+      "amount_total": 190880547.81
+    },
+    {
+      "source_id": "commune-bar-le-duc",
+      "registered_id": "commune-bar-le-duc",
+      "file": "data/sources/commune-bar-le-duc.js",
+      "rows_read": 55,
+      "rows_kept": 55,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 55
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 55,
+        "no_source_url": 55
+      },
+      "by_granularity": {
+        "individual": 55
+      },
+      "donor_levels": {
+        "commune": 55
+      },
+      "parquet": "data/canonical/parts/legacy-commune-bar-le-duc.parquet",
+      "amount_total": 279898054.0
+    },
+    {
+      "source_id": "commune-bouaye",
+      "registered_id": "commune-bouaye",
+      "file": "data/sources/commune-bouaye.js",
+      "rows_read": 331,
+      "rows_kept": 331,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 331
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 331,
+        "no_rna": 331,
+        "no_source_url": 331,
+        "beneficiary_not_association": 8
+      },
+      "by_granularity": {
+        "individual": 331
+      },
+      "donor_levels": {
+        "commune": 331
+      },
+      "parquet": "data/canonical/parts/legacy-commune-bouaye.parquet",
+      "amount_total": 835226.0
+    },
+    {
+      "source_id": "commune-breteil",
+      "registered_id": "commune-breteil",
+      "file": "data/sources/commune-breteil.js",
+      "rows_read": 141,
+      "rows_kept": 141,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 141
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 141,
+        "no_rna": 141,
+        "no_source_url": 141
+      },
+      "by_granularity": {
+        "individual": 141
+      },
+      "donor_levels": {
+        "commune": 141
+      },
+      "parquet": "data/canonical/parts/legacy-commune-breteil.parquet",
+      "amount_total": 10622644.0
+    },
+    {
+      "source_id": "commune-communay",
+      "registered_id": "commune-communay",
+      "file": "data/sources/commune-communay.js",
+      "rows_read": 3,
+      "rows_kept": 3,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 3
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 3,
+        "no_siret": 3,
+        "siret_invalid": 3,
+        "no_rna": 3,
+        "no_source_url": 3
+      },
+      "by_granularity": {
+        "individual": 3
+      },
+      "donor_levels": {
+        "commune": 3
+      },
+      "parquet": "data/canonical/parts/legacy-commune-communay.parquet",
+      "amount_total": 63500.0
+    },
+    {
+      "source_id": "commune-iffendic",
+      "registered_id": "commune-iffendic",
+      "file": "data/sources/commune-iffendic.js",
+      "rows_read": 375,
+      "rows_kept": 375,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 375
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 375,
+        "no_rna": 375,
+        "no_source_url": 375
+      },
+      "by_granularity": {
+        "individual": 375
+      },
+      "donor_levels": {
+        "commune": 375
+      },
+      "parquet": "data/canonical/parts/legacy-commune-iffendic.parquet",
+      "amount_total": 13027707.0
+    },
+    {
+      "source_id": "commune-la-nouaye",
+      "registered_id": "commune-la-nouaye",
+      "file": "data/sources/commune-la-nouaye.js",
+      "rows_read": 39,
+      "rows_kept": 39,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 39
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 39,
+        "no_siret": 39,
+        "no_rna": 39,
+        "no_source_url": 39
+      },
+      "by_granularity": {
+        "individual": 39
+      },
+      "donor_levels": {
+        "commune": 39
+      },
+      "parquet": "data/canonical/parts/legacy-commune-la-nouaye.parquet",
+      "amount_total": 316499.0
+    },
+    {
+      "source_id": "commune-meze",
+      "registered_id": "commune-meze",
+      "file": "data/sources/commune-meze.js",
+      "rows_read": 2,
+      "rows_kept": 2,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 2
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 2,
+        "no_source_url": 2
+      },
+      "by_granularity": {
+        "individual": 2
+      },
+      "donor_levels": {
+        "commune": 2
+      },
+      "parquet": "data/canonical/parts/legacy-commune-meze.parquet",
+      "amount_total": 72900.0
+    },
+    {
+      "source_id": "commune-pleumeleuc",
+      "registered_id": "commune-pleumeleuc",
+      "file": "data/sources/commune-pleumeleuc.js",
+      "rows_read": 147,
+      "rows_kept": 147,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 147
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 147,
+        "no_rna": 147,
+        "no_source_url": 147
+      },
+      "by_granularity": {
+        "individual": 147
+      },
+      "donor_levels": {
+        "commune": 147
+      },
+      "parquet": "data/canonical/parts/legacy-commune-pleumeleuc.parquet",
+      "amount_total": 352662.64
+    },
+    {
+      "source_id": "commune-rillieux-la-pape",
+      "registered_id": "commune-rillieux-la-pape",
+      "file": "data/sources/commune-rillieux-la-pape.js",
+      "rows_read": 25,
+      "rows_kept": 25,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 25
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 25,
+        "no_rna": 25,
+        "no_source_url": 25,
+        "beneficiary_not_association": 1,
+        "no_siret": 5
+      },
+      "by_granularity": {
+        "individual": 25
+      },
+      "donor_levels": {
+        "commune": 25
+      },
+      "parquet": "data/canonical/parts/legacy-commune-rillieux-la-pape.parquet",
+      "amount_total": 3988461.0
+    },
+    {
+      "source_id": "commune-saint-gonlay",
+      "registered_id": "commune-saint-gonlay",
+      "file": "data/sources/commune-saint-gonlay.js",
+      "rows_read": 9,
+      "rows_kept": 9,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 9
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 9,
+        "no_siret": 9,
+        "no_rna": 9,
+        "no_source_url": 9
+      },
+      "by_granularity": {
+        "individual": 9
+      },
+      "donor_levels": {
+        "commune": 9
+      },
+      "parquet": "data/canonical/parts/legacy-commune-saint-gonlay.parquet",
+      "amount_total": 22680.0
+    },
+    {
+      "source_id": "commune-saint-laurent-de-mure",
+      "registered_id": "commune-saint-laurent-de-mure",
+      "file": "data/sources/commune-saint-laurent-de-mure.js",
+      "rows_read": 8,
+      "rows_kept": 8,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 8
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 8,
+        "no_rna": 8,
+        "no_source_url": 8
+      },
+      "by_granularity": {
+        "individual": 8
+      },
+      "donor_levels": {
+        "commune": 8
+      },
+      "parquet": "data/canonical/parts/legacy-commune-saint-laurent-de-mure.parquet",
+      "amount_total": 388865.82
+    },
+    {
+      "source_id": "commune-sarcelles",
+      "registered_id": "commune-sarcelles",
+      "file": "data/sources/commune-sarcelles.js",
+      "rows_read": 23,
+      "rows_kept": 23,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 23
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 23,
+        "no_source_url": 23
+      },
+      "by_granularity": {
+        "individual": 23
+      },
+      "donor_levels": {
+        "commune": 23
+      },
+      "parquet": "data/canonical/parts/legacy-commune-sarcelles.parquet",
+      "amount_total": 1601940.0
+    },
+    {
+      "source_id": "commune-sautron-23k",
+      "registered_id": "commune-sautron-23k",
+      "file": "data/sources/commune-sautron-23k.js",
+      "rows_read": 6,
+      "rows_kept": 6,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 6
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 6,
+        "no_source_url": 6
+      },
+      "by_granularity": {
+        "individual": 6
+      },
+      "donor_levels": {
+        "commune": 6
+      },
+      "parquet": "data/canonical/parts/legacy-commune-sautron-23k.parquet",
+      "amount_total": 1170089.67
+    },
+    {
+      "source_id": "commune-sautron",
+      "registered_id": "commune-sautron",
+      "file": "data/sources/commune-sautron.js",
+      "rows_read": 6,
+      "rows_kept": 6,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 6
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 6,
+        "siret_scientific_notation": 6,
+        "no_rna": 6,
+        "no_source_url": 6
+      },
+      "by_granularity": {
+        "individual": 6
+      },
+      "donor_levels": {
+        "commune": 6
+      },
+      "parquet": "data/canonical/parts/legacy-commune-sautron.parquet",
+      "amount_total": 1170089.67
+    },
+    {
+      "source_id": "commune-sixt-sur-aff",
+      "registered_id": "commune-sixt-sur-aff",
+      "file": "data/sources/commune-sixt-sur-aff.js",
+      "rows_read": 69,
+      "rows_kept": 69,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 69
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 56,
+        "no_rna": 69,
+        "no_source_url": 69,
+        "siret_invalid": 1
+      },
+      "by_granularity": {
+        "individual": 69
+      },
+      "donor_levels": {
+        "commune": 69
+      },
+      "parquet": "data/canonical/parts/legacy-commune-sixt-sur-aff.parquet",
+      "amount_total": 62253.05
+    },
+    {
+      "source_id": "commune-soissons",
+      "registered_id": "commune-soissons",
+      "file": "data/sources/commune-soissons.js",
+      "rows_read": 1401,
+      "rows_kept": 1401,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 1401
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 1401,
+        "no_rna": 1401,
+        "no_source_url": 1401,
+        "beneficiary_not_association": 4
+      },
+      "by_granularity": {
+        "individual": 1401
+      },
+      "donor_levels": {
+        "commune": 1401
+      },
+      "parquet": "data/canonical/parts/legacy-commune-soissons.parquet",
+      "amount_total": 6856656.0
+    },
+    {
+      "source_id": "commune-talensac",
+      "registered_id": "commune-talensac",
+      "file": "data/sources/commune-talensac.js",
+      "rows_read": 110,
+      "rows_kept": 110,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 110
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 110,
+        "no_rna": 110,
+        "no_source_url": 110
+      },
+      "by_granularity": {
+        "individual": 110
+      },
+      "donor_levels": {
+        "commune": 110
+      },
+      "parquet": "data/canonical/parts/legacy-commune-talensac.parquet",
+      "amount_total": 18661200.0
+    },
+    {
+      "source_id": "communes-centre",
+      "registered_id": "communes-centre",
+      "file": "data/sources/communes-centre.js",
+      "rows_read": 160,
+      "rows_kept": 160,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 160
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 157,
+        "no_rna": 160,
+        "no_source_url": 160,
+        "siret_invalid": 56,
+        "year_missing": 22,
+        "beneficiary_not_association": 4
+      },
+      "by_granularity": {
+        "individual": 160
+      },
+      "donor_levels": {
+        "commune": 160
+      },
+      "parquet": "data/canonical/parts/legacy-communes-centre.parquet",
+      "amount_total": 473642.45
+    },
+    {
+      "source_id": "communes-pays-loire",
+      "registered_id": "communes-pays-loire",
+      "file": "data/sources/communes-pays-loire.js",
+      "rows_read": 1150,
+      "rows_kept": 1150,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 1150
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 1150,
+        "no_source_url": 1150,
+        "no_siret": 632,
+        "siret_invalid": 11,
+        "beneficiary_not_association": 11,
+        "amount_implausible": 3
+      },
+      "by_granularity": {
+        "individual": 1150
+      },
+      "donor_levels": {
+        "commune": 1150
+      },
+      "parquet": "data/canonical/parts/legacy-communes-pays-loire.parquet",
+      "amount_total": 2793209.99
+    },
+    {
+      "source_id": "culture-2",
+      "registered_id": "culture-2",
+      "file": "data/sources/culture-2.js",
+      "rows_read": 111532,
+      "rows_kept": 111532,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 111532
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 111532,
+        "no_source_url": 111532,
+        "dep_unknown": 1240,
+        "amount_negative": 157,
+        "no_siret": 4826,
+        "beneficiary_not_association": 10985
+      },
+      "by_granularity": {
+        "individual": 111532
+      },
+      "donor_levels": {
+        "etat": 111532
+      },
+      "parquet": "data/canonical/parts/legacy-culture-2.parquet",
+      "amount_total": 5129004780.0
+    },
+    {
+      "source_id": "culture",
+      "registered_id": "culture",
+      "file": "data/sources/culture.js",
+      "rows_read": 111532,
+      "rows_kept": 111532,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 111532
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 1017,
+        "no_siret": 8936,
+        "no_rna": 111532,
+        "no_source_url": 111532,
+        "beneficiary_not_association": 26294,
+        "amount_negative": 5745
+      },
+      "by_granularity": {
+        "individual": 111532
+      },
+      "donor_levels": {
+        "etat": 111532
+      },
+      "parquet": "data/canonical/parts/legacy-culture.parquet",
+      "amount_total": 7570346359.0
+    },
+    {
+      "source_id": "dept-seine-saint-denis",
+      "registered_id": "dept-seine-saint-denis",
+      "file": "data/sources/dept-seine-saint-denis.js",
+      "rows_read": 508,
+      "rows_kept": 508,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 508
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 508,
+        "no_rna": 508,
+        "no_source_url": 508,
+        "beneficiary_not_association": 1
+      },
+      "by_granularity": {
+        "individual": 508
+      },
+      "donor_levels": {
+        "departement": 508
+      },
+      "parquet": "data/canonical/parts/legacy-dept-seine-saint-denis.parquet",
+      "amount_total": 44283792.0
+    },
+    {
+      "source_id": "detr-2015",
+      "registered_id": "detr-2015",
+      "file": "data/sources/detr-2015.js",
+      "rows_read": 0,
+      "rows_kept": 0,
+      "rows_dropped": 0,
+      "shapes": {},
+      "drop_reasons": {},
+      "flags": {},
+      "by_granularity": {},
+      "donor_levels": {},
+      "parquet": "data/canonical/parts/legacy-detr-2015.parquet",
+      "amount_total": 0
+    },
+    {
+      "source_id": "dilcrah-2024",
+      "registered_id": "dilcrah-2024",
+      "file": "data/sources/dilcrah-2024.js",
+      "rows_read": 188,
+      "rows_kept": 188,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 188
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 188,
+        "no_siret": 188,
+        "no_rna": 188,
+        "no_source_url": 188,
+        "beneficiary_not_association": 7
+      },
+      "by_granularity": {
+        "individual": 188
+      },
+      "donor_levels": {
+        "etat": 188
+      },
+      "parquet": "data/canonical/parts/legacy-dilcrah-2024.parquet",
+      "amount_total": 7572535.0
+    },
+    {
+      "source_id": "dilcrah-2025",
+      "registered_id": "dilcrah-2025",
+      "file": "data/sources/dilcrah-2025.js",
+      "rows_read": 218,
+      "rows_kept": 218,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 218
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 218,
+        "no_siret": 218,
+        "no_rna": 218,
+        "no_source_url": 218,
+        "amount_zero": 56,
+        "beneficiary_not_association": 10
+      },
+      "by_granularity": {
+        "individual": 218
+      },
+      "donor_levels": {
+        "etat": 218
+      },
+      "parquet": "data/canonical/parts/legacy-dilcrah-2025.parquet",
+      "amount_total": 7267600.0
+    },
+    {
+      "source_id": "ditp",
+      "registered_id": "ditp",
+      "file": "data/sources/ditp.js",
+      "rows_read": 7,
+      "rows_kept": 7,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 7
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 7,
+        "no_siret": 7,
+        "no_rna": 7,
+        "no_source_url": 7
+      },
+      "by_granularity": {
+        "individual": 7
+      },
+      "donor_levels": {
+        "etat": 7
+      },
+      "parquet": "data/canonical/parts/legacy-ditp.parquet",
+      "amount_total": 970000.0
+    },
+    {
+      "source_id": "ecole-beaux-arts-nantes",
+      "registered_id": "ecole-beaux-arts-nantes",
+      "file": "data/sources/ecole-beaux-arts-nantes.js",
+      "rows_read": 9,
+      "rows_kept": 9,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 9
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 9,
+        "no_source_url": 9
+      },
+      "by_granularity": {
+        "individual": 9
+      },
+      "donor_levels": {
+        "operateur": 9
+      },
+      "parquet": "data/canonical/parts/legacy-ecole-beaux-arts-nantes.parquet",
+      "amount_total": 449948.87
+    },
+    {
+      "source_id": "efs-aura",
+      "registered_id": "efs-aura",
+      "file": "data/sources/efs-aura.js",
+      "rows_read": 10,
+      "rows_kept": 10,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 10
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 10,
+        "no_siret": 10,
+        "no_rna": 10,
+        "no_source_url": 10
+      },
+      "by_granularity": {
+        "individual": 10
+      },
+      "donor_levels": {
+        "operateur": 10
+      },
+      "parquet": "data/canonical/parts/legacy-efs-aura.parquet",
+      "amount_total": 579622.0
+    },
+    {
+      "source_id": "efs-cpdl",
+      "registered_id": "efs-cpdl",
+      "file": "data/sources/efs-cpdl.js",
+      "rows_read": 8,
+      "rows_kept": 8,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 8
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 8,
+        "no_rna": 8,
+        "no_source_url": 8
+      },
+      "by_granularity": {
+        "individual": 8
+      },
+      "donor_levels": {
+        "operateur": 8
+      },
+      "parquet": "data/canonical/parts/legacy-efs-cpdl.parquet",
+      "amount_total": 322269.36
+    },
+    {
+      "source_id": "efs-ocpm",
+      "registered_id": "efs-ocpm",
+      "file": "data/sources/efs-ocpm.js",
+      "rows_read": 8,
+      "rows_kept": 8,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 8
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 8,
+        "no_rna": 8,
+        "no_source_url": 8,
+        "no_siret": 2,
+        "siret_invalid": 2
+      },
+      "by_granularity": {
+        "individual": 8
+      },
+      "donor_levels": {
+        "operateur": 8
+      },
+      "parquet": "data/canonical/parts/legacy-efs-ocpm.parquet",
+      "amount_total": 71706.82
+    },
+    {
+      "source_id": "efs-siege",
+      "registered_id": "efs-siege",
+      "file": "data/sources/efs-siege.js",
+      "rows_read": 12,
+      "rows_kept": 12,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 12
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 12,
+        "no_rna": 12,
+        "no_source_url": 12,
+        "no_siret": 3,
+        "siret_invalid": 2
+      },
+      "by_granularity": {
+        "individual": 12
+      },
+      "donor_levels": {
+        "operateur": 12
+      },
+      "parquet": "data/canonical/parts/legacy-efs-siege.parquet",
+      "amount_total": 174000.0
+    },
+    {
+      "source_id": "epci-gpso",
+      "registered_id": "epci-gpso",
+      "file": "data/sources/epci-gpso.js",
+      "rows_read": 116,
+      "rows_kept": 116,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 116
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_source_url": 116,
+        "no_rna": 14
+      },
+      "by_granularity": {
+        "individual": 116
+      },
+      "donor_levels": {
+        "epci": 116
+      },
+      "parquet": "data/canonical/parts/legacy-epci-gpso.parquet",
+      "amount_total": 40320767.0
+    },
+    {
+      "source_id": "etat-bop177",
+      "registered_id": "etat-bop177",
+      "file": "data/sources/etat-bop177.js",
+      "rows_read": 289,
+      "rows_kept": 289,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 289
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 289,
+        "no_source_url": 289,
+        "no_siret": 22,
+        "siret_invalid": 22,
+        "beneficiary_not_association": 33
+      },
+      "by_granularity": {
+        "individual": 289
+      },
+      "donor_levels": {
+        "etat": 289
+      },
+      "parquet": "data/canonical/parts/legacy-etat-bop177.parquet",
+      "amount_total": 26986429.68
+    },
+    {
+      "source_id": "etat-cabinet-pm",
+      "registered_id": "etat-cabinet-pm",
+      "file": "data/sources/etat-cabinet-pm.js",
+      "rows_read": 51,
+      "rows_kept": 51,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 51
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 51,
+        "no_rna": 51,
+        "no_source_url": 51
+      },
+      "by_granularity": {
+        "individual": 51
+      },
+      "donor_levels": {
+        "etat": 51
+      },
+      "parquet": "data/canonical/parts/legacy-etat-cabinet-pm.parquet",
+      "amount_total": 51.0
+    },
+    {
+      "source_id": "etat-dilcrah",
+      "registered_id": "etat-dilcrah",
+      "file": "data/sources/etat-dilcrah.js",
+      "rows_read": 557,
+      "rows_kept": 557,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 557
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 557,
+        "no_siret": 176,
+        "siret_invalid": 171,
+        "no_rna": 557,
+        "no_source_url": 557,
+        "beneficiary_not_association": 33
+      },
+      "by_granularity": {
+        "individual": 557
+      },
+      "donor_levels": {
+        "etat": 557
+      },
+      "parquet": "data/canonical/parts/legacy-etat-dilcrah.parquet",
+      "amount_total": 20739140.0
+    },
+    {
+      "source_id": "feder-hauts-de-france",
+      "registered_id": "feder-hauts-de-france",
+      "file": "data/sources/feder-hauts-de-france.js",
+      "rows_read": 1075,
+      "rows_kept": 1075,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 1075
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 1075,
+        "no_source_url": 1075,
+        "beneficiary_not_association": 36,
+        "no_siret": 6,
+        "dep_unknown": 33
+      },
+      "by_granularity": {
+        "individual": 1075
+      },
+      "donor_levels": {
+        "region": 1075
+      },
+      "parquet": "data/canonical/parts/legacy-feder-hauts-de-france.parquet",
+      "amount_total": 763512873.0
+    },
+    {
+      "source_id": "idf-sante",
+      "registered_id": "idf-sante",
+      "file": "data/sources/idf-sante.js",
+      "rows_read": 515,
+      "rows_kept": 515,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 515
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 509,
+        "no_rna": 515,
+        "beneficiary_not_association": 124,
+        "no_source_url": 515
+      },
+      "by_granularity": {
+        "individual": 515
+      },
+      "donor_levels": {
+        "region": 515
+      },
+      "parquet": "data/canonical/parts/legacy-idf-sante.parquet",
+      "amount_total": 292624351.67
+    },
+    {
+      "source_id": "metropole-bordeaux",
+      "registered_id": "metropole-bordeaux",
+      "file": "data/sources/metropole-bordeaux.js",
+      "rows_read": 1177,
+      "rows_kept": 1177,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 1177
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 1177,
+        "no_source_url": 1177,
+        "no_siret": 110,
+        "siret_invalid": 102,
+        "year_missing": 7
+      },
+      "by_granularity": {
+        "individual": 1177
+      },
+      "donor_levels": {
+        "epci": 1177
+      },
+      "parquet": "data/canonical/parts/legacy-metropole-bordeaux.parquet",
+      "amount_total": 140793249.0
+    },
+    {
+      "source_id": "metropole-clermont",
+      "registered_id": "metropole-clermont",
+      "file": "data/sources/metropole-clermont.js",
+      "rows_read": 327,
+      "rows_kept": 327,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 327
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 327,
+        "no_source_url": 327,
+        "no_siret": 3,
+        "beneficiary_not_association": 13
+      },
+      "by_granularity": {
+        "individual": 327
+      },
+      "donor_levels": {
+        "epci": 327
+      },
+      "parquet": "data/canonical/parts/legacy-metropole-clermont.parquet",
+      "amount_total": 36011943.75
+    },
+    {
+      "source_id": "metropole-grenoble",
+      "registered_id": "metropole-grenoble",
+      "file": "data/sources/metropole-grenoble.js",
+      "rows_read": 2631,
+      "rows_kept": 2631,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 2631
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 1830,
+        "no_rna": 2631,
+        "no_source_url": 2631,
+        "beneficiary_not_association": 5,
+        "siret_invalid": 3
+      },
+      "by_granularity": {
+        "individual": 2631
+      },
+      "donor_levels": {
+        "epci": 2631
+      },
+      "parquet": "data/canonical/parts/legacy-metropole-grenoble.parquet",
+      "amount_total": 78433531.0
+    },
+    {
+      "source_id": "metropole-lyon",
+      "registered_id": "metropole-lyon",
+      "file": "data/sources/metropole-lyon.js",
+      "rows_read": 9081,
+      "rows_kept": 9081,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 9081
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 9081,
+        "no_rna": 9081,
+        "no_source_url": 9081,
+        "no_siret": 241,
+        "siret_invalid": 3,
+        "beneficiary_not_association": 71
+      },
+      "by_granularity": {
+        "individual": 9081
+      },
+      "donor_levels": {
+        "epci": 9081
+      },
+      "parquet": "data/canonical/parts/legacy-metropole-lyon.parquet",
+      "amount_total": 48001211807.0
+    },
+    {
+      "source_id": "metropole-nantes",
+      "registered_id": "metropole-nantes",
+      "file": "data/sources/metropole-nantes.js",
+      "rows_read": 2874,
+      "rows_kept": 2874,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 2874
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 2874,
+        "no_source_url": 2874,
+        "no_siret": 38,
+        "siret_invalid": 38,
+        "beneficiary_not_association": 47
+      },
+      "by_granularity": {
+        "individual": 2874
+      },
+      "donor_levels": {
+        "epci": 2874
+      },
+      "parquet": "data/canonical/parts/legacy-metropole-nantes.parquet",
+      "amount_total": 289959524.39
+    },
+    {
+      "source_id": "metropole-toulouse",
+      "registered_id": "metropole-toulouse",
+      "file": "data/sources/metropole-toulouse.js",
+      "rows_read": 3521,
+      "rows_kept": 3521,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 3521
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 3521,
+        "no_source_url": 3521,
+        "beneficiary_not_association": 189,
+        "no_siret": 125,
+        "siret_invalid": 2
+      },
+      "by_granularity": {
+        "individual": 3521
+      },
+      "donor_levels": {
+        "epci": 3521
+      },
+      "parquet": "data/canonical/parts/legacy-metropole-toulouse.parquet",
+      "amount_total": 949351360.15
+    },
+    {
+      "source_id": "ministere-agriculture",
+      "registered_id": "ministere-agriculture",
+      "file": "data/sources/ministere-agriculture.js",
+      "rows_read": 1840,
+      "rows_kept": 1840,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 1840
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 1840,
+        "no_rna": 1840,
+        "no_source_url": 1840,
+        "no_siret": 23,
+        "siret_invalid": 23,
+        "beneficiary_not_association": 1
+      },
+      "by_granularity": {
+        "individual": 1840
+      },
+      "donor_levels": {
+        "etat": 1840
+      },
+      "parquet": "data/canonical/parts/legacy-ministere-agriculture.parquet",
+      "amount_total": 1400384955.97
+    },
+    {
+      "source_id": "paris",
+      "registered_id": "paris",
+      "file": "data/sources/paris.js",
+      "rows_read": 76207,
+      "rows_kept": 76207,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 76207
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 76207,
+        "no_siret": 427,
+        "siret_invalid": 361,
+        "beneficiary_not_association": 190
+      },
+      "by_granularity": {
+        "individual": 76206,
+        "aggregate": 1
+      },
+      "donor_levels": {
+        "commune": 14883,
+        "departement": 61324
+      },
+      "parquet": "data/canonical/parts/legacy-paris.parquet",
+      "amount_total": 3915673097.0
+    },
+    {
+      "source_id": "pays-basque-2023",
+      "registered_id": "pays-basque-2023",
+      "file": "data/sources/pays-basque-2023.js",
+      "rows_read": 79,
+      "rows_kept": 79,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 79
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 68,
+        "siret_invalid": 68,
+        "no_rna": 79,
+        "no_source_url": 79,
+        "beneficiary_not_association": 1
+      },
+      "by_granularity": {
+        "individual": 79
+      },
+      "donor_levels": {
+        "epci": 79
+      },
+      "parquet": "data/canonical/parts/legacy-pays-basque-2023.parquet",
+      "amount_total": 6033792.51
+    },
+    {
+      "source_id": "region-centre",
+      "registered_id": "region-centre",
+      "file": "data/sources/region-centre.js",
+      "rows_read": 3303,
+      "rows_kept": 3303,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 3303
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 3303,
+        "no_rna": 3303,
+        "no_source_url": 3303,
+        "beneficiary_not_association": 35,
+        "no_siret": 81,
+        "siret_invalid": 1
+      },
+      "by_granularity": {
+        "individual": 3303
+      },
+      "donor_levels": {
+        "region": 3303
+      },
+      "parquet": "data/canonical/parts/legacy-region-centre.parquet",
+      "amount_total": 729981661.02
+    },
+    {
+      "source_id": "region-idf",
+      "registered_id": "region-idf",
+      "file": "data/sources/region-idf.js",
+      "rows_read": 33071,
+      "rows_kept": 33071,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 33071
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 33071,
+        "no_source_url": 33071,
+        "beneficiary_not_association": 247,
+        "no_siret": 28790,
+        "siret_invalid": 265
+      },
+      "by_granularity": {
+        "individual": 33071
+      },
+      "donor_levels": {
+        "region": 33071
+      },
+      "parquet": "data/canonical/parts/legacy-region-idf.parquet",
+      "amount_total": 2738936203.79
+    },
+    {
+      "source_id": "reserve-ministerielle",
+      "registered_id": "reserve-ministerielle",
+      "file": "data/sources/reserve-ministerielle.js",
+      "rows_read": 3243,
+      "rows_kept": 3243,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 3243
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 3243,
+        "no_rna": 3243,
+        "no_source_url": 3243,
+        "dep_unknown": 51,
+        "beneficiary_not_association": 81
+      },
+      "by_granularity": {
+        "individual": 3243
+      },
+      "donor_levels": {
+        "etat": 3243
+      },
+      "parquet": "data/canonical/parts/legacy-reserve-ministerielle.parquet",
+      "amount_total": 55550746.3
+    },
+    {
+      "source_id": "sdis-gironde",
+      "registered_id": "sdis-gironde",
+      "file": "data/sources/sdis-gironde.js",
+      "rows_read": 3,
+      "rows_kept": 3,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 3
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 3,
+        "no_siret": 3,
+        "siret_invalid": 3,
+        "no_rna": 3,
+        "no_source_url": 3
+      },
+      "by_granularity": {
+        "individual": 3
+      },
+      "donor_levels": {
+        "operateur": 3
+      },
+      "parquet": "data/canonical/parts/legacy-sdis-gironde.parquet",
+      "amount_total": 657000.0
+    },
+    {
+      "source_id": "subv-associations-2024",
+      "registered_id": "subv-associations-2024",
+      "file": "data/sources/subv-associations-2024.js",
+      "rows_read": 32,
+      "rows_kept": 32,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 32
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 32,
+        "no_siret": 32,
+        "no_rna": 32,
+        "donor_unattributed": 32,
+        "no_source_url": 32,
+        "beneficiary_not_association": 1
+      },
+      "by_granularity": {
+        "individual": 32
+      },
+      "donor_levels": {
+        "inconnu": 32
+      },
+      "parquet": "data/canonical/parts/legacy-subv-associations-2024.parquet",
+      "amount_total": 100319.0
+    },
+    {
+      "source_id": "subv-communales",
+      "registered_id": "subv-communales",
+      "file": "data/sources/subv-communales.js",
+      "rows_read": 137,
+      "rows_kept": 137,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 137
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_invalid": 137,
+        "dep_unknown": 137,
+        "no_siret": 137,
+        "no_rna": 137,
+        "donor_unattributed": 137,
+        "no_source_url": 137
+      },
+      "by_granularity": {
+        "individual": 137
+      },
+      "donor_levels": {
+        "inconnu": 137
+      },
+      "parquet": "data/canonical/parts/legacy-subv-communales.parquet",
+      "amount_total": 1599169.0
+    },
+    {
+      "source_id": "subv-sup-23k-2024",
+      "registered_id": "subv-sup-23k-2024",
+      "file": "data/sources/subv-sup-23k-2024.js",
+      "rows_read": 16,
+      "rows_kept": 16,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 16
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 16,
+        "no_rna": 16,
+        "no_source_url": 16
+      },
+      "by_granularity": {
+        "individual": 16
+      },
+      "donor_levels": {
+        "commune": 16
+      },
+      "parquet": "data/canonical/parts/legacy-subv-sup-23k-2024.parquet",
+      "amount_total": 1561441.0
+    },
+    {
+      "source_id": "subv-votees-23k",
+      "registered_id": "subv-votees-23k",
+      "file": "data/sources/subv-votees-23k.js",
+      "rows_read": 22,
+      "rows_kept": 22,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 22
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_invalid": 22,
+        "dep_unknown": 22,
+        "no_siret": 22,
+        "no_rna": 22,
+        "donor_unattributed": 22,
+        "no_source_url": 22
+      },
+      "by_granularity": {
+        "individual": 22
+      },
+      "donor_levels": {
+        "inconnu": 22
+      },
+      "parquet": "data/canonical/parts/legacy-subv-votees-23k.parquet",
+      "amount_total": 318576.6
+    },
+    {
+      "source_id": "ville-anglet",
+      "registered_id": "ville-anglet",
+      "file": "data/sources/ville-anglet.js",
+      "rows_read": 85,
+      "rows_kept": 85,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 85
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 85,
+        "no_source_url": 85,
+        "beneficiary_not_association": 6,
+        "year_invalid": 1
+      },
+      "by_granularity": {
+        "individual": 85
+      },
+      "donor_levels": {
+        "commune": 85
+      },
+      "parquet": "data/canonical/parts/legacy-ville-anglet.parquet",
+      "amount_total": 8652355.0
+    },
+    {
+      "source_id": "ville-arras-2017",
+      "registered_id": "ville-arras-2017",
+      "file": "data/sources/ville-arras-2017.js",
+      "rows_read": 168,
+      "rows_kept": 168,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 168
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 168,
+        "no_rna": 168,
+        "no_source_url": 168,
+        "beneficiary_not_association": 4
+      },
+      "by_granularity": {
+        "individual": 168
+      },
+      "donor_levels": {
+        "commune": 168
+      },
+      "parquet": "data/canonical/parts/legacy-ville-arras-2017.parquet",
+      "amount_total": 3572249.04
+    },
+    {
+      "source_id": "ville-arras-2018",
+      "registered_id": "ville-arras-2018",
+      "file": "data/sources/ville-arras-2018.js",
+      "rows_read": 72,
+      "rows_kept": 72,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 72
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 72,
+        "no_source_url": 72
+      },
+      "by_granularity": {
+        "individual": 72
+      },
+      "donor_levels": {
+        "commune": 72
+      },
+      "parquet": "data/canonical/parts/legacy-ville-arras-2018.parquet",
+      "amount_total": 1295200.0
+    },
+    {
+      "source_id": "ville-asnieres",
+      "registered_id": "ville-asnieres",
+      "file": "data/sources/ville-asnieres.js",
+      "rows_read": 22,
+      "rows_kept": 22,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 22
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 22,
+        "no_rna": 22,
+        "no_source_url": 22
+      },
+      "by_granularity": {
+        "individual": 22
+      },
+      "donor_levels": {
+        "commune": 22
+      },
+      "parquet": "data/canonical/parts/legacy-ville-asnieres.parquet",
+      "amount_total": 2185201.0
+    },
+    {
+      "source_id": "ville-bar-le-duc",
+      "registered_id": "ville-bar-le-duc",
+      "file": "data/sources/ville-bar-le-duc.js",
+      "rows_read": 33,
+      "rows_kept": 33,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 33
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 33,
+        "no_source_url": 33
+      },
+      "by_granularity": {
+        "individual": 33
+      },
+      "donor_levels": {
+        "commune": 32,
+        "operateur": 1
+      },
+      "parquet": "data/canonical/parts/legacy-ville-bar-le-duc.parquet",
+      "amount_total": 3855898.15
+    },
+    {
+      "source_id": "ville-bauge-anjou",
+      "registered_id": "ville-bauge-anjou",
+      "file": "data/sources/ville-bauge-anjou.js",
+      "rows_read": 281,
+      "rows_kept": 281,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 281
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 281,
+        "no_rna": 281,
+        "no_source_url": 281
+      },
+      "by_granularity": {
+        "individual": 281
+      },
+      "donor_levels": {
+        "commune": 281
+      },
+      "parquet": "data/canonical/parts/legacy-ville-bauge-anjou.parquet",
+      "amount_total": 115403382.0
+    },
+    {
+      "source_id": "ville-bayonne",
+      "registered_id": "ville-bayonne",
+      "file": "data/sources/ville-bayonne.js",
+      "rows_read": 111,
+      "rows_kept": 111,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 111
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 111,
+        "no_source_url": 111
+      },
+      "by_granularity": {
+        "individual": 111
+      },
+      "donor_levels": {
+        "commune": 111
+      },
+      "parquet": "data/canonical/parts/legacy-ville-bayonne.parquet",
+      "amount_total": 10429101.0
+    },
+    {
+      "source_id": "ville-boulogne-billancourt",
+      "registered_id": "ville-boulogne-billancourt",
+      "file": "data/sources/ville-boulogne-billancourt.js",
+      "rows_read": 62,
+      "rows_kept": 62,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 62
+      },
+      "drop_reasons": {},
+      "flags": {
+        "year_missing": 62,
+        "no_siret": 62,
+        "siret_invalid": 62,
+        "no_rna": 62,
+        "no_source_url": 62
+      },
+      "by_granularity": {
+        "individual": 62
+      },
+      "donor_levels": {
+        "commune": 62
+      },
+      "parquet": "data/canonical/parts/legacy-ville-boulogne-billancourt.parquet",
+      "amount_total": 834398991.25
+    },
+    {
+      "source_id": "ville-boulogne",
+      "registered_id": "ville-boulogne",
+      "file": "data/sources/ville-boulogne.js",
+      "rows_read": 49,
+      "rows_kept": 49,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 49
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 49,
+        "no_rna": 49,
+        "no_source_url": 49
+      },
+      "by_granularity": {
+        "individual": 49
+      },
+      "donor_levels": {
+        "commune": 49
+      },
+      "parquet": "data/canonical/parts/legacy-ville-boulogne.parquet",
+      "amount_total": 9098028.25
+    },
+    {
+      "source_id": "ville-carquefou-2025",
+      "registered_id": "ville-carquefou-2025",
+      "file": "data/sources/ville-carquefou-2025.js",
+      "rows_read": 14,
+      "rows_kept": 14,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 14
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 14,
+        "no_source_url": 14
+      },
+      "by_granularity": {
+        "individual": 14
+      },
+      "donor_levels": {
+        "commune": 14
+      },
+      "parquet": "data/canonical/parts/legacy-ville-carquefou-2025.parquet",
+      "amount_total": 1463955.0
+    },
+    {
+      "source_id": "ville-charleville-mezieres",
+      "registered_id": "ville-charleville-mezieres",
+      "file": "data/sources/ville-charleville-mezieres.js",
+      "rows_read": 39,
+      "rows_kept": 39,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 39
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 39,
+        "no_source_url": 39
+      },
+      "by_granularity": {
+        "individual": 39
+      },
+      "donor_levels": {
+        "commune": 39
+      },
+      "parquet": "data/canonical/parts/legacy-ville-charleville-mezieres.parquet",
+      "amount_total": 3256714.0
+    },
+    {
+      "source_id": "ville-dreux",
+      "registered_id": "ville-dreux",
+      "file": "data/sources/ville-dreux.js",
+      "rows_read": 43,
+      "rows_kept": 43,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 43
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 43,
+        "no_source_url": 43,
+        "no_siret": 1,
+        "siret_invalid": 1
+      },
+      "by_granularity": {
+        "individual": 43
+      },
+      "donor_levels": {
+        "commune": 43
+      },
+      "parquet": "data/canonical/parts/legacy-ville-dreux.parquet",
+      "amount_total": 2553233.0
+    },
+    {
+      "source_id": "ville-grenoble-2015",
+      "registered_id": "ville-grenoble-2015",
+      "file": "data/sources/ville-grenoble-2015.js",
+      "rows_read": 995,
+      "rows_kept": 995,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 995
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 995,
+        "siret_invalid": 995,
+        "no_rna": 995,
+        "no_source_url": 995,
+        "beneficiary_not_association": 27
+      },
+      "by_granularity": {
+        "individual": 995
+      },
+      "donor_levels": {
+        "commune": 995
+      },
+      "parquet": "data/canonical/parts/legacy-ville-grenoble-2015.parquet",
+      "amount_total": 23240264.0
+    },
+    {
+      "source_id": "ville-grenoble-2016",
+      "registered_id": "ville-grenoble-2016",
+      "file": "data/sources/ville-grenoble-2016.js",
+      "rows_read": 917,
+      "rows_kept": 917,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 917
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 917,
+        "siret_invalid": 917,
+        "no_rna": 917,
+        "no_source_url": 917,
+        "beneficiary_not_association": 24
+      },
+      "by_granularity": {
+        "individual": 917
+      },
+      "donor_levels": {
+        "commune": 917
+      },
+      "parquet": "data/canonical/parts/legacy-ville-grenoble-2016.parquet",
+      "amount_total": 20753331.0
+    },
+    {
+      "source_id": "ville-grenoble",
+      "registered_id": "ville-grenoble",
+      "file": "data/sources/ville-grenoble.js",
+      "rows_read": 3211,
+      "rows_kept": 3211,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 3211
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 3211,
+        "no_rna": 3211,
+        "no_source_url": 3211,
+        "beneficiary_not_association": 87
+      },
+      "by_granularity": {
+        "individual": 3211
+      },
+      "donor_levels": {
+        "commune": 3211
+      },
+      "parquet": "data/canonical/parts/legacy-ville-grenoble.parquet",
+      "amount_total": 79001884.0
+    },
+    {
+      "source_id": "ville-iffendic",
+      "registered_id": "ville-iffendic",
+      "file": "data/sources/ville-iffendic.js",
+      "rows_read": 375,
+      "rows_kept": 375,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 375
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 375,
+        "no_source_url": 375,
+        "no_siret": 163,
+        "siret_invalid": 40
+      },
+      "by_granularity": {
+        "individual": 375
+      },
+      "donor_levels": {
+        "commune": 375
+      },
+      "parquet": "data/canonical/parts/legacy-ville-iffendic.parquet",
+      "amount_total": 352828.08
+    },
+    {
+      "source_id": "ville-issy",
+      "registered_id": "ville-issy",
+      "file": "data/sources/ville-issy.js",
+      "rows_read": 23,
+      "rows_kept": 23,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 23
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 23,
+        "no_rna": 23,
+        "no_source_url": 23
+      },
+      "by_granularity": {
+        "individual": 23
+      },
+      "donor_levels": {
+        "commune": 23
+      },
+      "parquet": "data/canonical/parts/legacy-ville-issy.parquet",
+      "amount_total": 14083276.0
+    },
+    {
+      "source_id": "ville-lannion",
+      "registered_id": "ville-lannion",
+      "file": "data/sources/ville-lannion.js",
+      "rows_read": 179,
+      "rows_kept": 179,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 179
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 179,
+        "no_rna": 179,
+        "no_source_url": 179,
+        "beneficiary_not_association": 1
+      },
+      "by_granularity": {
+        "individual": 179
+      },
+      "donor_levels": {
+        "commune": 179
+      },
+      "parquet": "data/canonical/parts/legacy-ville-lannion.parquet",
+      "amount_total": 3166205.5
+    },
+    {
+      "source_id": "ville-lisieux-2018",
+      "registered_id": "ville-lisieux-2018",
+      "file": "data/sources/ville-lisieux-2018.js",
+      "rows_read": 119,
+      "rows_kept": 119,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 119
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 119,
+        "no_rna": 119,
+        "no_source_url": 119,
+        "beneficiary_not_association": 1
+      },
+      "by_granularity": {
+        "individual": 119
+      },
+      "donor_levels": {
+        "commune": 119
+      },
+      "parquet": "data/canonical/parts/legacy-ville-lisieux-2018.parquet",
+      "amount_total": 618904.0
+    },
+    {
+      "source_id": "ville-lisieux",
+      "registered_id": "ville-lisieux",
+      "file": "data/sources/ville-lisieux.js",
+      "rows_read": 119,
+      "rows_kept": 119,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 119
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 119,
+        "no_rna": 119,
+        "no_source_url": 119,
+        "beneficiary_not_association": 1
+      },
+      "by_granularity": {
+        "individual": 119
+      },
+      "donor_levels": {
+        "commune": 119
+      },
+      "parquet": "data/canonical/parts/legacy-ville-lisieux.parquet",
+      "amount_total": 618904.0
+    },
+    {
+      "source_id": "ville-longjumeau",
+      "registered_id": "ville-longjumeau",
+      "file": "data/sources/ville-longjumeau.js",
+      "rows_read": 5,
+      "rows_kept": 5,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 5
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 5,
+        "no_rna": 5,
+        "no_source_url": 5
+      },
+      "by_granularity": {
+        "individual": 5
+      },
+      "donor_levels": {
+        "commune": 5
+      },
+      "parquet": "data/canonical/parts/legacy-ville-longjumeau.parquet",
+      "amount_total": 184000.0
+    },
+    {
+      "source_id": "ville-lyon",
+      "registered_id": "ville-lyon",
+      "file": "data/sources/ville-lyon.js",
+      "rows_read": 4356,
+      "rows_kept": 4356,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 4356
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 4356,
+        "no_source_url": 4356,
+        "year_missing": 3741,
+        "no_siret": 1279,
+        "siret_invalid": 4,
+        "beneficiary_not_association": 1
+      },
+      "by_granularity": {
+        "individual": 4356
+      },
+      "donor_levels": {
+        "commune": 4356
+      },
+      "parquet": "data/canonical/parts/legacy-ville-lyon.parquet",
+      "amount_total": 210203277.71
+    },
+    {
+      "source_id": "ville-manosque-2025",
+      "registered_id": "ville-manosque-2025",
+      "file": "data/sources/ville-manosque-2025.js",
+      "rows_read": 13,
+      "rows_kept": 13,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 13
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 12,
+        "siret_scientific_notation": 12,
+        "no_rna": 13,
+        "no_source_url": 13,
+        "year_invalid": 1,
+        "beneficiary_not_association": 1
+      },
+      "by_granularity": {
+        "individual": 13
+      },
+      "donor_levels": {
+        "commune": 13
+      },
+      "parquet": "data/canonical/parts/legacy-ville-manosque-2025.parquet",
+      "amount_total": 7322589.0
+    },
+    {
+      "source_id": "ville-marseille",
+      "registered_id": "ville-marseille",
+      "file": "data/sources/ville-marseille.js",
+      "rows_read": 11164,
+      "rows_kept": 11164,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 11164
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 11164,
+        "no_rna": 11164,
+        "no_source_url": 11164,
+        "beneficiary_not_association": 138
+      },
+      "by_granularity": {
+        "individual": 11164
+      },
+      "donor_levels": {
+        "commune": 11164
+      },
+      "parquet": "data/canonical/parts/legacy-ville-marseille.parquet",
+      "amount_total": 746779826.37
+    },
+    {
+      "source_id": "ville-meudon",
+      "registered_id": "ville-meudon",
+      "file": "data/sources/ville-meudon.js",
+      "rows_read": 103,
+      "rows_kept": 103,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 103
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 103,
+        "no_rna": 103,
+        "beneficiary_not_association": 2,
+        "no_source_url": 103
+      },
+      "by_granularity": {
+        "individual": 103
+      },
+      "donor_levels": {
+        "commune": 103
+      },
+      "parquet": "data/canonical/parts/legacy-ville-meudon.parquet",
+      "amount_total": 5801005.0
+    },
+    {
+      "source_id": "ville-nancy",
+      "registered_id": "ville-nancy",
+      "file": "data/sources/ville-nancy.js",
+      "rows_read": 217,
+      "rows_kept": 217,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 217
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 217,
+        "no_rna": 217,
+        "no_source_url": 217,
+        "siret_invalid": 30
+      },
+      "by_granularity": {
+        "individual": 217
+      },
+      "donor_levels": {
+        "commune": 217
+      },
+      "parquet": "data/canonical/parts/legacy-ville-nancy.parquet",
+      "amount_total": 22331325.79
+    },
+    {
+      "source_id": "ville-nantes",
+      "registered_id": "ville-nantes",
+      "file": "data/sources/ville-nantes.js",
+      "rows_read": 10327,
+      "rows_kept": 10327,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 10327
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 10327,
+        "no_source_url": 10327,
+        "beneficiary_not_association": 109,
+        "no_siret": 265,
+        "siret_invalid": 265
+      },
+      "by_granularity": {
+        "individual": 10327
+      },
+      "donor_levels": {
+        "commune": 10327
+      },
+      "parquet": "data/canonical/parts/legacy-ville-nantes.parquet",
+      "amount_total": 323388529.23
+    },
+    {
+      "source_id": "ville-nogent-2012",
+      "registered_id": "ville-nogent-2012",
+      "file": "data/sources/ville-nogent-2012.js",
+      "rows_read": 129,
+      "rows_kept": 129,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 129
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 129,
+        "no_rna": 129,
+        "no_source_url": 129,
+        "beneficiary_not_association": 4
+      },
+      "by_granularity": {
+        "individual": 129
+      },
+      "donor_levels": {
+        "commune": 129
+      },
+      "parquet": "data/canonical/parts/legacy-ville-nogent-2012.parquet",
+      "amount_total": 1947210.0
+    },
+    {
+      "source_id": "ville-nogent-2013",
+      "registered_id": "ville-nogent-2013",
+      "file": "data/sources/ville-nogent-2013.js",
+      "rows_read": 215,
+      "rows_kept": 215,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 215
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 215,
+        "no_rna": 215,
+        "no_source_url": 215,
+        "beneficiary_not_association": 4
+      },
+      "by_granularity": {
+        "individual": 215
+      },
+      "donor_levels": {
+        "commune": 215
+      },
+      "parquet": "data/canonical/parts/legacy-ville-nogent-2013.parquet",
+      "amount_total": 2899528.0
+    },
+    {
+      "source_id": "ville-nogent-2014",
+      "registered_id": "ville-nogent-2014",
+      "file": "data/sources/ville-nogent-2014.js",
+      "rows_read": 213,
+      "rows_kept": 213,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 213
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 213,
+        "no_rna": 213,
+        "no_source_url": 213,
+        "beneficiary_not_association": 3
+      },
+      "by_granularity": {
+        "individual": 213
+      },
+      "donor_levels": {
+        "commune": 213
+      },
+      "parquet": "data/canonical/parts/legacy-ville-nogent-2014.parquet",
+      "amount_total": 2132945.0
+    },
+    {
+      "source_id": "ville-orvault",
+      "registered_id": "ville-orvault",
+      "file": "data/sources/ville-orvault.js",
+      "rows_read": 79,
+      "rows_kept": 79,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 79
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 79,
+        "no_rna": 79,
+        "no_source_url": 79
+      },
+      "by_granularity": {
+        "individual": 79
+      },
+      "donor_levels": {
+        "commune": 79
+      },
+      "parquet": "data/canonical/parts/legacy-ville-orvault.parquet",
+      "amount_total": 18800465.0
+    },
+    {
+      "source_id": "ville-poinconnet",
+      "registered_id": "ville-poinconnet",
+      "file": "data/sources/ville-poinconnet.js",
+      "rows_read": 20,
+      "rows_kept": 20,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 20
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 20,
+        "no_rna": 20,
+        "no_source_url": 20
+      },
+      "by_granularity": {
+        "individual": 20
+      },
+      "donor_levels": {
+        "commune": 20
+      },
+      "parquet": "data/canonical/parts/legacy-ville-poinconnet.parquet",
+      "amount_total": 90545.0
+    },
+    {
+      "source_id": "ville-quimper",
+      "registered_id": "ville-quimper",
+      "file": "data/sources/ville-quimper.js",
+      "rows_read": 76,
+      "rows_kept": 76,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 76
+      },
+      "drop_reasons": {},
+      "flags": {
+        "dep_unknown": 76,
+        "no_siret": 76,
+        "no_rna": 76,
+        "no_source_url": 76,
+        "beneficiary_not_association": 2
+      },
+      "by_granularity": {
+        "individual": 76
+      },
+      "donor_levels": {
+        "commune": 76
+      },
+      "parquet": "data/canonical/parts/legacy-ville-quimper.parquet",
+      "amount_total": 24556273.88
+    },
+    {
+      "source_id": "ville-redon-2017",
+      "registered_id": "ville-redon-2017",
+      "file": "data/sources/ville-redon-2017.js",
+      "rows_read": 113,
+      "rows_kept": 113,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 113
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 113,
+        "no_rna": 113,
+        "no_source_url": 113,
+        "beneficiary_not_association": 5
+      },
+      "by_granularity": {
+        "individual": 113
+      },
+      "donor_levels": {
+        "commune": 113
+      },
+      "parquet": "data/canonical/parts/legacy-ville-redon-2017.parquet",
+      "amount_total": 243695.0
+    },
+    {
+      "source_id": "ville-redon-2018",
+      "registered_id": "ville-redon-2018",
+      "file": "data/sources/ville-redon-2018.js",
+      "rows_read": 110,
+      "rows_kept": 110,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 110
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 110,
+        "no_rna": 110,
+        "no_source_url": 110,
+        "beneficiary_not_association": 5
+      },
+      "by_granularity": {
+        "individual": 110
+      },
+      "donor_levels": {
+        "commune": 110
+      },
+      "parquet": "data/canonical/parts/legacy-ville-redon-2018.parquet",
+      "amount_total": 375463.21
+    },
+    {
+      "source_id": "ville-redon",
+      "registered_id": "ville-redon",
+      "file": "data/sources/ville-redon.js",
+      "rows_read": 110,
+      "rows_kept": 110,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 110
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 109,
+        "siret_invalid": 98,
+        "no_rna": 110,
+        "no_source_url": 110,
+        "beneficiary_not_association": 5
+      },
+      "by_granularity": {
+        "individual": 110
+      },
+      "donor_levels": {
+        "commune": 110
+      },
+      "parquet": "data/canonical/parts/legacy-ville-redon.parquet",
+      "amount_total": 375463.21
+    },
+    {
+      "source_id": "ville-rennes",
+      "registered_id": "ville-rennes",
+      "file": "data/sources/ville-rennes.js",
+      "rows_read": 17298,
+      "rows_kept": 17298,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 17298
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 17298,
+        "no_rna": 17298,
+        "no_source_url": 17298,
+        "beneficiary_not_association": 238
+      },
+      "by_granularity": {
+        "aggregate": 856,
+        "individual": 16442
+      },
+      "donor_levels": {
+        "commune": 17298
+      },
+      "parquet": "data/canonical/parts/legacy-ville-rennes.parquet",
+      "amount_total": 450782631.06
+    },
+    {
+      "source_id": "ville-roscloff-2017",
+      "registered_id": "ville-roscloff-2017",
+      "file": "data/sources/ville-roscloff-2017.js",
+      "rows_read": 46,
+      "rows_kept": 46,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 46
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 46,
+        "no_rna": 46,
+        "no_source_url": 46,
+        "siret_scientific_notation": 19,
+        "beneficiary_not_association": 1
+      },
+      "by_granularity": {
+        "individual": 46
+      },
+      "donor_levels": {
+        "commune": 46
+      },
+      "parquet": "data/canonical/parts/legacy-ville-roscloff-2017.parquet",
+      "amount_total": 4760300.0
+    },
+    {
+      "source_id": "ville-roubaix",
+      "registered_id": "ville-roubaix",
+      "file": "data/sources/ville-roubaix.js",
+      "rows_read": 585,
+      "rows_kept": 585,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 585
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 189,
+        "siret_invalid": 7,
+        "no_rna": 585,
+        "no_source_url": 585,
+        "beneficiary_not_association": 15,
+        "siret_scientific_notation": 182
+      },
+      "by_granularity": {
+        "individual": 585
+      },
+      "donor_levels": {
+        "commune": 585
+      },
+      "parquet": "data/canonical/parts/legacy-ville-roubaix.parquet",
+      "amount_total": 85434658.0
+    },
+    {
+      "source_id": "ville-sailly",
+      "registered_id": "ville-sailly",
+      "file": "data/sources/ville-sailly.js",
+      "rows_read": 71,
+      "rows_kept": 71,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 71
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 71,
+        "no_source_url": 71,
+        "no_siret": 8
+      },
+      "by_granularity": {
+        "individual": 71
+      },
+      "donor_levels": {
+        "commune": 71
+      },
+      "parquet": "data/canonical/parts/legacy-ville-sailly.parquet",
+      "amount_total": 2319084.0
+    },
+    {
+      "source_id": "ville-sarcelles-2025",
+      "registered_id": "ville-sarcelles-2025",
+      "file": "data/sources/ville-sarcelles-2025.js",
+      "rows_read": 23,
+      "rows_kept": 23,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 23
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 23,
+        "no_source_url": 23
+      },
+      "by_granularity": {
+        "individual": 23
+      },
+      "donor_levels": {
+        "commune": 23
+      },
+      "parquet": "data/canonical/parts/legacy-ville-sarcelles-2025.parquet",
+      "amount_total": 1601940.0
+    },
+    {
+      "source_id": "ville-soissons-2018-2021",
+      "registered_id": "ville-soissons-2018-2021",
+      "file": "data/sources/ville-soissons-2018-2021.js",
+      "rows_read": 610,
+      "rows_kept": 610,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 610
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 610,
+        "no_rna": 610,
+        "no_source_url": 610,
+        "beneficiary_not_association": 2
+      },
+      "by_granularity": {
+        "individual": 610
+      },
+      "donor_levels": {
+        "commune": 610
+      },
+      "parquet": "data/canonical/parts/legacy-ville-soissons-2018-2021.parquet",
+      "amount_total": 3358712.0
+    },
+    {
+      "source_id": "ville-talensac",
+      "registered_id": "ville-talensac",
+      "file": "data/sources/ville-talensac.js",
+      "rows_read": 110,
+      "rows_kept": 110,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 110
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 110,
+        "no_source_url": 110,
+        "no_siret": 25
+      },
+      "by_granularity": {
+        "individual": 110
+      },
+      "donor_levels": {
+        "commune": 110
+      },
+      "parquet": "data/canonical/parts/legacy-ville-talensac.parquet",
+      "amount_total": 186612.0
+    },
+    {
+      "source_id": "ville-toulouse",
+      "registered_id": "ville-toulouse",
+      "file": "data/sources/ville-toulouse.js",
+      "rows_read": 10637,
+      "rows_kept": 10637,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 10637
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 1213,
+        "no_rna": 10637,
+        "no_source_url": 10637,
+        "beneficiary_not_association": 226
+      },
+      "by_granularity": {
+        "individual": 10637
+      },
+      "donor_levels": {
+        "commune": 10637
+      },
+      "parquet": "data/canonical/parts/legacy-ville-toulouse.parquet",
+      "amount_total": 668290175.44
+    },
+    {
+      "source_id": "ville-tours",
+      "registered_id": "ville-tours",
+      "file": "data/sources/ville-tours.js",
+      "rows_read": 2484,
+      "rows_kept": 2484,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 2484
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 2484,
+        "no_rna": 2484,
+        "no_source_url": 2484,
+        "beneficiary_not_association": 55
+      },
+      "by_granularity": {
+        "aggregate": 2484
+      },
+      "donor_levels": {
+        "commune": 2484
+      },
+      "parquet": "data/canonical/parts/legacy-ville-tours.parquet",
+      "amount_total": 104696168.92
+    },
+    {
+      "source_id": "ville-vaulx",
+      "registered_id": "ville-vaulx",
+      "file": "data/sources/ville-vaulx.js",
+      "rows_read": 655,
+      "rows_kept": 655,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 655
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_rna": 655,
+        "no_source_url": 655,
+        "beneficiary_not_association": 25,
+        "no_siret": 12,
+        "siret_invalid": 12
+      },
+      "by_granularity": {
+        "individual": 655
+      },
+      "donor_levels": {
+        "commune": 655
+      },
+      "parquet": "data/canonical/parts/legacy-ville-vaulx.parquet",
+      "amount_total": 24633610.0
+    },
+    {
+      "source_id": "ville-villejuif",
+      "registered_id": "ville-villejuif",
+      "file": "data/sources/ville-villejuif.js",
+      "rows_read": 339,
+      "rows_kept": 339,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 339
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 339,
+        "siret_invalid": 330,
+        "no_rna": 339,
+        "no_source_url": 339
+      },
+      "by_granularity": {
+        "individual": 339
+      },
+      "donor_levels": {
+        "commune": 339
+      },
+      "parquet": "data/canonical/parts/legacy-ville-villejuif.parquet",
+      "amount_total": 697998.44
+    },
+    {
+      "source_id": "ville-villemomble",
+      "registered_id": "ville-villemomble",
+      "file": "data/sources/ville-villemomble.js",
+      "rows_read": 107,
+      "rows_kept": 107,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 107
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 107,
+        "no_rna": 107,
+        "no_source_url": 107
+      },
+      "by_granularity": {
+        "individual": 107
+      },
+      "donor_levels": {
+        "commune": 107
+      },
+      "parquet": "data/canonical/parts/legacy-ville-villemomble.parquet",
+      "amount_total": 4385021.0
+    },
+    {
+      "source_id": "ville-vitry-2017",
+      "registered_id": "ville-vitry-2017",
+      "file": "data/sources/ville-vitry-2017.js",
+      "rows_read": 214,
+      "rows_kept": 214,
+      "rows_dropped": 0,
+      "shapes": {
+        "normalisee": 214
+      },
+      "drop_reasons": {},
+      "flags": {
+        "no_siret": 214,
+        "no_rna": 214,
+        "no_source_url": 214,
+        "beneficiary_not_association": 4
+      },
+      "by_granularity": {
+        "individual": 214
+      },
+      "donor_levels": {
+        "commune": 214
+      },
+      "parquet": "data/canonical/parts/legacy-ville-vitry-2017.parquet",
+      "amount_total": 19340808.0
+    }
+  ]
+}

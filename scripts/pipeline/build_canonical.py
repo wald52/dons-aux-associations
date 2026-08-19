@@ -105,6 +105,7 @@ def fill_rate(table, column):
 
 
 def quality_report(table, dedup_stats, part_files):
+    rejected = table.column("amount_rejected_eur").to_pylist()
     src = table.column("source_id").to_pylist()
     amt = table.column("amount_eur").to_pylist()
     gran = table.column("granularity").to_pylist()
@@ -150,8 +151,12 @@ def quality_report(table, dedup_stats, part_files):
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "parts": [os.path.relpath(p, ROOT) for p in part_files],
         "rows_total": table.num_rows,
+        # `amount_eur` est nul pour les valeurs qui ne sont pas des montants :
+        # une somme simple est donc juste, sans filtre à ne pas oublier.
         "amount_individual_eur": round(sum(a or 0 for a, g in zip(amt, gran) if g != "aggregate"), 2),
         "amount_aggregate_eur": round(sum(a or 0 for a, g in zip(amt, gran) if g == "aggregate"), 2),
+        "amount_rejected_eur": round(sum(x or 0 for x in rejected), 2),
+        "rows_rejected": sum(1 for x in rejected if x is not None),
         "years_covered": sorted({y for y in years if y}),
         "fill_rates_percent": {
             c: fill_rate(table, c) for c in (
@@ -179,6 +184,7 @@ def anomalies(table, report):
     a = table.column("amount_eur").to_pylist()
     g = table.column("granularity").to_pylist()
 
+    fl = table.column("quality_flags").to_pylist()
     per_year = collections.defaultdict(float)
     for i in range(len(y)):
         if y[i] and g[i] != "aggregate":
@@ -219,6 +225,22 @@ def anomalies(table, report):
                             "majoritairement d'organismes homonymes distincts (23 « Maison "
                             "des jeunes et de la culture » recevant la même subvention type), "
                             "et non de doublons."),
+        })
+
+    rej = table.column("amount_rejected_eur").to_pylist()
+    impl = [i for i in range(len(rej)) if rej[i] is not None]
+    if impl:
+        out.append({
+            "type": "montants_invraisemblables_exclus",
+            "rows": len(impl),
+            "amount_eur": round(sum(rej[i] or 0 for i in impl), 2),
+            "commentaire": ("Valeurs supérieures à dix milliards d'euros pour une "
+                            "attribution unique : ce ne sont pas des montants. Cas "
+                            "constaté, un SIRET recopié dans la colonne montant par un "
+                            "convertisseur défaillant. Conservées dans la table avec le "
+                            "drapeau amount_implausible ; la valeur publiée est conservée "
+                            "dans `amount_rejected_eur`, et `amount_eur` est nul — une somme "
+                            "sur `amount_eur` est donc juste sans précaution particulière."),
         })
 
     zero = sum(1 for i in range(len(a)) if a[i] == 0)
@@ -291,10 +313,31 @@ def main():
           f"{dedup_stats['rows_same_source']:,} lignes "
           f"dans {dedup_stats['collisions_same_source']:,} groupes")
 
-    os.makedirs(OUT_DIR, exist_ok=True)
-    dest = os.path.join(OUT_DIR, "subventions.parquet")
-    pq.write_table(table, dest, compression="zstd", row_group_size=64 * 1024)
-    size = os.path.getsize(dest)
+    # Écriture PARTITIONNÉE par année. Deux raisons :
+    #   - GitHub refuse tout fichier de plus de 100 Mo, et la table complète en
+    #     fait 110 ; le hook de pré-réception rejette le push ;
+    #   - c'est de toute façon ce que la phase 2 attend : DuckDB élague les
+    #     partitions inutiles, donc une requête sur une année ne touche qu'un
+    #     fichier au lieu de la table entière.
+    import pyarrow.dataset as ds
+    import shutil
+    dest_dir = os.path.join(OUT_DIR, "subventions")
+    if os.path.exists(dest_dir):
+        shutil.rmtree(dest_dir)
+    ds.write_dataset(
+        table, dest_dir, format="parquet",
+        partitioning=ds.partitioning(pa.schema([("year", pa.int32())]), flavor="hive"),
+        existing_data_behavior="overwrite_or_ignore",
+        file_options=ds.ParquetFileFormat().make_write_options(compression="zstd"),
+        max_rows_per_group=64 * 1024,
+    )
+    parts_written = sorted(glob.glob(os.path.join(dest_dir, "**", "*.parquet"), recursive=True))
+    size = sum(os.path.getsize(f) for f in parts_written)
+    biggest = max((os.path.getsize(f) for f in parts_written), default=0)
+    # Ancien fichier unique : on le retire pour ne pas laisser deux vérités.
+    legacy_single = os.path.join(OUT_DIR, "subventions.parquet")
+    if os.path.exists(legacy_single):
+        os.remove(legacy_single)
 
     report = quality_report(table, dedup_stats, part_files)
     report["anomalies"] = anomalies(table, report)
@@ -307,7 +350,8 @@ def main():
         json.dump(cov, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
-    print(f"\n  Table canonique : {table.num_rows:,} lignes, {size/1048576:.1f} Mo")
+    print(f"\n  Table canonique : {table.num_rows:,} lignes, {size/1048576:.1f} Mo "
+          f"en {len(parts_written)} partitions (la plus grosse : {biggest/1048576:.1f} Mo)")
     print(f"  Montant (attributions individuelles) : {report['amount_individual_eur']:,.0f} €")
     print(f"  Montant (totaux agrégés, jamais sommés avec) : {report['amount_aggregate_eur']:,.0f} €")
     print(f"  Années : {report['years_covered'][0]}-{report['years_covered'][-1]}")
@@ -320,10 +364,11 @@ def main():
         for an in report["anomalies"]:
             detail = (f"année {an['year']} — {an['amount_eur']:,.0f} € "
                       f"(x{an['rapport']} les années voisines)" if an["type"] == "rupture_annuelle"
-                      else f"{an.get('rows', 0):,} lignes")
+                      else f"{an.get('rows', 0):,} lignes"
+                      + (f" — {an['amount_eur']:,.0f} € écartés" if an["type"] == "montants_invraisemblables_exclus" else ""))
             print(f"    · {an['type']:32s} {detail}")
 
-    print(f"\n  -> data/canonical/subventions.parquet")
+    print(f"\n  -> data/canonical/subventions/ (partitionné par année)")
     print(f"  -> data/canonical/quality-report.json")
     print(f"  -> data/canonical/coverage.json")
 

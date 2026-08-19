@@ -1,6 +1,159 @@
 {
-  "generated_at": "2026-08-19T00:35:03Z",
+  "generated_at": "2026-08-19T01:33:38Z",
   "parts": [
+    "data/canonical/parts/legacy-agglo-grand-chambery.parquet",
+    "data/canonical/parts/legacy-agglo-lorient.parquet",
+    "data/canonical/parts/legacy-agglo-mulhouse.parquet",
+    "data/canonical/parts/legacy-agglo-nevers.parquet",
+    "data/canonical/parts/legacy-agglo-pays-de-l-or.parquet",
+    "data/canonical/parts/legacy-agglo-quimper-bretagne-occidentale.parquet",
+    "data/canonical/parts/legacy-agglo-saintes-grandes-rives.parquet",
+    "data/canonical/parts/legacy-agglo-val-de-fensch.parquet",
+    "data/canonical/parts/legacy-anct-politique-ville-2.parquet",
+    "data/canonical/parts/legacy-anct-politique-ville.parquet",
+    "data/canonical/parts/legacy-ars-pays-de-la-loire.parquet",
+    "data/canonical/parts/legacy-cc-pays-des-ecrins.parquet",
+    "data/canonical/parts/legacy-cc-quercy-vert.parquet",
+    "data/canonical/parts/legacy-cci-rouen-2024.parquet",
+    "data/canonical/parts/legacy-cd-aube.parquet",
+    "data/canonical/parts/legacy-cd-bas-rhin.parquet",
+    "data/canonical/parts/legacy-cd-charente-maritime.parquet",
+    "data/canonical/parts/legacy-cd-cher.parquet",
+    "data/canonical/parts/legacy-cd-cotes-armor-2002.parquet",
+    "data/canonical/parts/legacy-cd-cotes-armor.parquet",
+    "data/canonical/parts/legacy-cd-dordogne.parquet",
+    "data/canonical/parts/legacy-cd-eure-et-loir.parquet",
+    "data/canonical/parts/legacy-cd-finistere.parquet",
+    "data/canonical/parts/legacy-cd-gironde.parquet",
+    "data/canonical/parts/legacy-cd-haute-garonne.parquet",
+    "data/canonical/parts/legacy-cd-hautes-pyrenees.parquet",
+    "data/canonical/parts/legacy-cd-hauts-de-seine.parquet",
+    "data/canonical/parts/legacy-cd-ille-vilaine-2021.parquet",
+    "data/canonical/parts/legacy-cd-ille-vilaine-2022v2.parquet",
+    "data/canonical/parts/legacy-cd-ille-vilaine.parquet",
+    "data/canonical/parts/legacy-cd-isere.parquet",
+    "data/canonical/parts/legacy-cd-loire-atlantique.parquet",
+    "data/canonical/parts/legacy-cd-loire.parquet",
+    "data/canonical/parts/legacy-cd-lot.parquet",
+    "data/canonical/parts/legacy-cd-maine-loire-conventions-2025.parquet",
+    "data/canonical/parts/legacy-cd-maine-loire-conventions.parquet",
+    "data/canonical/parts/legacy-cd-maine-loire-subventions.parquet",
+    "data/canonical/parts/legacy-cd-mayenne.parquet",
+    "data/canonical/parts/legacy-cd-nievre.parquet",
+    "data/canonical/parts/legacy-cd-pyrenees-orientales.parquet",
+    "data/canonical/parts/legacy-cd-savoie-2018.parquet",
+    "data/canonical/parts/legacy-cd-savoie-2019.parquet",
+    "data/canonical/parts/legacy-cd-savoie-2020.parquet",
+    "data/canonical/parts/legacy-cd-savoie-2021.parquet",
+    "data/canonical/parts/legacy-cd-savoie-2022.parquet",
+    "data/canonical/parts/legacy-cd-savoie-2023.parquet",
+    "data/canonical/parts/legacy-cd-savoie.parquet",
+    "data/canonical/parts/legacy-cd-somme.parquet",
+    "data/canonical/parts/legacy-cnds-2015.parquet",
+    "data/canonical/parts/legacy-cnsa.parquet",
+    "data/canonical/parts/legacy-commune-bar-le-duc.parquet",
+    "data/canonical/parts/legacy-commune-bouaye.parquet",
+    "data/canonical/parts/legacy-commune-breteil.parquet",
+    "data/canonical/parts/legacy-commune-communay.parquet",
+    "data/canonical/parts/legacy-commune-iffendic.parquet",
+    "data/canonical/parts/legacy-commune-la-nouaye.parquet",
+    "data/canonical/parts/legacy-commune-meze.parquet",
+    "data/canonical/parts/legacy-commune-pleumeleuc.parquet",
+    "data/canonical/parts/legacy-commune-rillieux-la-pape.parquet",
+    "data/canonical/parts/legacy-commune-saint-gonlay.parquet",
+    "data/canonical/parts/legacy-commune-saint-laurent-de-mure.parquet",
+    "data/canonical/parts/legacy-commune-sarcelles.parquet",
+    "data/canonical/parts/legacy-commune-sautron-23k.parquet",
+    "data/canonical/parts/legacy-commune-sautron.parquet",
+    "data/canonical/parts/legacy-commune-sixt-sur-aff.parquet",
+    "data/canonical/parts/legacy-commune-soissons.parquet",
+    "data/canonical/parts/legacy-commune-talensac.parquet",
+    "data/canonical/parts/legacy-communes-centre.parquet",
+    "data/canonical/parts/legacy-communes-pays-loire.parquet",
+    "data/canonical/parts/legacy-culture-2.parquet",
+    "data/canonical/parts/legacy-culture.parquet",
+    "data/canonical/parts/legacy-dept-seine-saint-denis.parquet",
+    "data/canonical/parts/legacy-detr-2015.parquet",
+    "data/canonical/parts/legacy-dilcrah-2024.parquet",
+    "data/canonical/parts/legacy-dilcrah-2025.parquet",
+    "data/canonical/parts/legacy-ditp.parquet",
+    "data/canonical/parts/legacy-ecole-beaux-arts-nantes.parquet",
+    "data/canonical/parts/legacy-efs-aura.parquet",
+    "data/canonical/parts/legacy-efs-cpdl.parquet",
+    "data/canonical/parts/legacy-efs-ocpm.parquet",
+    "data/canonical/parts/legacy-efs-siege.parquet",
+    "data/canonical/parts/legacy-epci-gpso.parquet",
+    "data/canonical/parts/legacy-etat-bop177.parquet",
+    "data/canonical/parts/legacy-etat-cabinet-pm.parquet",
+    "data/canonical/parts/legacy-etat-dilcrah.parquet",
+    "data/canonical/parts/legacy-feder-hauts-de-france.parquet",
+    "data/canonical/parts/legacy-idf-sante.parquet",
+    "data/canonical/parts/legacy-metropole-bordeaux.parquet",
+    "data/canonical/parts/legacy-metropole-clermont.parquet",
+    "data/canonical/parts/legacy-metropole-grenoble.parquet",
+    "data/canonical/parts/legacy-metropole-lyon.parquet",
+    "data/canonical/parts/legacy-metropole-nantes.parquet",
+    "data/canonical/parts/legacy-metropole-toulouse.parquet",
+    "data/canonical/parts/legacy-ministere-agriculture.parquet",
+    "data/canonical/parts/legacy-paris.parquet",
+    "data/canonical/parts/legacy-pays-basque-2023.parquet",
+    "data/canonical/parts/legacy-region-centre.parquet",
+    "data/canonical/parts/legacy-region-idf.parquet",
+    "data/canonical/parts/legacy-reserve-ministerielle.parquet",
+    "data/canonical/parts/legacy-sdis-gironde.parquet",
+    "data/canonical/parts/legacy-subv-associations-2024.parquet",
+    "data/canonical/parts/legacy-subv-communales.parquet",
+    "data/canonical/parts/legacy-subv-sup-23k-2024.parquet",
+    "data/canonical/parts/legacy-subv-votees-23k.parquet",
+    "data/canonical/parts/legacy-ville-anglet.parquet",
+    "data/canonical/parts/legacy-ville-arras-2017.parquet",
+    "data/canonical/parts/legacy-ville-arras-2018.parquet",
+    "data/canonical/parts/legacy-ville-asnieres.parquet",
+    "data/canonical/parts/legacy-ville-bar-le-duc.parquet",
+    "data/canonical/parts/legacy-ville-bauge-anjou.parquet",
+    "data/canonical/parts/legacy-ville-bayonne.parquet",
+    "data/canonical/parts/legacy-ville-boulogne-billancourt.parquet",
+    "data/canonical/parts/legacy-ville-boulogne.parquet",
+    "data/canonical/parts/legacy-ville-carquefou-2025.parquet",
+    "data/canonical/parts/legacy-ville-charleville-mezieres.parquet",
+    "data/canonical/parts/legacy-ville-dreux.parquet",
+    "data/canonical/parts/legacy-ville-grenoble-2015.parquet",
+    "data/canonical/parts/legacy-ville-grenoble-2016.parquet",
+    "data/canonical/parts/legacy-ville-grenoble.parquet",
+    "data/canonical/parts/legacy-ville-iffendic.parquet",
+    "data/canonical/parts/legacy-ville-issy.parquet",
+    "data/canonical/parts/legacy-ville-lannion.parquet",
+    "data/canonical/parts/legacy-ville-lisieux-2018.parquet",
+    "data/canonical/parts/legacy-ville-lisieux.parquet",
+    "data/canonical/parts/legacy-ville-longjumeau.parquet",
+    "data/canonical/parts/legacy-ville-lyon.parquet",
+    "data/canonical/parts/legacy-ville-manosque-2025.parquet",
+    "data/canonical/parts/legacy-ville-marseille.parquet",
+    "data/canonical/parts/legacy-ville-meudon.parquet",
+    "data/canonical/parts/legacy-ville-nancy.parquet",
+    "data/canonical/parts/legacy-ville-nantes.parquet",
+    "data/canonical/parts/legacy-ville-nogent-2012.parquet",
+    "data/canonical/parts/legacy-ville-nogent-2013.parquet",
+    "data/canonical/parts/legacy-ville-nogent-2014.parquet",
+    "data/canonical/parts/legacy-ville-orvault.parquet",
+    "data/canonical/parts/legacy-ville-poinconnet.parquet",
+    "data/canonical/parts/legacy-ville-quimper.parquet",
+    "data/canonical/parts/legacy-ville-redon-2017.parquet",
+    "data/canonical/parts/legacy-ville-redon-2018.parquet",
+    "data/canonical/parts/legacy-ville-redon.parquet",
+    "data/canonical/parts/legacy-ville-rennes.parquet",
+    "data/canonical/parts/legacy-ville-roscloff-2017.parquet",
+    "data/canonical/parts/legacy-ville-roubaix.parquet",
+    "data/canonical/parts/legacy-ville-sailly.parquet",
+    "data/canonical/parts/legacy-ville-sarcelles-2025.parquet",
+    "data/canonical/parts/legacy-ville-soissons-2018-2021.parquet",
+    "data/canonical/parts/legacy-ville-talensac.parquet",
+    "data/canonical/parts/legacy-ville-toulouse.parquet",
+    "data/canonical/parts/legacy-ville-tours.parquet",
+    "data/canonical/parts/legacy-ville-vaulx.parquet",
+    "data/canonical/parts/legacy-ville-villejuif.parquet",
+    "data/canonical/parts/legacy-ville-villemomble.parquet",
+    "data/canonical/parts/legacy-ville-vitry-2017.parquet",
     "data/canonical/parts/plf-jaune-2012.parquet",
     "data/canonical/parts/plf-jaune-2013.parquet",
     "data/canonical/parts/plf-jaune-2014.parquet",
@@ -15,10 +168,21 @@
     "data/canonical/parts/plf-jaune-2023.parquet",
     "data/canonical/parts/plf-jaune-2025.parquet"
   ],
-  "rows_total": 808174,
-  "amount_individual_eur": 78228030025.48,
-  "amount_aggregate_eur": 1483995024.0,
+  "rows_total": 1692962,
+  "amount_individual_eur": 163781358325.8,
+  "amount_aggregate_eur": 1760666660.94,
+  "amount_rejected_eur": 236888733000042.0,
+  "rows_rejected": 3,
   "years_covered": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
     2010,
     2011,
     2012,
@@ -31,38 +195,2118 @@
     2019,
     2020,
     2021,
-    2023
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027
   ],
   "fill_rates_percent": {
-    "beneficiary_siret": 77.1,
-    "beneficiary_siren": 99.2,
-    "beneficiary_rna": 34.8,
-    "beneficiary_commune_insee": 65.9,
-    "beneficiary_dep_code": 85.8,
-    "year": 100.0,
-    "purpose_raw": 89.7,
-    "donor_program": 97.8
+    "beneficiary_siret": 76.2,
+    "beneficiary_siren": 88.2,
+    "beneficiary_rna": 16.6,
+    "beneficiary_commune_insee": 31.5,
+    "beneficiary_dep_code": 80.5,
+    "year": 99.1,
+    "purpose_raw": 92.9,
+    "donor_program": 90.9
   },
   "departments_present": 101,
   "quality_flags": {
-    "no_rna": 527059,
-    "no_siret": 185353,
-    "dep_only": 160853,
-    "dep_unknown": 114602,
-    "beneficiary_not_association": 417,
-    "amount_zero": 117,
-    "amount_negative": 28
+    "no_rna": 1411630,
+    "no_source_url": 807498,
+    "no_siret": 402338,
+    "dep_unknown": 330101,
+    "dep_only": 164626,
+    "dep_from_name": 128036,
+    "beneficiary_not_association": 87717,
+    "siret_scientific_notation": 29214,
+    "siret_invalid": 25523,
+    "year_missing": 14677,
+    "amount_negative": 5944,
+    "amount_zero": 262,
+    "donor_unattributed": 191,
+    "year_invalid": 162,
+    "amount_implausible": 3
   },
   "deduplication": {
-    "groups_total": 803298,
-    "collisions_same_source": 3506,
-    "rows_same_source": 8382,
-    "collisions_cross_source": 0,
-    "rows_dropped": 0,
-    "amount_dropped": 0.0,
-    "dropped_by_source": {}
+    "groups_total": 1668523,
+    "collisions_same_source": 14481,
+    "rows_same_source": 38920,
+    "collisions_cross_source": 869,
+    "rows_dropped": 1477,
+    "amount_dropped": 10329215.21,
+    "dropped_by_source": {
+      "commune-bar-le-duc": 2,
+      "ville-bar-le-duc": 15,
+      "commune-soissons": 606,
+      "ville-soissons-2018-2021": 610,
+      "subv-sup-23k-2024": 16,
+      "ville-lisieux": 119,
+      "ville-redon": 109
+    }
   },
   "by_source": {
+    "agglo-grand-chambery": {
+      "rows": 507,
+      "amount_individual_eur": 10576953.37,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2001,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "flags": {
+        "no_rna": 507,
+        "no_source_url": 507,
+        "beneficiary_not_association": 30,
+        "no_siret": 9,
+        "siret_invalid": 3,
+        "year_invalid": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 330,
+        "association": 147,
+        "public_body": 30
+      }
+    },
+    "agglo-lorient": {
+      "rows": 374,
+      "amount_individual_eur": 72452578.01,
+      "amount_aggregate_eur": 107387.86,
+      "years": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "flags": {
+        "no_siret": 374,
+        "no_rna": 374,
+        "no_source_url": 374,
+        "beneficiary_not_association": 12
+      },
+      "beneficiary_kinds": {
+        "inconnu": 253,
+        "association": 109,
+        "public_body": 12
+      }
+    },
+    "agglo-mulhouse": {
+      "rows": 216,
+      "amount_individual_eur": 852415.88,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017
+      ],
+      "flags": {
+        "no_siret": 216,
+        "no_rna": 216,
+        "no_source_url": 216,
+        "beneficiary_not_association": 3
+      },
+      "beneficiary_kinds": {
+        "inconnu": 159,
+        "association": 54,
+        "public_body": 3
+      }
+    },
+    "agglo-nevers": {
+      "rows": 16,
+      "amount_individual_eur": 3386906.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2014,
+        2016,
+        2017
+      ],
+      "flags": {
+        "no_rna": 16,
+        "no_source_url": 16
+      },
+      "beneficiary_kinds": {
+        "inconnu": 15,
+        "association": 1
+      }
+    },
+    "agglo-pays-de-l-or": {
+      "rows": 9,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021
+      ],
+      "flags": {
+        "no_siret": 9,
+        "siret_invalid": 9,
+        "no_rna": 9,
+        "no_source_url": 9,
+        "amount_negative": 1
+      },
+      "beneficiary_kinds": {
+        "association": 7,
+        "inconnu": 2
+      }
+    },
+    "agglo-quimper-bretagne-occidentale": {
+      "rows": 90,
+      "amount_individual_eur": 31155879.92,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2024
+      ],
+      "flags": {
+        "dep_unknown": 90,
+        "no_siret": 90,
+        "no_rna": 90,
+        "no_source_url": 90,
+        "year_missing": 42,
+        "beneficiary_not_association": 15
+      },
+      "beneficiary_kinds": {
+        "inconnu": 69,
+        "public_body": 15,
+        "association": 6
+      }
+    },
+    "agglo-saintes-grandes-rives": {
+      "rows": 183,
+      "amount_individual_eur": 3778106.59,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2023,
+        2024
+      ],
+      "flags": {
+        "dep_unknown": 183,
+        "no_rna": 183,
+        "no_source_url": 183,
+        "no_siret": 25,
+        "beneficiary_not_association": 11,
+        "amount_negative": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 156,
+        "association": 16,
+        "public_body": 11
+      }
+    },
+    "agglo-val-de-fensch": {
+      "rows": 148,
+      "amount_individual_eur": 9132056.41,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "flags": {
+        "no_siret": 148,
+        "no_rna": 148,
+        "no_source_url": 148,
+        "beneficiary_not_association": 10
+      },
+      "beneficiary_kinds": {
+        "inconnu": 116,
+        "association": 22,
+        "public_body": 10
+      }
+    },
+    "anct-politique-ville": {
+      "rows": 137619,
+      "amount_individual_eur": 1762473251.28,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "flags": {
+        "no_rna": 137619,
+        "no_source_url": 137619,
+        "dep_unknown": 116292,
+        "no_siret": 22458,
+        "siret_scientific_notation": 22412,
+        "dep_from_name": 21327,
+        "beneficiary_not_association": 20815,
+        "siret_invalid": 32
+      },
+      "beneficiary_kinds": {
+        "inconnu": 87075,
+        "association": 29729,
+        "public_body": 20815
+      }
+    },
+    "anct-politique-ville-2": {
+      "rows": 129356,
+      "amount_individual_eur": 1604498145.38,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2027
+      ],
+      "flags": {
+        "no_rna": 129356,
+        "no_source_url": 129356,
+        "dep_from_name": 106709,
+        "dep_unknown": 22647,
+        "beneficiary_not_association": 20035,
+        "no_siret": 5089,
+        "siret_scientific_notation": 5065,
+        "siret_invalid": 24
+      },
+      "beneficiary_kinds": {
+        "inconnu": 82999,
+        "association": 26322,
+        "public_body": 20035
+      }
+    },
+    "ars-pays-de-la-loire": {
+      "rows": 1903,
+      "amount_individual_eur": 255099452.06,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2025
+      ],
+      "flags": {
+        "dep_unknown": 1903,
+        "no_rna": 1903,
+        "no_source_url": 1903,
+        "beneficiary_not_association": 384,
+        "no_siret": 12,
+        "siret_invalid": 12
+      },
+      "beneficiary_kinds": {
+        "inconnu": 1318,
+        "public_body": 384,
+        "association": 201
+      }
+    },
+    "cc-pays-des-ecrins": {
+      "rows": 83,
+      "amount_individual_eur": 1553900.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "flags": {
+        "no_siret": 83,
+        "no_rna": 83,
+        "no_source_url": 83
+      },
+      "beneficiary_kinds": {
+        "inconnu": 75,
+        "association": 8
+      }
+    },
+    "cc-quercy-vert": {
+      "rows": 20,
+      "amount_individual_eur": 1359220.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2020
+      ],
+      "flags": {
+        "no_rna": 20,
+        "no_source_url": 20,
+        "no_siret": 9,
+        "siret_invalid": 9
+      },
+      "beneficiary_kinds": {
+        "inconnu": 12,
+        "association": 8
+      }
+    },
+    "cci-rouen-2024": {
+      "rows": 38,
+      "amount_individual_eur": 12311.75,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2024
+      ],
+      "flags": {
+        "no_siret": 38,
+        "no_rna": 38,
+        "no_source_url": 38
+      },
+      "beneficiary_kinds": {
+        "inconnu": 36,
+        "association": 2
+      }
+    },
+    "cd-aube": {
+      "rows": 37,
+      "amount_individual_eur": 7562429.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 37,
+        "no_rna": 37,
+        "no_source_url": 37,
+        "beneficiary_not_association": 6,
+        "no_siret": 1,
+        "siret_invalid": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 16,
+        "association": 15,
+        "public_body": 6
+      }
+    },
+    "cd-bas-rhin": {
+      "rows": 3345,
+      "amount_individual_eur": 73627234.56,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018
+      ],
+      "flags": {
+        "no_rna": 3345,
+        "no_source_url": 3345,
+        "beneficiary_not_association": 651
+      },
+      "beneficiary_kinds": {
+        "inconnu": 1681,
+        "association": 1013,
+        "public_body": 651
+      }
+    },
+    "cd-charente-maritime": {
+      "rows": 1989,
+      "amount_individual_eur": 270238305.7,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "flags": {
+        "no_rna": 1989,
+        "no_source_url": 1989,
+        "beneficiary_not_association": 583,
+        "no_siret": 6
+      },
+      "beneficiary_kinds": {
+        "inconnu": 1245,
+        "public_body": 583,
+        "association": 161
+      }
+    },
+    "cd-cher": {
+      "rows": 5,
+      "amount_individual_eur": 362000.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2025
+      ],
+      "flags": {
+        "no_siret": 5,
+        "siret_invalid": 5,
+        "no_rna": 5,
+        "no_source_url": 5
+      },
+      "beneficiary_kinds": {
+        "association": 3,
+        "inconnu": 2
+      }
+    },
+    "cd-cotes-armor": {
+      "rows": 14289,
+      "amount_individual_eur": 239947114.15,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2006,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "dep_unknown": 14289,
+        "no_rna": 14289,
+        "no_source_url": 14289,
+        "no_siret": 1996,
+        "beneficiary_not_association": 35,
+        "amount_zero": 20,
+        "siret_invalid": 11
+      },
+      "beneficiary_kinds": {
+        "inconnu": 8603,
+        "association": 5651,
+        "public_body": 35
+      }
+    },
+    "cd-cotes-armor-2002": {
+      "rows": 16087,
+      "amount_individual_eur": 286989122.58,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015
+      ],
+      "flags": {
+        "dep_unknown": 16087,
+        "no_siret": 16087,
+        "no_rna": 16087,
+        "no_source_url": 16087,
+        "beneficiary_not_association": 75,
+        "amount_zero": 4
+      },
+      "beneficiary_kinds": {
+        "inconnu": 14954,
+        "association": 1058,
+        "public_body": 75
+      }
+    },
+    "cd-dordogne": {
+      "rows": 6922,
+      "amount_individual_eur": 120449218.66,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019
+      ],
+      "flags": {
+        "no_rna": 6922,
+        "no_source_url": 6922,
+        "amount_zero": 27,
+        "no_siret": 1,
+        "siret_invalid": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 6922
+      }
+    },
+    "cd-eure-et-loir": {
+      "rows": 25,
+      "amount_individual_eur": 2049590.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2022,
+        2023,
+        2025
+      ],
+      "flags": {
+        "no_rna": 25,
+        "no_source_url": 25
+      },
+      "beneficiary_kinds": {
+        "inconnu": 17,
+        "association": 8
+      }
+    },
+    "cd-finistere": {
+      "rows": 5442,
+      "amount_individual_eur": 583579334.03,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "flags": {
+        "dep_unknown": 5442,
+        "no_rna": 5442,
+        "no_source_url": 5442,
+        "beneficiary_not_association": 1796,
+        "no_siret": 97,
+        "siret_invalid": 91
+      },
+      "beneficiary_kinds": {
+        "inconnu": 2964,
+        "public_body": 1796,
+        "association": 682
+      }
+    },
+    "cd-gironde": {
+      "rows": 14734,
+      "amount_individual_eur": 142891904.38,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2013,
+        2014,
+        2015,
+        2016
+      ],
+      "flags": {
+        "no_rna": 14734,
+        "no_source_url": 14734,
+        "beneficiary_not_association": 73
+      },
+      "beneficiary_kinds": {
+        "inconnu": 11141,
+        "association": 3520,
+        "public_body": 73
+      }
+    },
+    "cd-haute-garonne": {
+      "rows": 28,
+      "amount_individual_eur": 2950174.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2025
+      ],
+      "flags": {
+        "no_rna": 28,
+        "no_source_url": 28
+      },
+      "beneficiary_kinds": {
+        "inconnu": 21,
+        "association": 7
+      }
+    },
+    "cd-hautes-pyrenees": {
+      "rows": 255,
+      "amount_individual_eur": 31029593.95,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "flags": {
+        "no_rna": 255,
+        "no_source_url": 255
+      },
+      "beneficiary_kinds": {
+        "inconnu": 198,
+        "association": 57
+      }
+    },
+    "cd-hauts-de-seine": {
+      "rows": 1193,
+      "amount_individual_eur": 187880038.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_rna": 1193,
+        "no_source_url": 1193,
+        "beneficiary_not_association": 21
+      },
+      "beneficiary_kinds": {
+        "inconnu": 639,
+        "association": 533,
+        "public_body": 21
+      }
+    },
+    "cd-ille-vilaine": {
+      "rows": 972,
+      "amount_individual_eur": 17905648.85,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2020
+      ],
+      "flags": {
+        "no_siret": 972,
+        "siret_scientific_notation": 972,
+        "no_rna": 972,
+        "beneficiary_not_association": 25
+      },
+      "beneficiary_kinds": {
+        "inconnu": 739,
+        "association": 208,
+        "public_body": 25
+      }
+    },
+    "cd-ille-vilaine-2021": {
+      "rows": 928,
+      "amount_individual_eur": 18382624.63,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021
+      ],
+      "flags": {
+        "no_rna": 928,
+        "no_source_url": 928,
+        "beneficiary_not_association": 26
+      },
+      "beneficiary_kinds": {
+        "inconnu": 716,
+        "association": 186,
+        "public_body": 26
+      }
+    },
+    "cd-ille-vilaine-2022v2": {
+      "rows": 954,
+      "amount_individual_eur": 17854137.66,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2022
+      ],
+      "flags": {
+        "no_rna": 954,
+        "no_source_url": 954,
+        "beneficiary_not_association": 27
+      },
+      "beneficiary_kinds": {
+        "inconnu": 730,
+        "association": 197,
+        "public_body": 27
+      }
+    },
+    "cd-isere": {
+      "rows": 208,
+      "amount_individual_eur": 13647664.14,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2025,
+        2026
+      ],
+      "flags": {
+        "no_rna": 208,
+        "no_source_url": 208,
+        "no_siret": 3,
+        "beneficiary_not_association": 3
+      },
+      "beneficiary_kinds": {
+        "inconnu": 134,
+        "association": 71,
+        "public_body": 3
+      }
+    },
+    "cd-loire": {
+      "rows": 153,
+      "amount_individual_eur": 11494013.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 153,
+        "dep_unknown": 153,
+        "no_rna": 153,
+        "no_source_url": 153,
+        "beneficiary_not_association": 6
+      },
+      "beneficiary_kinds": {
+        "inconnu": 121,
+        "association": 26,
+        "public_body": 6
+      }
+    },
+    "cd-loire-atlantique": {
+      "rows": 28631,
+      "amount_individual_eur": 779248423.26,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "flags": {
+        "dep_unknown": 28631,
+        "no_rna": 28631,
+        "no_source_url": 28631,
+        "no_siret": 21129,
+        "siret_invalid": 21011,
+        "beneficiary_not_association": 1495,
+        "year_missing": 169,
+        "amount_zero": 38
+      },
+      "beneficiary_kinds": {
+        "inconnu": 23414,
+        "association": 3722,
+        "public_body": 1495
+      }
+    },
+    "cd-lot": {
+      "rows": 144,
+      "amount_individual_eur": 8951828.78,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021,
+        2022,
+        2023
+      ],
+      "flags": {
+        "no_rna": 144,
+        "no_source_url": 144
+      },
+      "beneficiary_kinds": {
+        "association": 78,
+        "inconnu": 66
+      }
+    },
+    "cd-maine-loire-conventions": {
+      "rows": 91,
+      "amount_individual_eur": 9168585.88,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "flags": {
+        "dep_unknown": 91,
+        "no_rna": 91,
+        "no_source_url": 91,
+        "year_missing": 5,
+        "no_siret": 2,
+        "siret_invalid": 2
+      },
+      "beneficiary_kinds": {
+        "inconnu": 58,
+        "association": 33
+      }
+    },
+    "cd-maine-loire-conventions-2025": {
+      "rows": 42,
+      "amount_individual_eur": 2207089.55,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021,
+        2025,
+        2026
+      ],
+      "flags": {
+        "dep_unknown": 42,
+        "no_siret": 42,
+        "no_rna": 42,
+        "no_source_url": 42,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 32,
+        "association": 10
+      }
+    },
+    "cd-maine-loire-subventions": {
+      "rows": 15684,
+      "amount_individual_eur": 212549619.05,
+      "amount_aggregate_eur": 125182.0,
+      "years": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016
+      ],
+      "flags": {
+        "no_rna": 15684,
+        "no_source_url": 15684,
+        "beneficiary_not_association": 1102,
+        "no_siret": 820,
+        "siret_invalid": 292,
+        "dep_unknown": 2
+      },
+      "beneficiary_kinds": {
+        "inconnu": 12025,
+        "association": 2557,
+        "public_body": 1102
+      }
+    },
+    "cd-mayenne": {
+      "rows": 623,
+      "amount_individual_eur": 1428177917.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "flags": {
+        "no_rna": 623,
+        "no_source_url": 623,
+        "beneficiary_not_association": 67,
+        "no_siret": 1,
+        "siret_invalid": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 453,
+        "association": 103,
+        "public_body": 67
+      }
+    },
+    "cd-nievre": {
+      "rows": 5183,
+      "amount_individual_eur": 53545953.36,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_rna": 5183,
+        "no_source_url": 5183,
+        "no_siret": 26,
+        "siret_invalid": 26,
+        "beneficiary_not_association": 18
+      },
+      "beneficiary_kinds": {
+        "inconnu": 3454,
+        "association": 1711,
+        "public_body": 18
+      }
+    },
+    "cd-pyrenees-orientales": {
+      "rows": 6870,
+      "amount_individual_eur": 308427713.09,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "flags": {
+        "no_source_url": 6870,
+        "no_rna": 6755,
+        "no_siret": 265,
+        "siret_invalid": 192,
+        "beneficiary_not_association": 151,
+        "year_missing": 25
+      },
+      "beneficiary_kinds": {
+        "inconnu": 4959,
+        "association": 1760,
+        "public_body": 151
+      }
+    },
+    "cd-savoie": {
+      "rows": 111,
+      "amount_individual_eur": 11339319.75,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017
+      ],
+      "flags": {
+        "no_siret": 111,
+        "siret_scientific_notation": 111,
+        "no_rna": 111,
+        "beneficiary_not_association": 3
+      },
+      "beneficiary_kinds": {
+        "inconnu": 72,
+        "association": 36,
+        "public_body": 3
+      }
+    },
+    "cd-savoie-2018": {
+      "rows": 108,
+      "amount_individual_eur": 10601868.31,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018
+      ],
+      "flags": {
+        "no_rna": 108,
+        "no_source_url": 108,
+        "beneficiary_not_association": 3
+      },
+      "beneficiary_kinds": {
+        "inconnu": 70,
+        "association": 35,
+        "public_body": 3
+      }
+    },
+    "cd-savoie-2019": {
+      "rows": 111,
+      "amount_individual_eur": 13000027.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2019
+      ],
+      "flags": {
+        "no_rna": 111,
+        "no_source_url": 111,
+        "beneficiary_not_association": 4,
+        "no_siret": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 76,
+        "association": 31,
+        "public_body": 4
+      }
+    },
+    "cd-savoie-2020": {
+      "rows": 172,
+      "amount_individual_eur": 21075793.8,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2020
+      ],
+      "flags": {
+        "no_siret": 172,
+        "siret_scientific_notation": 172,
+        "no_rna": 172,
+        "no_source_url": 172,
+        "beneficiary_not_association": 5
+      },
+      "beneficiary_kinds": {
+        "inconnu": 121,
+        "association": 46,
+        "public_body": 5
+      }
+    },
+    "cd-savoie-2021": {
+      "rows": 128,
+      "amount_individual_eur": 12997465.37,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021
+      ],
+      "flags": {
+        "no_rna": 128,
+        "no_source_url": 128,
+        "beneficiary_not_association": 5
+      },
+      "beneficiary_kinds": {
+        "inconnu": 112,
+        "association": 11,
+        "public_body": 5
+      }
+    },
+    "cd-savoie-2022": {
+      "rows": 148,
+      "amount_individual_eur": 15487876.93,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2022
+      ],
+      "flags": {
+        "dep_unknown": 148,
+        "no_rna": 148,
+        "no_source_url": 148,
+        "beneficiary_not_association": 8
+      },
+      "beneficiary_kinds": {
+        "inconnu": 121,
+        "association": 19,
+        "public_body": 8
+      }
+    },
+    "cd-savoie-2023": {
+      "rows": 178,
+      "amount_individual_eur": 16527285.71,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2023
+      ],
+      "flags": {
+        "dep_unknown": 178,
+        "no_rna": 178,
+        "no_source_url": 178,
+        "beneficiary_not_association": 9
+      },
+      "beneficiary_kinds": {
+        "inconnu": 155,
+        "association": 14,
+        "public_body": 9
+      }
+    },
+    "cd-somme": {
+      "rows": 1765,
+      "amount_individual_eur": 345160442.32,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "flags": {
+        "no_rna": 1765,
+        "no_source_url": 1765,
+        "no_siret": 264,
+        "siret_scientific_notation": 263,
+        "beneficiary_not_association": 84,
+        "siret_invalid": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 1395,
+        "association": 286,
+        "public_body": 84
+      }
+    },
+    "cnds-2015": {
+      "rows": 52182,
+      "amount_individual_eur": 145493354.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2015
+      ],
+      "flags": {
+        "no_siret": 52182,
+        "no_rna": 52182,
+        "no_source_url": 52182,
+        "dep_unknown": 3896,
+        "beneficiary_not_association": 283
+      },
+      "beneficiary_kinds": {
+        "association": 27228,
+        "inconnu": 24671,
+        "public_body": 283
+      }
+    },
+    "cnsa": {
+      "rows": 361,
+      "amount_individual_eur": 190880547.81,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "flags": {
+        "dep_unknown": 361,
+        "no_rna": 361,
+        "no_source_url": 361,
+        "amount_negative": 12,
+        "beneficiary_not_association": 2
+      },
+      "beneficiary_kinds": {
+        "association": 209,
+        "inconnu": 150,
+        "public_body": 2
+      }
+    },
+    "commune-bar-le-duc": {
+      "rows": 53,
+      "amount_individual_eur": 279647054.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2021,
+        2022,
+        2023
+      ],
+      "flags": {
+        "no_rna": 53,
+        "no_source_url": 53
+      },
+      "beneficiary_kinds": {
+        "inconnu": 43,
+        "association": 10
+      }
+    },
+    "commune-bouaye": {
+      "rows": 331,
+      "amount_individual_eur": 835226.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_siret": 331,
+        "no_rna": 331,
+        "no_source_url": 331,
+        "beneficiary_not_association": 8
+      },
+      "beneficiary_kinds": {
+        "inconnu": 288,
+        "association": 35,
+        "public_body": 8
+      }
+    },
+    "commune-breteil": {
+      "rows": 141,
+      "amount_individual_eur": 10622644.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 141,
+        "no_rna": 141,
+        "no_source_url": 141
+      },
+      "beneficiary_kinds": {
+        "inconnu": 141
+      }
+    },
+    "commune-communay": {
+      "rows": 3,
+      "amount_individual_eur": 63500.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021,
+        2024
+      ],
+      "flags": {
+        "dep_unknown": 3,
+        "no_siret": 3,
+        "siret_invalid": 3,
+        "no_rna": 3,
+        "no_source_url": 3
+      },
+      "beneficiary_kinds": {
+        "inconnu": 3
+      }
+    },
+    "commune-iffendic": {
+      "rows": 375,
+      "amount_individual_eur": 13027707.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 375,
+        "no_rna": 375,
+        "no_source_url": 375
+      },
+      "beneficiary_kinds": {
+        "inconnu": 375
+      }
+    },
+    "commune-la-nouaye": {
+      "rows": 39,
+      "amount_individual_eur": 316499.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 39,
+        "no_siret": 39,
+        "no_rna": 39,
+        "no_source_url": 39
+      },
+      "beneficiary_kinds": {
+        "association": 30,
+        "inconnu": 9
+      }
+    },
+    "commune-meze": {
+      "rows": 2,
+      "amount_individual_eur": 72900.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018
+      ],
+      "flags": {
+        "no_rna": 2,
+        "no_source_url": 2
+      },
+      "beneficiary_kinds": {
+        "inconnu": 2
+      }
+    },
+    "commune-pleumeleuc": {
+      "rows": 147,
+      "amount_individual_eur": 352662.64,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 147,
+        "no_rna": 147,
+        "no_source_url": 147
+      },
+      "beneficiary_kinds": {
+        "inconnu": 147
+      }
+    },
+    "commune-rillieux-la-pape": {
+      "rows": 25,
+      "amount_individual_eur": 3988461.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2023
+      ],
+      "flags": {
+        "dep_unknown": 25,
+        "no_rna": 25,
+        "no_source_url": 25,
+        "no_siret": 5,
+        "beneficiary_not_association": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 23,
+        "association": 1,
+        "public_body": 1
+      }
+    },
+    "commune-saint-gonlay": {
+      "rows": 9,
+      "amount_individual_eur": 22680.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 9,
+        "no_siret": 9,
+        "no_rna": 9,
+        "no_source_url": 9
+      },
+      "beneficiary_kinds": {
+        "association": 5,
+        "inconnu": 4
+      }
+    },
+    "commune-saint-laurent-de-mure": {
+      "rows": 8,
+      "amount_individual_eur": 388865.82,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "flags": {
+        "no_siret": 8,
+        "no_rna": 8,
+        "no_source_url": 8
+      },
+      "beneficiary_kinds": {
+        "inconnu": 8
+      }
+    },
+    "commune-sarcelles": {
+      "rows": 23,
+      "amount_individual_eur": 1601940.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2025
+      ],
+      "flags": {
+        "no_rna": 23,
+        "no_source_url": 23
+      },
+      "beneficiary_kinds": {
+        "inconnu": 20,
+        "association": 3
+      }
+    },
+    "commune-sautron": {
+      "rows": 6,
+      "amount_individual_eur": 1170089.67,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2024,
+        2025
+      ],
+      "flags": {
+        "no_siret": 6,
+        "siret_scientific_notation": 6,
+        "no_rna": 6,
+        "no_source_url": 6
+      },
+      "beneficiary_kinds": {
+        "inconnu": 6
+      }
+    },
+    "commune-sautron-23k": {
+      "rows": 6,
+      "amount_individual_eur": 1170089.67,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2024,
+        2025
+      ],
+      "flags": {
+        "no_rna": 6,
+        "no_source_url": 6
+      },
+      "beneficiary_kinds": {
+        "inconnu": 6
+      }
+    },
+    "commune-sixt-sur-aff": {
+      "rows": 69,
+      "amount_individual_eur": 62253.05,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018
+      ],
+      "flags": {
+        "no_rna": 69,
+        "no_source_url": 69,
+        "no_siret": 56,
+        "siret_invalid": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 59,
+        "association": 10
+      }
+    },
+    "commune-soissons": {
+      "rows": 795,
+      "amount_individual_eur": 4255944.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "flags": {
+        "no_siret": 795,
+        "no_rna": 795,
+        "no_source_url": 795,
+        "beneficiary_not_association": 2
+      },
+      "beneficiary_kinds": {
+        "inconnu": 578,
+        "association": 215,
+        "public_body": 2
+      }
+    },
+    "commune-talensac": {
+      "rows": 110,
+      "amount_individual_eur": 18661200.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 110,
+        "no_rna": 110,
+        "no_source_url": 110
+      },
+      "beneficiary_kinds": {
+        "inconnu": 110
+      }
+    },
+    "communes-centre": {
+      "rows": 160,
+      "amount_individual_eur": 473642.45,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019
+      ],
+      "flags": {
+        "no_rna": 160,
+        "no_source_url": 160,
+        "no_siret": 157,
+        "siret_invalid": 56,
+        "year_missing": 22,
+        "beneficiary_not_association": 4
+      },
+      "beneficiary_kinds": {
+        "inconnu": 133,
+        "association": 23,
+        "public_body": 4
+      }
+    },
+    "communes-pays-loire": {
+      "rows": 1150,
+      "amount_individual_eur": 2793209.99,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "flags": {
+        "no_rna": 1150,
+        "no_source_url": 1150,
+        "no_siret": 632,
+        "siret_invalid": 11,
+        "beneficiary_not_association": 11,
+        "amount_implausible": 3
+      },
+      "beneficiary_kinds": {
+        "inconnu": 727,
+        "association": 412,
+        "public_body": 11
+      }
+    },
+    "culture": {
+      "rows": 111532,
+      "amount_individual_eur": 7570346359.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "flags": {
+        "no_rna": 111532,
+        "no_source_url": 111532,
+        "beneficiary_not_association": 26294,
+        "no_siret": 8936,
+        "amount_negative": 5745,
+        "dep_unknown": 1017
+      },
+      "beneficiary_kinds": {
+        "inconnu": 76123,
+        "public_body": 26294,
+        "association": 9115
+      }
+    },
+    "culture-2": {
+      "rows": 111532,
+      "amount_individual_eur": 5129004780.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "flags": {
+        "no_rna": 111532,
+        "no_source_url": 111532,
+        "beneficiary_not_association": 10985,
+        "no_siret": 4826,
+        "dep_unknown": 1240,
+        "amount_negative": 157
+      },
+      "beneficiary_kinds": {
+        "inconnu": 90076,
+        "public_body": 10985,
+        "association": 10471
+      }
+    },
+    "dept-seine-saint-denis": {
+      "rows": 508,
+      "amount_individual_eur": 44283792.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 508,
+        "no_rna": 508,
+        "no_source_url": 508,
+        "beneficiary_not_association": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 426,
+        "association": 81,
+        "public_body": 1
+      }
+    },
+    "dilcrah-2024": {
+      "rows": 188,
+      "amount_individual_eur": 7572535.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2024
+      ],
+      "flags": {
+        "dep_unknown": 188,
+        "no_siret": 188,
+        "no_rna": 188,
+        "no_source_url": 188,
+        "beneficiary_not_association": 7
+      },
+      "beneficiary_kinds": {
+        "inconnu": 171,
+        "association": 10,
+        "public_body": 7
+      }
+    },
+    "dilcrah-2025": {
+      "rows": 218,
+      "amount_individual_eur": 7267600.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2025
+      ],
+      "flags": {
+        "dep_unknown": 218,
+        "no_siret": 218,
+        "no_rna": 218,
+        "no_source_url": 218,
+        "amount_zero": 56,
+        "beneficiary_not_association": 10
+      },
+      "beneficiary_kinds": {
+        "inconnu": 197,
+        "association": 11,
+        "public_body": 10
+      }
+    },
+    "ditp": {
+      "rows": 7,
+      "amount_individual_eur": 970000.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2023,
+        2024,
+        2025
+      ],
+      "flags": {
+        "dep_unknown": 7,
+        "no_siret": 7,
+        "no_rna": 7,
+        "no_source_url": 7
+      },
+      "beneficiary_kinds": {
+        "inconnu": 7
+      }
+    },
+    "ecole-beaux-arts-nantes": {
+      "rows": 9,
+      "amount_individual_eur": 449948.87,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021,
+        2022,
+        2023,
+        2025
+      ],
+      "flags": {
+        "no_rna": 9,
+        "no_source_url": 9
+      },
+      "beneficiary_kinds": {
+        "association": 9
+      }
+    },
+    "efs-aura": {
+      "rows": 10,
+      "amount_individual_eur": 579622.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "dep_unknown": 10,
+        "no_siret": 10,
+        "no_rna": 10,
+        "no_source_url": 10
+      },
+      "beneficiary_kinds": {
+        "inconnu": 8,
+        "association": 2
+      }
+    },
+    "efs-cpdl": {
+      "rows": 8,
+      "amount_individual_eur": 322269.36,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "flags": {
+        "dep_unknown": 8,
+        "no_rna": 8,
+        "no_source_url": 8
+      },
+      "beneficiary_kinds": {
+        "inconnu": 8
+      }
+    },
+    "efs-ocpm": {
+      "rows": 8,
+      "amount_individual_eur": 71706.82,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2019
+      ],
+      "flags": {
+        "dep_unknown": 8,
+        "no_rna": 8,
+        "no_source_url": 8,
+        "no_siret": 2,
+        "siret_invalid": 2
+      },
+      "beneficiary_kinds": {
+        "association": 4,
+        "inconnu": 4
+      }
+    },
+    "efs-siege": {
+      "rows": 12,
+      "amount_individual_eur": 174000.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021
+      ],
+      "flags": {
+        "dep_unknown": 12,
+        "no_rna": 12,
+        "no_source_url": 12,
+        "no_siret": 3,
+        "siret_invalid": 2
+      },
+      "beneficiary_kinds": {
+        "inconnu": 12
+      }
+    },
+    "epci-gpso": {
+      "rows": 116,
+      "amount_individual_eur": 40320767.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "flags": {
+        "no_source_url": 116,
+        "no_rna": 14
+      },
+      "beneficiary_kinds": {
+        "inconnu": 116
+      }
+    },
+    "etat-bop177": {
+      "rows": 289,
+      "amount_individual_eur": 26986429.68,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018
+      ],
+      "flags": {
+        "no_rna": 289,
+        "no_source_url": 289,
+        "beneficiary_not_association": 33,
+        "no_siret": 22,
+        "siret_invalid": 22
+      },
+      "beneficiary_kinds": {
+        "inconnu": 249,
+        "public_body": 33,
+        "association": 7
+      }
+    },
+    "etat-cabinet-pm": {
+      "rows": 51,
+      "amount_individual_eur": 51.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2022
+      ],
+      "flags": {
+        "dep_unknown": 51,
+        "no_rna": 51,
+        "no_source_url": 51
+      },
+      "beneficiary_kinds": {
+        "inconnu": 27,
+        "association": 24
+      }
+    },
+    "etat-dilcrah": {
+      "rows": 557,
+      "amount_individual_eur": 20739140.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "flags": {
+        "dep_unknown": 557,
+        "no_rna": 557,
+        "no_source_url": 557,
+        "no_siret": 176,
+        "siret_invalid": 171,
+        "beneficiary_not_association": 33
+      },
+      "beneficiary_kinds": {
+        "inconnu": 483,
+        "association": 41,
+        "public_body": 33
+      }
+    },
+    "feder-hauts-de-france": {
+      "rows": 1075,
+      "amount_individual_eur": 763512873.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "flags": {
+        "no_rna": 1075,
+        "no_source_url": 1075,
+        "beneficiary_not_association": 36,
+        "dep_unknown": 33,
+        "no_siret": 6
+      },
+      "beneficiary_kinds": {
+        "inconnu": 967,
+        "association": 72,
+        "public_body": 36
+      }
+    },
+    "idf-sante": {
+      "rows": 515,
+      "amount_individual_eur": 292624351.67,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2010,
+        2011,
+        2024,
+        2025
+      ],
+      "flags": {
+        "no_rna": 515,
+        "no_source_url": 515,
+        "no_siret": 509,
+        "beneficiary_not_association": 124
+      },
+      "beneficiary_kinds": {
+        "inconnu": 360,
+        "public_body": 124,
+        "association": 31
+      }
+    },
+    "metropole-bordeaux": {
+      "rows": 1177,
+      "amount_individual_eur": 140793249.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "flags": {
+        "no_rna": 1177,
+        "no_source_url": 1177,
+        "no_siret": 110,
+        "siret_invalid": 102,
+        "year_missing": 7
+      },
+      "beneficiary_kinds": {
+        "inconnu": 1117,
+        "association": 60
+      }
+    },
+    "metropole-clermont": {
+      "rows": 327,
+      "amount_individual_eur": 36011943.75,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2020,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_rna": 327,
+        "no_source_url": 327,
+        "beneficiary_not_association": 13,
+        "no_siret": 3
+      },
+      "beneficiary_kinds": {
+        "inconnu": 299,
+        "association": 15,
+        "public_body": 13
+      }
+    },
+    "metropole-grenoble": {
+      "rows": 2631,
+      "amount_individual_eur": 78433531.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2015,
+        2016,
+        2019,
+        2020,
+        2022,
+        2023
+      ],
+      "flags": {
+        "no_rna": 2631,
+        "no_source_url": 2631,
+        "no_siret": 1830,
+        "beneficiary_not_association": 5,
+        "siret_invalid": 3
+      },
+      "beneficiary_kinds": {
+        "inconnu": 2071,
+        "association": 555,
+        "public_body": 5
+      }
+    },
+    "metropole-lyon": {
+      "rows": 9081,
+      "amount_individual_eur": 48001211807.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 9081,
+        "no_rna": 9081,
+        "no_source_url": 9081,
+        "no_siret": 241,
+        "beneficiary_not_association": 71,
+        "siret_invalid": 3
+      },
+      "beneficiary_kinds": {
+        "inconnu": 7509,
+        "association": 1501,
+        "public_body": 71
+      }
+    },
+    "metropole-nantes": {
+      "rows": 2874,
+      "amount_individual_eur": 289959524.39,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_rna": 2874,
+        "no_source_url": 2874,
+        "beneficiary_not_association": 47,
+        "no_siret": 38,
+        "siret_invalid": 38
+      },
+      "beneficiary_kinds": {
+        "inconnu": 2399,
+        "association": 428,
+        "public_body": 47
+      }
+    },
+    "metropole-toulouse": {
+      "rows": 3521,
+      "amount_individual_eur": 949351360.15,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2024
+      ],
+      "flags": {
+        "no_rna": 3521,
+        "no_source_url": 3521,
+        "beneficiary_not_association": 189,
+        "no_siret": 125,
+        "siret_invalid": 2
+      },
+      "beneficiary_kinds": {
+        "inconnu": 3095,
+        "association": 237,
+        "public_body": 189
+      }
+    },
+    "ministere-agriculture": {
+      "rows": 1840,
+      "amount_individual_eur": 1400384955.97,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2021,
+        2022,
+        2025,
+        2026
+      ],
+      "flags": {
+        "dep_unknown": 1840,
+        "no_rna": 1840,
+        "no_source_url": 1840,
+        "no_siret": 23,
+        "siret_invalid": 23,
+        "beneficiary_not_association": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 1743,
+        "association": 96,
+        "public_body": 1
+      }
+    },
+    "paris": {
+      "rows": 76207,
+      "amount_individual_eur": 3915640935.0,
+      "amount_aggregate_eur": 32162.0,
+      "years": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "flags": {
+        "no_rna": 76207,
+        "no_siret": 427,
+        "siret_invalid": 361,
+        "beneficiary_not_association": 190
+      },
+      "beneficiary_kinds": {
+        "inconnu": 59814,
+        "association": 16203,
+        "public_body": 190
+      }
+    },
+    "pays-basque-2023": {
+      "rows": 79,
+      "amount_individual_eur": 6033792.51,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2023
+      ],
+      "flags": {
+        "no_rna": 79,
+        "no_source_url": 79,
+        "no_siret": 68,
+        "siret_invalid": 68,
+        "beneficiary_not_association": 1
+      },
+      "beneficiary_kinds": {
+        "association": 41,
+        "inconnu": 37,
+        "public_body": 1
+      }
+    },
     "plf-jaune-2012": {
       "rows": 37678,
       "amount_individual_eur": 1483995024.0,
@@ -91,8 +2335,8 @@
       "flags": {
         "no_siret": 21167,
         "no_rna": 21167,
-        "dep_only": 18236,
-        "dep_unknown": 2931,
+        "dep_only": 18674,
+        "dep_unknown": 2493,
         "amount_zero": 40
       },
       "beneficiary_kinds": {
@@ -110,8 +2354,8 @@
       "flags": {
         "no_siret": 31851,
         "no_rna": 31851,
-        "dep_only": 28849,
-        "dep_unknown": 3002,
+        "dep_only": 29641,
+        "dep_unknown": 2210,
         "amount_zero": 4,
         "amount_negative": 2
       },
@@ -130,8 +2374,8 @@
       "flags": {
         "no_siret": 28147,
         "no_rna": 28147,
-        "dep_only": 25460,
-        "dep_unknown": 2687
+        "dep_only": 26245,
+        "dep_unknown": 1902
       },
       "beneficiary_kinds": {
         "inconnu": 25038,
@@ -148,8 +2392,8 @@
       "flags": {
         "no_siret": 29717,
         "no_rna": 29717,
-        "dep_only": 27230,
-        "dep_unknown": 2487
+        "dep_only": 28079,
+        "dep_unknown": 1638
       },
       "beneficiary_kinds": {
         "inconnu": 25796,
@@ -166,8 +2410,8 @@
       "flags": {
         "no_siret": 33032,
         "no_rna": 33032,
-        "dep_only": 30290,
-        "dep_unknown": 2742
+        "dep_only": 31199,
+        "dep_unknown": 1833
       },
       "beneficiary_kinds": {
         "inconnu": 29018,
@@ -309,7 +2553,7 @@
       ],
       "flags": {
         "no_rna": 112722,
-        "dep_unknown": 17743,
+        "dep_unknown": 17742,
         "no_siret": 556,
         "beneficiary_not_association": 184,
         "amount_zero": 24
@@ -320,26 +2564,1141 @@
         "company": 154,
         "public_body": 30
       }
+    },
+    "region-centre": {
+      "rows": 3303,
+      "amount_individual_eur": 729981661.02,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2021,
+        2022,
+        2024
+      ],
+      "flags": {
+        "dep_unknown": 3303,
+        "no_rna": 3303,
+        "no_source_url": 3303,
+        "no_siret": 81,
+        "beneficiary_not_association": 35,
+        "siret_invalid": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 2620,
+        "association": 648,
+        "public_body": 35
+      }
+    },
+    "region-idf": {
+      "rows": 33071,
+      "amount_individual_eur": 2738936203.79,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2016,
+        2017,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_rna": 33071,
+        "no_source_url": 33071,
+        "no_siret": 28790,
+        "siret_invalid": 265,
+        "beneficiary_not_association": 247
+      },
+      "beneficiary_kinds": {
+        "inconnu": 26934,
+        "association": 5890,
+        "public_body": 247
+      }
+    },
+    "reserve-ministerielle": {
+      "rows": 3243,
+      "amount_individual_eur": 55550746.3,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "flags": {
+        "no_siret": 3243,
+        "no_rna": 3243,
+        "no_source_url": 3243,
+        "beneficiary_not_association": 81,
+        "dep_unknown": 51
+      },
+      "beneficiary_kinds": {
+        "inconnu": 3162,
+        "public_body": 81
+      }
+    },
+    "sdis-gironde": {
+      "rows": 3,
+      "amount_individual_eur": 657000.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 3,
+        "no_siret": 3,
+        "siret_invalid": 3,
+        "no_rna": 3,
+        "no_source_url": 3
+      },
+      "beneficiary_kinds": {
+        "association": 3
+      }
+    },
+    "subv-associations-2024": {
+      "rows": 32,
+      "amount_individual_eur": 100319.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2024
+      ],
+      "flags": {
+        "dep_unknown": 32,
+        "no_siret": 32,
+        "no_rna": 32,
+        "donor_unattributed": 32,
+        "no_source_url": 32,
+        "beneficiary_not_association": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 28,
+        "association": 3,
+        "public_body": 1
+      }
+    },
+    "subv-communales": {
+      "rows": 137,
+      "amount_individual_eur": 1599169.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_invalid": 137,
+        "dep_unknown": 137,
+        "no_siret": 137,
+        "no_rna": 137,
+        "donor_unattributed": 137,
+        "no_source_url": 137
+      },
+      "beneficiary_kinds": {
+        "inconnu": 104,
+        "association": 33
+      }
+    },
+    "subv-votees-23k": {
+      "rows": 22,
+      "amount_individual_eur": 318576.6,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_invalid": 22,
+        "dep_unknown": 22,
+        "no_siret": 22,
+        "no_rna": 22,
+        "donor_unattributed": 22,
+        "no_source_url": 22
+      },
+      "beneficiary_kinds": {
+        "inconnu": 12,
+        "association": 10
+      }
+    },
+    "ville-anglet": {
+      "rows": 85,
+      "amount_individual_eur": 8652355.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2012,
+        2018,
+        2019,
+        2020,
+        2021,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_rna": 85,
+        "no_source_url": 85,
+        "beneficiary_not_association": 6,
+        "year_invalid": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 79,
+        "public_body": 6
+      }
+    },
+    "ville-arras-2017": {
+      "rows": 168,
+      "amount_individual_eur": 3572249.04,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017
+      ],
+      "flags": {
+        "no_siret": 168,
+        "no_rna": 168,
+        "no_source_url": 168,
+        "beneficiary_not_association": 4
+      },
+      "beneficiary_kinds": {
+        "inconnu": 144,
+        "association": 20,
+        "public_body": 4
+      }
+    },
+    "ville-arras-2018": {
+      "rows": 72,
+      "amount_individual_eur": 1295200.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018
+      ],
+      "flags": {
+        "no_rna": 72,
+        "no_source_url": 72
+      },
+      "beneficiary_kinds": {
+        "inconnu": 67,
+        "association": 5
+      }
+    },
+    "ville-asnieres": {
+      "rows": 22,
+      "amount_individual_eur": 2185201.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2020
+      ],
+      "flags": {
+        "no_siret": 22,
+        "no_rna": 22,
+        "no_source_url": 22
+      },
+      "beneficiary_kinds": {
+        "inconnu": 18,
+        "association": 4
+      }
+    },
+    "ville-bar-le-duc": {
+      "rows": 18,
+      "amount_individual_eur": 2292265.15,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2023
+      ],
+      "flags": {
+        "no_rna": 18,
+        "no_source_url": 18
+      },
+      "beneficiary_kinds": {
+        "inconnu": 13,
+        "association": 5
+      }
+    },
+    "ville-bauge-anjou": {
+      "rows": 281,
+      "amount_individual_eur": 115403382.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2020
+      ],
+      "flags": {
+        "no_siret": 281,
+        "no_rna": 281,
+        "no_source_url": 281
+      },
+      "beneficiary_kinds": {
+        "inconnu": 217,
+        "association": 64
+      }
+    },
+    "ville-bayonne": {
+      "rows": 111,
+      "amount_individual_eur": 10429101.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2020
+      ],
+      "flags": {
+        "no_rna": 111,
+        "no_source_url": 111
+      },
+      "beneficiary_kinds": {
+        "inconnu": 99,
+        "association": 12
+      }
+    },
+    "ville-boulogne": {
+      "rows": 49,
+      "amount_individual_eur": 9098028.25,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2025
+      ],
+      "flags": {
+        "no_siret": 49,
+        "no_rna": 49,
+        "no_source_url": 49
+      },
+      "beneficiary_kinds": {
+        "inconnu": 40,
+        "association": 9
+      }
+    },
+    "ville-boulogne-billancourt": {
+      "rows": 62,
+      "amount_individual_eur": 834398991.25,
+      "amount_aggregate_eur": 0.0,
+      "years": [],
+      "flags": {
+        "year_missing": 62,
+        "no_siret": 62,
+        "siret_invalid": 62,
+        "no_rna": 62,
+        "no_source_url": 62
+      },
+      "beneficiary_kinds": {
+        "inconnu": 51,
+        "association": 11
+      }
+    },
+    "ville-carquefou-2025": {
+      "rows": 14,
+      "amount_individual_eur": 1463955.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2025
+      ],
+      "flags": {
+        "no_rna": 14,
+        "no_source_url": 14
+      },
+      "beneficiary_kinds": {
+        "inconnu": 13,
+        "association": 1
+      }
+    },
+    "ville-charleville-mezieres": {
+      "rows": 39,
+      "amount_individual_eur": 3256714.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_rna": 39,
+        "no_source_url": 39
+      },
+      "beneficiary_kinds": {
+        "inconnu": 36,
+        "association": 3
+      }
+    },
+    "ville-dreux": {
+      "rows": 43,
+      "amount_individual_eur": 2553233.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018,
+        2019,
+        2020
+      ],
+      "flags": {
+        "no_rna": 43,
+        "no_source_url": 43,
+        "no_siret": 1,
+        "siret_invalid": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 43
+      }
+    },
+    "ville-grenoble": {
+      "rows": 3211,
+      "amount_individual_eur": 79001884.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2013,
+        2015,
+        2016
+      ],
+      "flags": {
+        "no_siret": 3211,
+        "no_rna": 3211,
+        "no_source_url": 3211,
+        "beneficiary_not_association": 87
+      },
+      "beneficiary_kinds": {
+        "inconnu": 2715,
+        "association": 409,
+        "public_body": 87
+      }
+    },
+    "ville-grenoble-2015": {
+      "rows": 995,
+      "amount_individual_eur": 23240264.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2015
+      ],
+      "flags": {
+        "no_siret": 995,
+        "siret_invalid": 995,
+        "no_rna": 995,
+        "no_source_url": 995,
+        "beneficiary_not_association": 27
+      },
+      "beneficiary_kinds": {
+        "inconnu": 846,
+        "association": 122,
+        "public_body": 27
+      }
+    },
+    "ville-grenoble-2016": {
+      "rows": 917,
+      "amount_individual_eur": 20753331.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2016
+      ],
+      "flags": {
+        "no_siret": 917,
+        "siret_invalid": 917,
+        "no_rna": 917,
+        "no_source_url": 917,
+        "beneficiary_not_association": 24
+      },
+      "beneficiary_kinds": {
+        "inconnu": 791,
+        "association": 102,
+        "public_body": 24
+      }
+    },
+    "ville-iffendic": {
+      "rows": 375,
+      "amount_individual_eur": 352828.08,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2015
+      ],
+      "flags": {
+        "no_rna": 375,
+        "no_source_url": 375,
+        "no_siret": 163,
+        "siret_invalid": 40
+      },
+      "beneficiary_kinds": {
+        "association": 354,
+        "inconnu": 21
+      }
+    },
+    "ville-issy": {
+      "rows": 23,
+      "amount_individual_eur": 14083276.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2025
+      ],
+      "flags": {
+        "no_siret": 23,
+        "no_rna": 23,
+        "no_source_url": 23
+      },
+      "beneficiary_kinds": {
+        "inconnu": 23
+      }
+    },
+    "ville-lannion": {
+      "rows": 179,
+      "amount_individual_eur": 3166205.5,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2014
+      ],
+      "flags": {
+        "no_siret": 179,
+        "no_rna": 179,
+        "no_source_url": 179,
+        "beneficiary_not_association": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 150,
+        "association": 28,
+        "public_body": 1
+      }
+    },
+    "ville-lisieux-2018": {
+      "rows": 119,
+      "amount_individual_eur": 618904.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018
+      ],
+      "flags": {
+        "no_siret": 119,
+        "no_rna": 119,
+        "no_source_url": 119,
+        "beneficiary_not_association": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 94,
+        "association": 24,
+        "public_body": 1
+      }
+    },
+    "ville-longjumeau": {
+      "rows": 5,
+      "amount_individual_eur": 184000.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018
+      ],
+      "flags": {
+        "no_siret": 5,
+        "no_rna": 5,
+        "no_source_url": 5
+      },
+      "beneficiary_kinds": {
+        "inconnu": 5
+      }
+    },
+    "ville-lyon": {
+      "rows": 4356,
+      "amount_individual_eur": 210203277.71,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "flags": {
+        "no_rna": 4356,
+        "no_source_url": 4356,
+        "year_missing": 3741,
+        "no_siret": 1279,
+        "siret_invalid": 4,
+        "beneficiary_not_association": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 4015,
+        "association": 340,
+        "public_body": 1
+      }
+    },
+    "ville-manosque-2025": {
+      "rows": 13,
+      "amount_individual_eur": 7322589.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2024,
+        2025
+      ],
+      "flags": {
+        "no_rna": 13,
+        "no_source_url": 13,
+        "no_siret": 12,
+        "siret_scientific_notation": 12,
+        "year_invalid": 1,
+        "beneficiary_not_association": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 12,
+        "public_body": 1
+      }
+    },
+    "ville-marseille": {
+      "rows": 11164,
+      "amount_individual_eur": 746779826.37,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2020,
+        2021,
+        2022
+      ],
+      "flags": {
+        "no_siret": 11164,
+        "no_rna": 11164,
+        "no_source_url": 11164,
+        "beneficiary_not_association": 138
+      },
+      "beneficiary_kinds": {
+        "inconnu": 9704,
+        "association": 1322,
+        "public_body": 138
+      }
+    },
+    "ville-meudon": {
+      "rows": 103,
+      "amount_individual_eur": 5801005.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2026
+      ],
+      "flags": {
+        "no_siret": 103,
+        "no_rna": 103,
+        "no_source_url": 103,
+        "beneficiary_not_association": 2
+      },
+      "beneficiary_kinds": {
+        "inconnu": 87,
+        "association": 14,
+        "public_body": 2
+      }
+    },
+    "ville-nancy": {
+      "rows": 217,
+      "amount_individual_eur": 22331325.79,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019
+      ],
+      "flags": {
+        "no_siret": 217,
+        "no_rna": 217,
+        "no_source_url": 217,
+        "siret_invalid": 30
+      },
+      "beneficiary_kinds": {
+        "inconnu": 151,
+        "association": 66
+      }
+    },
+    "ville-nantes": {
+      "rows": 10327,
+      "amount_individual_eur": 323388529.23,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_rna": 10327,
+        "no_source_url": 10327,
+        "no_siret": 265,
+        "siret_invalid": 265,
+        "beneficiary_not_association": 109
+      },
+      "beneficiary_kinds": {
+        "inconnu": 8789,
+        "association": 1429,
+        "public_body": 109
+      }
+    },
+    "ville-nogent-2012": {
+      "rows": 129,
+      "amount_individual_eur": 1947210.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2012
+      ],
+      "flags": {
+        "no_siret": 129,
+        "no_rna": 129,
+        "no_source_url": 129,
+        "beneficiary_not_association": 4
+      },
+      "beneficiary_kinds": {
+        "inconnu": 92,
+        "association": 33,
+        "public_body": 4
+      }
+    },
+    "ville-nogent-2013": {
+      "rows": 215,
+      "amount_individual_eur": 2899528.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2013
+      ],
+      "flags": {
+        "no_siret": 215,
+        "no_rna": 215,
+        "no_source_url": 215,
+        "beneficiary_not_association": 4
+      },
+      "beneficiary_kinds": {
+        "inconnu": 159,
+        "association": 52,
+        "public_body": 4
+      }
+    },
+    "ville-nogent-2014": {
+      "rows": 213,
+      "amount_individual_eur": 2132945.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2014
+      ],
+      "flags": {
+        "no_siret": 213,
+        "no_rna": 213,
+        "no_source_url": 213,
+        "beneficiary_not_association": 3
+      },
+      "beneficiary_kinds": {
+        "inconnu": 155,
+        "association": 55,
+        "public_body": 3
+      }
+    },
+    "ville-orvault": {
+      "rows": 79,
+      "amount_individual_eur": 18800465.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "flags": {
+        "no_siret": 79,
+        "no_rna": 79,
+        "no_source_url": 79
+      },
+      "beneficiary_kinds": {
+        "inconnu": 79
+      }
+    },
+    "ville-poinconnet": {
+      "rows": 20,
+      "amount_individual_eur": 90545.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021
+      ],
+      "flags": {
+        "no_siret": 20,
+        "no_rna": 20,
+        "no_source_url": 20
+      },
+      "beneficiary_kinds": {
+        "inconnu": 19,
+        "association": 1
+      }
+    },
+    "ville-quimper": {
+      "rows": 76,
+      "amount_individual_eur": 24556273.88,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2024,
+        2025
+      ],
+      "flags": {
+        "dep_unknown": 76,
+        "no_siret": 76,
+        "no_rna": 76,
+        "no_source_url": 76,
+        "beneficiary_not_association": 2
+      },
+      "beneficiary_kinds": {
+        "inconnu": 70,
+        "association": 4,
+        "public_body": 2
+      }
+    },
+    "ville-redon": {
+      "rows": 1,
+      "amount_individual_eur": 650.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018
+      ],
+      "flags": {
+        "no_rna": 1,
+        "beneficiary_not_association": 1,
+        "no_source_url": 1
+      },
+      "beneficiary_kinds": {
+        "public_body": 1
+      }
+    },
+    "ville-redon-2017": {
+      "rows": 113,
+      "amount_individual_eur": 243695.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017
+      ],
+      "flags": {
+        "no_siret": 113,
+        "no_rna": 113,
+        "no_source_url": 113,
+        "beneficiary_not_association": 5
+      },
+      "beneficiary_kinds": {
+        "inconnu": 94,
+        "association": 14,
+        "public_body": 5
+      }
+    },
+    "ville-redon-2018": {
+      "rows": 110,
+      "amount_individual_eur": 375463.21,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018
+      ],
+      "flags": {
+        "no_siret": 110,
+        "no_rna": 110,
+        "no_source_url": 110,
+        "beneficiary_not_association": 5
+      },
+      "beneficiary_kinds": {
+        "inconnu": 90,
+        "association": 15,
+        "public_body": 5
+      }
+    },
+    "ville-rennes": {
+      "rows": 17298,
+      "amount_individual_eur": 279071894.9,
+      "amount_aggregate_eur": 171710736.16,
+      "years": [
+        2016,
+        2017,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_siret": 17298,
+        "no_rna": 17298,
+        "no_source_url": 17298,
+        "beneficiary_not_association": 238
+      },
+      "beneficiary_kinds": {
+        "inconnu": 13837,
+        "association": 3223,
+        "public_body": 238
+      }
+    },
+    "ville-roscloff-2017": {
+      "rows": 46,
+      "amount_individual_eur": 4760300.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017
+      ],
+      "flags": {
+        "no_siret": 46,
+        "no_rna": 46,
+        "no_source_url": 46,
+        "siret_scientific_notation": 19,
+        "beneficiary_not_association": 1
+      },
+      "beneficiary_kinds": {
+        "inconnu": 39,
+        "association": 6,
+        "public_body": 1
+      }
+    },
+    "ville-roubaix": {
+      "rows": 585,
+      "amount_individual_eur": 85434658.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "flags": {
+        "no_rna": 585,
+        "no_source_url": 585,
+        "no_siret": 189,
+        "siret_scientific_notation": 182,
+        "beneficiary_not_association": 15,
+        "siret_invalid": 7
+      },
+      "beneficiary_kinds": {
+        "inconnu": 365,
+        "association": 205,
+        "public_body": 15
+      }
+    },
+    "ville-sailly": {
+      "rows": 71,
+      "amount_individual_eur": 2319084.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "flags": {
+        "no_rna": 71,
+        "no_source_url": 71,
+        "no_siret": 8
+      },
+      "beneficiary_kinds": {
+        "inconnu": 69,
+        "association": 2
+      }
+    },
+    "ville-sarcelles-2025": {
+      "rows": 23,
+      "amount_individual_eur": 1601940.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2025
+      ],
+      "flags": {
+        "no_rna": 23,
+        "no_source_url": 23
+      },
+      "beneficiary_kinds": {
+        "inconnu": 20,
+        "association": 3
+      }
+    },
+    "ville-talensac": {
+      "rows": 110,
+      "amount_individual_eur": 186612.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2015
+      ],
+      "flags": {
+        "no_rna": 110,
+        "no_source_url": 110,
+        "no_siret": 25
+      },
+      "beneficiary_kinds": {
+        "inconnu": 101,
+        "association": 9
+      }
+    },
+    "ville-toulouse": {
+      "rows": 10637,
+      "amount_individual_eur": 668290175.44,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_rna": 10637,
+        "no_source_url": 10637,
+        "no_siret": 1213,
+        "beneficiary_not_association": 226
+      },
+      "beneficiary_kinds": {
+        "inconnu": 9313,
+        "association": 1098,
+        "public_body": 226
+      }
+    },
+    "ville-tours": {
+      "rows": 2484,
+      "amount_individual_eur": 0.0,
+      "amount_aggregate_eur": 104696168.92,
+      "years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "flags": {
+        "no_siret": 2484,
+        "no_rna": 2484,
+        "no_source_url": 2484,
+        "beneficiary_not_association": 55
+      },
+      "beneficiary_kinds": {
+        "inconnu": 2226,
+        "association": 203,
+        "public_body": 55
+      }
+    },
+    "ville-vaulx": {
+      "rows": 655,
+      "amount_individual_eur": 24633610.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2005,
+        2018,
+        2019,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "flags": {
+        "no_rna": 655,
+        "no_source_url": 655,
+        "beneficiary_not_association": 25,
+        "no_siret": 12,
+        "siret_invalid": 12
+      },
+      "beneficiary_kinds": {
+        "inconnu": 559,
+        "association": 71,
+        "public_body": 25
+      }
+    },
+    "ville-villejuif": {
+      "rows": 339,
+      "amount_individual_eur": 697998.44,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "flags": {
+        "no_siret": 339,
+        "no_rna": 339,
+        "no_source_url": 339,
+        "siret_invalid": 330
+      },
+      "beneficiary_kinds": {
+        "inconnu": 305,
+        "association": 34
+      }
+    },
+    "ville-villemomble": {
+      "rows": 107,
+      "amount_individual_eur": 4385021.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2011,
+        2012
+      ],
+      "flags": {
+        "no_siret": 107,
+        "no_rna": 107,
+        "no_source_url": 107
+      },
+      "beneficiary_kinds": {
+        "inconnu": 94,
+        "association": 13
+      }
+    },
+    "ville-vitry-2017": {
+      "rows": 214,
+      "amount_individual_eur": 19340808.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017
+      ],
+      "flags": {
+        "no_siret": 214,
+        "no_rna": 214,
+        "no_source_url": 214,
+        "beneficiary_not_association": 4
+      },
+      "beneficiary_kinds": {
+        "inconnu": 131,
+        "association": 79,
+        "public_body": 4
+      }
     }
   },
   "anomalies": [
     {
       "type": "rupture_annuelle",
       "year": 2011,
-      "amount_eur": 12298527650.0,
-      "mediane_annees_voisines_eur": 1669499964.5,
-      "rapport": 7.4,
+      "amount_eur": 12539191620.08,
+      "mediane_annees_voisines_eur": 1879891831.82,
+      "rapport": 6.7,
+      "commentaire": "Total sans commune mesure avec les années voisines. Conforme à ce que publie la source — non corrigé. À vérifier : périmètre de l'annexe cette année-là (quelques très grosses subventions y pèsent lourd)."
+    },
+    {
+      "type": "rupture_annuelle",
+      "year": 2023,
+      "amount_eur": 15444097641.95,
+      "mediane_annees_voisines_eur": 4227597339.38,
+      "rapport": 3.7,
       "commentaire": "Total sans commune mesure avec les années voisines. Conforme à ce que publie la source — non corrigé. À vérifier : périmètre de l'annexe cette année-là (quelques très grosses subventions y pèsent lourd)."
     },
     {
       "type": "doublons_internes_conserves",
-      "rows": 8382,
-      "groupes": 3506,
+      "rows": 38920,
+      "groupes": 14481,
       "commentaire": "Lignes de clé métier identique au sein d'une même source. Conservées volontairement : l'inspection montre qu'il s'agit majoritairement d'organismes homonymes distincts (23 « Maison des jeunes et de la culture » recevant la même subvention type), et non de doublons."
     },
     {
+      "type": "montants_invraisemblables_exclus",
+      "rows": 3,
+      "amount_eur": 236888733000042.0,
+      "commentaire": "Valeurs supérieures à dix milliards d'euros pour une attribution unique : ce ne sont pas des montants. Cas constaté, un SIRET recopié dans la colonne montant par un convertisseur défaillant. Conservées dans la table avec le drapeau amount_implausible ; la valeur publiée est conservée dans `amount_rejected_eur`, et `amount_eur` est nul — une somme sur `amount_eur` est donc juste sans précaution particulière."
+    },
+    {
       "type": "montants_nuls",
-      "rows": 117,
+      "rows": 262,
       "commentaire": "Montant à zéro publié tel quel par la source."
     }
   ]

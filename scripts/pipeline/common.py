@@ -325,3 +325,270 @@ def pick(header, *patterns):
                 if test(f_, pf):
                     return h
     return None
+
+
+# --------------------------------------------- extraction des sources JS ----
+
+# Les fichiers `data/sources/*.js` de l'ancien site enveloppent tous un tableau
+# JSON dans l'une de cinq formes : `window.__DATA_SOURCES.push({...data:[...]})`,
+# `__registerDataSource(id, [...])`, `var DATA_X = [...]`, `window.DATA_X = [...]`
+# ou une IIFE contenant `var RAW_DATA = [...]`. Plutôt que de gérer cinq
+# grammaires, on repère le premier tableau d'objets et on l'extrait par
+# équilibrage des crochets : c'est insensible à l'enveloppe.
+
+# Le générateur historique produit du JSON invalide sur trois fichiers : une
+# virgule surnuméraire en tête de tableau (`[\n,{...`), une en queue (`...},\n]`),
+# et des tableaux vides `[]`. On tolère les trois plutôt que de perdre les
+# 350 000 lignes concernées.
+# On cherche d'abord un tableau CONTENANT des objets : plusieurs fichiers
+# commencent par `window.__DATA_SOURCES = window.__DATA_SOURCES || [];`, et
+# accepter un tableau vide trop tôt ferait manquer les données qui suivent.
+_ARRAY_START = re.compile(r"\[\s*,?\s*\{")
+_EMPTY_ARRAY = re.compile(r"=\s*\[\s*\]\s*;")
+_LEAD_COMMA = re.compile(r"^\[\s*,+")
+_TRAIL_COMMA = re.compile(r",\s*\]$")
+
+
+def extract_js_array(text, start_hint=0):
+    """Extrait le premier tableau JSON d'objets trouvé dans du JavaScript.
+
+    Retourne (données, index_de_fin) ou (None, -1). L'équilibrage ignore les
+    crochets présents à l'intérieur des chaînes, y compris échappés ; les
+    virgules surnuméraires en tête et en queue sont réparées avant décodage.
+    """
+    m = _ARRAY_START.search(text, start_hint)
+    if not m:
+        # Aucun objet : la source est peut-être légitimement vide.
+        return ([], len(text)) if _EMPTY_ARRAY.search(text) else (None, -1)
+    start = m.start()
+    depth = 0
+    in_str = False
+    esc = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+            continue
+        if ch == '"':
+            in_str = True
+        elif ch in "[{":
+            depth += 1
+        elif ch in "]}":
+            depth -= 1
+            if depth == 0:
+                span = text[start:i + 1]
+                try:
+                    return json.loads(span), i + 1
+                except json.JSONDecodeError:
+                    pass
+                repaired = _TRAIL_COMMA.sub("]", _LEAD_COMMA.sub("[", span))
+                try:
+                    return json.loads(repaired), i + 1
+                except json.JSONDecodeError:
+                    return None, -1
+    return None, -1
+
+
+_META_ID = re.compile(r"""\bid\s*:\s*["']([^"']+)["']""")
+_META_LABEL = re.compile(r"""\blabel\s*:\s*["']([^"']*)["']""")
+
+
+def read_legacy_source(path):
+    """Lit un fichier `data/sources/*.js` : (identifiant, libellé, lignes)."""
+    with open(path, "r", encoding="utf-8", errors="replace") as f:
+        text = f.read()
+    head = text[:2000]
+    src_id = (_META_ID.search(head).group(1) if _META_ID.search(head)
+              else os.path.basename(path)[:-3])
+    label_m = _META_LABEL.search(head)
+    label = label_m.group(1) if label_m else ""
+    rows, _ = extract_js_array(text)
+    return src_id, label, (rows or [])
+
+
+# ------------------------------------- rattachement par nom de département ----
+
+_DEP_BY_NAME = {}
+# Les fichiers ANCT stockent un NOM de département là où le schéma attend un
+# code (« Seine-Saint-Denis », parfois « Préfecture du Nord »). On sait les
+# rattacher, ce qui récupère plus de 100 000 lignes autrement sans géographie.
+# Appliqué sur la forme PLIÉE (sans accents, sans apostrophes) : une regex
+# posée sur le texte d'origine manquerait « Préfecture », accent compris.
+_DEP_PREFIX = re.compile(
+    r"^(prefecture|prefectures|direction|directions|ddcs|ddcspp|drjscs|dreets|ddets)\b"
+    r"[\s\w,-]*?\b(de la|de l|du|des|de|d)\b\s*")
+
+
+def _dep_key(name):
+    s = fold(name).replace("’", "'").replace("'", " ").replace("-", " ")
+    return " ".join(s.split())
+
+
+def dep_by_name(name):
+    """Code département à partir d'un libellé. None si non reconnu."""
+    if not _DEP_BY_NAME:
+        for code, meta in referentiel()["departements"].items():
+            _DEP_BY_NAME[_dep_key(meta["nom"])] = code
+        # Graphies rencontrées dans les sources qui ne sont pas le nom INSEE.
+        for alias, code in {
+            "alsace": "67", "corse": "2A", "metropole de lyon": "69",
+            "rhone metropole de lyon": "69", "seine st denis": "93",
+            "val d oise": "95", "cotes d armor": "22", "cotes du nord": "22",
+            "la reunion": "974", "reunion": "974", "guyane francaise": "973",
+        }.items():
+            _DEP_BY_NAME.setdefault(alias, code)
+    raw = clean_text(name)
+    if not raw:
+        return None
+    key = _dep_key(raw)
+    hit = _DEP_BY_NAME.get(key)
+    if hit:
+        return hit
+    # « Préfecture de Seine-Saint-Denis » -> « Seine-Saint-Denis »
+    stripped = _DEP_PREFIX.sub("", key).strip()
+    if stripped and stripped != key:
+        return _DEP_BY_NAME.get(stripped)
+    return None
+
+
+def dep_from_code_or_name(value):
+    """Interprète un champ « département » qui peut porter un code ou un nom.
+
+    Retourne (code, provenance) où provenance vaut "code", "nom" ou None.
+    Les marqueurs d'absence de l'ancien site ("00", "", "0") ressortent à None :
+    la règle est nul plutôt que faux.
+    """
+    v = clean_text(value).upper()
+    if not v or v in ("00", "0", "NA", "N/A", "-"):
+        return None, None
+    if len(v) <= 3:
+        code = v.zfill(2) if v.isdigit() and len(v) == 1 else v
+        if code == "20":
+            return None, None  # « 20 » n'existe plus : 2A ou 2B, indécidable
+        if dep_is_known(code):
+            return code, "code"
+        if v.isdigit():
+            return None, None
+        # Court mais non numérique : c'est peut-être un nom (« Var », « Ain »,
+        # « Lot », « Cher »…). On ne s'arrête donc pas à l'échec du code.
+    named = dep_by_name(v)
+    return (named, "nom") if named else (None, None)
+
+
+# --------------------------------------------- taxonomie des donateurs ----
+
+# Les onze valeurs de `entity.type` de l'ancien site vers les sept valeurs
+# closes de SCHEMA.md. Les doublons (state/ministere, department/departement,
+# commune/city, epci/metropole) faisaient apparaître l'État en deux entrées
+# distinctes dans le menu du site.
+DONOR_LEVEL_MAP = {
+    "state": "etat", "ministere": "etat", "ministère": "etat",
+    "region": "region", "région": "region",
+    "department": "departement", "departement": "departement", "département": "departement",
+    "epci": "epci", "metropole": "epci", "métropole": "epci",
+    "commune": "commune", "city": "commune", "ville": "commune",
+    # Établissements publics à budget propre : les fondre dans `etat`
+    # compterait deux fois. Une CCI n'est pas un opérateur de l'État au sens
+    # strict, mais elle en partage la propriété qui compte ici — un budget
+    # distinct de celui des collectivités.
+    "operator": "operateur", "operateur": "operateur", "cci": "operateur",
+}
+
+# Libellés de donateur qui ne désignent personne : l'attribuant n'a pas été
+# récupéré de la source. Les classer « État » gonflerait l'État (cf. SCHEMA.md).
+_DONOR_PLACEHOLDER = {
+    "source data.gouv.fr", "collectivite", "collectivité", "commune", "ville",
+    "departement", "département", "region", "région", "epci", "etat", "état",
+    "attribuant", "non renseigne", "non renseigné", "", "-",
+}
+
+
+def donor_level_of(raw_type, donor_name):
+    """(niveau, non_attribué) — niveau canonique du donateur."""
+    if fold(donor_name) in _DONOR_PLACEHOLDER:
+        return "inconnu", True
+    lvl = DONOR_LEVEL_MAP.get(fold(raw_type or ""))
+    if lvl:
+        return lvl, False
+    n = fold(donor_name)
+    for needle, lvl in (("ministere", "etat"), ("etat", "etat"), ("prefecture", "etat"),
+                        ("region", "region"), ("departement", "departement"),
+                        ("conseil general", "departement"),
+                        ("metropole", "epci"), ("communaute", "epci"), ("agglomeration", "epci"),
+                        ("syndicat", "epci"), ("mairie", "commune"), ("ville de", "commune"),
+                        ("commune de", "commune")):
+        if needle in n:
+            return lvl, False
+    return "inconnu", True
+
+
+# ------------------------------------------------------------ nature ----
+
+# Un objet réduit à un numéro de compte du plan comptable M14/M52/M57
+# (« 6574.00 ») n'est pas une subvention nominative mais une ligne de budget.
+_ACCOUNT_CODE = re.compile(r"^\d{4,7}([.,]\d{1,2})?$")
+_BUDGET_WORDS = re.compile(
+    r"subv\w*\.?\s+(de\s+)?fonct|subventions? (aux|de fonctionnement)|"
+    r"autres personnes (de )?droit prive", re.I)
+
+
+# Aucune attribution unique de subvention publique française n'atteint dix
+# milliards d'euros : au-delà, la valeur n'est pas un montant. Le cas rencontré
+# est un SIRET recopié dans la colonne montant par un convertisseur défaillant
+# (3 lignes de `communes-pays-loire`, à 78 962 milliards chacune). On ne corrige
+# pas la valeur — on la signale et on l'exclut des totaux.
+AMOUNT_IMPLAUSIBLE = 1e10
+
+
+def amount_is_implausible(amount):
+    return amount is not None and abs(amount) >= AMOUNT_IMPLAUSIBLE
+
+
+def looks_aggregate(purpose, beneficiary_name):
+    """Vrai si la ligne décrit un poste budgétaire et non une attribution."""
+    p = clean_text(purpose)
+    if p and _ACCOUNT_CODE.match(p.replace(" ", "")):
+        return True
+    return bool(_BUDGET_WORDS.search(clean_text(beneficiary_name)))
+
+
+# ------------------------------------------------- schéma canonique ----
+
+import pyarrow as pa  # noqa: E402  (import tardif : common.py sert aussi sans pyarrow)
+
+# Unique définition du schéma de SCHEMA.md. Tous les normaliseurs l'importent,
+# pour qu'aucun ne puisse diverger silencieusement des autres.
+CANONICAL_SCHEMA = pa.schema([
+    ("row_id", pa.string()), ("business_key", pa.string()),
+    ("beneficiary_name_raw", pa.string()), ("beneficiary_name_norm", pa.string()),
+    ("beneficiary_siret", pa.string()), ("beneficiary_siren", pa.string()),
+    ("beneficiary_rna", pa.string()), ("beneficiary_kind", pa.string()),
+    ("beneficiary_commune_insee", pa.string()), ("beneficiary_dep_code", pa.string()),
+    ("beneficiary_reg_code", pa.string()), ("beneficiary_address_raw", pa.string()),
+    ("donor_name_raw", pa.string()), ("donor_name_norm", pa.string()),
+    ("donor_siren", pa.string()), ("donor_level", pa.string()),
+    ("donor_commune_insee", pa.string()), ("donor_dep_code", pa.string()),
+    ("donor_reg_code", pa.string()), ("donor_program", pa.string()),
+    ("amount_eur", pa.float64()), ("amount_rejected_eur", pa.float64()), ("year", pa.int32()), ("year_provenance", pa.string()),
+    ("date_convention", pa.string()),
+    ("purpose_raw", pa.string()), ("purpose_norm", pa.string()),
+    ("granularity", pa.string()), ("is_convention", pa.bool_()),
+    ("quality_flags", pa.list_(pa.string())), ("confidence", pa.string()),
+    ("source_id", pa.string()), ("source_label", pa.string()), ("source_url", pa.string()),
+    ("source_row_ref", pa.string()), ("source_family", pa.string()),
+    ("license", pa.string()), ("ingested_at", pa.string()),
+])
+CANONICAL_FIELDS = [f.name for f in CANONICAL_SCHEMA]
+
+
+def business_key(siret, name_norm, donor_norm, year, amount, purpose_norm):
+    """Clé métier de SCHEMA.md — identité d'une subvention entre sources."""
+    import hashlib
+    parts = [siret or name_norm or "", donor_norm or "", str(year or ""),
+             f"{amount:.2f}" if amount is not None else "", (purpose_norm or "")[:120]]
+    return hashlib.sha1("||".join(parts).encode("utf-8")).hexdigest()[:20]

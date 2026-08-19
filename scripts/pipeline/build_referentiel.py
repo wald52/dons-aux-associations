@@ -33,6 +33,18 @@ OUT_DIR = os.path.join(ROOT, "data", "referentiel")
 DEFAULT_SRC = "/workspace/wald52/carte-finances-locales"
 
 
+def dep_code_of(row, idx):
+    """Code département d'une commune, déduit de son code INSEE si l'amont ne
+    le porte pas (deux communes déléguées de Vendée sont dans ce cas)."""
+    code = row[idx["dep_code"]]
+    if code:
+        return code
+    insee = row[idx["insee"]] or ""
+    if len(insee) >= 4:
+        return insee[:3] if insee.startswith(("97", "98")) else insee[:2]
+    return ""
+
+
 def read_gz_json(path):
     with gzip.open(path, "rt", encoding="utf-8") as f:
         return json.load(f)
@@ -73,17 +85,56 @@ def main():
     print("Construction du référentiel INSEE")
     print(f"  source : {src}\n")
 
-    # --- départements : code -> nom, région ---------------------------------
+    # --- départements --------------------------------------------------------
+    # Le dépôt frère indexe ses départements sur des codes OFGL, qui ne sont pas
+    # les codes INSEE : « 67A » pour la Collectivité européenne d'Alsace (qui
+    # recouvre les départements INSEE 67 et 68), « 691 » pour la Métropole de
+    # Lyon (territoire du 69), « Corse » pour 2A + 2B. Les communes, elles, sont
+    # bien indexées sur les codes INSEE.
+    #
+    # On construit donc la table des départements à partir des CODES INSEE des
+    # communes — seule référence cohérente avec les données de subventions — et
+    # on ne va chercher dans la table OFGL que le rattachement régional, via
+    # cette table d'alias explicite. Sans cela, les 880 communes d'Alsace
+    # ressortent sans région.
+    OFGL_ALIAS = {"67": "67A", "68": "67A", "2A": "Corse", "2B": "Corse"}
+    # Les libellés amont suivent eux aussi la nomenclature OFGL : les deux
+    # départements alsaciens s'y appellent « Alsace ». On rétablit leur nom
+    # INSEE, qui est celui que le visiteur attend sur une carte.
+    NOM_INSEE = {"67": "Bas-Rhin", "68": "Haut-Rhin"}
+
     dep_raw = read_gz_json(os.path.join(src, need[1]))["entities"]
-    departements = {}
+    ofgl, ofgl_named = {}, {}
     for e in dep_raw:
+        ofgl_named[e["code"]] = e["name"]
         meta = e.get("meta") or {}
-        departements[e["code"]] = {
-            "nom": e["name"],
+        ofgl[e["code"]] = {
             "reg_code": meta.get("reg_code") or None,
             "reg_nom": meta.get("reg_name") or None,
             "outre_mer": (meta.get("outre_mer") or "").strip().lower() == "oui",
         }
+
+    com_raw_early = read_gz_json(os.path.join(src, need[0]))
+    idx_early = {k: i for i, k in enumerate(com_raw_early["schema"])}
+    departements = {}
+    for row in com_raw_early["communes"]:
+        code = dep_code_of(row, idx_early)
+        if not code or code in departements:
+            continue
+        exact = ofgl_named.get(code)
+        o = ofgl.get(code) or ofgl.get(OFGL_ALIAS.get(code, ""), {})
+        departements[code] = {
+            "nom": NOM_INSEE.get(code) or exact or row[idx_early["dep_name"]],
+            "reg_code": o.get("reg_code"),
+            "reg_nom": o.get("reg_nom"),
+            "outre_mer": o.get("outre_mer", False),
+            "ofgl_code": OFGL_ALIAS.get(code, code),
+        }
+    departements = dict(sorted(departements.items()))
+
+    orphelins = [c for c, v in departements.items() if not v["reg_code"]]
+    if orphelins:
+        print(f"  ATTENTION — départements sans région : {orphelins}")
 
     # --- régions -------------------------------------------------------------
     reg_raw = read_gz_json(os.path.join(src, need[2]))["entities"]
@@ -102,12 +153,12 @@ def main():
 
     # --- communes ------------------------------------------------------------
     # Amont positionnel : [nom, insee, dep_code, dep_name, population, siren_epci, siren_ept]
-    com_raw = read_gz_json(os.path.join(src, need[0]))
-    idx = {k: i for i, k in enumerate(com_raw["schema"])}
+    com_raw = com_raw_early
+    idx = idx_early
     communes = {}
     for row in com_raw["communes"]:
         insee = row[idx["insee"]]
-        dep = row[idx["dep_code"]]
+        dep = dep_code_of(row, idx)
         communes[insee] = {
             "nom": row[idx["nom"]],
             "dep_code": dep,

@@ -150,6 +150,38 @@ du volume.
   de Luhn échoue. Les SIRET stockés dans l'ancien site sont tronqués à 11
   caractères pour cette raison.
 
+- **Le référentiel du dépôt frère n'est PAS indexé sur les codes INSEE.**
+  Il utilise des codes OFGL : `67A` pour l'Alsace (qui recouvre les
+  départements INSEE 67 et 68), `691` pour la Métropole de Lyon, `Corse` pour
+  2A + 2B. Les communes, elles, portent bien des codes INSEE. Croiser les deux
+  naïvement laisse les 880 communes alsaciennes sans région.
+  `build_referentiel.py` reconstruit donc la table des départements à partir
+  des codes INSEE des communes, et ne va chercher dans la table OFGL que le
+  rattachement régional, via une table d'alias explicite.
+
+- **Des SIRET ont été détruits par un tableur.** 29 214 lignes portent une
+  valeur du type `2,19301E+13` : Excel a traité le SIRET comme un nombre et
+  n'en a gardé que six chiffres significatifs. **Ce n'est pas réparable.**
+  Drapeau `siret_scientific_notation`, à ne pas confondre avec un simple
+  `siret_invalid`. Le vrai correctif est de re-moissonner l'amont (phase 4).
+
+- **Trois lignes de `communes-pays-loire` portent un SIRET dans la colonne
+  montant** (78 962 milliards d'euros chacune). Sans garde-fou, le total du
+  site affiche 237 000 milliards d'euros. D'où le drapeau `amount_implausible`
+  au-delà de dix milliards, et l'exclusion de ces lignes de tous les totaux.
+
+- **L'ancien site ingérait certaines communes deux fois** sous deux noms de
+  source : `commune-soissons` + `ville-soissons-2018-2021`, `ville-lisieux` +
+  `ville-lisieux-2018`, `ville-redon` + `ville-redon-2018`, `commune-bar-le-duc`
+  + `ville-bar-le-duc`. Sa déduplication par identifiant technique ne pouvait
+  pas les voir. La clé métier en retire 1 477 lignes, soit 10,3 M€ de double
+  comptage.
+
+- **Le JSON de trois fichiers sources est invalide** : virgule surnuméraire en
+  tête (`anct-politique-ville-2`) ou en queue (`culture`, `culture-2`).
+  `extract_js_array` les répare, faute de quoi 350 000 lignes disparaissent
+  sans bruit.
+
 - **Détecter l'encodage sur une fenêtre d'octets exige un décodeur
   incrémental.** Une fenêtre de taille fixe coupe un caractère multi-octets en
   deux et fait conclure à tort que le fichier n'est pas en UTF-8. Ce piège a
@@ -199,8 +231,10 @@ du volume.
       vendu, moissonneur data.gouv.fr, normaliseur de famille, table canonique
       Parquet, rapport de qualité. **808 174 lignes** (contre 654 000 dans
       l'ancien site) sur 13 millésimes, 2010-2023.
-- [ ] **Phase 1b** — rebrancher les 166 autres sources dans le pipeline
-      (familles `scdl` et `portail`).
+- [x] **Phase 1b** — 152 sources héritées rebranchées. Table canonique
+      complète : **1 692 962 lignes**, 163,8 Md€ d'attributions individuelles,
+      2001-2027, 101 départements sur 101. 20 contrôles automatiques dans
+      `scripts/pipeline/verify.py`.
 - [ ] **Phase 2** — nouvelle architecture de chargement.
 - [ ] **Phase 3** — recherche croisée.
 - [ ] **Phase 4** — exhaustivité (moissonneur SCDL, carte de couverture).
@@ -210,7 +244,27 @@ Détail de chaque phase dans `ROADMAP.md`.
 
 ---
 
-## 7. Méthode de travail
+## 7. Le pipeline
+
+```bash
+python3 scripts/pipeline/build_referentiel.py    # référentiel INSEE (une fois)
+python3 scripts/pipeline/fetch_plf_jaune.py      # moissonne data.gouv.fr
+python3 scripts/pipeline/normalize_plf_jaune.py  # famille plf_jaune
+python3 scripts/pipeline/normalize_legacy.py     # 152 sources héritées
+python3 scripts/pipeline/build_canonical.py      # assemblage + dédup + rapport
+python3 scripts/pipeline/verify.py               # 20 contrôles, doit rester vert
+```
+
+Tous les scripts sont idempotents : `build_canonical.py` rejoué produit un
+Parquet identique octet pour octet. **`verify.py` doit rester vert** après toute
+modification du pipeline — c'est le garde-fou contre les régressions
+silencieuses.
+
+Le schéma canonique et la clé métier sont définis **une seule fois**, dans
+`common.py` (`CANONICAL_SCHEMA`, `business_key`), pour qu'aucun normaliseur ne
+puisse diverger des autres.
+
+## 8. Méthode de travail
 
 - **Une phase = une branche = un état déployable.** Si une phase déborde, la
   couper en deux plutôt que de laisser la branche traîner.
