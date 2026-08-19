@@ -46,6 +46,7 @@ def main():
     q = lire("data/canonical/quality-report.json")
     cov = lire("data/canonical/couverture.json")
     scdl = lire("data/sources-manifest/scdl.json")
+    ods = lire("data/sources-manifest/ods.json")
     plf = lire("data/sources-manifest/plf-jaune.json")
     idx = lire("data/canonical/recherche/index-stats.json")
 
@@ -54,9 +55,10 @@ def main():
     anomalies = q.get("anomalies", [])
     familles = {}
     for s, v in q.get("by_source", {}).items():
-        f = "État — annexe Jaune" if s.startswith("plf-jaune") else (
-            "Collectivités — moissonnage automatique" if s.startswith("scdl") else
-            "Sources reprises une par une")
+        f = ("État — annexe Jaune" if s.startswith("plf-jaune")
+             else "Collectivités — moissonnage data.gouv.fr" if s.startswith("scdl")
+             else "Collectivités — moissonnage des portails" if s.startswith("ods")
+             else "Sources reprises une par une")
         e = familles.setdefault(f, {"sources": 0, "lignes": 0, "montant": 0.0})
         e["sources"] += 1
         e["lignes"] += v["rows"]
@@ -142,6 +144,11 @@ def main():
        {nb(scdl.get('fichiers_retenus', 0))} fichiers. Un fichier n'est retenu que si ses colonnes
        réelles correspondent à des subventions — le schéma déclaré ne suffit pas. Tout nouveau
        millésime publié par une collectivité sera repris sans intervention.</p>
+    <p>Les collectivités qui ne passent pas par data.gouv.fr publient sur leur propre
+       portail. Ces portails partagent tous la même interface, donc un second moissonneur
+       les couvre : {nb(len(ods.get('portails', [])))} portails visités,
+       {nb(ods.get('jeux_examines', 0))} jeux examinés, {nb(ods.get('jeux_retenus', 0))}
+       retenus — au même test sur les colonnes réelles.</p>
     <p>L'annexe budgétaire « Jaune » de l'État est moissonnée de la même façon, sur
        {nb(len([x for x in plf.get('datasets', []) if not x.get('error')]))} millésimes.</p>
 
