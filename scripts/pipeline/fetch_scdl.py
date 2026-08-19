@@ -56,23 +56,9 @@ DECOUVERTE = [
     {"q": "subventions versées associations"},
 ]
 
-# Colonnes du standard SCDL « subventions », et les graphies rencontrées.
-# `nombeneficiere` n'est pas une coquille de ce fichier : c'est l'orthographe
-# réellement publiée par la mairie de Villejuif dans ses six millésimes. On
-# tolère la faute plutôt que de perdre la source.
-COL_BENEF = ("nombeneficiaire", "nombeneficiere", "nomdubeneficiaire", "beneficiaire",
-             "association", "nom_beneficiaire", "raisonsociale", "denomination")
-COL_MONTANT = ("montant", "montanttotal", "montanttotaldelasubvention", "montantvote",
-               "montantaccorde", "subvention", "montant_total", "montanteneuros")
-COL_ATTRIB = ("nomattribuant", "attribuant", "nomdelattribuant", "collectivite")
-COL_OBJET = ("objet", "objetdelasubvention", "objetdossier")
-
-# Colonnes qui signalent des AIDES EN NATURE (locaux, personnel, fluides mis à
-# disposition). Ce sont de vraies aides publiques, mais des valorisations et
-# non des versements : les sommer avec des euros réellement décaissés
-# gonflerait les totaux. Écartées ici, à traiter comme famille distincte.
-COL_NATURE_SEULE = ("totalaideennature", "dontlocauxmisadisposition",
-                    "dontpersonnelmisadisposition")
+# La reconnaissance des colonnes vit dans `common.py` : elle est partagée avec
+# le moissonneur Opendatasoft et les normaliseurs, pour qu'un élargissement
+# profite à tout le pipeline d'un coup.
 
 MAX_OCTETS = 80 * 1024 * 1024     # au-delà, ce n'est pas une liste de subventions
 MIN_OCTETS = 120                  # en deçà, coquille vide
@@ -102,22 +88,9 @@ def xlsx_vers_csv(source, destination):
     return n
 
 
-def plier_colonne(nom):
-    return re.sub(r"[^a-z0-9]", "", C.fold(nom))
-
-
 def entete_valide(colonnes):
     """(vrai/faux, raison) — le fichier porte-t-il bien des subventions ?"""
-    plies = [plier_colonne(c) for c in colonnes]
-    def a(cands):
-        return any(p == c or p.startswith(c) for p in plies for c in cands)
-    if not a(COL_BENEF):
-        return False, "aucune colonne de bénéficiaire"
-    if a(COL_NATURE_SEULE) and not a(COL_MONTANT):
-        return False, "aides en nature (valorisations, pas des versements)"
-    if not a(COL_MONTANT):
-        return False, "aucune colonne de montant"
-    return True, None
+    return C.porte_des_subventions(colonnes)
 
 
 def decouvrir(limite=None):

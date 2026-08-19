@@ -43,24 +43,13 @@ ROOT = C.ROOT
 MANIFEST = os.path.join(ROOT, "data", "sources-manifest", "scdl.json")
 OUT_DIR = os.path.join(ROOT, "data", "canonical", "parts")
 
-# Motifs de colonnes, du plus spécifique au plus général : `pick` teste
-# l'égalité, puis le préfixe, puis l'inclusion.
-COLS = {
-    "benef_nom": ("nomBeneficiaire", "nomBeneficiere", "nom du beneficiaire",
-                  "beneficiaire", "raison sociale", "denomination", "association"),
-    "benef_id": ("idBeneficiaire", "siret beneficiaire", "siret du beneficiaire",
-                 "siret", "id beneficiaire"),
-    "benef_rna": ("rnaBeneficiaire", "rna", "numero rna"),
-    "attrib_nom": ("nomAttribuant", "attribuant", "collectivite", "nom de l attribuant"),
-    "attrib_id": ("idAttribuant", "siret attribuant", "id attribuant"),
-    "objet": ("objet de la subvention", "objet", "intitule", "libelle"),
-    "montant": ("montant total", "montant vote", "montant accorde", "montant de la subvention",
-                "montant en euros", "montant", "subvention"),
-    "date_conv": ("dateConvention", "date de la convention", "date convention", "date decision"),
-    "annee": ("annee", "exercice", "millesime", "anneeDecision"),
-    "nature": ("nature de la subvention", "nature"),
-    "reference": ("referenceDecision", "reference decision", "reference"),
-    "pourcentage": ("pourcentageSubvention", "pourcentage"),
+# Les rôles de colonnes sont reconnus par `common.trouver_colonne`, partagé
+# avec les moissonneurs : une graphie ajoutée là profite immédiatement ici.
+ROLES = {
+    "benef_nom": "beneficiaire", "benef_id": "siret_beneficiaire",
+    "benef_rna": "rna_beneficiaire", "attrib_nom": "attribuant",
+    "objet": "objet", "montant": "montant", "date_conv": "date_convention",
+    "annee": "annee", "nature": "nature",
 }
 
 
@@ -82,7 +71,9 @@ def normaliser_fichier(fiche, fichier, ingested_at):
     chemin = os.path.join(ROOT, fichier["fichier"])
     source_id = "scdl-" + os.path.basename(chemin)[:-4]
     entete, lignes, meta = C.read_rows(chemin)
-    col = {k: C.pick(entete, *v) for k, v in COLS.items()}
+    col = {k: C.trouver_colonne(entete, r) for k, r in ROLES.items()}
+    col["attrib_id"] = C.pick(entete, "idAttribuant", "siret attribuant", "id attribuant")
+    col["reference"] = C.pick(entete, "referenceDecision", "reference decision")
 
     out = {f: [] for f in C.CANONICAL_FIELDS}
     st = {

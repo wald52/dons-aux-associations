@@ -646,3 +646,113 @@ def business_key(siret, name_norm, donor_norm, year, amount, purpose_norm):
     parts = [siret or name_norm or "", donor_norm or "", str(year or ""),
              f"{amount:.2f}" if amount is not None else "", (purpose_norm or "")[:120]]
     return hashlib.sha1("||".join(parts).encode("utf-8")).hexdigest()[:20]
+
+
+# ------------------------------------- reconnaissance des colonnes ----------
+#
+# Les publications réelles ne respectent jamais tout à fait le standard SCDL :
+# « Nom association », « Réalisé (en numéraire) », « nomBeneficiere »… La
+# reconnaissance se fait donc sur les MOTS du libellé, jamais sur une
+# sous-chaîne — « Nom ETS attribuant la subvention » contient « subvention »
+# sans être un montant, et « Nature juridique de l'organisme » contient
+# « organisme » sans être un bénéficiaire.
+#
+# Chaque rôle est décrit par des motifs ordonnés du plus spécifique au plus
+# général, plus une liste de mots qui DISQUALIFIENT la colonne.
+
+_MOTS_COLONNE = re.compile(r"[a-z0-9]+")
+
+
+_CAMEL = re.compile(r"(?<=[a-z0-9])(?=[A-Z])")
+
+
+def mots_colonne(libelle):
+    """Mots significatifs d'un libellé de colonne, pliés.
+
+    Le camelCase est découpé avant pliage : le standard SCDL nomme ses colonnes
+    `nomBeneficiaire`, `idAttribuant`, `dateConvention`. Sans ce découpage,
+    chaque libellé resterait un seul mot collé, introuvable par les motifs.
+    """
+    return tuple(_MOTS_COLONNE.findall(fold(_CAMEL.sub(" ", str(libelle or "")))))
+
+
+# (motifs retenus, mots disqualifiants)
+ROLES_COLONNES = {
+    "beneficiaire": (
+        [("nom", "beneficiaire"), ("nom", "beneficiere"), ("nom", "association"),
+         ("nom", "organisme", "beneficiaire"), ("raison", "sociale"),
+         ("beneficiaire",), ("beneficiaires",), ("beneficiere",),
+         ("denomination",), ("association",), ("organisme",), ("structure",),
+         ("tiers",), ("nom",)],
+        ("attribuant", "demandeur", "dataset", "prenom", "categorie", "nature",
+         "juridique", "type", "code", "numero", "siret", "siren", "id"),
+    ),
+    "montant": (
+        [("montant", "vote"), ("montant", "accorde"), ("montant", "attribue"),
+         ("montant", "subvention"), ("montant", "total"), ("montant", "euros"),
+         ("realise", "numeraire"), ("montant",), ("subvention", "euros"),
+         ("credit", "vote"), ("aide", "montant"), ("subventions",), ("subvention",)],
+        ("attribuant", "nom", "objet", "nature", "date", "pourcentage", "taux",
+         "nombre", "dossier", "reference", "libelle", "type", "prestation"),
+    ),
+    "attribuant": (
+        [("nom", "attribuant"), ("nom", "ets", "attribuant"), ("attribuant",),
+         ("collectivite",), ("financeur",)],
+        ("beneficiaire", "siret", "siren", "id", "numero"),
+    ),
+    "siret_beneficiaire": (
+        [("id", "beneficiaire"), ("siret", "beneficiaire"), ("numero", "siret"),
+         ("siret",), ("sirenbeneficiaire",)],
+        ("attribuant", "attributaire"),
+    ),
+    "rna_beneficiaire": ([("rna", "beneficiaire"), ("numero", "rna"), ("rna",)], ("attribuant",)),
+    "objet": (
+        [("objet", "subvention"), ("objet", "dossier"), ("objet",), ("intitule",),
+         ("libelle", "subvention"), ("description",)],
+        ("date", "montant", "nature"),
+    ),
+    "annee": ([("annee", "budgetaire"), ("annee", "decision"), ("exercice",),
+               ("millesime",), ("annee",)], ("date",)),
+    "date_convention": ([("date", "convention"), ("date", "decision"),
+                         ("dateconvention",)], ()),
+    "nature": ([("nature", "subvention"), ("nature",)], ("juridique", "beneficiaire")),
+}
+
+# Colonnes qui trahissent une aide EN NATURE : ce sont des valorisations de
+# locaux ou de personnel, pas des euros décaissés. Les sommer avec des
+# versements fausserait les totaux.
+MOTS_AIDE_EN_NATURE = (("total", "aide", "nature"), ("prestations", "nature"),
+                       ("mise", "disposition", "locaux"), ("aide", "nature"))
+
+
+def _correspond(mots, motif, disqualifiants):
+    if any(d in mots for d in disqualifiants):
+        return False
+    return all(m in mots for m in motif)
+
+
+def trouver_colonne(entete, role):
+    """Nom de la colonne jouant ce rôle dans un en-tête, ou None.
+
+    Les motifs sont essayés dans l'ordre : le premier motif qui trouve une
+    colonne gagne, donc le plus spécifique l'emporte sur le plus général.
+    """
+    motifs, disqualifiants = ROLES_COLONNES[role]
+    mots_par_colonne = [(c, mots_colonne(c)) for c in entete if c]
+    for motif in motifs:
+        for colonne, mots in mots_par_colonne:
+            if _correspond(mots, motif, disqualifiants):
+                return colonne
+    return None
+
+
+def porte_des_subventions(entete):
+    """(vrai/faux, raison) — cet en-tête décrit-il bien des subventions ?"""
+    if not trouver_colonne(entete, "beneficiaire"):
+        return False, "aucune colonne de bénéficiaire"
+    if not trouver_colonne(entete, "montant"):
+        tous = [mots_colonne(c) for c in entete if c]
+        if any(all(m in mots for m in motif) for motif in MOTS_AIDE_EN_NATURE for mots in tous):
+            return False, "aides en nature (valorisations, pas des versements)"
+        return False, "aucune colonne de montant"
+    return True, None
