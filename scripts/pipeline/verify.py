@@ -156,6 +156,41 @@ def main():
     check("aucun doublon inter-sources résiduel", remaining == 0,
           f"{remaining:,} groupes")
 
+    # 10. Index de recherche croisée (phase 3) — s'il a été construit --------
+    rech = os.path.join(ROOT, "data", "canonical", "recherche")
+    if os.path.isdir(rech):
+        tb = pq.read_table(os.path.join(rech, "beneficiaires.parquet"))
+        check("index : versements comptés = table canonique",
+              sum(tb.column("nb_versements").to_pylist()) == n,
+              f"{sum(tb.column('nb_versements').to_pylist()):,}")
+        somme_idx = round(sum(x or 0 for x in tb.column("montant_eur").to_pylist()), 2)
+        somme_can = round(sum(amt[i] or 0 for i in range(n) if gran[i] != "aggregate"), 2)
+        check("index : montants = table canonique",
+              abs(somme_idx - somme_can) < 1, f"{somme_idx:,.0f} €")
+        bids = set(tb.column("benef_id").to_pylist())
+        check("index : benef_id uniques", len(bids) == tb.num_rows)
+
+        import glob as _glob
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from build_search_index import shard_of, NB_SHARDS
+        shard_files = sorted(_glob.glob(os.path.join(rech, "versements", "*.parquet")))
+        check("index : 64 shards de versements présents", len(shard_files) == NB_SHARDS,
+              f"{len(shard_files)} fichiers")
+        vrows = 0
+        mal_places = 0
+        orphelins = 0
+        for f in shard_files:
+            num = int(os.path.basename(f)[:2])
+            tv = pq.read_table(f, columns=["benef_id"])
+            vrows += tv.num_rows
+            vus = set(tv.column("benef_id").to_pylist())
+            mal_places += sum(1 for b in vus if shard_of(b) != num)
+            orphelins += sum(1 for b in vus if b not in bids)
+        check("index : chaque versement dans son shard", mal_places == 0,
+              f"{vrows:,} versements répartis")
+        check("index : aucun bénéficiaire orphelin", orphelins == 0)
+        check("index : total des shards = table canonique", vrows == n)
+
     print()
     failed = [r for r in results if not r[1]]
     print(f"  {len(results) - len(failed)}/{len(results)} contrôles passés")

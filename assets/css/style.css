@@ -166,3 +166,52 @@ footer a { color: var(--accent); }
 .chargement { padding: 40px 0; text-align: center; color: var(--ardoise); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* --- page recherche croisée --------------------------------------------- */
+.fil { margin-bottom: 8px; }
+.fil a { color: var(--accent); font-size: 13.5px; text-decoration: none; }
+.fil a:hover { text-decoration: underline; }
+
+input[type="search"] { width: 100%; }
+
+.intro-cumuls h2 { margin: 8px 0 4px; font-size: 20px; letter-spacing: -0.01em; }
+.intro-cumuls .sous-titre { margin: 0 0 14px; font-size: 13.5px; color: var(--ardoise); max-width: 78ch; }
+
+.bloc-resultats { background: var(--surface); border: 1px solid var(--filet); border-radius: 5px; padding: 6px 20px 12px; }
+.resultat { cursor: pointer; }
+.resultat:hover .nom, .resultat:focus-visible .nom { color: var(--accent); }
+.resultat:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.badge {
+  display: inline-block; font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.05em; padding: 1px 7px; border-radius: 9px;
+  background: var(--surface-alt); color: var(--encre-douce); white-space: nowrap;
+}
+.badge.fort { background: var(--accent-fond); color: var(--accent); }
+
+#fiche { background: var(--surface); border: 1px solid var(--filet); border-radius: 5px; padding: 20px 24px 26px; }
+#fiche h2 { margin: 12px 0 3px; font-size: 22px; letter-spacing: -0.015em; }
+#fiche h3 { margin: 26px 0 10px; font-size: 15px; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ardoise); }
+#fiche .compteurs { margin: 14px 0 4px; }
+.retour { font-size: 13px; }
+
+.trajectoire { display: flex; flex-direction: column; gap: 3px; }
+.trajectoire .annee { display: grid; grid-template-columns: 44px 1fr 86px; gap: 10px; align-items: center; }
+.trajectoire .an { font-size: 12.5px; color: var(--ardoise); font-variant-numeric: tabular-nums; }
+.trajectoire .barre { height: 13px; background: var(--surface-alt); border-radius: 2px; overflow: hidden; }
+.trajectoire .barre i { display: block; height: 100%; background: var(--carte-4); }
+.trajectoire .montant { font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+
+.table-versements { overflow-x: auto; }
+.table-versements table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 13.5px; }
+.table-versements th {
+  text-align: left; font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--ardoise); padding: 6px 14px 6px 0; border-bottom: 1px solid var(--filet);
+}
+.table-versements td { padding: 7px 14px 7px 0; border-bottom: 1px solid var(--surface-alt); vertical-align: top; }
+.table-versements td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.table-versements td.montant { font-weight: 600; text-align: right; }
+.table-versements td.objet { color: var(--encre-douce); max-width: 34ch; }
+.table-versements td .detail { display: block; font-size: 11.5px; color: var(--ardoise); }
+.table-versements td.ecarte { color: var(--ardoise); font-weight: 400; }
+.champ-large { flex: 1; min-width: 260px; }

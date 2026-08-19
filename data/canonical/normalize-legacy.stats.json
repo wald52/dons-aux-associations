@@ -1,6 +1,6 @@
 {
   "family": "legacy",
-  "normalized_at": "2026-08-19T02:17:07Z",
+  "normalized_at": "2026-08-19T10:07:38Z",
   "files_total": 153,
   "rows_read": 885545,
   "rows_kept": 886265,
@@ -52,8 +52,8 @@
         "beneficiary_not_association": 12
       },
       "by_granularity": {
-        "individual": 370,
-        "aggregate": 4
+        "individual": 367,
+        "aggregate": 7
       },
       "donor_levels": {
         "epci": 374
@@ -238,11 +238,13 @@
         "no_rna": 129356,
         "beneficiary_not_association": 20035,
         "no_source_url": 129356,
+        "beneficiaire_non_identifie": 59,
         "dep_unknown": 22647,
         "siret_invalid": 24
       },
       "by_granularity": {
-        "individual": 129356
+        "individual": 129350,
+        "aggregate": 6
       },
       "donor_levels": {
         "etat": 129356
@@ -267,12 +269,14 @@
         "beneficiary_not_association": 20815,
         "no_source_url": 137619,
         "no_siret": 22458,
+        "beneficiaire_non_identifie": 124,
         "siret_invalid": 32,
         "dep_from_name": 21327,
         "siret_scientific_notation": 22412
       },
       "by_granularity": {
-        "individual": 137619
+        "individual": 137610,
+        "aggregate": 9
       },
       "donor_levels": {
         "etat": 137619
@@ -325,7 +329,8 @@
         "no_source_url": 83
       },
       "by_granularity": {
-        "individual": 83
+        "individual": 79,
+        "aggregate": 4
       },
       "donor_levels": {
         "epci": 83
@@ -615,7 +620,8 @@
         "beneficiary_not_association": 1796,
         "texte_illisible": 2986,
         "no_siret": 97,
-        "siret_invalid": 91
+        "siret_invalid": 91,
+        "beneficiaire_non_identifie": 6
       },
       "by_granularity": {
         "individual": 5442
@@ -1066,6 +1072,7 @@
         "no_siret": 265,
         "siret_invalid": 192,
         "beneficiary_not_association": 151,
+        "beneficiaire_non_identifie": 19,
         "year_missing": 25
       },
       "by_granularity": {
@@ -1329,6 +1336,7 @@
         "no_rna": 361,
         "no_source_url": 361,
         "amount_negative": 12,
+        "beneficiaire_non_identifie": 5,
         "beneficiary_not_association": 2
       },
       "by_granularity": {
@@ -1356,7 +1364,8 @@
         "no_source_url": 55
       },
       "by_granularity": {
-        "individual": 55
+        "individual": 48,
+        "aggregate": 7
       },
       "donor_levels": {
         "commune": 55
@@ -1844,10 +1853,12 @@
         "dep_unknown": 1240,
         "amount_negative": 157,
         "no_siret": 4826,
-        "beneficiary_not_association": 10985
+        "beneficiary_not_association": 10985,
+        "beneficiaire_non_identifie": 6
       },
       "by_granularity": {
-        "individual": 111532
+        "individual": 111523,
+        "aggregate": 9
       },
       "donor_levels": {
         "etat": 111532
@@ -2128,7 +2139,8 @@
         "siret_invalid": 2
       },
       "by_granularity": {
-        "individual": 12
+        "individual": 11,
+        "aggregate": 1
       },
       "donor_levels": {
         "operateur": 12
@@ -2501,11 +2513,12 @@
         "no_rna": 76207,
         "no_siret": 427,
         "siret_invalid": 361,
-        "beneficiary_not_association": 190
+        "beneficiary_not_association": 190,
+        "beneficiaire_non_identifie": 21
       },
       "by_granularity": {
-        "individual": 76206,
-        "aggregate": 1
+        "individual": 76205,
+        "aggregate": 2
       },
       "donor_levels": {
         "commune": 14883,
@@ -2616,7 +2629,8 @@
         "beneficiary_not_association": 81
       },
       "by_granularity": {
-        "individual": 3243
+        "individual": 3241,
+        "aggregate": 2
       },
       "donor_levels": {
         "etat": 3243
@@ -2953,7 +2967,8 @@
         "no_siret": 62,
         "siret_invalid": 62,
         "no_rna": 62,
-        "no_source_url": 62
+        "no_source_url": 62,
+        "amount_unit_suspect": 2
       },
       "by_granularity": {
         "individual": 62
@@ -2962,7 +2977,7 @@
         "commune": 62
       },
       "parquet": "data/canonical/parts/legacy-ville-boulogne-billancourt.parquet",
-      "amount_total": 834398991.25
+      "amount_total": 9379991.25
     },
     {
       "source_id": "ville-boulogne",
@@ -3998,6 +4013,7 @@
         "no_siret": 107,
         "no_rna": 107,
         "no_source_url": 107,
+        "beneficiaire_non_identifie": 2,
         "texte_illisible": 48
       },
       "by_granularity": {

@@ -97,6 +97,19 @@ deux ou trois fois et comparer les ordres de grandeur.
 Les quatre cibles ci-dessous sont atteintes. La mémoire passe de 55 % du
 plafond du moteur à 0,3 % : le site cesse d'être hors de portée d'un téléphone.
 
+## Page recherche (phase 3)
+
+Coûts mesurés en local, serveur sans gzip (en ligne, le wasm se comprime ~×3) :
+
+| Action | Temps | Réseau |
+|---|---|---|
+| Démarrage du moteur + index + accueil | ~4,5 s | ~48 Mo brut (~25 Mo en ligne) |
+| Recherche par nom | 0,4-1,3 s | **0** (index en mémoire) |
+| Fiche d'une association | 0,1-1,4 s | ~0,9 Mo (un shard, puis en cache) |
+
+Ce coût d'entrée ne concerne QUE `recherche.html` ; la carte (`index.html`)
+reste à 0,13 Mo / 0,05 s. Mesure de contrôle dans `bench/phase3.json`.
+
 ## Cibles après refonte
 
 | Mesure | v0 | Cible phase 2 |

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Recherche croisée — Dons publics aux associations</title>
+<meta name="description" content="Qui finance cette association ? Tous les versements publics, tous échelons confondus : État, opérateurs, régions, départements, intercommunalités, communes.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="enveloppe">
+
+  <header>
+    <nav class="fil"><a href="index.html">← Carte</a></nav>
+    <h1>Recherche croisée</h1>
+    <p>La question qu'aucun guichet ne sait poser : <b>qui finance cette association,
+       tous échelons confondus ?</b> État, opérateurs, régions, départements,
+       intercommunalités et communes, croisés sur 1,69 million de versements.</p>
+  </header>
+
+  <p id="moteur-etat" class="chargement">Préparation du moteur de recherche…</p>
+
+  <div id="application" hidden>
+
+    <div class="barre-outils">
+      <div class="champ champ-large">
+        <label for="q">Association</label>
+        <input id="q" type="search" placeholder="Nom d'une association — ex. restos du cœur, secours populaire…"
+               autocomplete="off" spellcheck="false">
+      </div>
+      <div class="champ">
+        <label for="filtre-dep">Département</label>
+        <select id="filtre-dep"><option value="">Tous</option></select>
+      </div>
+      <div class="champ">
+        <label for="filtre-cumul">Cumul d'échelons</label>
+        <select id="filtre-cumul">
+          <option value="">Indifférent</option>
+          <option value="2">2 échelons ou plus</option>
+          <option value="3">3 échelons ou plus</option>
+          <option value="4">4 échelons ou plus</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="avertissement" id="note-methode">
+      <b>Lecture.</b> Une association est reconnue par son SIREN quand la source le donne
+      (72 % des bénéficiaires), sinon par son nom et son département. Une même association
+      publiée sans identifiant par deux sources peut donc apparaître deux fois, et un cumul
+      d'échelons peut être sous-estimé — jamais inventé.
+    </p>
+
+    <div id="resultats"></div>
+    <div id="fiche" hidden></div>
+  </div>
+
+  <footer>
+    Données issues des portails publics d'open data, Licence Ouverte 2.0 —
+    montants publiés par les administrations, sans correction.
+    Recherche exécutée dans votre navigateur : aucune requête n'est envoyée à un serveur.
+  </footer>
+</div>
+<script type="module" src="assets/js/recherche.js"></script>
+</body>
+</html>

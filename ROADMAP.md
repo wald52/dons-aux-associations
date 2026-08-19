@@ -157,6 +157,18 @@ Dépôt ramené de 981 Mo à 133 Mo suivis.
 
 **Cible** — premier affichage < 1 s, quelques centaines de Ko au lieu de 835 Mo, utilisable sur mobile.
 
+### Phase 3 — Recherche croisée — **fait**
+
+```bash
+python3 scripts/pipeline/build_search_index.py   # index bénéficiaires + shards
+```
+
+`recherche.html` : DuckDB-WASM embarqué (versionné, chargé seulement sur cette
+page), 261 444 bénéficiaires résolus par SIREN puis nom+département,
+**4 400 associations financées par au moins 3 échelons**. Recherche locale
+instantanée ; la fiche d'une association télécharge un shard d'environ 400 Ko.
+La carte du premier écran reste à 0,13 Mo / 0,05 s.
+
 ### Phase 3 — Recherche croisée (1-2 semaines)
 - Association → tous ses financeurs, tous échelons, toutes années.
 - Financeur → toutes ses associations, avec évolution.

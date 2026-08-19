@@ -136,6 +136,39 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   `subv-associations-2024` porte `"Source data.gouv.fr"` en donateur : c'est un
   attribuant non récupéré, classé « État » par défaut. Cela gonfle l'État.
 
+- **L'identité d'un bénéficiaire se résout par SIREN, sinon par nom PLUS
+  département.** Jamais par nom seul : « Centre communal d'action sociale »
+  existe dans 41 départements, « ADIE » dans 57 — une clé par nom fusionnerait
+  des organismes distincts et INVENTERAIT des cumuls d'échelons. L'inverse
+  (une association sans identifiant comptée deux fois) est une lacune, pas un
+  mensonge : c'est le bon côté où se tromper. Cf. `build_search_index.py`.
+
+- **La couche HTTP de DuckDB-WASM se replie sur le téléchargement complet.**
+  Malgré `registerFileURL(..., directIO=true)` et un serveur répondant
+  correctement aux requêtes Range, la première fiche rapatriait les 25 Mo du
+  fichier de versements. D'où le sharding en 64 fichiers par hachage du
+  bénéficiaire (~400 Ko chacun), qui marche sur n'importe quel hébergeur
+  statique. La fonction de répartition existe en double (Python
+  `shard_of`, JS `shardDe`) et DOIT rester identique.
+
+- **`duckdb-browser.mjs` n'est pas autonome** : il importe « apache-arrow » par
+  son nom nu, insoluble pour un navigateur. `assets/vendor/duckdb/duckdb.mjs`
+  est un bundle esbuild autosuffisant. L'extension Parquet est elle aussi
+  versionnée (`assets/vendor/duckdb/extensions/…`) et chargée via
+  `SET custom_extension_repository` — la CSP interdit le CDN duckdb.org.
+
+- **Un module de pipeline ne doit re-emballer `sys.stdout` que sous
+  `if __name__ == "__main__"`** : au chargement du module (import depuis
+  `verify.py`), le re-emballage détache le flux de l'importeur et tout
+  `print` ultérieur lève « I/O operation on closed file ».
+
+- **Trois nouvelles mises à l'écart de montants** (phase 3), même doctrine que
+  `metropole-lyon` : 2 lignes de `ville-boulogne-billancourt` à 750 M€ et
+  75 M€ (plafond par source, budget de la ville ~330 M€) ; la ligne « TOTAL
+  AAAA » de `commune-bar-le-duc` traitée en agrégat (7 lignes, 196,9 M€) ; la
+  ligne « Association inconnue » de `paris` à 257 M€ en 2024 traitée en
+  agrégat (un cumul qui ne dit pas son nom). Total individuel : 114,46 Md€.
+
 - **Le push de tags est refusé** dans les sessions distantes (HTTP 403 du
   proxy). L'état de référence d'avant refonte est `origin/main` @ `0b14348`,
   tag `v0` en local seulement. Le push de branches, lui, fonctionne.
@@ -264,7 +297,10 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       carte reconstruite depuis le GeoJSON, service worker, dépôt allégé.
       **0,11 s** au premier affichage contre 12,96 s, **10 Mo** de mémoire
       contre 1 965, **0,13 Mo** transférés contre 73,6.
-- [ ] **Phase 3** — recherche croisée.
+- [x] **Phase 3** — recherche croisée. Page `recherche.html` : moteur SQL
+      DuckDB-WASM embarqué, index de 261 444 bénéficiaires résolus,
+      versements shardés en 64 fichiers. 4 400 associations cumulent
+      au moins 3 échelons. 28 contrôles dans `verify.py`.
 - [ ] **Phase 4** — exhaustivité (moissonneur SCDL, carte de couverture).
 - [ ] **Phase 5** — design et lisibilité.
 
@@ -283,6 +319,7 @@ python3 scripts/pipeline/build_canonical.py      # assemblage + dédup + rapport
 python3 scripts/pipeline/verify.py               # 21 contrôles, doit rester vert
 python3 scripts/pipeline/build_carte.py          # carte depuis le GeoJSON
 python3 scripts/pipeline/build_aggregates.py     # agrégats servis au navigateur
+python3 scripts/pipeline/build_search_index.py   # index de recherche croisée
 ```
 
 **`normalize_legacy.py` ne peut plus tourner en l'état** : ses entrées

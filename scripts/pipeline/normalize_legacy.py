@@ -63,6 +63,26 @@ UNITE_DOUTEUSE = {
     "metropole-lyon": "montants vraisemblablement en centimes, vérification amont à faire",
 }
 
+# Plafond de vraisemblance PAR SOURCE, pour les cas où seules quelques lignes
+# d'un fichier par ailleurs sain sont absurdes. `ville-boulogne-billancourt` :
+# 2 lignes sur 62 portent 750 M€ et 75 M€ — plus du double du budget annuel de
+# la ville (~330 M€) pour la première — quand les 60 autres sont plausibles
+# (l'ACBB à 2,47 M€ correspond au réel). Même traitement que la quarantaine
+# d'unité : montant mis de côté, ligne comptée, à trancher en re-moissonnant.
+PLAFOND_DOUTEUX = {
+    "ville-boulogne-billancourt": 5e7,
+}
+
+# Bénéficiaires de convenance : la source n'a pas identifié l'association.
+# En dessous du seuil, la ligne reste une attribution individuelle (anonymisée) ;
+# au-delà, c'est un cumul qui ne dit pas son nom — `paris` publie ainsi une
+# ligne « Association inconnue » de 257 M€ en 2024, soit l'ordre de grandeur du
+# total annuel des subventions du département. La ranger en `aggregate` évite
+# qu'elle écrase le classement des bénéficiaires et double des lignes détaillées.
+BENEF_PLACEHOLDER = {"INCONNUE", "INCONNU", "ASSOCIATION INCONNUE", "",
+                     "DIVERS", "DIVERSES", "NON RENSEIGNE"}
+SEUIL_CUMUL_ANONYME = 1e7
+
 
 def parse_year(value):
     """(année, drapeau) — None si hors bornes plausibles."""
@@ -206,7 +226,9 @@ def normalize_source(path, ingested_at):
                 flags.append("amount_negative")
             if C.amount_is_implausible(rec["amount"]):
                 flags.append("amount_implausible")
-            unite_douteuse = name in UNITE_DOUTEUSE
+            unite_douteuse = name in UNITE_DOUTEUSE or (
+                name in PLAFOND_DOUTEUX and rec["amount"] is not None
+                and abs(rec["amount"]) >= PLAFOND_DOUTEUX[name])
             if unite_douteuse:
                 flags.append("amount_unit_suspect")
             # Certains fichiers portent des caractères de remplacement (U+FFFD) :
@@ -220,6 +242,10 @@ def normalize_source(path, ingested_at):
                 flags.append("no_source_url")
 
             name_norm = C.normalize_name(rec["name"])
+            if name_norm in BENEF_PLACEHOLDER:
+                flags.append("beneficiaire_non_identifie")
+                if rec["amount"] is not None and rec["amount"] >= SEUIL_CUMUL_ANONYME:
+                    gran = "aggregate"
             donor_norm = C.normalize_name(rec["donor_name"]) or "INCONNU"
             purpose_norm = C.normalize_name(rec["purpose"]) or None
             conf = ("high" if (siret and dep and year) else

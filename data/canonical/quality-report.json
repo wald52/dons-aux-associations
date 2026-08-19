@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T02:24:49Z",
+  "generated_at": "2026-08-19T10:10:16Z",
   "parts": [
     "data/canonical/parts/legacy-agglo-grand-chambery.parquet",
     "data/canonical/parts/legacy-agglo-lorient.parquet",
@@ -169,10 +169,10 @@
     "data/canonical/parts/plf-jaune-2025.parquet"
   ],
   "rows_total": 1692962,
-  "amount_individual_eur": 115780146518.8,
-  "amount_aggregate_eur": 1760666660.94,
-  "amount_rejected_eur": 236936734211849.0,
-  "rows_rejected": 9084,
+  "amount_individual_eur": 114455238277.7,
+  "amount_aggregate_eur": 2260555902.04,
+  "amount_rejected_eur": 236937559230849.0,
+  "rows_rejected": 9086,
   "years_covered": [
     2001,
     2002,
@@ -224,10 +224,11 @@
     "siret_scientific_notation": 29214,
     "siret_invalid": 25523,
     "year_missing": 14677,
-    "amount_unit_suspect": 9081,
+    "amount_unit_suspect": 9083,
     "amount_negative": 5944,
     "texte_illisible": 4194,
     "amount_zero": 262,
+    "beneficiaire_non_identifie": 242,
     "donor_unattributed": 191,
     "year_invalid": 162,
     "amount_implausible": 3
@@ -279,8 +280,8 @@
     },
     "agglo-lorient": {
       "rows": 374,
-      "amount_individual_eur": 72452578.01,
-      "amount_aggregate_eur": 107387.86,
+      "amount_individual_eur": 55516975.32,
+      "amount_aggregate_eur": 17042990.55,
       "years": [
         2014,
         2015,
@@ -423,8 +424,8 @@
     },
     "anct-politique-ville": {
       "rows": 137619,
-      "amount_individual_eur": 1762473251.28,
-      "amount_aggregate_eur": 0.0,
+      "amount_individual_eur": 1762458861.28,
+      "amount_aggregate_eur": 14390.0,
       "years": [
         2016,
         2017,
@@ -441,6 +442,7 @@
         "siret_scientific_notation": 22412,
         "dep_from_name": 21327,
         "beneficiary_not_association": 20815,
+        "beneficiaire_non_identifie": 124,
         "siret_invalid": 32
       },
       "beneficiary_kinds": {
@@ -451,8 +453,8 @@
     },
     "anct-politique-ville-2": {
       "rows": 129356,
-      "amount_individual_eur": 1604498145.38,
-      "amount_aggregate_eur": 0.0,
+      "amount_individual_eur": 1604479845.38,
+      "amount_aggregate_eur": 18300.0,
       "years": [
         2021,
         2022,
@@ -469,6 +471,7 @@
         "beneficiary_not_association": 20035,
         "no_siret": 5089,
         "siret_scientific_notation": 5065,
+        "beneficiaire_non_identifie": 59,
         "siret_invalid": 24
       },
       "beneficiary_kinds": {
@@ -500,8 +503,8 @@
     },
     "cc-pays-des-ecrins": {
       "rows": 83,
-      "amount_individual_eur": 1553900.0,
-      "amount_aggregate_eur": 0.0,
+      "amount_individual_eur": 776950.0,
+      "amount_aggregate_eur": 776950.0,
       "years": [
         2018,
         2019,
@@ -764,7 +767,8 @@
         "texte_illisible": 2986,
         "beneficiary_not_association": 1796,
         "no_siret": 97,
-        "siret_invalid": 91
+        "siret_invalid": 91,
+        "beneficiaire_non_identifie": 6
       },
       "beneficiary_kinds": {
         "inconnu": 2964,
@@ -1158,7 +1162,8 @@
         "no_siret": 265,
         "siret_invalid": 192,
         "beneficiary_not_association": 151,
-        "year_missing": 25
+        "year_missing": 25,
+        "beneficiaire_non_identifie": 19
       },
       "beneficiary_kinds": {
         "inconnu": 4959,
@@ -1364,6 +1369,7 @@
         "no_rna": 361,
         "no_source_url": 361,
         "amount_negative": 12,
+        "beneficiaire_non_identifie": 5,
         "beneficiary_not_association": 2
       },
       "beneficiary_kinds": {
@@ -1374,8 +1380,8 @@
     },
     "commune-bar-le-duc": {
       "rows": 53,
-      "amount_individual_eur": 279647054.0,
-      "amount_aggregate_eur": 0.0,
+      "amount_individual_eur": 82783125.0,
+      "amount_aggregate_eur": 196863929.0,
       "years": [
         2017,
         2021,
@@ -1751,8 +1757,8 @@
     },
     "culture-2": {
       "rows": 111532,
-      "amount_individual_eur": 5129004780.0,
-      "amount_aggregate_eur": 0.0,
+      "amount_individual_eur": 5128981280.0,
+      "amount_aggregate_eur": 23500.0,
       "years": [
         2019,
         2020,
@@ -1768,7 +1774,8 @@
         "beneficiary_not_association": 10985,
         "no_siret": 4826,
         "dep_unknown": 1240,
-        "amount_negative": 157
+        "amount_negative": 157,
+        "beneficiaire_non_identifie": 6
       },
       "beneficiary_kinds": {
         "inconnu": 90076,
@@ -1935,8 +1942,8 @@
     },
     "efs-siege": {
       "rows": 12,
-      "amount_individual_eur": 174000.0,
-      "amount_aggregate_eur": 0.0,
+      "amount_individual_eur": 87000.0,
+      "amount_aggregate_eur": 87000.0,
       "years": [
         2021
       ],
@@ -2266,8 +2273,8 @@
     },
     "paris": {
       "rows": 76207,
-      "amount_individual_eur": 3915640935.0,
-      "amount_aggregate_eur": 32162.0,
+      "amount_individual_eur": 3658207021.0,
+      "amount_aggregate_eur": 257466076.0,
       "years": [
         2013,
         2014,
@@ -2288,7 +2295,8 @@
         "no_rna": 76207,
         "no_siret": 427,
         "siret_invalid": 361,
-        "beneficiary_not_association": 190
+        "beneficiary_not_association": 190,
+        "beneficiaire_non_identifie": 21
       },
       "beneficiary_kinds": {
         "inconnu": 59814,
@@ -2629,8 +2637,8 @@
     },
     "reserve-ministerielle": {
       "rows": 3243,
-      "amount_individual_eur": 55550746.3,
-      "amount_aggregate_eur": 0.0,
+      "amount_individual_eur": 27815090.89,
+      "amount_aggregate_eur": 27735655.41,
       "years": [
         2011,
         2012,
@@ -2879,7 +2887,7 @@
     },
     "ville-boulogne-billancourt": {
       "rows": 62,
-      "amount_individual_eur": 834398991.25,
+      "amount_individual_eur": 9379991.25,
       "amount_aggregate_eur": 0.0,
       "years": [],
       "flags": {
@@ -2887,7 +2895,8 @@
         "no_siret": 62,
         "siret_invalid": 62,
         "no_rna": 62,
-        "no_source_url": 62
+        "no_source_url": 62,
+        "amount_unit_suspect": 2
       },
       "beneficiary_kinds": {
         "inconnu": 51,
@@ -3657,7 +3666,8 @@
         "no_siret": 107,
         "no_rna": 107,
         "no_source_url": 107,
-        "texte_illisible": 48
+        "texte_illisible": 48,
+        "beneficiaire_non_identifie": 2
       },
       "beneficiary_kinds": {
         "inconnu": 94,
@@ -3689,16 +3699,16 @@
       "type": "rupture_annuelle",
       "year": 2011,
       "amount_eur": 12539191620.08,
-      "mediane_annees_voisines_eur": 1879891831.82,
+      "mediane_annees_voisines_eur": 1866024010.82,
       "rapport": 6.7,
       "commentaire": "Total sans commune mesure avec les années voisines. Conforme à ce que publie la source — non corrigé. À vérifier : périmètre de l'annexe cette année-là (quelques très grosses subventions y pèsent lourd)."
     },
     {
       "type": "rupture_annuelle",
       "year": 2023,
-      "amount_eur": 15444097641.95,
-      "mediane_annees_voisines_eur": 4227597339.38,
-      "rapport": 3.7,
+      "amount_eur": 15443491961.95,
+      "mediane_annees_voisines_eur": 4098571288.38,
+      "rapport": 3.8,
       "commentaire": "Total sans commune mesure avec les années voisines. Conforme à ce que publie la source — non corrigé. À vérifier : périmètre de l'annexe cette année-là (quelques très grosses subventions y pèsent lourd)."
     },
     {
@@ -3709,8 +3719,8 @@
     },
     {
       "type": "montants_invraisemblables_exclus",
-      "rows": 9084,
-      "amount_eur": 236936734211849.0,
+      "rows": 9086,
+      "amount_eur": 236937559230849.0,
       "commentaire": "Valeurs supérieures à dix milliards d'euros pour une attribution unique : ce ne sont pas des montants. Cas constaté, un SIRET recopié dans la colonne montant par un convertisseur défaillant. Conservées dans la table avec le drapeau amount_implausible ; la valeur publiée est conservée dans `amount_rejected_eur`, et `amount_eur` est nul — une somme sur `amount_eur` est donc juste sans précaution particulière."
     },
     {

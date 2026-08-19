@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T02:24:54Z",
+  "generated_at": "2026-08-19T10:10:20Z",
   "referentiel": {
     "source": "wald52/carte-finances-locales (OFGL / BANATIC / INSEE)",
     "millesime": 2024,
@@ -49,7 +49,7 @@
         "reg_code": "93",
         "statut": "avec_donnees",
         "rows": 4104,
-        "amount_eur": 98627373.75
+        "amount_eur": 97850423.75
       },
       "06": {
         "nom": "Alpes-Maritimes",
@@ -231,7 +231,7 @@
         "reg_code": "76",
         "statut": "avec_donnees",
         "rows": 14326,
-        "amount_eur": 620364504.54
+        "amount_eur": 620322504.54
       },
       "31": {
         "nom": "Haute-Garonne",
@@ -259,7 +259,7 @@
         "reg_code": "76",
         "statut": "avec_donnees",
         "rows": 24152,
-        "amount_eur": 1142019866.82
+        "amount_eur": 1142016866.82
       },
       "35": {
         "nom": "Ille-et-Vilaine",
@@ -406,14 +406,14 @@
         "reg_code": "44",
         "statut": "avec_donnees",
         "rows": 4422,
-        "amount_eur": 466802741.31
+        "amount_eur": 269938812.31
       },
       "56": {
         "nom": "Morbihan",
         "reg_code": "53",
         "statut": "avec_donnees",
         "rows": 10260,
-        "amount_eur": 650144748.31
+        "amount_eur": 633209145.62
       },
       "57": {
         "nom": "Moselle",
@@ -546,7 +546,7 @@
         "reg_code": "11",
         "statut": "avec_donnees",
         "rows": 168825,
-        "amount_eur": 24201441256.51
+        "amount_eur": 23944007342.51
       },
       "76": {
         "nom": "Seine-Maritime",
@@ -665,7 +665,7 @@
         "reg_code": "11",
         "statut": "avec_donnees",
         "rows": 19870,
-        "amount_eur": 3015096562.99
+        "amount_eur": 2190077562.99
       },
       "93": {
         "nom": "Seine-Saint-Denis",

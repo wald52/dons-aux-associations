@@ -535,6 +535,10 @@ _ACCOUNT_CODE = re.compile(r"^\d{4,7}([.,]\d{1,2})?$")
 _BUDGET_WORDS = re.compile(
     r"subv\w*\.?\s+(de\s+)?fonct|subventions? (aux|de fonctionnement)|"
     r"autres personnes (de )?droit prive", re.I)
+# « TOTAL 2019 » en guise de bénéficiaire : un total de budget déguisé en
+# association (constaté chez commune-bar-le-duc, 7 lignes, 196,9 M€ à elles
+# seules pour une ville de 15 000 habitants).
+_TOTAL_NAME = re.compile(r"^\s*(total|totaux)\b", re.I)
 
 
 # Aucune attribution unique de subvention publique française n'atteint dix
@@ -554,7 +558,10 @@ def looks_aggregate(purpose, beneficiary_name):
     p = clean_text(purpose)
     if p and _ACCOUNT_CODE.match(p.replace(" ", "")):
         return True
-    return bool(_BUDGET_WORDS.search(clean_text(beneficiary_name)))
+    name = clean_text(beneficiary_name)
+    if _TOTAL_NAME.match(name):
+        return True
+    return bool(_BUDGET_WORDS.search(name))
 
 
 # ------------------------------------------------- schéma canonique ----
