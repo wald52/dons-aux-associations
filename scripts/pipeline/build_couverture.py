@@ -27,6 +27,7 @@ import gzip
 import io
 import json
 import os
+import re
 import sys
 import time
 
@@ -91,39 +92,81 @@ def publications_reperees():
     return lues, non_lues - lues
 
 
-# Une collectivité est reconnue dans un nom de donateur si son propre nom y
-# figure : « Ville de Quimper » contient « QUIMPER ». On exige au moins quatre
-# caractères pour éviter que « Y » ou « Eu » (communes réelles) ne s'apparient
-# avec n'importe quoi.
-LONGUEUR_MINIMALE = 4
+# --- appariement donateur -> collectivité -------------------------------------
+#
+# On part des DONATEURS (quelques dizaines) vers le référentiel, et non
+# l'inverse. Le sens compte : chercher les collectivités dont le nom apparaît
+# dans un libellé de donateur faisait apparier « Ville de Neuville-Saint-Rémy »
+# aux dix-sept Saint-Rémy de France — la page affichait alors 140 communes
+# couvertes pour 79 donateurs réels, soit l'inverse de ce qu'elle promettait.
+#
+# Règle : un donateur désigne AU PLUS UNE collectivité, celle dont le nom est
+# le plus long à figurer dans son libellé. Le nom le plus long gagne parce
+# qu'il est le plus spécifique : entre « Saint-Rémy » et « Neuville-Saint-Rémy »,
+# c'est le second qui décrit le donateur.
+
+# Comparaison par MOTS ENTIERS, sans seuil de longueur : un seuil éliminait
+# l'Aube, le Cher, le Lot, Lyon ou Mèze, tandis qu'une comparaison par
+# sous-chaîne aurait reconnu « Lot » dans « Charlotte ». Les mots règlent les
+# deux problèmes d'un coup.
+
+# Formes juridiques à retirer avant comparaison : le référentiel écrit
+# « CA Grand Chambéry » là où la collectivité signe « Grand Chambéry ».
+_FORME = re.compile(
+    r"\b(CA|CC|CU|CD|SAN|SIVU|SIVOM|SM|EPT|METROPOLE|METROPOLE DE|COMMUNAUTE"
+    r"|COMMUNAUTE D AGGLOMERATION|COMMUNAUTE DE COMMUNES|COMMUNAUTE URBAINE"
+    r"|AGGLOMERATION|VILLE DE|VILLE D|COMMUNE DE|COMMUNE D|MAIRIE DE|MAIRIE D"
+    r"|DEPARTEMENT DE|DEPARTEMENT DES|DEPARTEMENT DU|DEPARTEMENT D"
+    r"|CONSEIL DEPARTEMENTAL DE|CONSEIL DEPARTEMENTAL DES|CONSEIL DEPARTEMENTAL DU"
+    r"|CONSEIL GENERAL DE|CONSEIL GENERAL DU|CONSEIL REGIONAL DE|CONSEIL REGIONAL D"
+    r"|REGION|GRAND|PAYS DE|PAYS D)\b", re.I)
+
+# Un budget annexe n'est pas une collectivité distincte : « Métropole de Lyon
+# budget annexe des eaux » désigne la Métropole de Lyon.
+_BUDGET = re.compile(r"\bBUDGET\s+(PRINCIPAL|ANNEXE).*$", re.I)
 
 
-def index_par_nom(noms_donateurs):
-    """Index inversé mot -> clés de donateur, pour un appariement en O(n)."""
-    idx = collections.defaultdict(set)
-    for cle in noms_donateurs:
-        for mot in cle.split():
-            if len(mot) >= LONGUEUR_MINIMALE:
-                idx[mot].add(cle)
+def _mots(nom):
+    """Mots significatifs d'un nom : sans forme juridique ni mots de liaison."""
+    cle = C.normalize_name(nom)
+    cle = _BUDGET.sub(" ", cle)
+    cle = _FORME.sub(" ", cle)
+    cle = re.sub(r"\b(DE|DES|DU|D|LA|LE|LES|L|EN|SUR|SOUS|AUX|ET)\b", " ", cle)
+    return tuple(m for m in cle.split() if len(m) > 1)
+
+
+def construire_index(table, champ_nom):
+    """mots -> [codes] pour toutes les collectivités d'un échelon."""
+    idx = collections.defaultdict(list)
+    for code, meta in table.items():
+        mots = _mots(meta.get(champ_nom) or "")
+        if mots:
+            idx[mots].append(code)
     return idx
 
 
-def apparier(nom_collectivite, idx, noms_donateurs):
-    """Clés de donateur dont le libellé contient le nom de la collectivité."""
-    cle = C.normalize_name(nom_collectivite)
-    if len(cle) < LONGUEUR_MINIMALE:
-        return []
-    mots = [m for m in cle.split() if len(m) >= LONGUEUR_MINIMALE]
+def meilleure_collectivite(libelle_donateur, index):
+    """Code de la collectivité que ce donateur désigne, ou None.
+
+    Une collectivité correspond si TOUS ses mots figurent dans le libellé du
+    donateur ; la plus spécifique l'emporte (le plus de mots). Retourne None
+    dès que deux collectivités se disputent le même rang : mieux vaut ne rien
+    affirmer que se tromper de commune.
+    """
+    mots = set(_mots(libelle_donateur))
     if not mots:
-        return []
-    candidats = set(idx.get(mots[0], ()))
-    for m in mots[1:]:
-        candidats &= idx.get(m, set())
-        if not candidats:
-            return []
-    # Vérification finale sur la chaîne complète : « SAINT DENIS » ne doit pas
-    # s'apparier à « SAINT DENIS DE PILE » par le seul jeu des mots communs.
-    return [c for c in candidats if cle in c or c in cle]
+        return None
+    exact = index.get(tuple(_mots(libelle_donateur)))
+    if exact and len(exact) == 1:
+        return exact[0]
+    candidats = [(cle, codes) for cle, codes in index.items() if set(cle) <= mots]
+    if not candidats:
+        return None
+    meilleur = max(len(cle) for cle, _ in candidats)
+    finalistes = [(cle, codes) for cle, codes in candidats if len(cle) == meilleur]
+    if len(finalistes) != 1 or len(finalistes[0][1]) != 1:
+        return None
+    return finalistes[0][1][0]
 
 
 def main():
@@ -166,9 +209,24 @@ def main():
         ("region", ref["regions"], "nom"),
     ):
         noms_donateurs = par_niveau[niveau]["noms"]
-        idx = index_par_nom(noms_donateurs)
-        idx_publiants = index_par_nom(publiants)
-        idx_non_lus = index_par_nom(publiants_non_lus)
+        index = construire_index(table, champ_nom)
+
+        # Chaque donateur désigne au plus une collectivité.
+        apparies_par_code = collections.defaultdict(list)
+        non_apparies = []
+        for libelle in noms_donateurs:
+            code_trouve = meilleure_collectivite(libelle, index)
+            if code_trouve:
+                apparies_par_code[code_trouve].append(libelle)
+            else:
+                non_apparies.append(libelle)
+
+        # Mêmes règles pour savoir qui publie sans être exploité.
+        publie_par_code = set()
+        for libelle in publiants | publiants_non_lus:
+            code_trouve = meilleure_collectivite(libelle, index)
+            if code_trouve:
+                publie_par_code.add(code_trouve)
 
         etats = {}
         pop_totale = pop_couverte = 0
@@ -181,16 +239,14 @@ def main():
             pop = int(pop or 0)
             pop_totale += pop
 
-            apparies = apparier(nom, idx, noms_donateurs)
+            apparies = apparies_par_code.get(code, [])
             lignes = sum(noms_donateurs[a][0] for a in apparies)
             montant = sum(noms_donateurs[a][1] for a in apparies)
             par_siren = code in couverts_par_siren.get(niveau, ())
             if apparies or par_siren:
                 etat = "donnees"
                 pop_couverte += pop
-            elif apparier(nom, idx_non_lus, publiants_non_lus):
-                etat = "publie_non_lu"
-            elif apparier(nom, idx_publiants, publiants):
+            elif code in publie_par_code:
                 etat = "publie_non_lu"
             else:
                 etat = "sans_donnees"
@@ -207,7 +263,11 @@ def main():
             "part_population_couverte": round(pop_couverte / pop_totale * 100, 1) if pop_totale else None,
             "detail": etats,
         }
+        resultat[niveau]["donateurs_dans_les_donnees"] = len(noms_donateurs)
+        resultat[niveau]["donateurs_non_apparies"] = sorted(non_apparies)
         resume[niveau] = {
+            "donateurs_dans_les_donnees": len(noms_donateurs),
+            "donateurs_non_apparies": len(non_apparies),
             "univers": len(table),
             "avec_donnees": compte["donnees"],
             "publie_non_lu": compte["publie_non_lu"],
@@ -216,8 +276,9 @@ def main():
         }
         pct = resultat[niveau]["part_population_couverte"]
         print(f"  {niveau:12s} {compte['donnees']:>6} / {len(table):<6} avec données"
-              f"   {compte['publie_non_lu']:>4} publient sans être lus"
-              + (f"   {pct:>5.1f} % de la population" if pct is not None else ""))
+              f"   ({len(noms_donateurs)} donateurs dans les données,"
+              f" {len(non_apparies)} non appariés)"
+              + (f"   {pct:>5.1f} % pop." if pct is not None else ""))
 
     print(f"\n  rattachements par SIREN : "
           f"{len(couverts_par_siren['epci'])} EPCI, "
@@ -226,10 +287,11 @@ def main():
 
     charge = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "methode": ("Appariement par nom entre le référentiel INSEE et les libellés de "
-                    "donateurs de la table canonique. Un nom peut échouer à s'apparier "
-                    "alors que la donnée existe : la couverture affichée est donc un "
-                    "MINIMUM, jamais une surestimation."),
+        "methode": ("Chaque libellé de donateur est rapproché du référentiel INSEE et "
+                    "désigne AU PLUS UNE collectivité — en cas d'homonymie, aucune. "
+                    "La couverture affichée est donc un minimum : un libellé inhabituel "
+                    "échoue à s'apparier alors que la donnée existe, mais aucune "
+                    "collectivité n'est comptée à tort."),
         "etats": {
             "donnees": "des subventions versées par cette collectivité sont présentes",
             "publie_non_lu": "elle publie un jeu de subventions, mais rien d'exploitable n'en a été tiré",

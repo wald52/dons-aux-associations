@@ -204,6 +204,15 @@ def main():
        {nb(com.get('par_etat', {}).get('donnees', 0))} communes sur {nb(com.get('univers', 0))} ont des
        données, soit <strong>{str(com.get('part_population_couverte', '—')).replace('.', ',')}&nbsp;% de la
        population</strong> — la couverture se mesure en habitants, pas en nombre de fichiers.</p>
+    <p>La raison principale est en amont : <strong>très peu de collectivités publient</strong>.
+       Toutes sources confondues, les données ne contiennent que
+       {nb(com.get('donateurs_dans_les_donnees', 0))} communes,
+       {nb(cov.get('niveaux', {}).get('epci', {}).get('donateurs_dans_les_donnees', 0))} intercommunalités,
+       {nb(cov.get('niveaux', {}).get('departement', {}).get('donateurs_dans_les_donnees', 0))} départements et
+       {nb(cov.get('niveaux', {}).get('region', {}).get('donateurs_dans_les_donnees', 0))} régions
+       en tant que <em>financeurs</em>. L'État, lui, est couvert de façon dense.
+       Seules les communes de plus de 3&nbsp;500 habitants sont tenues de publier, et
+       l'obligation est peu suivie.</p>
     <p>Cette couverture est un <strong>minimum</strong> : une collectivité est reconnue en
        rapprochant son nom du référentiel INSEE, et un libellé inhabituel peut échouer à
        s'apparier alors que la donnée existe. L'erreur va toujours vers la sous-estimation.

@@ -89,10 +89,19 @@
       bloc.appendChild(jauge);
 
       var det = el("p", "detail-couverture");
-      det.appendChild(document.createTextNode(
-        fmt.format(d.avec_donnees) + " avec données · " +
+      var texte = fmt.format(d.avec_donnees) + " avec données · " +
         fmt.format(d.publie_non_lu) + " publient sans être exploités · " +
-        fmt.format(d.sans_donnees) + " sans donnée trouvée"));
+        fmt.format(d.sans_donnees) + " sans donnée trouvée";
+      if (d.donateurs_dans_les_donnees != null) {
+        texte += " — les données ne contiennent que " +
+          fmt.format(d.donateurs_dans_les_donnees) + " financeur" +
+          (d.donateurs_dans_les_donnees > 1 ? "s" : "") + " à cet échelon";
+        if (d.donateurs_non_apparies) {
+          texte += ", dont " + fmt.format(d.donateurs_non_apparies) +
+            " qu'on n'a pas su rattacher";
+        }
+      }
+      det.appendChild(document.createTextNode(texte));
       bloc.appendChild(det);
       hote.appendChild(bloc);
     });
