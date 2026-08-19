@@ -1,0 +1,80 @@
+# Banc de mesure de performance
+
+Point de référence chiffré pour juger la refonte. Sans lui, on ne saurait pas
+si une optimisation a servi.
+
+## Lancer une mesure
+
+```bash
+export NODE_PATH=/opt/node22/lib/node_modules   # playwright/http-server globaux
+node scripts/bench/measure.js --label v0 --timeout 420
+```
+
+| Option | Défaut | Rôle |
+|---|---|---|
+| `--label` | `run` | nom du relevé → `bench/<label>.json` |
+| `--timeout` | `300` | abandon (secondes) si les données ne sont jamais prêtes |
+| `--port` | `8099` | port du serveur statique local |
+| `--headful` | — | ouvrir un navigateur visible (débogage) |
+
+Le banc n'a **aucune connaissance de l'architecture interne** : il observe le
+réseau et attend un marqueur « données prêtes ». Les relevés d'avant et d'après
+la refonte sont donc directement comparables. Les marqueurs acceptés sont, dans
+l'ordre (`READY_PROBES` dans le script) :
+
+1. `window.ALL_SUBVENTIONS.length > 0` — architecture v0
+2. `window.__DATA_READY === true` — **à poser dans l'architecture cible**
+3. le compteur « Montant total » cesse d'afficher `--`
+
+## Ce qui est mesuré
+
+- **Octets transférés** — via CDP `Network.loadingFinished`, donc l'octet réel.
+- **Requêtes** — nombre et échecs.
+- **Premier affichage** (FCP) — quand le visiteur voit quelque chose.
+- **Données exploitables** — quand le site sert enfin à quelque chose.
+- **Mémoire JS** — tas utilisé et plafond du moteur.
+
+## Relevé de référence — `v0` (18/08/2026)
+
+État : `origin/main` @ `0b14348`, avant toute refonte.
+
+| Mesure | Valeur |
+|---|---|
+| Octets transférés (brut) | **835,04 Mo** |
+| Octets transférés (gzip, = GitHub Pages) | **~73,6 Mo** |
+| Requêtes | 171 (1 en échec) |
+| Premier affichage | **12,96 s** |
+| Données exploitables | **57,75 s** |
+| Mémoire JS utilisée | **1 965 Mo** / plafond 3 586 Mo |
+| Enregistrements chargés | 1 595 805 |
+| Balises `<script>` | 170 |
+
+### Précautions de lecture — important
+
+- **Mesure en local**, latence réseau nulle, 4 cœurs, 16 Go de RAM.
+  Sur une vraie connexion et une vraie machine, les temps sont **nécessairement pires**.
+- **`http-server` ne compresse pas à la volée**, contrairement à GitHub Pages.
+  Les 835 Mo sont l'octet brut ; en ligne, le transfert réel est de ~73,6 Mo
+  (ratio ×11,3). Il ne faut donc **pas** annoncer « 835 Mo téléchargés ».
+- Le vrai coût n'est pas le transfert mais le **parsing** : le navigateur doit
+  décompresser puis parser 835 Mo de JavaScript. C'est ce qui explique les
+  57,75 s et les 1 965 Mo de tas, pas les octets sur le fil.
+- **1 965 Mo sur un plafond de 3 586 Mo, soit 55 %.** Sur mobile le plafond est
+  bien plus bas — l'onglet est tué avant la fin. C'est la mesure la plus grave
+  du relevé : elle explique pourquoi le site est inutilisable sur téléphone.
+- La requête en échec est Chart.js depuis `cdn.jsdelivr.net`, non joignable
+  depuis le conteneur de mesure. Sans effet sur les chiffres de données.
+- Le comptage par `grep` du diagnostic initial (1 578 180) sous-estimait de
+  1,1 % : **1 595 805** relevé par l'application fait foi.
+
+## Cibles après refonte
+
+| Mesure | v0 | Cible phase 2 |
+|---|---|---|
+| Octets transférés (gzip) | 73,6 Mo | **< 1 Mo** au premier écran |
+| Premier affichage | 12,96 s | **< 1 s** |
+| Données exploitables | 57,75 s | **< 2 s** |
+| Mémoire JS | 1 965 Mo | **< 150 Mo** |
+
+Poser `window.__DATA_READY = true` dans la nouvelle architecture dès que la
+carte et les compteurs sont exploitables, pour garder la comparabilité.

@@ -1,0 +1,74 @@
+{
+  "label": "v0",
+  "date": "2026-08-18T23:57:18.933Z",
+  "url": "http://127.0.0.1:8099/index.html",
+  "timeoutSeconds": 420,
+  "timings": {
+    "firstContentfulPaintSeconds": 12.96,
+    "dataReadySeconds": 57.75,
+    "dataReady": true,
+    "wallClockSeconds": 57.75
+  },
+  "network": {
+    "requests": 171,
+    "failed": 1,
+    "transferredMB": 835.04,
+    "byType": {
+      "js": {
+        "requests": 168,
+        "MB": 835
+      },
+      "css": {
+        "requests": 1,
+        "MB": 0.02
+      },
+      "html": {
+        "requests": 1,
+        "MB": 0.02
+      }
+    },
+    "heaviest": [
+      {
+        "url": "/data/sources/anct-politique-ville-2.js",
+        "MB": 66.87,
+        "ms": 951
+      },
+      {
+        "url": "/data/sources/anct-politique-ville.js",
+        "MB": 66.79,
+        "ms": 2647
+      },
+      {
+        "url": "/data/sources/culture-2.js",
+        "MB": 61.59,
+        "ms": 727
+      },
+      {
+        "url": "/data/sources/plf-jaune-2022.js",
+        "MB": 57.97,
+        "ms": 686
+      },
+      {
+        "url": "/data/sources/culture.js",
+        "MB": 55.06,
+        "ms": 697
+      }
+    ],
+    "transferredMB_uncompressed": 835.04,
+    "transferredMB_gzipEquivalent": 73.6
+  },
+  "memory": {
+    "usedMB": 1965,
+    "limitMB": 3586
+  },
+  "data": {
+    "records": 1595805,
+    "scriptTags": 170
+  },
+  "notes": [
+    "Mesure en local (http-server, latence reseau nulle, 4 coeurs, 16 Go RAM). Sur une vraie connexion, les temps sont necessairement pires.",
+    "http-server ne compresse PAS a la volee : les 835 Mo mesures sont l'octet brut. GitHub Pages compresse a la volee -> ~73,6 Mo reellement transferes (ratio x11,3). Le navigateur doit malgre tout decompresser ET parser les 835 Mo de JS : c'est ce parsing qui explique les 57,75 s et les 1965 Mo de tas, pas le transfert.",
+    "1 requete en echec : Chart.js depuis cdn.jsdelivr.net (non joignable depuis le conteneur).",
+    "Le nombre d'enregistrements releve par l'application (1 595 805) fait foi ; l'estimation par grep du diagnostic initial (1 578 180) sous-comptait de 1,1 %."
+  ]
+}
