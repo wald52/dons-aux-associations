@@ -236,3 +236,65 @@ dès la deuxième semaine plutôt qu'au bout de deux mois.
   chiffré, pas à l'œil — c'est ce qui évite les régressions silencieuses.
 - **Le CLAUDE.md se met à jour en continu.** Toute décision contre-intuitive s'y écrit
   avec sa raison.
+
+---
+
+## Phase 6 — Le gisement restant (mesuré le 19/08/2026)
+
+Ce qui manque n'est pas une inconnue : quatre gisements ont été quantifiés,
+classés ici par rapport gain/effort.
+
+### 6a. Élargir le dictionnaire de colonnes du moissonneur — **le moins cher**
+
+Sur les 661 fichiers écartés dont les colonnes sont consignées,
+**328 redeviendraient exploitables** avec un dictionnaire mieux fait. Deux
+graphies très répandues sont manquées aujourd'hui :
+
+- `Nom association` (le test actuel exige que le libellé *commence* par
+  « association ») ;
+- `Réalisé (en numéraire)`, la colonne de montant des budgets départementaux.
+
+Attention : un élargissement naïf produit des faux positifs — « Nom ETS
+attribuant la **subvention** » serait pris pour un montant, « Nature juridique
+de l'**organisme** » pour un bénéficiaire. Il faut comparer des mots entiers et
+ordonner les motifs du plus spécifique au plus général, comme le fait déjà
+`build_couverture.py`.
+
+### 6b. Moissonner les portails territoriaux — **le plus gros gain**
+
+Les collectivités qui publient le plus ne passent pas par data.gouv.fr : elles
+ont leur propre portail. Or **ces portails partagent tous la même API**
+(Opendatasoft Explore v2.1), donc un seul moissonneur générique les couvre.
+
+| Portail | Constat |
+|---|---|
+| `opendata.paris.fr` | **~195 000 lignes** de subventions publiées, contre 76 207 ingérées |
+| `data.iledefrance.fr` | 16 jeux de subventions |
+| `data.opendatasoft.com` | fédérateur : 211 jeux « subvention » |
+| `data.economie.gouv.fr` | déjà exploité pour le PLF Jaune |
+
+Paris à lui seul représente plus de 100 000 lignes manquantes.
+
+### 6c. Dépivoter les tableaux par année
+
+Environ 178 fichiers publient une colonne par exercice
+(`2018-Subventions Accordées`, `2019-…`) au lieu d'une ligne par versement.
+Le format est régulier, donc automatisable : une colonne dont le libellé
+contient une année devient une ligne par année.
+
+### 6d. Ce qui reste hors de portée sans habilitation
+
+- **`api.datasubvention.beta.gouv.fr`** (État) agrège Chorus et les données des
+  collectivités — ce serait la source de référence. L'API vit, mais renvoie
+  **401** : elle est réservée aux agents publics et aux associations habilitées.
+  Une demande de compte est le seul chemin.
+- **`data.grandlyon.com`** renvoie lui aussi **401**. C'est la raison pour
+  laquelle la quarantaine d'unité de `metropole-lyon` (48 Md€, probablement des
+  centimes) **n'a pas pu être levée** : l'amont n'est pas vérifiable sans compte.
+
+### Ce qui manquera toujours
+
+Les communes de moins de 3 500 habitants ne sont pas tenues de publier, et
+parmi celles qui le sont, l'obligation est peu suivie. Aucun moissonnage ne
+comblera cela : la lacune est légale, pas technique. C'est précisément ce que
+la page « Ce que ce site ne sait pas » est là pour dire.

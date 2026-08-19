@@ -350,6 +350,12 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       `couverture.html`. **2 012 328 lignes**, 126,6 Md€, 269 sources.
       Reste à faire : les 100 fichiers XLSX encore écartés, les tableaux
       pivotés par année, et la levée des quarantaines Lyon / Boulogne.
+- [ ] **Phase 6** — le gisement restant, mesuré et chiffré dans `ROADMAP.md` :
+      dictionnaire de colonnes (328 fichiers récupérables), moissonneur des
+      portails Opendatasoft (Paris publie 195 000 lignes, nous en avons 76 207),
+      dépivotage des tableaux annuels. `api.datasubvention.beta.gouv.fr` et
+      `data.grandlyon.com` renvoient 401 : hors de portée sans habilitation,
+      d'où l'impossibilité de lever la quarantaine Lyon.
 - [x] **Phase 5** — design et lisibilité. Système visuel unifié (bleu
       institutionnel commun avec `carte-finances-locales`), bandeau de
       navigation, `methode.html` engendrée depuis les données, tableau de
