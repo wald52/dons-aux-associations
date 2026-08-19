@@ -692,9 +692,10 @@ ROLES_COLONNES = {
          ("nom", "organisme", "beneficiaire"), ("raison", "sociale"),
          ("beneficiaire",), ("beneficiaires",), ("beneficiere",),
          ("denomination",), ("association",), ("organisme",), ("structure",),
-         ("tiers",), ("nom",)],
+         ("nom", "tiers"), ("nom",)],
         ("attribuant", "demandeur", "dataset", "prenom", "categorie", "nature",
-         "juridique", "type", "code", "numero", "siret", "siren", "id"),
+         "juridique", "type", "code", "numero", "siret", "siren", "id",
+         "insee", "commune", "ville", "adresse", "postal"),
     ),
     "montant": (
         [("montant", "vote"), ("montant", "accorde"), ("montant", "attribue"),
@@ -737,7 +738,14 @@ MOTS_AIDE_EN_NATURE = (("total", "aide", "nature"), ("prestations", "nature"),
 def _correspond(mots, motif, disqualifiants):
     if any(d in mots for d in disqualifiants):
         return False
-    return all(m in mots for m in motif)
+    if all(m in mots for m in motif):
+        return True
+    # Les exports Opendatasoft écrivent les colonnes tout en minuscules et sans
+    # séparateur : `nombeneficiaire`, `idattribuant`, `dateconvention`. Le
+    # découpage camelCase ne peut rien pour eux, il faut donc reconnaître aussi
+    # le motif accolé. Sans cela, la Région Bretagne voyait son bénéficiaire
+    # cherché dans `tiers_commune_insee`.
+    return len(motif) > 1 and "".join(motif) in mots
 
 
 def trouver_colonne(entete, role):

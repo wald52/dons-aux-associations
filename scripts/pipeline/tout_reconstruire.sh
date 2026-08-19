@@ -15,12 +15,15 @@ python3 scripts/pipeline/normalize_ods.py       | tail -3
 etape "table canonique"
 python3 scripts/pipeline/build_canonical.py | tail -20
 
-etape "contrôles"
-python3 scripts/pipeline/verify.py | tail -4
-
 etape "ce que le site sert"
 python3 scripts/pipeline/build_carte.py       | tail -2
 python3 scripts/pipeline/build_aggregates.py  | tail -3
 python3 scripts/pipeline/build_search_index.py | tail -4
 python3 scripts/pipeline/build_couverture.py  | tail -7
 python3 scripts/pipeline/build_methode.py     | tail -2
+
+# Les contrôles viennent EN DERNIER : plusieurs d'entre eux comparent l'index
+# de recherche à la table canonique, et échoueraient tant qu'il n'est pas
+# reconstruit.
+etape "contrôles"
+python3 scripts/pipeline/verify.py | tail -5
