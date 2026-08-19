@@ -1,2 +1,20 @@
+# Dépendances
 node_modules/
+
+# Caches et fichiers de travail du pipeline (jamais versionnés)
 data/tmp/
+data/_tmp_*
+data/raw/
+*.tmp
+
+# Données brutes téléchargées : re-téléchargeables par les scripts de fetch,
+# elles n'ont pas à peser dans le dépôt (cf. CLAUDE.md § Hygiène du dépôt).
+data/*.csv
+data/*.xlsx
+
+# Captures d'écran : ni référencées par le site, ni utiles à la reconstruction.
+screenshot*.png
+
+# Relevés de mesure : seuls les jalons sont versionnés (bench/v0.json, etc.),
+# pas les essais intermédiaires.
+bench/tmp-*.json
