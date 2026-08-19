@@ -1,0 +1,10 @@
+{
+  "source": "wald52/carte-finances-locales (OFGL / BANATIC / INSEE)",
+  "millesime": 2024,
+  "counts": {
+    "communes": 34936,
+    "epci": 1335,
+    "departements": 102,
+    "regions": 18
+  }
+}

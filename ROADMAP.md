@@ -98,6 +98,19 @@ chargement de données fausses obligerait à tout refaire une fois nettoyé.
 
 **Livrable** — dépôt propre, point de référence chiffré, schéma cible écrit.
 
+### Phase 1a — Pipeline canonique sur le PLF Jaune — **fait**
+
+```bash
+python3 scripts/pipeline/build_referentiel.py    # référentiel INSEE (une fois)
+python3 scripts/pipeline/fetch_plf_jaune.py      # moissonne data.gouv.fr
+python3 scripts/pipeline/normalize_plf_jaune.py  # -> data/canonical/parts/
+python3 scripts/pipeline/build_canonical.py      # -> subventions.parquet
+```
+
+Résultat : **808 174 lignes** sur 13 millésimes (2010-2023), en **55,7 Mo** de
+Parquet — contre 654 000 lignes et ~450 Mo de JavaScript auparavant.
+Interrogeable en SQL en 13 à 151 ms.
+
 ### Phase 1 — Pipeline canonique (1-2 semaines, le gros morceau)
 - Scripts Python idempotents avec cache local, même convention que `carte-finances-locales`.
 - Un normaliseur **par famille de format** (SCDL, PLF Jaune, portails maison), pas par source.

@@ -1,0 +1,346 @@
+{
+  "generated_at": "2026-08-19T00:35:03Z",
+  "parts": [
+    "data/canonical/parts/plf-jaune-2012.parquet",
+    "data/canonical/parts/plf-jaune-2013.parquet",
+    "data/canonical/parts/plf-jaune-2014.parquet",
+    "data/canonical/parts/plf-jaune-2015.parquet",
+    "data/canonical/parts/plf-jaune-2016.parquet",
+    "data/canonical/parts/plf-jaune-2017.parquet",
+    "data/canonical/parts/plf-jaune-2018.parquet",
+    "data/canonical/parts/plf-jaune-2019.parquet",
+    "data/canonical/parts/plf-jaune-2020.parquet",
+    "data/canonical/parts/plf-jaune-2021.parquet",
+    "data/canonical/parts/plf-jaune-2022.parquet",
+    "data/canonical/parts/plf-jaune-2023.parquet",
+    "data/canonical/parts/plf-jaune-2025.parquet"
+  ],
+  "rows_total": 808174,
+  "amount_individual_eur": 78228030025.48,
+  "amount_aggregate_eur": 1483995024.0,
+  "years_covered": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2023
+  ],
+  "fill_rates_percent": {
+    "beneficiary_siret": 77.1,
+    "beneficiary_siren": 99.2,
+    "beneficiary_rna": 34.8,
+    "beneficiary_commune_insee": 65.9,
+    "beneficiary_dep_code": 85.8,
+    "year": 100.0,
+    "purpose_raw": 89.7,
+    "donor_program": 97.8
+  },
+  "departments_present": 101,
+  "quality_flags": {
+    "no_rna": 527059,
+    "no_siret": 185353,
+    "dep_only": 160853,
+    "dep_unknown": 114602,
+    "beneficiary_not_association": 417,
+    "amount_zero": 117,
+    "amount_negative": 28
+  },
+  "deduplication": {
+    "groups_total": 803298,
+    "collisions_same_source": 3506,
+    "rows_same_source": 8382,
+    "collisions_cross_source": 0,
+    "rows_dropped": 0,
+    "amount_dropped": 0.0,
+    "dropped_by_source": {}
+  },
+  "by_source": {
+    "plf-jaune-2012": {
+      "rows": 37678,
+      "amount_individual_eur": 1483995024.0,
+      "amount_aggregate_eur": 1483995024.0,
+      "years": [
+        2010
+      ],
+      "flags": {
+        "dep_unknown": 37678,
+        "no_siret": 37678,
+        "no_rna": 37678,
+        "amount_zero": 41
+      },
+      "beneficiary_kinds": {
+        "inconnu": 30684,
+        "association": 6994
+      }
+    },
+    "plf-jaune-2013": {
+      "rows": 21167,
+      "amount_individual_eur": 12298527650.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2011
+      ],
+      "flags": {
+        "no_siret": 21167,
+        "no_rna": 21167,
+        "dep_only": 18236,
+        "dep_unknown": 2931,
+        "amount_zero": 40
+      },
+      "beneficiary_kinds": {
+        "inconnu": 18286,
+        "association": 2881
+      }
+    },
+    "plf-jaune-2014": {
+      "rows": 31851,
+      "amount_individual_eur": 1855004905.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2012
+      ],
+      "flags": {
+        "no_siret": 31851,
+        "no_rna": 31851,
+        "dep_only": 28849,
+        "dep_unknown": 3002,
+        "amount_zero": 4,
+        "amount_negative": 2
+      },
+      "beneficiary_kinds": {
+        "inconnu": 28211,
+        "association": 3640
+      }
+    },
+    "plf-jaune-2015": {
+      "rows": 28147,
+      "amount_individual_eur": 2136754559.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2013
+      ],
+      "flags": {
+        "no_siret": 28147,
+        "no_rna": 28147,
+        "dep_only": 25460,
+        "dep_unknown": 2687
+      },
+      "beneficiary_kinds": {
+        "inconnu": 25038,
+        "association": 3109
+      }
+    },
+    "plf-jaune-2016": {
+      "rows": 29717,
+      "amount_individual_eur": 2110443829.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2014
+      ],
+      "flags": {
+        "no_siret": 29717,
+        "no_rna": 29717,
+        "dep_only": 27230,
+        "dep_unknown": 2487
+      },
+      "beneficiary_kinds": {
+        "inconnu": 25796,
+        "association": 3921
+      }
+    },
+    "plf-jaune-2017": {
+      "rows": 33032,
+      "amount_individual_eur": 2055099250.0,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2015
+      ],
+      "flags": {
+        "no_siret": 33032,
+        "no_rna": 33032,
+        "dep_only": 30290,
+        "dep_unknown": 2742
+      },
+      "beneficiary_kinds": {
+        "inconnu": 29018,
+        "association": 4014
+      }
+    },
+    "plf-jaune-2018": {
+      "rows": 56497,
+      "amount_individual_eur": 4686867781.94,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2016
+      ],
+      "flags": {
+        "no_rna": 20953,
+        "dep_only": 7298,
+        "dep_unknown": 850,
+        "no_siret": 392,
+        "beneficiary_not_association": 166
+      },
+      "beneficiary_kinds": {
+        "association": 56209,
+        "inconnu": 122,
+        "company": 99,
+        "public_body": 67
+      }
+    },
+    "plf-jaune-2019": {
+      "rows": 70064,
+      "amount_individual_eur": 5322357620.24,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2017
+      ],
+      "flags": {
+        "no_rna": 70064,
+        "dep_only": 10381,
+        "dep_unknown": 492,
+        "no_siret": 411,
+        "beneficiary_not_association": 6,
+        "amount_negative": 1
+      },
+      "beneficiary_kinds": {
+        "association": 69585,
+        "inconnu": 473,
+        "company": 6
+      }
+    },
+    "plf-jaune-2020": {
+      "rows": 92114,
+      "amount_individual_eur": 7240745111.98,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2018
+      ],
+      "flags": {
+        "no_rna": 92114,
+        "dep_only": 13109,
+        "dep_unknown": 688,
+        "no_siret": 556,
+        "beneficiary_not_association": 15,
+        "amount_zero": 5,
+        "amount_negative": 2
+      },
+      "beneficiary_kinds": {
+        "association": 90783,
+        "inconnu": 1316,
+        "company": 11,
+        "public_body": 4
+      }
+    },
+    "plf-jaune-2021": {
+      "rows": 96746,
+      "amount_individual_eur": 7734537403.82,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2019
+      ],
+      "flags": {
+        "no_rna": 20229,
+        "dep_unknown": 14675,
+        "no_siret": 608,
+        "beneficiary_not_association": 13,
+        "amount_negative": 9
+      },
+      "beneficiary_kinds": {
+        "association": 95094,
+        "inconnu": 1639,
+        "company": 13
+      }
+    },
+    "plf-jaune-2022": {
+      "rows": 95820,
+      "amount_individual_eur": 8994601274.01,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2020
+      ],
+      "flags": {
+        "no_rna": 17700,
+        "dep_unknown": 13895,
+        "no_siret": 554,
+        "beneficiary_not_association": 15,
+        "amount_negative": 10,
+        "amount_zero": 3
+      },
+      "beneficiary_kinds": {
+        "association": 94301,
+        "inconnu": 1504,
+        "company": 15
+      }
+    },
+    "plf-jaune-2023": {
+      "rows": 102619,
+      "amount_individual_eur": 10543390140.84,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2021
+      ],
+      "flags": {
+        "dep_unknown": 14732,
+        "no_rna": 11685,
+        "no_siret": 684,
+        "beneficiary_not_association": 18,
+        "amount_negative": 4
+      },
+      "beneficiary_kinds": {
+        "association": 101304,
+        "inconnu": 1297,
+        "company": 18
+      }
+    },
+    "plf-jaune-2025": {
+      "rows": 112722,
+      "amount_individual_eur": 11765705475.65,
+      "amount_aggregate_eur": 0.0,
+      "years": [
+        2023
+      ],
+      "flags": {
+        "no_rna": 112722,
+        "dep_unknown": 17743,
+        "no_siret": 556,
+        "beneficiary_not_association": 184,
+        "amount_zero": 24
+      },
+      "beneficiary_kinds": {
+        "association": 107543,
+        "inconnu": 4995,
+        "company": 154,
+        "public_body": 30
+      }
+    }
+  },
+  "anomalies": [
+    {
+      "type": "rupture_annuelle",
+      "year": 2011,
+      "amount_eur": 12298527650.0,
+      "mediane_annees_voisines_eur": 1669499964.5,
+      "rapport": 7.4,
+      "commentaire": "Total sans commune mesure avec les années voisines. Conforme à ce que publie la source — non corrigé. À vérifier : périmètre de l'annexe cette année-là (quelques très grosses subventions y pèsent lourd)."
+    },
+    {
+      "type": "doublons_internes_conserves",
+      "rows": 8382,
+      "groupes": 3506,
+      "commentaire": "Lignes de clé métier identique au sein d'une même source. Conservées volontairement : l'inspection montre qu'il s'agit majoritairement d'organismes homonymes distincts (23 « Maison des jeunes et de la culture » recevant la même subvention type), et non de doublons."
+    },
+    {
+      "type": "montants_nuls",
+      "rows": 117,
+      "commentaire": "Montant à zéro publié tel quel par la source."
+    }
+  ]
+}

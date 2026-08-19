@@ -1,0 +1,736 @@
+{
+  "generated_at": "2026-08-19T00:35:04Z",
+  "referentiel": {
+    "source": "wald52/carte-finances-locales (OFGL / BANATIC / INSEE)",
+    "millesime": 2024,
+    "counts": {
+      "communes": 34936,
+      "epci": 1335,
+      "departements": 102,
+      "regions": 18
+    }
+  },
+  "note": "Couverture des bénéficiaires. Seul le PLF Jaune (État) est ingéré à ce stade : la couverture des collectivités reste à faire (phase 4).",
+  "departements": {
+    "univers": 102,
+    "avec_donnees": 99,
+    "sans_donnees": 3,
+    "detail": {
+      "01": {
+        "nom": "Ain",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 4638,
+        "amount_eur": 336875072.01
+      },
+      "02": {
+        "nom": "Aisne",
+        "reg_code": "32",
+        "statut": "avec_donnees",
+        "rows": 8632,
+        "amount_eur": 425753633.27
+      },
+      "03": {
+        "nom": "Allier",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 3743,
+        "amount_eur": 227090946.62
+      },
+      "04": {
+        "nom": "Alpes-de-Haute-Provence",
+        "reg_code": "93",
+        "statut": "avec_donnees",
+        "rows": 2767,
+        "amount_eur": 103998170.48
+      },
+      "05": {
+        "nom": "Hautes-Alpes",
+        "reg_code": "93",
+        "statut": "avec_donnees",
+        "rows": 2817,
+        "amount_eur": 76028801.75
+      },
+      "06": {
+        "nom": "Alpes-Maritimes",
+        "reg_code": "93",
+        "statut": "avec_donnees",
+        "rows": 9332,
+        "amount_eur": 667133940.37
+      },
+      "07": {
+        "nom": "Ardèche",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 3794,
+        "amount_eur": 185726126.61
+      },
+      "08": {
+        "nom": "Ardennes",
+        "reg_code": "44",
+        "statut": "avec_donnees",
+        "rows": 3859,
+        "amount_eur": 201028024.1
+      },
+      "09": {
+        "nom": "Ariège",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 2876,
+        "amount_eur": 85124026.55
+      },
+      "10": {
+        "nom": "Aube",
+        "reg_code": "44",
+        "statut": "avec_donnees",
+        "rows": 3480,
+        "amount_eur": 203304759.74
+      },
+      "11": {
+        "nom": "Aude",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 4220,
+        "amount_eur": 236971652.11
+      },
+      "12": {
+        "nom": "Aveyron",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 4378,
+        "amount_eur": 181582028.15
+      },
+      "13": {
+        "nom": "Bouches-du-Rhône",
+        "reg_code": "93",
+        "statut": "avec_donnees",
+        "rows": 17927,
+        "amount_eur": 1185874051.2
+      },
+      "14": {
+        "nom": "Calvados",
+        "reg_code": "28",
+        "statut": "avec_donnees",
+        "rows": 8876,
+        "amount_eur": 604783227.02
+      },
+      "15": {
+        "nom": "Cantal",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 2406,
+        "amount_eur": 96628516.89
+      },
+      "16": {
+        "nom": "Charente",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 3982,
+        "amount_eur": 216101712.67
+      },
+      "17": {
+        "nom": "Charente-Maritime",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 6320,
+        "amount_eur": 461816597.35
+      },
+      "18": {
+        "nom": "Cher",
+        "reg_code": "24",
+        "statut": "avec_donnees",
+        "rows": 3771,
+        "amount_eur": 184154795.42
+      },
+      "19": {
+        "nom": "Corrèze",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 4366,
+        "amount_eur": 130291769.66
+      },
+      "21": {
+        "nom": "Côte-d'Or",
+        "reg_code": "27",
+        "statut": "avec_donnees",
+        "rows": 7497,
+        "amount_eur": 450430854.71
+      },
+      "22": {
+        "nom": "Côtes-d'Armor",
+        "reg_code": "53",
+        "statut": "avec_donnees",
+        "rows": 5779,
+        "amount_eur": 335724535.43
+      },
+      "23": {
+        "nom": "Creuse",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 2963,
+        "amount_eur": 68940530.69
+      },
+      "24": {
+        "nom": "Dordogne",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 4527,
+        "amount_eur": 270832561.93
+      },
+      "25": {
+        "nom": "Doubs",
+        "reg_code": "27",
+        "statut": "avec_donnees",
+        "rows": 7851,
+        "amount_eur": 423488346.81
+      },
+      "26": {
+        "nom": "Drôme",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 5799,
+        "amount_eur": 407892688.69
+      },
+      "27": {
+        "nom": "Eure",
+        "reg_code": "28",
+        "statut": "avec_donnees",
+        "rows": 4286,
+        "amount_eur": 291195478.35
+      },
+      "28": {
+        "nom": "Eure-et-Loir",
+        "reg_code": "24",
+        "statut": "avec_donnees",
+        "rows": 3732,
+        "amount_eur": 201175576.89
+      },
+      "29": {
+        "nom": "Finistère",
+        "reg_code": "53",
+        "statut": "avec_donnees",
+        "rows": 8294,
+        "amount_eur": 560537974.57
+      },
+      "2A": {
+        "nom": "Corse-du-Sud",
+        "reg_code": "94",
+        "statut": "avec_donnees",
+        "rows": 90,
+        "amount_eur": 1030794.53
+      },
+      "2B": {
+        "nom": "Haute-Corse",
+        "reg_code": "94",
+        "statut": "avec_donnees",
+        "rows": 52,
+        "amount_eur": 1255991.0
+      },
+      "30": {
+        "nom": "Gard",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 8706,
+        "amount_eur": 528589451.89
+      },
+      "31": {
+        "nom": "Haute-Garonne",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 16198,
+        "amount_eur": 1118121391.48
+      },
+      "32": {
+        "nom": "Gers",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 2943,
+        "amount_eur": 122418533.66
+      },
+      "33": {
+        "nom": "Gironde",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 16509,
+        "amount_eur": 1089469085.04
+      },
+      "34": {
+        "nom": "Hérault",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 15379,
+        "amount_eur": 968098215.82
+      },
+      "35": {
+        "nom": "Ille-et-Vilaine",
+        "reg_code": "53",
+        "statut": "avec_donnees",
+        "rows": 12522,
+        "amount_eur": 780436340.11
+      },
+      "36": {
+        "nom": "Indre",
+        "reg_code": "24",
+        "statut": "avec_donnees",
+        "rows": 3280,
+        "amount_eur": 126030406.1
+      },
+      "37": {
+        "nom": "Indre-et-Loire",
+        "reg_code": "24",
+        "statut": "avec_donnees",
+        "rows": 6506,
+        "amount_eur": 366750969.31
+      },
+      "38": {
+        "nom": "Isère",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 12066,
+        "amount_eur": 824839795.38
+      },
+      "39": {
+        "nom": "Jura",
+        "reg_code": "27",
+        "statut": "avec_donnees",
+        "rows": 3439,
+        "amount_eur": 153933109.32
+      },
+      "40": {
+        "nom": "Landes",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 3728,
+        "amount_eur": 199534772.36
+      },
+      "41": {
+        "nom": "Loir-et-Cher",
+        "reg_code": "24",
+        "statut": "avec_donnees",
+        "rows": 3981,
+        "amount_eur": 206434900.04
+      },
+      "42": {
+        "nom": "Loire",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 8632,
+        "amount_eur": 634268846.88
+      },
+      "43": {
+        "nom": "Haute-Loire",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 3533,
+        "amount_eur": 139218949.38
+      },
+      "44": {
+        "nom": "Loire-Atlantique",
+        "reg_code": "52",
+        "statut": "avec_donnees",
+        "rows": 15066,
+        "amount_eur": 1056037384.34
+      },
+      "45": {
+        "nom": "Loiret",
+        "reg_code": "24",
+        "statut": "avec_donnees",
+        "rows": 7033,
+        "amount_eur": 469937161.68
+      },
+      "46": {
+        "nom": "Lot",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 2327,
+        "amount_eur": 103749754.01
+      },
+      "47": {
+        "nom": "Lot-et-Garonne",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 4175,
+        "amount_eur": 242553914.49
+      },
+      "48": {
+        "nom": "Lozère",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 3186,
+        "amount_eur": 86417229.81
+      },
+      "49": {
+        "nom": "Maine-et-Loire",
+        "reg_code": "52",
+        "statut": "avec_donnees",
+        "rows": 7957,
+        "amount_eur": 908396655.65
+      },
+      "50": {
+        "nom": "Manche",
+        "reg_code": "28",
+        "statut": "avec_donnees",
+        "rows": 4351,
+        "amount_eur": 276129443.38
+      },
+      "51": {
+        "nom": "Marne",
+        "reg_code": "44",
+        "statut": "avec_donnees",
+        "rows": 6222,
+        "amount_eur": 456087197.23
+      },
+      "52": {
+        "nom": "Haute-Marne",
+        "reg_code": "44",
+        "statut": "avec_donnees",
+        "rows": 2822,
+        "amount_eur": 113005990.64
+      },
+      "53": {
+        "nom": "Mayenne",
+        "reg_code": "52",
+        "statut": "avec_donnees",
+        "rows": 3547,
+        "amount_eur": 204067662.47
+      },
+      "54": {
+        "nom": "Meurthe-et-Moselle",
+        "reg_code": "44",
+        "statut": "avec_donnees",
+        "rows": 9596,
+        "amount_eur": 580273327.81
+      },
+      "55": {
+        "nom": "Meuse",
+        "reg_code": "44",
+        "statut": "avec_donnees",
+        "rows": 2851,
+        "amount_eur": 161259756.47
+      },
+      "56": {
+        "nom": "Morbihan",
+        "reg_code": "53",
+        "statut": "avec_donnees",
+        "rows": 7005,
+        "amount_eur": 516148433.96
+      },
+      "57": {
+        "nom": "Moselle",
+        "reg_code": "44",
+        "statut": "avec_donnees",
+        "rows": 8027,
+        "amount_eur": 755122311.72
+      },
+      "58": {
+        "nom": "Nièvre",
+        "reg_code": "27",
+        "statut": "avec_donnees",
+        "rows": 3410,
+        "amount_eur": 155651487.04
+      },
+      "59": {
+        "nom": "Nord",
+        "reg_code": "32",
+        "statut": "avec_donnees",
+        "rows": 24894,
+        "amount_eur": 2855969484.26
+      },
+      "60": {
+        "nom": "Oise",
+        "reg_code": "32",
+        "statut": "avec_donnees",
+        "rows": 7402,
+        "amount_eur": 558683578.22
+      },
+      "61": {
+        "nom": "Orne",
+        "reg_code": "28",
+        "statut": "avec_donnees",
+        "rows": 3659,
+        "amount_eur": 241632819.78
+      },
+      "62": {
+        "nom": "Pas-de-Calais",
+        "reg_code": "32",
+        "statut": "avec_donnees",
+        "rows": 9781,
+        "amount_eur": 998617589.19
+      },
+      "63": {
+        "nom": "Puy-de-Dôme",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 8576,
+        "amount_eur": 498974062.63
+      },
+      "64": {
+        "nom": "Pyrénées-Atlantiques",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 7338,
+        "amount_eur": 462343672.93
+      },
+      "65": {
+        "nom": "Hautes-Pyrénées",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 2847,
+        "amount_eur": 160628865.29
+      },
+      "66": {
+        "nom": "Pyrénées-Orientales",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 5032,
+        "amount_eur": 293707611.09
+      },
+      "67A": {
+        "nom": "Alsace",
+        "reg_code": "44",
+        "statut": "sans_donnees",
+        "rows": 0,
+        "amount_eur": 0.0
+      },
+      "69": {
+        "nom": "Rhône",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 16607,
+        "amount_eur": 1494883227.0
+      },
+      "691": {
+        "nom": "Métropole de Lyon",
+        "reg_code": "84",
+        "statut": "sans_donnees",
+        "rows": 0,
+        "amount_eur": 0.0
+      },
+      "70": {
+        "nom": "Haute-Saône",
+        "reg_code": "27",
+        "statut": "avec_donnees",
+        "rows": 2704,
+        "amount_eur": 157472963.87
+      },
+      "71": {
+        "nom": "Saône-et-Loire",
+        "reg_code": "27",
+        "statut": "avec_donnees",
+        "rows": 5164,
+        "amount_eur": 292634532.73
+      },
+      "72": {
+        "nom": "Sarthe",
+        "reg_code": "52",
+        "statut": "avec_donnees",
+        "rows": 5634,
+        "amount_eur": 399748818.75
+      },
+      "73": {
+        "nom": "Savoie",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 4274,
+        "amount_eur": 246903693.67
+      },
+      "74": {
+        "nom": "Haute-Savoie",
+        "reg_code": "84",
+        "statut": "avec_donnees",
+        "rows": 5461,
+        "amount_eur": 526051758.36
+      },
+      "75": {
+        "nom": "Paris",
+        "reg_code": "11",
+        "statut": "avec_donnees",
+        "rows": 38172,
+        "amount_eur": 12060902345.3
+      },
+      "76": {
+        "nom": "Seine-Maritime",
+        "reg_code": "28",
+        "statut": "avec_donnees",
+        "rows": 11490,
+        "amount_eur": 924139372.02
+      },
+      "77": {
+        "nom": "Seine-et-Marne",
+        "reg_code": "11",
+        "statut": "avec_donnees",
+        "rows": 7984,
+        "amount_eur": 925829407.33
+      },
+      "78": {
+        "nom": "Yvelines",
+        "reg_code": "11",
+        "statut": "avec_donnees",
+        "rows": 8235,
+        "amount_eur": 784468562.0
+      },
+      "79": {
+        "nom": "Deux-Sèvres",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 4720,
+        "amount_eur": 226673447.89
+      },
+      "80": {
+        "nom": "Somme",
+        "reg_code": "32",
+        "statut": "avec_donnees",
+        "rows": 6754,
+        "amount_eur": 449081738.37
+      },
+      "81": {
+        "nom": "Tarn",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 4652,
+        "amount_eur": 224931777.48
+      },
+      "82": {
+        "nom": "Tarn-et-Garonne",
+        "reg_code": "76",
+        "statut": "avec_donnees",
+        "rows": 3255,
+        "amount_eur": 167704623.49
+      },
+      "83": {
+        "nom": "Var",
+        "reg_code": "93",
+        "statut": "avec_donnees",
+        "rows": 7370,
+        "amount_eur": 468096960.36
+      },
+      "84": {
+        "nom": "Vaucluse",
+        "reg_code": "93",
+        "statut": "avec_donnees",
+        "rows": 6642,
+        "amount_eur": 393615138.56
+      },
+      "85": {
+        "nom": "Vendée",
+        "reg_code": "52",
+        "statut": "avec_donnees",
+        "rows": 4595,
+        "amount_eur": 427683794.39
+      },
+      "86": {
+        "nom": "Vienne",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 6792,
+        "amount_eur": 392269136.69
+      },
+      "87": {
+        "nom": "Haute-Vienne",
+        "reg_code": "75",
+        "statut": "avec_donnees",
+        "rows": 6246,
+        "amount_eur": 285765061.07
+      },
+      "88": {
+        "nom": "Vosges",
+        "reg_code": "44",
+        "statut": "avec_donnees",
+        "rows": 3690,
+        "amount_eur": 249747163.15
+      },
+      "89": {
+        "nom": "Yonne",
+        "reg_code": "27",
+        "statut": "avec_donnees",
+        "rows": 4028,
+        "amount_eur": 154282789.0
+      },
+      "90": {
+        "nom": "Territoire de Belfort",
+        "reg_code": "27",
+        "statut": "avec_donnees",
+        "rows": 1985,
+        "amount_eur": 93602876.79
+      },
+      "91": {
+        "nom": "Essonne",
+        "reg_code": "11",
+        "statut": "avec_donnees",
+        "rows": 8232,
+        "amount_eur": 840794298.07
+      },
+      "92": {
+        "nom": "Hauts-de-Seine",
+        "reg_code": "11",
+        "statut": "avec_donnees",
+        "rows": 11803,
+        "amount_eur": 1488574888.01
+      },
+      "93": {
+        "nom": "Seine-Saint-Denis",
+        "reg_code": "11",
+        "statut": "avec_donnees",
+        "rows": 18683,
+        "amount_eur": 3566851414.38
+      },
+      "94": {
+        "nom": "Val-de-Marne",
+        "reg_code": "11",
+        "statut": "avec_donnees",
+        "rows": 11911,
+        "amount_eur": 1893147791.0
+      },
+      "95": {
+        "nom": "Val-d'Oise",
+        "reg_code": "11",
+        "statut": "avec_donnees",
+        "rows": 7117,
+        "amount_eur": 720789165.16
+      },
+      "971": {
+        "nom": "Guadeloupe",
+        "reg_code": "01",
+        "statut": "avec_donnees",
+        "rows": 5538,
+        "amount_eur": 227638538.47
+      },
+      "972": {
+        "nom": "Martinique",
+        "reg_code": "02",
+        "statut": "avec_donnees",
+        "rows": 5400,
+        "amount_eur": 212758642.92
+      },
+      "973": {
+        "nom": "Guyane",
+        "reg_code": "03",
+        "statut": "avec_donnees",
+        "rows": 4730,
+        "amount_eur": 193431902.63
+      },
+      "974": {
+        "nom": "La Réunion",
+        "reg_code": "04",
+        "statut": "avec_donnees",
+        "rows": 8080,
+        "amount_eur": 468602593.2
+      },
+      "976": {
+        "nom": "Mayotte",
+        "reg_code": "06",
+        "statut": "avec_donnees",
+        "rows": 3285,
+        "amount_eur": 169842880.88
+      },
+      "Corse": {
+        "nom": "Corse",
+        "reg_code": "94",
+        "statut": "sans_donnees",
+        "rows": 0,
+        "amount_eur": 0.0
+      }
+    }
+  },
+  "lignes_sans_departement": 114602
+}

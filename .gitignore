@@ -18,3 +18,12 @@ screenshot*.png
 # Relevés de mesure : seuls les jalons sont versionnés (bench/v0.json, etc.),
 # pas les essais intermédiaires.
 bench/tmp-*.json
+
+# Téléchargements bruts du pipeline : reconstructibles par les scripts fetch_*,
+# traçables par data/sources-manifest/ (URL + sha256). Ne pas versionner.
+data/raw/
+
+# Parties intermédiaires du pipeline : seul l'assemblage final est versionné.
+data/canonical/parts/
+__pycache__/
+*.pyc

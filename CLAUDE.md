@@ -24,6 +24,11 @@ reste grise, on l'assume et on documente pourquoi.
 L'utilisateur est expert du métier et débutant en code : lui présenter des
 options claires et les arbitrages, il tranche lui-même.
 
+**Branche de travail : `main`, et elle seule.** Consigne explicite de
+l'utilisateur (19/08/2026) : il ne travaille que sur `main`. Développer,
+commiter et pousser directement dessus ; ne pas ouvrir de branche de
+fonctionnalité ni de pull request sauf demande expresse.
+
 **Projet frère à connaître** : `wald52/carte-finances-locales` (carte des
 finances locales). On lui emprunte le référentiel INSEE, les patterns
 d'architecture (agrégats `.json.gz`, découpage par département, chargement
@@ -125,8 +130,31 @@ du volume.
   attribuant non récupéré, classé « État » par défaut. Cela gonfle l'État.
 
 - **Le push de tags est refusé** dans les sessions distantes (HTTP 403 du
-  proxy : seule la branche de travail est autorisée). L'état de référence
-  d'avant refonte est `origin/main` @ `0b14348`, tag `v0` en local seulement.
+  proxy). L'état de référence d'avant refonte est `origin/main` @ `0b14348`,
+  tag `v0` en local seulement. Le push de branches, lui, fonctionne.
+
+- **Le PLF Jaune change de structure tous les 3 ou 4 ans.** Quatre schémas de
+  colonnes coexistent (2012 / 2013-2017 / 2018+2020 / 2021 et suivants), avec
+  des encodages différents (UTF-8 avec BOM, cp1252) et parfois deux lignes de
+  titre avant l'en-tête. Le normaliseur reconnaît les colonnes **par libellé
+  plié**, jamais par position : un millésime à venir réutilisant les mêmes
+  intitulés passera sans modification.
+
+- **Ne pas se fier au numéro de PLF pour dater les données.** Le PLF 2016
+  contient les subventions **2014**, pas 2015. L'année se lit dans le libellé
+  de colonne (« Objet 2020 ») ou la colonne MILLESIME, et seulement à défaut
+  par la convention « PLF moins deux ».
+
+- **Le NIC perd ses zéros de tête** en passant par un tableur (`88` au lieu de
+  `00088`). Il faut le compléter avant de reconstituer le SIRET, sinon la clé
+  de Luhn échoue. Les SIRET stockés dans l'ancien site sont tronqués à 11
+  caractères pour cette raison.
+
+- **Détecter l'encodage sur une fenêtre d'octets exige un décodeur
+  incrémental.** Une fenêtre de taille fixe coupe un caractère multi-octets en
+  deux et fait conclure à tort que le fichier n'est pas en UTF-8. Ce piège a
+  fait lire tout le PLF 2025 en latin-1, avec un en-tête illisible et 112 722
+  lignes perdues.
 
 - **Les CSV bruts sont désindexés** (`data/*.csv` dans `.gitignore`). Ils sont
   re-téléchargeables, URLs dans `SOURCES.md`, et leurs données sont déjà dans
@@ -167,8 +195,12 @@ du volume.
 
 - [x] **Phase 0** — socle et filet de sécurité : banc de mesure, baseline `v0`,
       dépôt nettoyé, schéma canonique arrêté (`SCHEMA.md`), ce handover.
-- [ ] **Phase 1** — pipeline canonique. Commencer par le **seul PLF Jaune**
-      (654 000 lignes, un format unique et propre), puis rebrancher les autres.
+- [x] **Phase 1a** — pipeline canonique sur le PLF Jaune. Référentiel INSEE
+      vendu, moissonneur data.gouv.fr, normaliseur de famille, table canonique
+      Parquet, rapport de qualité. **808 174 lignes** (contre 654 000 dans
+      l'ancien site) sur 13 millésimes, 2010-2023.
+- [ ] **Phase 1b** — rebrancher les 166 autres sources dans le pipeline
+      (familles `scdl` et `portail`).
 - [ ] **Phase 2** — nouvelle architecture de chargement.
 - [ ] **Phase 3** — recherche croisée.
 - [ ] **Phase 4** — exhaustivité (moissonneur SCDL, carte de couverture).
