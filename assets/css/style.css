@@ -215,3 +215,22 @@ input[type="search"] { width: 100%; }
 .table-versements td .detail { display: block; font-size: 11.5px; color: var(--ardoise); }
 .table-versements td.ecarte { color: var(--ardoise); font-weight: 400; }
 .champ-large { flex: 1; min-width: 260px; }
+
+/* --- page de couverture --------------------------------------------------- */
+:root { --couv-ok: #2d6291; --couv-partiel: #c8952f; --couv-vide: #d9dee5; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --couv-ok: #5b96c6; --couv-partiel: #e0a93b; --couv-vide: #232c36; }
+}
+:root[data-theme="dark"] { --couv-ok: #5b96c6; --couv-partiel: #e0a93b; --couv-vide: #232c36; }
+
+.titre-section { margin: 34px 0 6px; font-size: 20px; letter-spacing: -0.01em; }
+.barre-couverture { margin-bottom: 18px; }
+.barre-couverture h3 { margin: 0 0 5px; font-size: 14px; }
+.jauge { display: flex; height: 15px; border-radius: 3px; overflow: hidden; background: var(--couv-vide); }
+.jauge i { display: block; height: 100%; }
+.detail-couverture { margin: 5px 0 0; font-size: 12.5px; color: var(--ardoise); }
+.puce { display: inline-flex; align-items: center; gap: 5px; margin-right: 16px; font-size: 12.5px; }
+.puce i { width: 12px; height: 12px; border-radius: 2px; display: block; }
+.chantier { background: var(--surface); border: 1px solid var(--filet); border-radius: 5px; padding: 14px 18px; margin-bottom: 12px; }
+.chantier h3 { margin: 0 0 4px; font-size: 15px; }
+.chantier p { margin: 0; font-size: 14px; color: var(--encre-douce); max-width: 82ch; }

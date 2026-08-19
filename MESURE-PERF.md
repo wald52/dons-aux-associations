@@ -110,6 +110,13 @@ Coûts mesurés en local, serveur sans gzip (en ligne, le wasm se comprime ~×3)
 Ce coût d'entrée ne concerne QUE `recherche.html` ; la carte (`index.html`)
 reste à 0,13 Mo / 0,05 s. Mesure de contrôle dans `bench/phase3.json`.
 
+## Après phase 4 (`bench/phase4.json`)
+
+La table a grossi de 19 % (2 012 328 lignes) sans que le premier écran bouge :
+0,13 Mo transférés, 0,07 s au premier affichage, 10 Mo de mémoire. C'est la
+propriété recherchée — le site sert un index, sa taille ne dépend pas du
+volume de données derrière.
+
 ## Cibles après refonte
 
 | Mesure | v0 | Cible phase 2 |

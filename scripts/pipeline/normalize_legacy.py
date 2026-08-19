@@ -212,7 +212,8 @@ def normalize_source(path, ingested_at):
             if not rna:
                 flags.append("no_rna")
 
-            level, unattributed = C.donor_level_of(rec["donor_type"], rec["donor_name"])
+            level, unattributed = C.donor_level_of(rec["donor_type"], rec["donor_name"],
+                                                   rec["donor_siren"])
             if unattributed:
                 flags.append("donor_unattributed")
 

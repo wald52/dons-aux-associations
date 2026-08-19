@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Ce que ce site ne sait pas — Dons publics aux associations</title>
+<meta name="description" content="Couverture réelle des données : quelles collectivités publient leurs subventions, lesquelles sont exploitées, et lesquelles restent hors de portée.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="enveloppe">
+
+  <header>
+    <nav class="fil"><a href="index.html">← Carte</a> · <a href="recherche.html">Recherche croisée</a></nav>
+    <h1>Ce que ce site ne sait pas</h1>
+    <p>Un département gris sur la carte peut vouloir dire deux choses très différentes :
+       <b>personne n'y verse de subvention</b>, ou <b>nous n'avons pas la donnée</b>.
+       Cette page dit laquelle, échelon par échelon.</p>
+  </header>
+
+  <p id="chargement" class="chargement">Chargement…</p>
+
+  <div id="application" hidden>
+    <div id="resume" class="compteurs"></div>
+
+    <p class="avertissement">
+      <b>La couverture affichée est un minimum.</b> Une collectivité est reconnue en
+      rapprochant son nom du référentiel INSEE de celui qui figure dans les données.
+      Un libellé inhabituel peut donc échouer à s'apparier alors que la donnée existe —
+      l'erreur va toujours dans le sens de la sous-estimation, jamais de la surestimation.
+    </p>
+
+    <div id="niveaux"></div>
+
+    <h2 class="titre-section">Départements</h2>
+    <p class="sous-titre" id="legende-couverture"></p>
+    <div class="bloc-carte">
+      <svg id="carte" viewBox="0 0 800 620" role="img"
+           aria-label="Couverture des données par département"></svg>
+    </div>
+
+    <h2 class="titre-section">Ce qui reste à faire</h2>
+    <div id="chantiers"></div>
+  </div>
+
+  <footer>
+    Couverture recalculée à chaque publication des données, depuis
+    <code>data/canonical/couverture.json</code>. Méthode détaillée dans le dépôt.
+  </footer>
+  <div id="infobulle" role="tooltip"></div>
+</div>
+<script src="assets/js/couverture.js"></script>
+</body>
+</html>

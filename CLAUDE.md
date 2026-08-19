@@ -136,6 +136,34 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   `subv-associations-2024` porte `"Source data.gouv.fr"` en donateur : c'est un
   attribuant non récupéré, classé « État » par défaut. Cela gonfle l'État.
 
+- **Le SIREN d'une collectivité dit son niveau, par construction INSEE** :
+  `21…` commune, `22…` département, `23…` région, `24…` à `27…` groupement,
+  `20…` établissement public de coopération. Vérifié sur le corpus. C'est
+  infiniment plus sûr que le nom, et `donor_level_of` s'en sert en priorité.
+  Sans cette règle, 277 616 lignes SCDL restaient en `inconnu` ; avec, il en
+  reste 1 085.
+
+- **Les préfectures et directions départementales versent des crédits d'ÉTAT.**
+  Les données de la politique de la ville nomment leurs attribuants
+  `DGCL - PREF-147`, `CGET - DDCS VAL D'OISE-147`, `DDETS`, `DREETS`… Les
+  laisser en `inconnu` faisait disparaître 130 000 versements de la lecture
+  par échelon. Liste de sigles dans `common.py` (`_SIGLES_ETAT`).
+
+- **Le moissonneur SCDL valide les COLONNES RÉELLES, pas le schéma déclaré.**
+  Seuls 53 jeux déclarent `scdl/subventions` ; les tags en ramènent 665, dont
+  beaucoup ne sont pas des subventions aux associations (écritures comptables,
+  bourses de recherche). D'où la validation par en-tête. Deux pièges :
+  la mairie de Villejuif publie `nomBeneficiere` (faute d'orthographe, dans
+  ses six millésimes) ; la ville de Lyon publie des AIDES EN NATURE
+  (valorisations de locaux et de personnel) qu'il ne faut pas sommer avec des
+  euros décaissés — écartées explicitement.
+
+- **La couverture affichée est un MINIMUM.** Elle apparie le référentiel INSEE
+  aux libellés de donateurs. Un libellé inhabituel échoue à s'apparier alors
+  que la donnée existe : l'erreur va toujours vers la sous-estimation. Ne pas
+  « corriger » en assouplissant l'appariement — un faux positif ferait dire au
+  site qu'il couvre une collectivité qu'il ne couvre pas.
+
 - **L'identité d'un bénéficiaire se résout par SIREN, sinon par nom PLUS
   département.** Jamais par nom seul : « Centre communal d'action sociale »
   existe dans 41 départements, « ADIE » dans 57 — une clé par nom fusionnerait
@@ -301,7 +329,11 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       DuckDB-WASM embarqué, index de 261 444 bénéficiaires résolus,
       versements shardés en 64 fichiers. 4 400 associations cumulent
       au moins 3 échelons. 28 contrôles dans `verify.py`.
-- [ ] **Phase 4** — exhaustivité (moissonneur SCDL, carte de couverture).
+- [x] **Phase 4** — exhaustivité, premier tour. Moissonneur SCDL générique
+      (665 jeux examinés, 92 retenus, 444 fichiers), famille `scdl`,
+      `couverture.html`. **2 012 328 lignes**, 126,6 Md€, 269 sources.
+      Reste à faire : les 100 fichiers XLSX encore écartés, les tableaux
+      pivotés par année, et la levée des quarantaines Lyon / Boulogne.
 - [ ] **Phase 5** — design et lisibilité.
 
 Détail de chaque phase dans `ROADMAP.md`.
@@ -320,6 +352,9 @@ python3 scripts/pipeline/verify.py               # 21 contrôles, doit rester ve
 python3 scripts/pipeline/build_carte.py          # carte depuis le GeoJSON
 python3 scripts/pipeline/build_aggregates.py     # agrégats servis au navigateur
 python3 scripts/pipeline/build_search_index.py   # index de recherche croisée
+python3 scripts/pipeline/fetch_scdl.py           # moissonneur générique data.gouv.fr
+python3 scripts/pipeline/normalize_scdl.py       # famille scdl
+python3 scripts/pipeline/build_couverture.py     # carte de couverture
 ```
 
 **`normalize_legacy.py` ne peut plus tourner en l'état** : ses entrées

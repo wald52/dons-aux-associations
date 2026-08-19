@@ -508,14 +508,61 @@ _DONOR_PLACEHOLDER = {
 }
 
 
-def donor_level_of(raw_type, donor_name):
-    """(niveau, non_attribué) — niveau canonique du donateur."""
+# Le SIREN d'une collectivité dit son niveau, par construction : l'INSEE
+# réserve des tranches par catégorie juridique. C'est infiniment plus sûr que
+# le nom — vérifié sur le corpus : tous les 21x sont des communes, tous les
+# 22x des départements, les 200x/24x des groupements.
+_SIREN_TRANCHE = {"21": "commune", "22": "departement", "23": "region",
+                  "24": "epci", "25": "epci", "26": "epci", "27": "epci"}
+
+# Services déconcentrés de l'État, tels qu'ils se nomment dans les données de
+# la politique de la ville : préfectures et directions départementales versent
+# des crédits d'État, pas des crédits locaux. Les laisser en « inconnu »
+# ferait disparaître 130 000 versements de la lecture par échelon.
+_SIGLES_ETAT = ("dgcl", "cget", "prefecture", "pref ", "pref-", "prefet", "prefd",
+                "sous-pref", "ddets", "ddetspp", "dreets", "deets", "ddcs", "ddcspp",
+                "drjscs", "ddjscs", "drac", "dihal", "dilcrah", "ddt ", "dreal")
+_SIGLES_OPERATEUR = ("agence de l'eau", "agence de l eau", "ademe", "ars ",
+                     "agence nationale", "caisse nationale", "office francais")
+
+
+def donor_level_from_siren(siren):
+    """Niveau déduit du SIREN, ou None. Le référentiel prime sur la tranche :
+    un SIREN en 200… peut être un EPCI comme un établissement public de
+    coopération culturelle, et seul le référentiel les sépare."""
+    if not siren or len(siren) != 9:
+        return None
+    if siren in referentiel()["epci"]:
+        return "epci"
+    tranche = _SIREN_TRANCHE.get(siren[:2])
+    if tranche:
+        return tranche
+    if siren.startswith("20"):
+        # Tranche des établissements publics de coopération : sans confirmation
+        # du référentiel EPCI, c'est un opérateur, pas une intercommunalité.
+        return "operateur"
+    return None
+
+
+def donor_level_of(raw_type, donor_name, donor_siren=None):
+    """(niveau, non_attribué) — niveau canonique du donateur.
+
+    Ordre de confiance : le SIREN d'abord (règle de construction INSEE), le
+    type déclaré ensuite, le nom en dernier recours.
+    """
+    par_siren = donor_level_from_siren(donor_siren)
+    if par_siren:
+        return par_siren, False
     if fold(donor_name) in _DONOR_PLACEHOLDER:
         return "inconnu", True
     lvl = DONOR_LEVEL_MAP.get(fold(raw_type or ""))
     if lvl:
         return lvl, False
     n = fold(donor_name)
+    if any(sig in n for sig in _SIGLES_ETAT):
+        return "etat", False
+    if any(sig in n for sig in _SIGLES_OPERATEUR):
+        return "operateur", False
     for needle, lvl in (("ministere", "etat"), ("etat", "etat"), ("prefecture", "etat"),
                         ("region", "region"), ("departement", "departement"),
                         ("conseil general", "departement"),

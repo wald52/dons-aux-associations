@@ -177,6 +177,21 @@ La carte du premier écran reste à 0,13 Mo / 0,05 s.
 - Index de noms normalisé (accents pliés, formes juridiques retirées, sigles)
   pour rattraper les 73 % sans RNA.
 
+### Phase 4 — Exhaustivité — **fait (premier tour)**
+
+```bash
+python3 scripts/pipeline/fetch_scdl.py        # moissonne data.gouv.fr
+python3 scripts/pipeline/normalize_scdl.py    # famille scdl
+python3 scripts/pipeline/build_couverture.py  # carte de couverture
+```
+
+**665 jeux examinés, 92 retenus, 444 fichiers** : +319 366 lignes, la table
+passe à **2 012 328 lignes** et 126,6 Md€. La déduplication entre sources a
+retiré **50 912 doublons (3,78 Md€)** entre SCDL et sources héritées.
+`couverture.html` dit désormais, échelon par échelon, ce que le site sait et
+ne sait pas. Le moissonnage étant générique, tout nouveau millésime publié
+sera repris sans modification du code.
+
 ### Phase 4 — Exhaustivité (continu)
 - **Moissonneur SCDL générique** sur l'API data.gouv.fr : les 556 datasets d'un coup,
   et les nouveaux automatiquement.

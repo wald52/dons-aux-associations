@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T10:10:20Z",
+  "generated_at": "2026-08-19T18:52:30Z",
   "referentiel": {
     "source": "wald52/carte-finances-locales (OFGL / BANATIC / INSEE)",
     "millesime": 2024,
@@ -426,8 +426,8 @@
         "nom": "Nièvre",
         "reg_code": "27",
         "statut": "avec_donnees",
-        "rows": 10993,
-        "amount_eur": 265734146.78
+        "rows": 10801,
+        "amount_eur": 255367595.07
       },
       "59": {
         "nom": "Nord",
@@ -503,8 +503,8 @@
         "nom": "Rhône",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 41765,
-        "amount_eur": 2095391527.22
+        "rows": 41506,
+        "amount_eur": 2087513239.36
       },
       "70": {
         "nom": "Haute-Saône",
@@ -531,8 +531,8 @@
         "nom": "Savoie",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 7346,
-        "amount_eur": 362376732.65
+        "rows": 7341,
+        "amount_eur": 361778782.65
       },
       "74": {
         "nom": "Haute-Savoie",
@@ -725,5 +725,5 @@
       }
     }
   },
-  "lignes_sans_departement": 330101
+  "lignes_sans_departement": 649923
 }
