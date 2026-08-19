@@ -563,12 +563,21 @@ def donor_level_of(raw_type, donor_name, donor_siren=None):
         return "etat", False
     if any(sig in n for sig in _SIGLES_OPERATEUR):
         return "operateur", False
+    # Sigles d'intercommunalité tels qu'ils se signent : « CA Grand Paris Sud »,
+    # « CC Adour Madiran ». Testés sur le premier mot, pour ne pas confondre
+    # avec une abréviation au milieu d'un libellé.
+    premier = n.split(" ")[0] if n else ""
+    if premier in ("ca", "cc", "cu", "ct", "sivu", "sivom", "smo", "epci"):
+        return "epci", False
     for needle, lvl in (("ministere", "etat"), ("etat", "etat"), ("prefecture", "etat"),
                         ("region", "region"), ("departement", "departement"),
                         ("conseil general", "departement"),
                         ("metropole", "epci"), ("communaute", "epci"), ("agglomeration", "epci"),
-                        ("syndicat", "epci"), ("mairie", "commune"), ("ville de", "commune"),
-                        ("commune de", "commune")):
+                        ("agglopolys", "epci"), ("syndicat", "epci"), ("ccas", "commune"),
+                        ("centre communal d action sociale", "commune"),
+                        ("mairie", "commune"), ("ville de", "commune"), ("ville du", "commune"),
+                        ("ville d", "commune"), ("commune de", "commune"),
+                        ("commune du", "commune"), ("commune d", "commune")):
         if needle in n:
             return lvl, False
     return "inconnu", True

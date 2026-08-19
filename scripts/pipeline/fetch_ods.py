@@ -60,6 +60,14 @@ PORTAILS = [
 RECHERCHES = ['search(title,"subvention")', 'search(title,"subventions")',
               'search(dataset_id,"subvention")']
 
+# Le fédérateur Opendatasoft est international : il sert aussi des portails
+# belges, suisses ou canadiens. Ce site cartographie les subventions publiques
+# EN FRANCE ; les jeux d'autres pays sont écartés au moissonnage plutôt que
+# filtrés plus tard, pour ne pas les traîner dans toute la chaîne.
+PUBLIEURS_HORS_FRANCE = ("wallonie", "bruxelles", "belgique", "belgium",
+                         "suisse", "geneve", "vaud", "quebec", "montreal",
+                         "luxembourg", "ontario", "canada")
+
 MAX_LIGNES = 400_000       # au-delà, ce n'est pas une liste de subventions
 MIN_OCTETS = 200
 PAUSE = 0.7                # respiration entre deux appels au même portail
@@ -139,6 +147,13 @@ def traiter_portail(hote, editeur, force=False, limite=None):
         champs = champs_de(jeu)
         nb = meta.get("records_count") or 0
 
+        publieur = C.fold(meta.get("publisher") or "")
+        if any(m in publieur for m in PUBLIEURS_HORS_FRANCE):
+            fiches.append({"portail": hote, "editeur": editeur, "dataset_id": jeu_id,
+                           "titre": meta.get("title"), "retenu": False,
+                           "raison": "hors de France", "lignes": nb})
+            continue
+
         # Validation SUR LES CHAMPS DU CATALOGUE : rien n'est téléchargé tant
         # que le jeu n'a pas prouvé qu'il décrit des subventions.
         valide, raison = C.porte_des_subventions(champs)
@@ -201,6 +216,7 @@ def traiter_portail(hote, editeur, force=False, limite=None):
             sha = hashlib.sha256(f.read()).hexdigest()
         fiches.append({
             "portail": hote, "editeur": editeur, "dataset_id": jeu_id,
+            "publieur": meta.get("publisher"),
             "titre": meta.get("title"), "retenu": True,
             "page": f"https://{hote}/explore/dataset/{jeu_id}/",
             "licence": meta.get("license"), "modifie": meta.get("modified"),

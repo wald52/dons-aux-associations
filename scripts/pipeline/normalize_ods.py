@@ -9,8 +9,11 @@ partagée avec les autres moissonneurs.
 
 Deux précautions propres à ces sources :
 
-  - l'attribuant est rarement une colonne : il est porté par le portail
-    lui-même (« Ville de Paris »). Le manifeste le fournit en repli ;
+  - l'attribuant est rarement une colonne exploitable. Quand elle existe, elle
+    contient parfois une valeur générique : la Ville de Paris publie
+    « Ville » ou « Département » selon la collectivité qui verse — Paris étant
+    les deux à la fois. On se rabat alors sur le PUBLIEUR du jeu, jamais sur
+    le portail : sur le fédérateur Opendatasoft, celui-ci ne désigne personne ;
   - plusieurs jeux publient des AIDES EN NATURE dans une colonne voisine
     (`prestations_en_nature`, `mise_a_disposition_locaux`). Seul le montant en
     numéraire est repris ; la valorisation est signalée, jamais sommée.
@@ -44,6 +47,11 @@ import common as C
 ROOT = C.ROOT
 MANIFEST = os.path.join(ROOT, "data", "sources-manifest", "ods.json")
 OUT_DIR = os.path.join(ROOT, "data", "canonical", "parts")
+
+# Valeurs d'attribuant qui ne désignent personne : il faut alors se rabattre
+# sur le publieur du jeu de données.
+ATTRIBUANT_GENERIQUE = {"", "V", "VILLE", "COMMUNE", "DEPARTEMENT", "REGION",
+                        "COLLECTIVITE", "EPCI", "NC", "NON RENSEIGNE", "AUTRE"}
 
 ROLES = {
     "benef_nom": "beneficiaire", "benef_id": "siret_beneficiaire",
@@ -87,9 +95,14 @@ def normaliser(fiche, ingested_at):
         if not rna:
             flags.append("no_rna")
 
-        # L'attribuant est d'abord une colonne, sinon l'éditeur du portail.
-        attrib = (C.clean_text(r.get(col["attrib_nom"])) if col["attrib_nom"] else "") \
-            or (fiche.get("editeur") or "")
+        # L'attribuant : la colonne si elle dit quelque chose, sinon le
+        # publieur du jeu. Le portail n'est jamais utilisé — « Fédérateur
+        # Opendatasoft » n'a versé aucune subvention.
+        attrib = C.clean_text(r.get(col["attrib_nom"])) if col["attrib_nom"] else ""
+        repli = C.clean_text(fiche.get("publieur") or "")
+        if C.normalize_name(attrib) in ATTRIBUANT_GENERIQUE:
+            # « Ville » chez un publieur « Ville de Paris » désigne bien Paris.
+            attrib = repli or attrib
         niveau, non_attribue = C.donor_level_of(None, attrib)
         if non_attribue:
             flags.append("donor_unattributed")
