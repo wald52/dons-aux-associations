@@ -37,10 +37,37 @@ lecture pour s'en servir : c'est un dépôt public.
 
 ---
 
-## 2. État des lieux chiffré (18/08/2026)
+## 2. État des lieux chiffré
 
-Mesuré, pas estimé. Relevé complet dans `bench/v0.json`, méthode dans
-`MESURE-PERF.md`.
+Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
+
+### Aujourd'hui (phase 6a, 20/08/2026)
+
+| Mesure | v0 | phase 6a |
+|---|---|---|
+| Octets transférés | ~73,6 Mo | **0,14 Mo** |
+| Premier affichage | 12,96 s | **0,07 s** |
+| Données exploitables | 57,75 s | **0,59 s** |
+| Mémoire JS | 1 965 Mo | **3 Mo** |
+| Balises `<script>` | 170 | **1** |
+| Lignes dans la table | 1 595 805 | **2 769 440** |
+
+Le site sert 37 % de lignes de plus qu'en phase 4 sans rien perdre en
+vitesse : il sert un index précalculé, pas une base.
+
+Données : **559 sources**, 161,7 Md€ sommés, 18,2 Md€ ingérés mais
+délibérément hors des totaux (exécution budgétaire déjà comptée au vote,
+bénéficiaires déclarés hors du champ associatif). 408 380 bénéficiaires
+résolus, dont 9 016 cumulent au moins trois échelons.
+
+Couverture face au référentiel INSEE, et c'est un MINIMUM : 86 communes sur
+34 936, 29 EPCI sur 1 335, 31 départements sur 101, 5 régions sur 18.
+
+**Le total de Paris est encore surévalué d'environ un facteur deux** — voir
+les pièges : la clé métier manque les doublons quand le donateur change de
+libellé.
+
+### L'état d'origine, pour mémoire (18/08/2026)
 
 | Mesure | Valeur |
 |---|---|
@@ -217,6 +244,77 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   proxy). L'état de référence d'avant refonte est `origin/main` @ `0b14348`,
   tag `v0` en local seulement. Le push de branches, lui, fonctionne.
 
+- **Une colonne écrite en minuscules collées n'est pas reconnue par le
+  découpage camelCase.** Opendatasoft, et une partie de data.gouv.fr,
+  publient `nombeneficiaire`, `idattribuant`, `dateconvention`. Le libellé
+  reste un seul mot, aucun motif ne le trouve, et le fichier est écarté pour
+  « aucune colonne de bénéficiaire » — un rejet qui a l'air légitime dans le
+  manifeste. `_correspond` reconnaît donc AUSSI le motif accolé. Cette seule
+  ligne rouvrait 159 jeux ODS et 346 fichiers SCDL. Quand la couverture
+  stagne, suspecter la reconnaissance avant de chercher de nouvelles sources.
+
+- **Le repli `("tiers",)` du rôle bénéficiaire attrapait
+  `tiers_commune_insee`** : la Région Bretagne voyait son bénéficiaire lu
+  dans un code INSEE. D'où les disqualifiants `insee`, `commune`, `ville`,
+  `adresse`, `postal`. Un motif de repli très général a besoin d'une liste de
+  disqualifiants à sa mesure.
+
+- **Le fédérateur `data.opendatasoft.com` REPUBLIE les jeux des portails
+  territoriaux.** Bretagne, Paris votées, les deux comptes administratifs de
+  Paris : chacun arrive deux fois. La déduplication par clé métier les
+  rattrape (771 605 lignes, 53 Md€ retirés), mais le gagnant entre le portail
+  et le fédérateur est arbitraire — l'attribution de source l'est donc aussi.
+  Ne pas s'étonner de voir une donnée parisienne portée par un `source_id`
+  du fédérateur.
+
+- **Une collectivité publie souvent le même argent deux fois : ce qu'elle a
+  VOTÉ et ce qu'elle a VERSÉ** (annexe au compte administratif). Paris pesait
+  19,6 Md€ pour des subventions réelles de l'ordre de 350 M€ par an. D'où
+  `measure` : seul `attribue` entre dans les totaux, `verse` est ingéré et
+  consultable mais jamais sommé. Le titre du jeu suffit à trancher
+  (`measure_of`).
+
+- **Le compte administratif ne parle pas que d'associations.** Celui de Paris
+  donne 5,5 Md€ à des établissements publics, 2,1 Md€ à des entreprises et
+  38 878 lignes à des personnes physiques. Quand la source DÉCLARE la nature
+  juridique, elle fait foi et la ligne sort des totaux ; quand nous ne faisons
+  que la deviner sur le nom, la ligne reste comptée. L'asymétrie est
+  délibérée : exclure à tort efface une association réelle, inclure à tort
+  laisse une ligne visible et corrigeable. `beneficiary_kind_provenance`
+  garde la distinction.
+
+- **La règle des totaux est écrite UNE SEULE FOIS**, `compte_dans_les_totaux`
+  dans `common.py`, comme le schéma et la clé métier. `verify.py` en portait
+  une copie en ligne : c'était le germe d'une divergence silencieuse entre le
+  rapport de qualité et l'index de recherche. Ne jamais la réécrire ailleurs.
+
+- **La clé métier manque les doublons quand le donateur change de libellé.**
+  « DEPARTEMENT DE PARIS » contre « VILLE DE PARIS » (2 467 M€), la direction
+  de la démocratie de la Ville de Paris prise pour un donateur distinct
+  (999 M€), « CONSEIL DEPARTEMENTAL DE LA SOMME » contre « DEPARTEMENT DE LA
+  SOMME » (157 M€) : ~7,25 Md€ au total sur 567 426 lignes. **Paris reste
+  donc compté environ deux fois.** Le correctif est une identité de donateur
+  résolue dans la clé — chantier de la phase 6b. Ne pas citer le total de
+  Paris comme s'il était juste.
+
+- **`cd-finistere` porte 5 442 lignes au nom de donateur détruit.** Les
+  octets du fichier hérité sont `\xef\xbf\xbd` (U+FFFD) : « Conseil
+  D<?>partemental du Finist<?>re ». La lettre a été perdue par la conversion
+  d'origine, elle n'est PAS récupérable depuis ce fichier — même cas que les
+  SIRET passés au tableur. On le signale, on ne le devine pas. Effet de bord :
+  ces lignes ne se dédupliquent pas avec leurs jumelles bien encodées.
+
+- **L'année du compte administratif est dans la colonne `publication`**
+  (« CA 2018 »), nulle part ailleurs. Sans elle, 67 413 lignes n'avaient
+  aucune année. Le motif `("publication",)` vient EN DERNIER dans le rôle
+  `annee` : c'est un libellé trop générique pour primer sur `exercice` ou
+  `millesime`.
+
+- **Le banc de mesure a besoin de `CHROMIUM_PATH`** quand la version de
+  Playwright installée attend une révision de Chromium absente de la machine.
+  Elle cherche un dossier numéroté précis et échoue alors qu'un Chromium
+  utilisable est là.
+
 - **`metropole-lyon` est en QUARANTAINE d'unité.** Ses 9 081 lignes totalisent
   48 Md€ quand le budget annuel de la Métropole avoisine 3,8 Md€. La médiane y
   est de 1 584 200 €, le minimum de 100, et 85 % des valeurs sont multiples de
@@ -350,12 +448,23 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       `couverture.html`. **2 012 328 lignes**, 126,6 Md€, 269 sources.
       Reste à faire : les 100 fichiers XLSX encore écartés, les tableaux
       pivotés par année, et la levée des quarantaines Lyon / Boulogne.
-- [ ] **Phase 6** — le gisement restant, mesuré et chiffré dans `ROADMAP.md` :
-      dictionnaire de colonnes (328 fichiers récupérables), moissonneur des
-      portails Opendatasoft (Paris publie 195 000 lignes, nous en avons 76 207),
-      dépivotage des tableaux annuels. `api.datasubvention.beta.gouv.fr` et
-      `data.grandlyon.com` renvoient 401 : hors de portée sans habilitation,
-      d'où l'impossibilité de lever la quarantaine Lyon.
+- [x] **Phase 6a** — le gisement rouvert. Moissonneur Opendatasoft
+      (11 portails, 463 jeux examinés, 273 retenus) et reconnaissance de
+      colonnes corrigée, qui à elle seule rouvre 159 jeux ODS et 346 fichiers
+      SCDL écartés à tort. **2 769 440 lignes**, 161,7 Md€, 559 sources,
+      408 380 bénéficiaires résolus, 9 016 cumulant 3 échelons ou plus.
+      30 contrôles. Paris passe de 76 207 lignes à ses 202 347 publiées.
+      Nouvelles colonnes `measure` (voté / versé) et
+      `beneficiary_kind_provenance` (déclaré / deviné), avec la règle des
+      totaux écrite une seule fois dans `compte_dans_les_totaux`.
+- [ ] **Phase 6b** — ce qui reste, mesuré : identité de donateur résolue dans
+      la clé métier (~7,25 Md€ de doublons manqués parce qu'une même
+      collectivité change de libellé d'une publication à l'autre, dont Paris
+      compté deux fois), dépivotage des tableaux annuels (~178 fichiers),
+      liens morts en amont (236 404 et 135 échecs `datacat.datalocale`).
+      `api.datasubvention.beta.gouv.fr` et `data.grandlyon.com` renvoient
+      401 : hors de portée sans habilitation, d'où l'impossibilité de lever
+      la quarantaine Lyon.
 - [x] **Phase 5** — design et lisibilité. Système visuel unifié (bleu
       institutionnel commun avec `carte-finances-locales`), bandeau de
       navigation, `methode.html` engendrée depuis les données, tableau de
@@ -381,7 +490,15 @@ python3 scripts/pipeline/fetch_scdl.py           # moissonneur générique data.
 python3 scripts/pipeline/normalize_scdl.py       # famille scdl
 python3 scripts/pipeline/build_couverture.py     # carte de couverture
 python3 scripts/pipeline/build_methode.py        # page sources & méthode
+python3 scripts/pipeline/fetch_ods.py            # moissonneur des portails Opendatasoft
+python3 scripts/pipeline/normalize_ods.py        # famille portail
 ```
+
+En pratique on ne les lance plus un par un : `bash
+scripts/pipeline/tout_reconstruire.sh` rejoue toute la chaîne dans le bon
+ordre, les moissonnages exceptés (ils ont leur propre cache). **`verify.py` y
+vient EN DERNIER** : plusieurs de ses contrôles comparent l'index de recherche
+à la table canonique et échouent tant que l'index n'est pas reconstruit.
 
 **`normalize_legacy.py` ne peut plus tourner en l'état** : ses entrées
 (`data/sources/*.js`) ont été retirées du dépôt. Les récupérer d'abord par

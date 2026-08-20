@@ -117,6 +117,35 @@ La table a grossi de 19 % (2 012 328 lignes) sans que le premier écran bouge :
 propriété recherchée — le site sert un index, sa taille ne dépend pas du
 volume de données derrière.
 
+## Après phase 6a (`bench/phase6a.json`)
+
+La table a encore grossi de 37,6 % (2 769 440 lignes, 559 sources) et le
+premier écran ne bouge toujours pas :
+
+| Mesure | v0 | phase 4 | phase 6a |
+|---|---|---|---|
+| Octets transférés | 73,6 Mo | 0,13 Mo | **0,14 Mo** |
+| Premier affichage | 12,96 s | 0,07 s | **0,07 s** |
+| Données exploitables | 57,75 s | 0,13 s | **0,59 s** |
+| Mémoire JS | 1 965 Mo | 10 Mo | **3 Mo** |
+| Balises `<script>` | 170 | 1 | **1** |
+
+Le premier affichage n'a pas bougé d'un centième de seconde alors que la table
+a presque doublé depuis la phase 2 : le coût du site ne suit pas le volume des
+données, parce qu'il sert un index précalculé et non une base.
+
+**Une mesure est en recul** : « données exploitables » passe de 0,13 s à
+0,59 s. Les agrégats n'ont grossi que de 0,01 Mo, mais les quatre `.json.gz`
+mettent 72 ms chacun à revenir contre 18-23 ms en phase 4 — c'est le temps
+réseau qui a changé, pas leur taille, et la mesure a été prise sur une machine
+qui venait de reconstruire toute la chaîne. À reprendre au calme avant d'en
+conclure quoi que ce soit ; on reste à un quart de la cible (< 2 s).
+
+**Rejouer le banc** : `node scripts/bench/measure.js --label <phase>`. Si
+Playwright réclame une révision de Chromium absente de la machine, lui
+désigner celui qui est là :
+`CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`.
+
 ## Cibles après refonte
 
 | Mesure | v0 | Cible phase 2 |

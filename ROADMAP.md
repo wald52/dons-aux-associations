@@ -239,7 +239,78 @@ dès la deuxième semaine plutôt qu'au bout de deux mois.
 
 ---
 
-## Phase 6 — Le gisement restant (mesuré le 19/08/2026)
+## Phase 6a — FAITE (20/08/2026)
+
+Les deux premiers gisements ci-dessous ont été exploités. Résultat mesuré :
+
+| | phase 4 | phase 6a |
+|---|---|---|
+| lignes | 2 012 328 | **2 769 440** |
+| sources | 269 | **559** |
+| total sommé | 126,6 Md€ | **161,7 Md€** |
+| bénéficiaires résolus | ~304 000 | **408 380** |
+| cumulant 3 échelons ou + | 4 400 | **9 016** |
+| communes couvertes | 70 | **86** |
+| contrôles | 28 | **30** |
+
+**6a a coûté une ligne de code.** L'estimation de 328 fichiers récupérables
+était juste, mais la cause n'était pas un dictionnaire trop pauvre : c'était
+que `porte_des_subventions` découpe le camelCase et ne voyait donc pas
+`nombeneficiaire` écrit tout en minuscules collées. Reconnaître aussi le
+motif accolé a rouvert 159 jeux Opendatasoft et 346 fichiers SCDL.
+
+**6b a tenu ses promesses.** Paris passe de 76 207 lignes ingérées à ses
+202 347 publiées, ce qui recoupe l'estimation de ~195 000. Aix-Marseille et
+Clermont, qui ne rendaient rien, contribuent.
+
+**Deux surprises, traitées :**
+
+- Le fédérateur `data.opendatasoft.com` republie les jeux des portails
+  territoriaux : chaque jeu arrivait deux fois. La déduplication par clé
+  métier les rattrape (771 605 lignes, 53 Md€).
+- Paris publie le même argent deux fois — voté, puis versé au compte
+  administratif — et son compte administratif ne concerne pas que des
+  associations. D'où `measure` et `beneficiary_kind_provenance` : 18,2 Md€
+  sont ingérés et consultables mais délibérément hors des totaux.
+
+---
+
+## Phase 6b — Ce qui reste (mesuré le 20/08/2026)
+
+### La priorité : une identité de donateur dans la clé métier
+
+**~7,25 Md€ sur 567 426 lignes** sont des doublons que la clé manque parce
+qu'une même collectivité change de libellé d'une publication à l'autre :
+
+| libellés confondus | surcompte |
+|---|---|
+| `DEPARTEMENT DE PARIS` / `VILLE DE PARIS` | 2 467 M€ |
+| direction de la démocratie de la Ville de Paris / `VILLE DE PARIS` | 999 M€ |
+| `DGCL DDETS 147` / `ANCT POLITIQUE DE LA VILLE ETAT` | 578 M€ |
+| `CONSEIL DEPARTEMENTAL DE LA SOMME` / `DEPARTEMENT DE LA SOMME` | 157 M€ |
+| `CONSEIL D PARTEMENTAL DU FINIST RE` (encodage détruit) | 275 M€ |
+
+**Paris est donc encore compté environ deux fois.** Le correctif est de
+résoudre le donateur — par SIREN, sinon par la collectivité du référentiel
+INSEE — avant de fabriquer la clé, plutôt que de comparer des libellés.
+
+Attention : « Ville de Paris » et « Département de Paris » ont été deux
+personnes morales distinctes jusqu'en 2019. Les confondre est juste pour
+dédupliquer une même publication, faux pour lire l'échelon. À trancher
+explicitement.
+
+### Le reste
+
+- **Dépivoter les tableaux par année** — ~178 fichiers publient une colonne
+  par exercice au lieu d'une ligne par versement.
+- **Les liens morts en amont** — 236 réponses 404 et 135 échecs de connexion
+  chez `datacat.datalocale`. Rien à corriger chez nous ; à re-tenter.
+- **`cd-finistere`** — 5 442 lignes au nom de donateur détruit (U+FFFD dans
+  le fichier hérité). Irrécupérable ici : il faut re-moissonner l'amont.
+
+---
+
+## Phase 6 — Le gisement, tel que mesuré le 19/08/2026
 
 Ce qui manque n'est pas une inconnue : quatre gisements ont été quantifiés,
 classés ici par rapport gain/effort.

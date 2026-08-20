@@ -27,6 +27,15 @@ colonnes qu'on n'aurait pas mises spontanément :
    Le sommer avec des attributions individuelles compte deux fois et gonfle le
    nombre d'« associations ». → colonne **`granularity`**.
 
+**Ce qui entre dans les totaux** est décidé par `compte_dans_les_totaux()`
+dans `common.py`, et par elle seule — comme le schéma et la clé métier. Trois
+exclusions, trois raisons distinctes : un agrégat déjà somme d'autres lignes
+(`granularity`), une exécution budgétaire déjà comptée au vote (`measure`),
+un bénéficiaire que la source déclare hors du champ associatif
+(`beneficiary_kind` + `beneficiary_kind_provenance`). Rien n'est jeté : ces
+lignes restent dans la table et restent consultables. Ne jamais recopier
+cette règle ailleurs.
+
 2. **Tous les bénéficiaires ne sont pas des associations.**
    `anct-politique-ville` verse à `"POLE EMPLOI"` (SIRET 130005481…), un
    établissement public. → colonne **`beneficiary_kind`**.
@@ -107,6 +116,8 @@ absent codé tantôt `"00"` tantôt `""`, `program` tantôt à la racine tantôt
 | Colonne | Type | Note |
 |---|---|---|
 | `granularity` | enum | `individual` ou `aggregate`. **Ne jamais sommer les deux ensemble** : c'est la règle qui évite le double comptage. Par défaut l'interface ne montre que `individual`. |
+| `measure` | enum | `attribue` ou `verse`. Une collectivité publie souvent le même argent deux fois : ce qu'elle a **voté**, et ce qu'elle a **versé** (annexe au compte administratif). **Seul `attribue` entre dans les totaux.** `verse` est ingéré et consultable, jamais sommé. Lu au titre du jeu par `measure_of`. |
+| `beneficiary_kind_provenance` | enum | `declared` si la source publie la nature juridique du bénéficiaire, `guessed` si nous l'avons déduite du nom. Une nature **déclarée** hors du champ associatif sort la ligne des totaux ; une nature **devinée** ne suffit pas. L'asymétrie est voulue : exclure à tort efface une association réelle, inclure à tort laisse une ligne visible et corrigeable. |
 | `is_convention` | bool, nullable | Vrai booléen, plus de `""`. |
 | `quality_flags` | list\<string\> | Voir la liste ci-dessous. |
 | `confidence` | enum | `high`, `medium`, `low` |

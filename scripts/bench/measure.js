@@ -78,9 +78,16 @@ function waitForServer(port, tries = 60) {
 
   // Chromium est fourni par l'environnement (PLAYWRIGHT_BROWSERS_PATH) ; on
   // laisse Playwright le résoudre plutôt que de figer un chemin.
+  //
+  // Sauf quand la version de Playwright installée attend une révision de
+  // Chromium que la machine n'a pas : Playwright cherche alors un dossier
+  // numéroté précis et échoue, alors qu'un Chromium parfaitement utilisable
+  // est là. CHROMIUM_PATH permet de le lui désigner sans figer de chemin
+  // dans le script.
   const browser = await chromium.launch({
     headless: !HEADFUL,
     args: ['--no-sandbox', '--disable-dev-shm-usage'],
+    ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}),
   });
 
   const context = await browser.newContext();

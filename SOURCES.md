@@ -46,12 +46,59 @@ Données générées : `data/sources/<source>.js`
 
 ---
 
+## 1 bis. PORTAILS OPENDATASOFT — moissonnage automatique (phase 6a)
+
+Les collectivités qui publient le plus ne passent pas par data.gouv.fr : elles
+ont leur propre portail. Ces portails partagent la même API (Explore v2.1),
+donc **un seul moissonneur les couvre tous** — `scripts/pipeline/fetch_ods.py`.
+
+Relevé complet et à jour : `data/sources-manifest/ods.json`.
+463 jeux examinés, **273 retenus**, 1 202 009 lignes annoncées.
+
+| Portail | Jeux | Lignes |
+|---|---|---|
+| `data.opendatasoft.com` (fédérateur) | 166 | 720 060 |
+| `opendata.paris.fr` | 4 | 202 347 |
+| `data.bretagne.bzh` | 1 | 101 128 |
+| `data.laregion.fr` (Occitanie) | 1 | 64 541 |
+| `data.iledefrance.fr` | 8 | 40 625 |
+| `data.toulouse-metropole.fr` | 46 | 23 120 |
+| `data.rennesmetropole.fr` | 6 | 19 685 |
+| `data.nantesmetropole.fr` | 20 | 15 116 |
+| `data.centrevaldeloire.fr` | 11 | 7 772 |
+| `data.ampmetropole.fr` | 6 | 7 288 |
+| `opendata.clermontmetropole.eu` | 4 | 327 |
+
+**Deux pièges propres à ce moissonnage**, documentés dans `CLAUDE.md` :
+
+- Le **fédérateur republie** les jeux des portails territoriaux. Chaque jeu
+  arrive donc deux fois ; la déduplication par clé métier les rattrape.
+- Le fédérateur est **international** : les jeux belges, suisses et canadiens
+  sont écartés au moissonnage (`PUBLIEURS_HORS_FRANCE`), pas plus loin, pour
+  ne pas les traîner dans toute la chaîne.
+
+---
+
 ## 2. VILLE DE PARIS
 
 | Dataset | URL | Période | Format | Statut |
 |---------|-----|---------|--------|--------|
-| Subventions votées | https://opendata.paris.fr/explore/dataset/subventions-associations-votees- | 2013-2026 | CSV | **✅ 76 207 lignes, ~3,9 Md€** |
-| Subventions versées (CA) | https://opendata.paris.fr/explore/dataset/subventions-versees-annexe-compte-administratif-a-partir-de-2018/ | 2018+ | CSV | ⏳ |
+| Subventions votées | https://opendata.paris.fr/explore/dataset/subventions-associations-votees- | 2013-2026 | CSV | **✅ 107 693 lignes, 3,41 Md€** |
+| Subventions versées (CA) 2018+ | https://opendata.paris.fr/explore/dataset/subventions-versees-annexe-compte-administratif-a-partir-de-2018/ | 2018+ | CSV | **✅ ingéré, `measure = verse`, hors totaux** |
+| Subventions versées (CA) 2013-2017 | idem, millésimes antérieurs | 2013-2017 | CSV | **✅ ingéré, `measure = verse`, hors totaux** |
+
+**Paris publie le même argent deux fois** : ce qu'il a voté, et ce qu'il a
+versé au compte administratif. Les additionner double la ville. Seules les
+« votées » entrent dans les totaux — elles portent en outre l'année, le SIRET
+et l'objet, que le compte administratif n'a pas.
+
+Et le compte administratif ne concerne pas que des associations : 5,5 Md€ y
+vont à des établissements publics, 2,1 Md€ à des entreprises, 38 878 lignes à
+des personnes physiques. La nature juridique y étant DÉCLARÉE, elle fait foi.
+
+⚠️ **Paris reste compté environ deux fois** tant que la clé métier compare des
+libellés de donateur : la source héritée `paris` (« Département de Paris ») ne
+se déduplique pas avec le jeu Opendatasoft (« Ville de Paris »). Phase 6b.
 
 ---
 
