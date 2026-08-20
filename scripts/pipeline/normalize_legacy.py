@@ -47,6 +47,28 @@ OUT_DIR = os.path.join(ROOT, "data", "canonical", "parts")
 SKIP_PREFIXES = ("plf-jaune",)      # remplacés par le moissonnage amont
 SKIP_NAMES = {"_template"}
 
+# Sources héritées REMPLACÉES par le moissonnage, et qu'il faut retirer parce
+# que leur conversion d'origine est fautive — pas seulement redondante.
+#
+#   `paris` déclare lui-même son amont dans ses lignes :
+#   opendata.paris.fr/explore/dataset/subventions-associations-votees-, que le
+#   moissonneur reprend désormais en entier. Mais sa conversion a écrasé le
+#   donateur : elle étiquette « Département de Paris » TOUTES les années
+#   jusqu'à 2023, là où la Ville publie ~87 % de ses lignes en « Ville de
+#   Paris » et n'écrit plus jamais « Département » après 2018. Vérifié ligne à
+#   ligne : 87,6 % de ses 30 422 lignes de 2013-2018 ont une jumelle exacte —
+#   même bénéficiaire, même année, même montant — étiquetée « Ville » dans le
+#   jeu moissonné.
+#
+#   Cette erreur porte sur le DONATEUR, qui fait partie de la clé métier : la
+#   déduplication ne peut donc pas la rattraper, par construction. La garder
+#   revenait à compter Paris deux fois avant 2019 et à faire verser des
+#   subventions à un département supprimé. Elle est en outre incomplète :
+#   76 207 lignes contre 107 693 publiées.
+REMPLACEES_PAR_MOISSONNAGE = {
+    "paris": "opendata.paris.fr — subventions-associations-votees",
+}
+
 # Sources dont l'UNITÉ monétaire est douteuse. Leurs montants sont mis de côté
 # (dans `amount_rejected_eur`) plutôt que sommés, tant que l'amont n'a pas été
 # revérifié. Les lignes restent comptées : le département montre son activité,
@@ -376,6 +398,9 @@ def main():
     for p in sorted(glob.glob(os.path.join(SRC_DIR, "*.js"))):
         n = os.path.basename(p)[:-3]
         if n in SKIP_NAMES or n.startswith(SKIP_PREFIXES):
+            continue
+        if n in REMPLACEES_PAR_MOISSONNAGE:
+            print(f"  {n} : écartée, remplacée par {REMPLACEES_PAR_MOISSONNAGE[n]}")
             continue
         if args.only and n != args.only:
             continue
