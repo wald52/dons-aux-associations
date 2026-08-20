@@ -698,8 +698,13 @@ SQL_COMPTE_DANS_LES_TOTAUX = (
 # L'identité se lit en deux temps : la FORME juridique donne le niveau, les
 # mots restants donnent le noyau du nom.
 
-_VIDES_DONATEUR = frozenset(
-    ("de", "du", "des", "d", "la", "le", "les", "l", "et", "aux", "au", "a", "en"))
+# On retire les prépositions, qui varient avec l'élision (« COMMUNE D IFFENDIC »
+# contre « COMMUNE DE IFFENDIC »), mais JAMAIS les articles : ils font partie du
+# nom. « Baule » dans le Loiret et « La Baule » en Loire-Atlantique sont deux
+# communes distinctes, et les confondre effacerait les subventions de l'une.
+# Les retirer n'apporterait rien par ailleurs : « DEPARTEMENT DE LA SOMME » et
+# « CONSEIL DEPARTEMENTAL DE LA SOMME » gardent l'article tous les deux.
+_VIDES_DONATEUR = frozenset(("de", "du", "des", "d", "et", "aux", "au", "a", "en"))
 
 # Ordonné du plus spécifique au plus général : « conseil departemental » doit
 # gagner avant « departement », sans quoi le noyau garderait « conseil ».

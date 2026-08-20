@@ -288,14 +288,55 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   une copie en ligne : c'était le germe d'une divergence silencieuse entre le
   rapport de qualité et l'index de recherche. Ne jamais la réécrire ailleurs.
 
-- **La clé métier manque les doublons quand le donateur change de libellé.**
-  « DEPARTEMENT DE PARIS » contre « VILLE DE PARIS » (2 467 M€), la direction
-  de la démocratie de la Ville de Paris prise pour un donateur distinct
-  (999 M€), « CONSEIL DEPARTEMENTAL DE LA SOMME » contre « DEPARTEMENT DE LA
-  SOMME » (157 M€) : ~7,25 Md€ au total sur 567 426 lignes. **Paris reste
-  donc compté environ deux fois.** Le correctif est une identité de donateur
-  résolue dans la clé — chantier de la phase 6b. Ne pas citer le total de
-  Paris comme s'il était juste.
+- **L'identité du donateur se résout dans la clé, pas son libellé** (phase 6b).
+  Une même collectivité change de graphie d'une publication à l'autre —
+  « CONSEIL DEPARTEMENTAL DE LA SOMME » / « DEPARTEMENT DE LA SOMME »,
+  « VILLE DE TOULOUSE » / « MAIRIE DE TOULOUSE », « COMMUNE D IFFENDIC » /
+  « COMMUNE DE IFFENDIC » : 13 familles sur 142 libellés de collectivités.
+  `identite_donateur` lit la forme juridique pour en tirer le niveau, et les
+  mots restants pour le noyau. `donor_name_raw` n'est jamais retouché.
+  Une DIRECTION est un service, pas une personne morale : le donateur est la
+  collectivité qu'elle sert, et la coupe se fait au DERNIER mot de forme.
+  On ne coupe que sur « direction » — un CCAS, une régie ou un syndicat sont
+  des entités distinctes de leur commune.
+  **Les articles restent dans le noyau**, seules les prépositions sautent :
+  les retirer fondait `COMMUNE DE BAULE` (Loiret) et `COMMUNE DE LA BAULE`
+  (La Baule-Escoublac, 44) en une seule commune. Ils n'apportaient rien par
+  ailleurs — « DEPARTEMENT DE LA SOMME » et « CONSEIL DEPARTEMENTAL DE LA
+  SOMME » gardent l'article tous les deux.
+
+- **Paris : deux collectivités jusqu'en 2018, une seule à partir de 2019.**
+  La loi n° 2017-257 du 28 février 2017 fusionne la commune et le département
+  de Paris dans la collectivité unique « Ville de Paris » (art. 8 pour
+  l'entrée en vigueur au 1er janvier 2019, art. 10 pour la substitution dans
+  tous les droits et obligations). Ce que publie la Ville le confirme ligne à
+  ligne : sa colonne `collectivite` porte les deux jusqu'en 2018, puis une
+  seule. **Avant 2019, les distinguer n'est pas une erreur : chacune avait son
+  budget.** La règle est dans `FUSIONS_COLLECTIVITES`, avec sa date d'effet ;
+  y ajouter une fusion demande de vérifier la loi ET la donnée.
+
+- **`business_key` prend le NOM du bénéficiaire, le SIRET seulement à défaut.**
+  L'ordre inverse rendait la clé instable entre sources : la Ville de Paris
+  publie le SIRET dans un jeu et pas dans l'autre, si bien que le Théâtre
+  Musical de Paris (17 446 000 € en 2013) recevait deux clés pour une seule
+  subvention. Revers mesuré : 5 605 groupes réunissent des HOMONYMES qui sont
+  des personnes morales distinctes — « MAISON FAMILIALE RURALE » en Mayenne,
+  plusieurs OGEC « Collège Saint-Joseph » en Maine-et-Loire, même année, même
+  montant rond, même objet générique. La déduplication ne fond donc jamais un
+  groupe aux SIRET contradictoires : les fondre EFFACERAIT une subvention
+  réelle. `verify.py` exige que tout doublon résiduel s'explique ainsi.
+
+- **La source héritée `paris` a été retirée : c'était une copie fautive.**
+  Elle déclarait son propre amont (`opendata.paris.fr` — subventions votées),
+  que le moissonneur reprend maintenant en entier (107 693 lignes contre
+  76 207). Mais sa conversion écrasait le donateur : « Département de Paris »
+  sur toutes les années jusqu'à 2023, quand la Ville n'écrit plus jamais
+  « Département » après 2018. 87,6 % de ses 30 422 lignes de 2013-2018 avaient
+  une jumelle exacte étiquetée « Ville » dans le jeu moissonné. L'erreur
+  portant sur le donateur, qui FAIT PARTIE de la clé, la déduplication ne
+  pouvait pas la voir. Symptôme qui l'a trahie : Paris tombait de 490 M€ en
+  2018 à 291 M€ en 2019, pile à la date de la fusion. La série est désormais
+  continue (271 puis 291 M€). Voir `REMPLACEES_PAR_MOISSONNAGE`.
 
 - **`cd-finistere` porte 5 442 lignes au nom de donateur détruit.** Les
   octets du fichier hérité sont `\xef\xbf\xbd` (U+FFFD) : « Conseil
@@ -457,11 +498,18 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       Nouvelles colonnes `measure` (voté / versé) et
       `beneficiary_kind_provenance` (déclaré / deviné), avec la règle des
       totaux écrite une seule fois dans `compte_dans_les_totaux`.
-- [ ] **Phase 6b** — ce qui reste, mesuré : identité de donateur résolue dans
-      la clé métier (~7,25 Md€ de doublons manqués parce qu'une même
-      collectivité change de libellé d'une publication à l'autre, dont Paris
-      compté deux fois), dépivotage des tableaux annuels (~178 fichiers),
-      liens morts en amont (236 404 et 135 échecs `datacat.datalocale`).
+- [x] **Phase 6b** — l'identité des donateurs. `identite_donateur` résout la
+      collectivité derrière le libellé (13 familles de graphies sur 142) ;
+      `FUSIONS_COLLECTIVITES` porte les fusions datées, Paris en tête —
+      deux collectivités jusqu'en 2018, une seule ensuite (loi n° 2017-257).
+      La clé métier passe au NOM du bénéficiaire, le SIRET n'étant plus qu'un
+      recours, avec un garde-fou qui refuse de fondre des homonymes aux SIRET
+      contradictoires. La source héritée `paris`, copie fautive d'un jeu que
+      le moissonneur reprend en entier, est retirée. **2 690 242 lignes,
+      157,7 Md€, 543 sources.** Paris ne rompt plus à la fusion : 271 M€ en
+      2018, 291 M€ en 2019.
+      Restent : dépivotage des tableaux annuels (~178 fichiers), liens morts
+      en amont (236 404 et 135 échecs `datacat.datalocale`).
       `api.datasubvention.beta.gouv.fr` et `data.grandlyon.com` renvoient
       401 : hors de portée sans habilitation, d'où l'impossibilité de lever
       la quarantaine Lyon.
