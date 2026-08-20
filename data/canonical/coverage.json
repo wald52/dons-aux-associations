@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T00:33:35Z",
+  "generated_at": "2026-08-20T07:12:37Z",
   "referentiel": {
     "source": "wald52/carte-finances-locales (OFGL / BANATIC / INSEE)",
     "millesime": 2024,
@@ -251,8 +251,8 @@
         "nom": "Gironde",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 40425,
-        "amount_eur": 1587913850.2
+        "rows": 40423,
+        "amount_eur": 1587833850.2
       },
       "34": {
         "nom": "Hérault",
@@ -265,15 +265,15 @@
         "nom": "Ille-et-Vilaine",
         "reg_code": "53",
         "statut": "avec_donnees",
-        "rows": 39411,
-        "amount_eur": 1335229547.0
+        "rows": 39403,
+        "amount_eur": 1335226603.0
       },
       "36": {
         "nom": "Indre",
         "reg_code": "24",
         "statut": "avec_donnees",
-        "rows": 5314,
-        "amount_eur": 152336263.18
+        "rows": 5305,
+        "amount_eur": 152219263.18
       },
       "37": {
         "nom": "Indre-et-Loire",
@@ -328,8 +328,8 @@
         "nom": "Loire-Atlantique",
         "reg_code": "52",
         "statut": "avec_donnees",
-        "rows": 38154,
-        "amount_eur": 1892450367.08
+        "rows": 38076,
+        "amount_eur": 1873700525.08
       },
       "45": {
         "nom": "Loiret",
@@ -342,8 +342,8 @@
         "nom": "Lot",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 3992,
-        "amount_eur": 134180814.18
+        "rows": 3991,
+        "amount_eur": 134150814.18
       },
       "47": {
         "nom": "Lot-et-Garonne",
@@ -426,8 +426,8 @@
         "nom": "Nièvre",
         "reg_code": "27",
         "statut": "avec_donnees",
-        "rows": 10801,
-        "amount_eur": 255367595.07
+        "rows": 10803,
+        "amount_eur": 255368345.07
       },
       "59": {
         "nom": "Nord",
@@ -489,8 +489,8 @@
         "nom": "Bas-Rhin",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 22511,
-        "amount_eur": 1090400892.39
+        "rows": 22612,
+        "amount_eur": 1093310228.16
       },
       "68": {
         "nom": "Haut-Rhin",
@@ -503,8 +503,8 @@
         "nom": "Rhône",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 41506,
-        "amount_eur": 2087513239.36
+        "rows": 41507,
+        "amount_eur": 2087523239.36
       },
       "70": {
         "nom": "Haute-Saône",
@@ -531,8 +531,8 @@
         "nom": "Savoie",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 7333,
-        "amount_eur": 361559582.65
+        "rows": 7335,
+        "amount_eur": 361564582.65
       },
       "74": {
         "nom": "Haute-Savoie",
@@ -545,8 +545,8 @@
         "nom": "Paris",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 168610,
-        "amount_eur": 23942665402.51
+        "rows": 92618,
+        "amount_eur": 20285800321.51
       },
       "76": {
         "nom": "Seine-Maritime",
@@ -580,8 +580,8 @@
         "nom": "Somme",
         "reg_code": "32",
         "statut": "avec_donnees",
-        "rows": 12614,
-        "amount_eur": 936732460.49
+        "rows": 12536,
+        "amount_eur": 930192677.87
       },
       "81": {
         "nom": "Tarn",
@@ -657,8 +657,8 @@
         "nom": "Essonne",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 13069,
-        "amount_eur": 933926386.74
+        "rows": 13064,
+        "amount_eur": 933742386.74
       },
       "92": {
         "nom": "Hauts-de-Seine",
@@ -678,15 +678,15 @@
         "nom": "Val-de-Marne",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 20747,
-        "amount_eur": 2083353916.44
+        "rows": 20742,
+        "amount_eur": 2083345216.44
       },
       "95": {
         "nom": "Val-d'Oise",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 14277,
-        "amount_eur": 842780145.16
+        "rows": 14263,
+        "amount_eur": 841742445.16
       },
       "971": {
         "nom": "Guadeloupe",
@@ -725,5 +725,5 @@
       }
     }
   },
-  "lignes_sans_departement": 1407363
+  "lignes_sans_departement": 1404251
 }

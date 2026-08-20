@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T00:33:26Z",
+  "generated_at": "2026-08-20T07:12:30Z",
   "parts": [
     "data/canonical/parts/legacy-agglo-grand-chambery.parquet",
     "data/canonical/parts/legacy-agglo-lorient.parquet",
@@ -95,7 +95,6 @@
     "data/canonical/parts/legacy-metropole-nantes.parquet",
     "data/canonical/parts/legacy-metropole-toulouse.parquet",
     "data/canonical/parts/legacy-ministere-agriculture.parquet",
-    "data/canonical/parts/legacy-paris.parquet",
     "data/canonical/parts/legacy-pays-basque-2023.parquet",
     "data/canonical/parts/legacy-region-centre.parquet",
     "data/canonical/parts/legacy-region-idf.parquet",
@@ -1221,11 +1220,11 @@
     "data/canonical/parts/scdl-69eb616d-a335a7b9.parquet",
     "data/canonical/parts/scdl-69eb616d-b48a2fc5.parquet"
   ],
-  "rows_total": 2769440,
-  "amount_individual_eur": 161671438223.69,
-  "amount_aggregate_eur": 2286188035.54,
-  "amount_not_summed_eur": 18205216237.63,
-  "rows_not_summed": 135615,
+  "rows_total": 2690242,
+  "amount_individual_eur": 157675277326.56,
+  "amount_aggregate_eur": 2028721959.54,
+  "amount_not_summed_eur": 18208497988.87,
+  "rows_not_summed": 134859,
   "amount_rejected_eur": 4.375777860013321e+27,
   "rows_rejected": 9139,
   "years_covered": [
@@ -1263,62 +1262,70 @@
     2036
   ],
   "fill_rates_percent": {
-    "beneficiary_siret": 67.7,
-    "beneficiary_siren": 75.1,
-    "beneficiary_rna": 10.2,
-    "beneficiary_commune_insee": 19.2,
-    "beneficiary_dep_code": 49.2,
-    "year": 93.9,
-    "purpose_raw": 79.8,
-    "donor_program": 55.5
+    "beneficiary_siret": 67.2,
+    "beneficiary_siren": 74.7,
+    "beneficiary_rna": 10.5,
+    "beneficiary_commune_insee": 19.8,
+    "beneficiary_dep_code": 47.8,
+    "year": 93.7,
+    "purpose_raw": 79.2,
+    "donor_program": 54.3
   },
   "departments_present": 101,
   "quality_flags": {
-    "no_rna": 2487675,
-    "no_siret": 893646,
-    "no_source_url": 804903,
-    "dep_unknown": 328076,
-    "beneficiary_not_association": 188295,
-    "year_missing": 169522,
+    "no_rna": 2408486,
+    "no_siret": 883176,
+    "no_source_url": 804790,
+    "dep_unknown": 328056,
+    "beneficiary_not_association": 188127,
+    "year_missing": 169105,
     "dep_only": 164626,
     "dep_from_name": 128036,
-    "amount_zero": 77144,
-    "siret_scientific_notation": 29214,
-    "siret_invalid": 25522,
+    "amount_zero": 77139,
+    "siret_scientific_notation": 29159,
+    "siret_invalid": 25156,
     "amount_negative": 10976,
     "amount_unit_suspect": 9083,
     "donor_unattributed": 5881,
     "texte_illisible": 4194,
     "aide_en_nature": 336,
-    "beneficiaire_non_identifie": 242,
+    "beneficiaire_non_identifie": 221,
     "year_invalid": 162,
     "amount_implausible": 56
   },
   "deduplication": {
-    "groups_total": 2712217,
-    "collisions_same_source": 35844,
-    "rows_same_source": 93067,
-    "collisions_cross_source": 472789,
-    "rows_dropped": 757411,
-    "amount_dropped": 52886183220.29,
+    "groups_total": 2624627,
+    "collisions_same_source": 36655,
+    "rows_same_source": 96890,
+    "collisions_cross_source": 465926,
+    "rows_dropped": 760402,
+    "amount_dropped": 53220855345.18,
+    "collisions_homonymes": 2480,
+    "rows_homonymes": 16577,
     "dropped_by_source": {
       "scdl-679b8416-9c858e23": 118,
       "scdl-679b8416-7008c41c": 88,
-      "agglo-grand-chambery": 8,
+      "agglo-grand-chambery": 6,
       "scdl-679b8416-7b08cf15": 68,
       "scdl-679b8416-a090a838": 114,
       "scdl-5b45d480-8bb9794f": 16,
       "scdl-5b45d480-9e76a5f9": 16,
       "scdl-69368767-0a1ad890": 42,
       "scdl-69368767-daa6b770": 48,
-      "scdl-5c191228-03ff58b8": 2891,
-      "cd-bas-rhin": 101,
+      "scdl-5ecf781d-8c6ce7b4": 8,
       "scdl-6967bae1-3aa29534": 5,
-      "scdl-650c0300-30bf1dc0": 928,
+      "ods-751c0f8d59f4": 3,
+      "ods-5523f2174317": 25,
+      "scdl-650c0300-30bf1dc0": 927,
       "scdl-650c0300-0cec7fcc": 954,
       "scdl-650c0300-d7a5ca36": 972,
+      "ods-4e8e483e7e6b": 208,
+      "scdl-62de6240-b78d3f67": 43,
+      "scdl-640a00bb-4874eb0b": 12,
+      "cd-lot": 1,
+      "scdl-646223b9-eca51778": 8,
       "scdl-5a562daf-dc5625e5": 903,
-      "cd-nievre": 192,
+      "cd-nievre": 190,
       "scdl-5a562daf-9a7366d1": 950,
       "scdl-5a562daf-7ddd6eca": 753,
       "scdl-5a562daf-a6f77f64": 838,
@@ -1330,25 +1337,47 @@
       "cd-savoie-2021": 5,
       "cd-savoie-2023": 178,
       "scdl-65c5f2f1-efef91d0": 10,
+      "scdl-59551083-a6082d22": 41,
+      "scdl-59551083-6a7ea843": 43,
+      "scdl-59551083-3c80c540": 147,
+      "scdl-59551083-5c751bcf": 113,
+      "scdl-59551083-ee6d5a03": 260,
+      "cd-somme": 78,
+      "scdl-59551083-cc8bea61": 149,
+      "scdl-59551083-c09bb704": 197,
+      "scdl-59551083-6627842c": 258,
+      "scdl-59551083-d8f351fa": 285,
+      "scdl-59551083-5e12f056": 145,
       "commune-bar-le-duc": 2,
       "ville-bar-le-duc": 15,
+      "scdl-60a75ca0-3c7388ad": 21,
+      "scdl-60a75ca0-acfe0503": 4,
+      "scdl-60a75ca0-92b96ae4": 5,
+      "scdl-60a75ca0-0d87914b": 5,
       "scdl-6579b5d9-6adf5837": 2,
       "scdl-6579b5d9-8b22df0b": 1,
       "scdl-5be59f1d-aa59cf31": 2,
+      "scdl-5b3a0407-90aba917": 147,
+      "commune-pleumeleuc": 7,
+      "commune-rillieux-la-pape": 20,
+      "scdl-6883ff18-0ed427e8": 5,
+      "ville-sarcelles-2025": 14,
+      "scdl-68e8e4f7-1ddb9735": 23,
       "commune-soissons": 606,
       "ville-soissons-2018-2021": 610,
-      "ods-69d65f219508": 20,
+      "ods-69d65f219508": 22,
+      "ods-235c554bb808": 488,
+      "ods-fd0a32baaf60": 608,
+      "communes-pays-loire": 9,
       "ods-f7ad8b52fbef": 385,
       "dept-seine-saint-denis": 2,
-      "scdl-65294259-dc656e29": 4,
+      "scdl-65294259-dc656e29": 3,
       "ods-f2f5fac26423": 116,
       "epci-gpso": 2,
-      "ods-9c1f4ae5d6b2": 103,
+      "ods-9c1f4ae5d6b2": 1169,
+      "metropole-bordeaux": 2,
       "ods-336aac001248": 69,
       "ods-67803465d51f": 76,
-      "ods-1e0bb586557c": 10581,
-      "ods-22c2e49b0bad": 107671,
-      "paris": 214,
       "region-centre": 1847,
       "ods-719c93448351": 472,
       "ods-1d09cc860010": 2,
@@ -1356,85 +1385,91 @@
       "ods-a617789de7c6": 968,
       "ods-832692b258f7": 4,
       "ods-4a1b3518712e": 2,
-      "ods-82f99edc1259": 1139,
+      "ods-82f99edc1259": 1138,
       "ods-a404ee41d8b2": 4555,
-      "region-idf": 1,
       "ods-5bc164a6aca3": 5573,
       "ods-cf986ff514f0": 5573,
       "subv-sup-23k-2024": 16,
       "scdl-6728d434-641175c2": 16,
+      "ods-f95e85799fae": 1,
       "scdl-6728d434-ba73be8e": 23,
-      "scdl-5a82b984-cdcbc238": 11,
-      "scdl-5a82b984-9a46d5f2": 10,
       "ville-lisieux": 119,
       "scdl-5c76562f-0a819686": 119,
+      "ville-longjumeau": 5,
       "scdl-634b2ea6-d3667b7e": 4357,
-      "ville-lyon": 160,
+      "ville-lyon": 159,
       "scdl-69c3aa42-6b3f2841": 8,
+      "ville-orvault": 78,
       "ods-0dd831b13d7f": 1,
       "scdl-69368515-90fd68ff": 37,
       "scdl-69368515-2bf387ea": 39,
       "ville-redon": 109,
+      "ville-redon-2018": 1,
       "scdl-637f8b3d-5c733baa": 68,
-      "scdl-637f8b3d-6a907ae1": 8,
-      "scdl-68e8e4f7-1ddb9735": 23,
+      "scdl-637f8b3d-6a907ae1": 76,
       "scdl-65652028-53b8a88f": 654,
       "scdl-65652028-4f043799": 290,
       "ville-vaulx": 99,
+      "scdl-69eb616d-b48a2fc5": 66,
+      "scdl-69eb616d-6c2ebe90": 53,
+      "scdl-69eb616d-2572d462": 72,
+      "ville-villejuif": 5,
+      "scdl-69eb616d-9386c4f3": 118,
       "ods-274966504f1e": 396,
-      "ods-29cef4deb1be": 69,
+      "ods-29cef4deb1be": 68,
       "ods-2c24e98746f8": 371,
-      "ods-380b834212ac": 85,
-      "ods-798d159746f6": 551,
-      "ods-a606043ddaa3": 117,
-      "ods-eafe4c27a3cc": 116,
+      "ods-a606043ddaa3": 115,
       "ods-f5c18b6b70be": 457,
-      "ods-146b32aead3b": 16,
+      "ods-24d465135e4b": 16,
+      "ods-26cd5792e015": 76,
       "ods-2d0ed733f0ec": 88,
-      "ods-33d2de8f46d6": 100,
+      "ods-33d2de8f46d6": 101,
+      "ods-4ce5b560af85": 210,
+      "ods-5c7c751d78ec": 72,
       "ods-82409adca42c": 249,
       "ods-bb1c83db31c5": 216,
-      "ods-d4eed4c4214a": 258,
-      "ods-5c7c751d78ec": 72,
       "ods-c90a4d888c8d": 226,
-      "ods-26cd5792e015": 76,
       "ods-cb959d3407de": 228,
+      "ods-d4eed4c4214a": 258,
+      "ods-380b834212ac": 63,
+      "ods-798d159746f6": 551,
+      "ods-146b32aead3b": 14,
+      "ods-eafe4c27a3cc": 98,
       "ods-336495c4185a": 63,
       "ods-71a0239e6ad8": 200,
       "ods-7239d08da6d3": 200,
       "ods-c5b9726f5bfc": 200,
-      "ods-24d465135e4b": 16,
-      "ods-4ce5b560af85": 210,
-      "ods-9291a84ca89d": 48,
+      "ods-9291a84ca89d": 47,
       "ods-d30a6a4bc15b": 176,
       "ods-17decf04cf59": 9,
-      "ods-68773e1ad8f6": 491,
-      "ods-b117834a3629": 1085,
-      "ods-0c37ee780401": 367,
+      "ods-0c37ee780401": 338,
       "ods-70394c27d4f6": 1045,
-      "ods-76d285afda86": 424,
+      "ods-76d285afda86": 411,
       "ods-79dc743bb6aa": 969,
-      "ods-abe73e816e2e": 511,
+      "ods-abe73e816e2e": 486,
       "ods-c9c3333a531c": 1008,
-      "ods-63d7c7e19fcb": 138,
-      "ods-d5e43b84606b": 353,
+      "ods-63d7c7e19fcb": 125,
+      "ods-68773e1ad8f6": 481,
+      "ods-b117834a3629": 1085,
+      "ods-d5e43b84606b": 344,
       "ods-e5cee933b4fe": 1068,
       "ods-f951b8d68871": 1092,
-      "ods-07c12ce7b8f0": 94,
+      "ods-07c12ce7b8f0": 53,
       "ods-e2e5e0f25010": 1046,
+      "ods-024792065743": 1,
       "ods-e31bb9fa960d": 337,
-      "ods-16e3afae3bda": 56,
-      "ods-b06c29ed05fe": 158,
-      "ods-bb6fba0b37e5": 342,
-      "ods-bd9cae3eef43": 37,
-      "ods-f3701c22ae5a": 340,
-      "ods-f7ccfcc04624": 182,
-      "ods-55a6bff7dfd7": 136,
+      "ods-55a6bff7dfd7": 115,
       "ods-cb2e555d22d4": 311,
-      "ods-ca5c8632c25c": 110,
-      "ods-f786f331f70b": 164,
-      "ods-5e47d856e79e": 106,
+      "ods-bd9cae3eef43": 33,
+      "ods-ca5c8632c25c": 99,
+      "ods-f786f331f70b": 151,
+      "ods-f7ccfcc04624": 176,
+      "ods-16e3afae3bda": 46,
+      "ods-5e47d856e79e": 104,
+      "ods-b06c29ed05fe": 141,
+      "ods-bb6fba0b37e5": 342,
       "ods-e8e7a30b38f7": 354,
+      "ods-f3701c22ae5a": 340,
       "ods-a786e78fb8dd": 8244,
       "ods-053bca87d3e6": 278,
       "ods-6178172c9440": 3,
@@ -1449,8 +1484,8 @@
       "ods-2ddd7058a25c": 1,
       "ods-2eec1bdcb341": 64541,
       "ods-07f6694716bd": 560,
-      "ods-588bf40168b8": 20082,
-      "ods-09110005be62": 163,
+      "ods-588bf40168b8": 20069,
+      "ods-09110005be62": 170,
       "ods-36226d13fb08": 30,
       "ods-0eaeb1ed3aec": 828,
       "ods-9cc4444647b6": 3236,
@@ -1458,42 +1493,43 @@
       "ods-d985b8c723bb": 3338,
       "ods-110b5c42ca6f": 680,
       "ods-5f9999eccf8c": 1130,
-      "ods-211dfe2cb16d": 4,
+      "ods-211dfe2cb16d": 232,
       "ods-cfc0431076f5": 1110,
+      "ods-29255e872007": 261,
+      "ods-999201c84436": 1094,
+      "ods-a9997beaa43d": 1140,
+      "ods-b23691f6bad0": 2474,
+      "ods-cac7489ee5a4": 1187,
+      "ods-e3f7c0aa8f5f": 1190,
       "ods-c09dbaa34565": 222,
       "ods-51ebd877ed63": 217,
       "ods-fbe3d9485bc4": 222,
       "ods-28ad07b60038": 5,
       "ods-467b148a1547": 191,
       "ods-16b7aab1d34b": 1,
-      "ods-48c13e1ae63e": 183,
-      "ods-4aab54028f81": 414,
-      "ods-493132e66053": 367,
-      "ods-38cfbb3e8d03": 4,
-      "ods-490de479aae2": 305,
-      "ods-4fa3b76a1655": 1223,
-      "ods-5716744f68f6": 347,
-      "ods-a0f6b2d3dd04": 402,
-      "ods-ac411cb56c1c": 1193,
-      "ods-f50db973beed": 1271,
-      "ods-fd269309ec4a": 1254,
-      "ods-53329a73034c": 233,
+      "ods-18015e64ce1f": 288,
       "ods-b15b8b7aab6b": 1222,
+      "ods-f50db973beed": 1270,
+      "ods-48c13e1ae63e": 239,
+      "ods-490de479aae2": 259,
+      "ods-4aab54028f81": 448,
+      "ods-4fa3b76a1655": 1223,
+      "ods-53329a73034c": 197,
+      "ods-a0f6b2d3dd04": 358,
+      "ods-fd269309ec4a": 1254,
+      "ods-493132e66053": 379,
+      "ods-5716744f68f6": 340,
+      "ods-ac411cb56c1c": 1193,
+      "ods-38cfbb3e8d03": 4,
       "ods-b24e15cd7b56": 42422,
       "ods-1843fe16aff0": 27,
       "ods-4672220abfae": 384,
       "ods-1988f34a2560": 22,
-      "ods-75a931d4cb88": 1,
+      "ods-22c2e49b0bad": 107671,
+      "ods-1e0bb586557c": 5508,
+      "ods-75a931d4cb88": 6991,
       "ods-aa200473c50f": 7842,
-      "ods-999201c84436": 1086,
-      "ods-b23691f6bad0": 2474,
-      "ods-cac7489ee5a4": 1187,
-      "ods-e3f7c0aa8f5f": 1190,
-      "ods-29255e872007": 227,
-      "ods-a9997beaa43d": 1140,
       "ods-645687fe86dc": 1,
-      "ods-fd0a32baaf60": 608,
-      "ods-235c554bb808": 12,
       "ods-fc25f39846d2": 1079,
       "ods-d87ce5842c5f": 3,
       "scdl-63e333e5-580dec6c": 88,
@@ -1515,7 +1551,7 @@
       "ods-90e15422e828": 105,
       "ods-e12573c24212": 146,
       "ods-d2494c606653": 522,
-      "ods-5d3d6079476d": 4,
+      "ods-5d3d6079476d": 3,
       "ods-85072b5483bb": 142,
       "ods-b2d75e048289": 9,
       "ods-dd21f369a165": 9,
@@ -1540,7 +1576,6 @@
       "ods-cd87e3e83af3": 62,
       "ods-f23edf0b9d51": 68,
       "ods-fb365319c161": 9,
-      "scdl-5b605beb-ac1aafa7": 33,
       "scdl-538c3575-418ca621": 213,
       "scdl-539f32a0-6c26be08": 215,
       "scdl-53a37db4-c3fdfa57": 129,
@@ -1549,9 +1584,6 @@
       "scdl-56deb0b7-9f903ff1": 5,
       "scdl-56deb0b7-a885d4a3": 26,
       "scdl-56deb0b7-ffa71ea8": 94,
-      "scdl-59551083-ee6d5a03": 111,
-      "scdl-59551083-d8f351fa": 70,
-      "scdl-59551083-6627842c": 5,
       "scdl-59705982-0c73a5b6": 32,
       "scdl-59705982-467654de": 31,
       "scdl-59705982-9c399c00": 40,
@@ -1560,13 +1592,15 @@
       "scdl-59705982-206c5ae9": 5,
       "scdl-59705982-a64b7ab8": 24,
       "scdl-5ad9eff9-c6d5d00c": 48,
+      "scdl-5a215946-0840e508": 1,
       "scdl-637f80ed-411372f3": 13,
-      "scdl-604f694e-7cd27b66": 2,
+      "scdl-5af957e3-f9954819": 2,
+      "scdl-604f694e-7cd27b66": 12,
       "scdl-5b558d6d-c7793c56": 2,
       "scdl-5ce29bb2-c05b6680": 4,
       "scdl-64108a5d-877a97a5": 3,
       "scdl-5ba5299f-becad37d": 44,
-      "scdl-5ba5299f-9d7a236d": 1,
+      "scdl-5ba5299f-9d7a236d": 3,
       "scdl-5bbcb716-0de7ad33": 130,
       "scdl-5bbcb716-12febd20": 115,
       "scdl-5bbcb716-19705035": 143,
@@ -1580,7 +1614,7 @@
       "scdl-5bbcb716-e4417a40": 191,
       "scdl-5bbcb716-f62e61dc": 231,
       "scdl-5c45a175-067748a0": 1,
-      "scdl-5d1a81f1-24430707": 17,
+      "scdl-5d1a81f1-24430707": 27,
       "scdl-5cac9773-8e25407f": 5,
       "scdl-6617d3ec-c6faef66": 2,
       "scdl-5e58de43-116b7fb6": 2,
@@ -1596,9 +1630,9 @@
       "scdl-5cf92430-7f8fd04d": 225,
       "scdl-5cf92430-c1bb0b0c": 715,
       "scdl-5cf92430-3d2d7b45": 1,
-      "scdl-5cf92430-e2388e4d": 116,
+      "scdl-5cf92430-e2388e4d": 117,
       "scdl-5d3a48e7-c22f7ea4": 5603,
-      "scdl-5d3a48e7-95bb2f8d": 10,
+      "scdl-5d3a48e7-95bb2f8d": 9,
       "scdl-5da87587-051bd460": 2,
       "scdl-5da87587-70c56174": 1,
       "scdl-621ce50f-479d1671": 1,
@@ -1608,7 +1642,7 @@
       "scdl-650c0a15-2fffcbc2": 1,
       "scdl-654a9235-a5692fec": 8,
       "scdl-66a2e75f-0180bd47": 419,
-      "scdl-66a2e75f-01e77d46": 47,
+      "scdl-66a2e75f-01e77d46": 79,
       "scdl-66a2e75f-02c986e6": 534,
       "scdl-66a2e75f-04af9ab4": 534,
       "scdl-66a2e75f-076fe06d": 534,
@@ -1781,7 +1815,7 @@
       "scdl-66a2e75f-f7ed4bef": 419,
       "scdl-66a2e75f-fa4bffe1": 419,
       "scdl-66a2e75f-fe8dbf5d": 534,
-      "scdl-66a2e75f-01812f14": 69,
+      "scdl-66a2e75f-01812f14": 76,
       "scdl-66a2e75f-01d960f7": 371,
       "scdl-66a2e75f-0555b968": 371,
       "scdl-66a2e75f-07178c3b": 371,
@@ -1870,93 +1904,93 @@
       "scdl-66a2e75f-f24bddb8": 371,
       "scdl-66a2e75f-f3ff1574": 371,
       "scdl-66a2e75f-f75e5697": 371,
-      "scdl-66a2e75f-02233a08": 115,
-      "scdl-66a2e75f-03251d87": 448,
-      "scdl-66a2e75f-040930fd": 448,
-      "scdl-66a2e75f-05440e07": 448,
-      "scdl-66a2e75f-06a00ecf": 448,
-      "scdl-66a2e75f-080c511e": 448,
-      "scdl-66a2e75f-0e98f271": 448,
-      "scdl-66a2e75f-10a8abc6": 448,
-      "scdl-66a2e75f-16b21170": 448,
-      "scdl-66a2e75f-1c204a8e": 448,
-      "scdl-66a2e75f-1f17c677": 448,
-      "scdl-66a2e75f-20796a46": 448,
-      "scdl-66a2e75f-26c97d0d": 448,
-      "scdl-66a2e75f-347bb95d": 448,
-      "scdl-66a2e75f-34814340": 448,
-      "scdl-66a2e75f-3d4e78dd": 448,
-      "scdl-66a2e75f-3d61746c": 448,
-      "scdl-66a2e75f-440ea763": 448,
-      "scdl-66a2e75f-4411ba35": 448,
-      "scdl-66a2e75f-447a93d2": 448,
-      "scdl-66a2e75f-483720ef": 448,
-      "scdl-66a2e75f-4b69929e": 448,
-      "scdl-66a2e75f-5064faaa": 448,
-      "scdl-66a2e75f-514adaba": 448,
-      "scdl-66a2e75f-530a8628": 448,
-      "scdl-66a2e75f-53c5b3b0": 448,
-      "scdl-66a2e75f-547105b0": 448,
-      "scdl-66a2e75f-5b1c106a": 448,
-      "scdl-66a2e75f-5b7b6ea4": 448,
-      "scdl-66a2e75f-5f4b4cb8": 448,
-      "scdl-66a2e75f-60b88d61": 448,
-      "scdl-66a2e75f-611ef0c6": 448,
-      "scdl-66a2e75f-61d79c4d": 448,
-      "scdl-66a2e75f-6361adca": 448,
-      "scdl-66a2e75f-640afc92": 448,
-      "scdl-66a2e75f-65122321": 448,
-      "scdl-66a2e75f-66e30028": 448,
-      "scdl-66a2e75f-66ea85d8": 448,
-      "scdl-66a2e75f-71a28102": 448,
-      "scdl-66a2e75f-733e2024": 448,
-      "scdl-66a2e75f-75c8fee9": 448,
-      "scdl-66a2e75f-79181919": 448,
-      "scdl-66a2e75f-7c287049": 448,
-      "scdl-66a2e75f-7dac4d8b": 448,
-      "scdl-66a2e75f-80b9e052": 448,
-      "scdl-66a2e75f-815a3e51": 448,
-      "scdl-66a2e75f-85a122f3": 448,
-      "scdl-66a2e75f-864a57c7": 448,
-      "scdl-66a2e75f-889ceb03": 448,
-      "scdl-66a2e75f-89c3281e": 448,
-      "scdl-66a2e75f-8b485da0": 448,
-      "scdl-66a2e75f-8f907bb5": 448,
-      "scdl-66a2e75f-9940368a": 448,
-      "scdl-66a2e75f-9964bad6": 448,
-      "scdl-66a2e75f-9ce77633": 448,
-      "scdl-66a2e75f-a242db22": 448,
-      "scdl-66a2e75f-a41fce38": 448,
-      "scdl-66a2e75f-b1453605": 448,
-      "scdl-66a2e75f-b2b19efc": 448,
-      "scdl-66a2e75f-b779deb1": 448,
-      "scdl-66a2e75f-b7b733ac": 448,
-      "scdl-66a2e75f-bc4ff6e6": 448,
-      "scdl-66a2e75f-bd325b95": 448,
-      "scdl-66a2e75f-bd6356ba": 448,
-      "scdl-66a2e75f-c738173c": 448,
-      "scdl-66a2e75f-c73e9c36": 448,
-      "scdl-66a2e75f-cc4ef868": 448,
-      "scdl-66a2e75f-d8a58942": 448,
-      "scdl-66a2e75f-d8fca14e": 448,
-      "scdl-66a2e75f-d94c1b13": 448,
-      "scdl-66a2e75f-d98104c4": 448,
-      "scdl-66a2e75f-db3e6df4": 448,
-      "scdl-66a2e75f-de732ff0": 448,
-      "scdl-66a2e75f-dfbe236e": 448,
-      "scdl-66a2e75f-e1079c38": 448,
-      "scdl-66a2e75f-e13ca532": 448,
-      "scdl-66a2e75f-e14d83f6": 448,
-      "scdl-66a2e75f-ea517b6c": 448,
-      "scdl-66a2e75f-ee1b49fb": 448,
-      "scdl-66a2e75f-ee83a5b9": 448,
-      "scdl-66a2e75f-f2c83677": 448,
-      "scdl-66a2e75f-f6eed2f7": 448,
-      "scdl-66a2e75f-fb150021": 448,
-      "scdl-66a2e75f-fb1a701e": 448,
-      "scdl-66a2e75f-fe6c6d20": 448,
-      "scdl-66a2e75f-ff565bfa": 448,
-      "scdl-66a2e75f-00e76505": 76,
+      "scdl-66a2e75f-02233a08": 138,
+      "scdl-66a2e75f-03251d87": 447,
+      "scdl-66a2e75f-040930fd": 447,
+      "scdl-66a2e75f-05440e07": 447,
+      "scdl-66a2e75f-06a00ecf": 447,
+      "scdl-66a2e75f-080c511e": 447,
+      "scdl-66a2e75f-0e98f271": 447,
+      "scdl-66a2e75f-10a8abc6": 447,
+      "scdl-66a2e75f-16b21170": 447,
+      "scdl-66a2e75f-1c204a8e": 447,
+      "scdl-66a2e75f-1f17c677": 447,
+      "scdl-66a2e75f-20796a46": 447,
+      "scdl-66a2e75f-26c97d0d": 447,
+      "scdl-66a2e75f-347bb95d": 447,
+      "scdl-66a2e75f-34814340": 447,
+      "scdl-66a2e75f-3d4e78dd": 447,
+      "scdl-66a2e75f-3d61746c": 447,
+      "scdl-66a2e75f-440ea763": 447,
+      "scdl-66a2e75f-4411ba35": 447,
+      "scdl-66a2e75f-447a93d2": 447,
+      "scdl-66a2e75f-483720ef": 447,
+      "scdl-66a2e75f-4b69929e": 447,
+      "scdl-66a2e75f-5064faaa": 447,
+      "scdl-66a2e75f-514adaba": 447,
+      "scdl-66a2e75f-530a8628": 447,
+      "scdl-66a2e75f-53c5b3b0": 447,
+      "scdl-66a2e75f-547105b0": 447,
+      "scdl-66a2e75f-5b1c106a": 447,
+      "scdl-66a2e75f-5b7b6ea4": 447,
+      "scdl-66a2e75f-5f4b4cb8": 447,
+      "scdl-66a2e75f-60b88d61": 447,
+      "scdl-66a2e75f-611ef0c6": 447,
+      "scdl-66a2e75f-61d79c4d": 447,
+      "scdl-66a2e75f-6361adca": 447,
+      "scdl-66a2e75f-640afc92": 447,
+      "scdl-66a2e75f-65122321": 447,
+      "scdl-66a2e75f-66e30028": 447,
+      "scdl-66a2e75f-66ea85d8": 447,
+      "scdl-66a2e75f-71a28102": 447,
+      "scdl-66a2e75f-733e2024": 447,
+      "scdl-66a2e75f-75c8fee9": 447,
+      "scdl-66a2e75f-79181919": 447,
+      "scdl-66a2e75f-7c287049": 447,
+      "scdl-66a2e75f-7dac4d8b": 447,
+      "scdl-66a2e75f-80b9e052": 447,
+      "scdl-66a2e75f-815a3e51": 447,
+      "scdl-66a2e75f-85a122f3": 447,
+      "scdl-66a2e75f-864a57c7": 447,
+      "scdl-66a2e75f-889ceb03": 447,
+      "scdl-66a2e75f-89c3281e": 447,
+      "scdl-66a2e75f-8b485da0": 447,
+      "scdl-66a2e75f-8f907bb5": 447,
+      "scdl-66a2e75f-9940368a": 447,
+      "scdl-66a2e75f-9964bad6": 447,
+      "scdl-66a2e75f-9ce77633": 447,
+      "scdl-66a2e75f-a242db22": 447,
+      "scdl-66a2e75f-a41fce38": 447,
+      "scdl-66a2e75f-b1453605": 447,
+      "scdl-66a2e75f-b2b19efc": 447,
+      "scdl-66a2e75f-b779deb1": 447,
+      "scdl-66a2e75f-b7b733ac": 447,
+      "scdl-66a2e75f-bc4ff6e6": 447,
+      "scdl-66a2e75f-bd325b95": 447,
+      "scdl-66a2e75f-bd6356ba": 447,
+      "scdl-66a2e75f-c738173c": 447,
+      "scdl-66a2e75f-c73e9c36": 447,
+      "scdl-66a2e75f-cc4ef868": 447,
+      "scdl-66a2e75f-d8a58942": 447,
+      "scdl-66a2e75f-d8fca14e": 447,
+      "scdl-66a2e75f-d94c1b13": 447,
+      "scdl-66a2e75f-d98104c4": 447,
+      "scdl-66a2e75f-db3e6df4": 447,
+      "scdl-66a2e75f-de732ff0": 447,
+      "scdl-66a2e75f-dfbe236e": 447,
+      "scdl-66a2e75f-e1079c38": 447,
+      "scdl-66a2e75f-e13ca532": 447,
+      "scdl-66a2e75f-e14d83f6": 447,
+      "scdl-66a2e75f-ea517b6c": 447,
+      "scdl-66a2e75f-ee1b49fb": 447,
+      "scdl-66a2e75f-ee83a5b9": 447,
+      "scdl-66a2e75f-f2c83677": 447,
+      "scdl-66a2e75f-f6eed2f7": 447,
+      "scdl-66a2e75f-fb150021": 447,
+      "scdl-66a2e75f-fb1a701e": 447,
+      "scdl-66a2e75f-fe6c6d20": 447,
+      "scdl-66a2e75f-ff565bfa": 447,
+      "scdl-66a2e75f-001bf3bf": 21,
       "scdl-66a2e75f-08d246bc": 442,
       "scdl-66a2e75f-10b67b49": 442,
       "scdl-66a2e75f-111b662a": 442,
@@ -2045,7 +2079,7 @@
       "scdl-66a2e75f-f8fecbe0": 442,
       "scdl-66a2e75f-f99dc920": 442,
       "scdl-66a2e75f-fc024212": 442,
-      "scdl-66a2e75f-001bf3bf": 1,
+      "scdl-66a2e75f-00e76505": 58,
       "scdl-66a2e75f-01def7c3": 417,
       "scdl-66a2e75f-032e5533": 417,
       "scdl-66a2e75f-07b79a55": 417,
@@ -2136,8 +2170,8 @@
   },
   "by_source": {
     "agglo-grand-chambery": {
-      "rows": 499,
-      "amount_individual_eur": 10357753.37,
+      "rows": 501,
+      "amount_individual_eur": 10362753.37,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -2151,15 +2185,15 @@
         2021
       ],
       "flags": {
-        "no_rna": 499,
-        "no_source_url": 499,
+        "no_rna": 501,
+        "no_source_url": 501,
         "beneficiary_not_association": 30,
         "no_siret": 9,
         "siret_invalid": 3,
         "year_invalid": 1
       },
       "beneficiary_kinds": {
-        "inconnu": 322,
+        "inconnu": 324,
         "association": 147,
         "public_body": 30
       }
@@ -2492,8 +2526,8 @@
       }
     },
     "cd-bas-rhin": {
-      "rows": 3244,
-      "amount_individual_eur": 70717898.79,
+      "rows": 3345,
+      "amount_individual_eur": 73627234.56,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -2502,14 +2536,14 @@
         2018
       ],
       "flags": {
-        "no_rna": 3244,
-        "no_source_url": 3244,
-        "beneficiary_not_association": 625
+        "no_rna": 3345,
+        "no_source_url": 3345,
+        "beneficiary_not_association": 651
       },
       "beneficiary_kinds": {
-        "inconnu": 1648,
-        "association": 971,
-        "public_body": 625
+        "inconnu": 1681,
+        "association": 1013,
+        "public_body": 651
       }
     },
     "cd-charente-maritime": {
@@ -2944,8 +2978,8 @@
       }
     },
     "cd-lot": {
-      "rows": 144,
-      "amount_individual_eur": 8951828.78,
+      "rows": 143,
+      "amount_individual_eur": 8921828.78,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -2955,12 +2989,12 @@
         2023
       ],
       "flags": {
-        "no_rna": 144,
-        "no_source_url": 144,
+        "no_rna": 143,
+        "no_source_url": 143,
         "texte_illisible": 89
       },
       "beneficiary_kinds": {
-        "association": 78,
+        "association": 77,
         "inconnu": 66
       }
     },
@@ -3078,8 +3112,8 @@
       }
     },
     "cd-nievre": {
-      "rows": 4991,
-      "amount_individual_eur": 43179401.65,
+      "rows": 4993,
+      "amount_individual_eur": 43180151.65,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -3093,14 +3127,14 @@
         2024
       ],
       "flags": {
-        "no_rna": 4991,
-        "no_source_url": 4991,
+        "no_rna": 4993,
+        "no_source_url": 4993,
         "no_siret": 26,
         "siret_invalid": 26,
         "beneficiary_not_association": 18
       },
       "beneficiary_kinds": {
-        "inconnu": 3324,
+        "inconnu": 3326,
         "association": 1649,
         "public_body": 18
       }
@@ -3261,8 +3295,8 @@
       }
     },
     "cd-somme": {
-      "rows": 1765,
-      "amount_individual_eur": 345160442.32,
+      "rows": 1687,
+      "amount_individual_eur": 338620659.7,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -3279,17 +3313,17 @@
         2026
       ],
       "flags": {
-        "no_rna": 1765,
-        "no_source_url": 1765,
-        "no_siret": 264,
-        "siret_scientific_notation": 263,
-        "beneficiary_not_association": 84,
+        "no_rna": 1687,
+        "no_source_url": 1687,
+        "no_siret": 209,
+        "siret_scientific_notation": 208,
+        "beneficiary_not_association": 82,
         "siret_invalid": 1
       },
       "beneficiary_kinds": {
-        "inconnu": 1395,
-        "association": 286,
-        "public_body": 84
+        "inconnu": 1342,
+        "association": 263,
+        "public_body": 82
       }
     },
     "cnds-2015": {
@@ -3479,24 +3513,24 @@
       }
     },
     "commune-pleumeleuc": {
-      "rows": 147,
-      "amount_individual_eur": 352662.64,
+      "rows": 140,
+      "amount_individual_eur": 350368.64,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [],
       "flags": {
-        "year_missing": 147,
-        "no_rna": 147,
-        "no_source_url": 147
+        "year_missing": 140,
+        "no_rna": 140,
+        "no_source_url": 140
       },
       "beneficiary_kinds": {
-        "inconnu": 147
+        "inconnu": 140
       }
     },
     "commune-rillieux-la-pape": {
-      "rows": 25,
-      "amount_individual_eur": 3988461.0,
+      "rows": 5,
+      "amount_individual_eur": 175800.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -3504,16 +3538,13 @@
         2023
       ],
       "flags": {
-        "dep_unknown": 25,
-        "no_rna": 25,
-        "no_source_url": 25,
+        "dep_unknown": 5,
         "no_siret": 5,
-        "beneficiary_not_association": 1
+        "no_rna": 5,
+        "no_source_url": 5
       },
       "beneficiary_kinds": {
-        "inconnu": 23,
-        "association": 1,
-        "public_body": 1
+        "inconnu": 5
       }
     },
     "commune-saint-gonlay": {
@@ -3699,8 +3730,8 @@
       }
     },
     "communes-pays-loire": {
-      "rows": 1150,
-      "amount_individual_eur": 2793209.99,
+      "rows": 1141,
+      "amount_individual_eur": 2676209.99,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -3716,16 +3747,16 @@
         2022
       ],
       "flags": {
-        "no_rna": 1150,
-        "no_source_url": 1150,
-        "no_siret": 632,
+        "no_rna": 1141,
+        "no_source_url": 1141,
+        "no_siret": 623,
         "siret_invalid": 11,
         "beneficiary_not_association": 11,
         "amount_implausible": 3
       },
       "beneficiary_kinds": {
         "inconnu": 727,
-        "association": 412,
+        "association": 403,
         "public_body": 11
       }
     },
@@ -4128,8 +4159,8 @@
       }
     },
     "metropole-bordeaux": {
-      "rows": 1177,
-      "amount_individual_eur": 140793249.0,
+      "rows": 1175,
+      "amount_individual_eur": 140713249.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -4145,14 +4176,14 @@
         2026
       ],
       "flags": {
-        "no_rna": 1177,
-        "no_source_url": 1177,
+        "no_rna": 1175,
+        "no_source_url": 1175,
         "no_siret": 110,
         "siret_invalid": 102,
         "year_missing": 7
       },
       "beneficiary_kinds": {
-        "inconnu": 1117,
+        "inconnu": 1115,
         "association": 60
       }
     },
@@ -4356,21 +4387,21 @@
       }
     },
     "ods-024792065743": {
-      "rows": 1097,
+      "rows": 1096,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 67954954.9,
-      "rows_not_summed": 1097,
+      "amount_not_summed_eur": 67949954.9,
+      "rows_not_summed": 1096,
       "years": [],
       "flags": {
-        "no_rna": 1097,
-        "year_missing": 1097,
+        "no_rna": 1096,
+        "year_missing": 1096,
         "beneficiary_not_association": 10,
-        "no_siret": 9,
+        "no_siret": 8,
         "amount_zero": 1
       },
       "beneficiary_kinds": {
-        "association": 1087,
+        "association": 1086,
         "public_body": 10
       }
     },
@@ -4447,21 +4478,21 @@
       }
     },
     "ods-07c12ce7b8f0": {
-      "rows": 952,
+      "rows": 993,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 74181855.72,
-      "rows_not_summed": 952,
+      "amount_not_summed_eur": 74479888.72,
+      "rows_not_summed": 993,
       "years": [],
       "flags": {
-        "no_rna": 952,
-        "year_missing": 952,
+        "no_rna": 993,
+        "year_missing": 993,
         "no_siret": 10,
         "beneficiary_not_association": 8,
         "amount_zero": 1
       },
       "beneficiary_kinds": {
-        "association": 944,
+        "association": 985,
         "public_body": 8
       }
     },
@@ -4492,8 +4523,8 @@
       }
     },
     "ods-09110005be62": {
-      "rows": 19919,
-      "amount_individual_eur": 653360742.73,
+      "rows": 19912,
+      "amount_individual_eur": 653268956.73,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -4503,12 +4534,12 @@
         2023
       ],
       "flags": {
-        "no_rna": 19919,
-        "no_siret": 72,
+        "no_rna": 19912,
+        "no_siret": 65,
         "amount_negative": 12
       },
       "beneficiary_kinds": {
-        "association": 19919
+        "association": 19912
       }
     },
     "ods-0be3aecb7eff": {
@@ -4553,21 +4584,21 @@
       }
     },
     "ods-0c37ee780401": {
-      "rows": 678,
+      "rows": 707,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 54640659.62,
-      "rows_not_summed": 678,
+      "amount_not_summed_eur": 55771608.62,
+      "rows_not_summed": 707,
       "years": [],
       "flags": {
-        "no_rna": 678,
-        "year_missing": 678,
+        "no_rna": 707,
+        "year_missing": 707,
         "no_siret": 7,
         "beneficiary_not_association": 3,
         "amount_zero": 1
       },
       "beneficiary_kinds": {
-        "association": 675,
+        "association": 704,
         "public_body": 3
       }
     },
@@ -4698,21 +4729,21 @@
       }
     },
     "ods-146b32aead3b": {
-      "rows": 200,
+      "rows": 202,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 87422897.21,
-      "rows_not_summed": 200,
+      "amount_not_summed_eur": 87446197.21,
+      "rows_not_summed": 202,
       "years": [],
       "flags": {
-        "no_rna": 200,
-        "year_missing": 200,
+        "no_rna": 202,
+        "year_missing": 202,
         "beneficiary_not_association": 12,
         "no_siret": 8,
         "amount_zero": 1
       },
       "beneficiary_kinds": {
-        "association": 188,
+        "association": 190,
         "public_body": 12
       }
     },
@@ -4755,39 +4786,39 @@
       }
     },
     "ods-16e3afae3bda": {
-      "rows": 286,
+      "rows": 296,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 37525661.21,
-      "rows_not_summed": 286,
+      "amount_not_summed_eur": 37970032.21,
+      "rows_not_summed": 296,
       "years": [],
       "flags": {
-        "no_rna": 286,
-        "year_missing": 286,
-        "no_siret": 7,
+        "no_rna": 296,
+        "year_missing": 296,
+        "no_siret": 6,
         "beneficiary_not_association": 5
       },
       "beneficiary_kinds": {
-        "association": 281,
+        "association": 291,
         "public_body": 5
       }
     },
     "ods-18015e64ce1f": {
-      "rows": 1372,
+      "rows": 1084,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 40940817.2,
-      "rows_not_summed": 1372,
+      "amount_not_summed_eur": 37276464.4,
+      "rows_not_summed": 1084,
       "years": [],
       "flags": {
-        "no_siret": 1372,
-        "no_rna": 1372,
-        "year_missing": 1372,
-        "beneficiary_not_association": 5
+        "no_siret": 1084,
+        "no_rna": 1084,
+        "year_missing": 1084,
+        "beneficiary_not_association": 1
       },
       "beneficiary_kinds": {
-        "association": 1367,
-        "public_body": 5
+        "association": 1083,
+        "public_body": 1
       }
     },
     "ods-1843fe16aff0": {
@@ -4904,8 +4935,8 @@
       }
     },
     "ods-1e0bb586557c": {
-      "rows": 97090,
-      "amount_individual_eur": 3413690074.0,
+      "rows": 102163,
+      "amount_individual_eur": 3671019421.0,
       "amount_aggregate_eur": 32162.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -4926,14 +4957,14 @@
         2026
       ],
       "flags": {
-        "no_rna": 97090,
+        "no_rna": 102163,
         "amount_zero": 27457,
-        "no_siret": 710,
-        "beneficiary_not_association": 184
+        "no_siret": 751,
+        "beneficiary_not_association": 196
       },
       "beneficiary_kinds": {
-        "association": 96906,
-        "public_body": 184
+        "association": 101967,
+        "public_body": 196
       }
     },
     "ods-1faf48c9dd42": {
@@ -4953,21 +4984,21 @@
       }
     },
     "ods-211dfe2cb16d": {
-      "rows": 1106,
+      "rows": 878,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 57388623.84,
-      "rows_not_summed": 1106,
+      "amount_not_summed_eur": 54474148.78,
+      "rows_not_summed": 878,
       "years": [],
       "flags": {
-        "no_siret": 1106,
-        "no_rna": 1106,
-        "year_missing": 1106,
-        "beneficiary_not_association": 7
+        "no_siret": 878,
+        "no_rna": 878,
+        "year_missing": 878,
+        "beneficiary_not_association": 6
       },
       "beneficiary_kinds": {
-        "association": 1099,
-        "public_body": 7
+        "association": 872,
+        "public_body": 6
       }
     },
     "ods-2280dea1b831": {
@@ -5005,11 +5036,11 @@
       }
     },
     "ods-235c554bb808": {
-      "rows": 596,
+      "rows": 120,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 1204214.3,
-      "rows_not_summed": 596,
+      "amount_not_summed_eur": 41278.49,
+      "rows_not_summed": 120,
       "years": [
         2014,
         2015,
@@ -5018,16 +5049,15 @@
         2018,
         2019,
         2020,
-        2021,
-        2022
+        2021
       ],
       "flags": {
-        "no_siret": 596,
-        "no_rna": 596,
+        "no_siret": 120,
+        "no_rna": 120,
         "amount_zero": 6
       },
       "beneficiary_kinds": {
-        "association": 596
+        "association": 120
       }
     },
     "ods-24d465135e4b": {
@@ -5086,21 +5116,21 @@
       }
     },
     "ods-29255e872007": {
-      "rows": 913,
+      "rows": 879,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 106978811.85,
-      "rows_not_summed": 913,
+      "amount_not_summed_eur": 106743311.85,
+      "rows_not_summed": 879,
       "years": [],
       "flags": {
-        "no_siret": 913,
-        "no_rna": 913,
-        "year_missing": 913,
+        "no_siret": 879,
+        "no_rna": 879,
+        "year_missing": 879,
         "beneficiary_not_association": 8,
         "amount_negative": 1
       },
       "beneficiary_kinds": {
-        "association": 905,
+        "association": 871,
         "public_body": 8
       }
     },
@@ -5124,22 +5154,22 @@
       }
     },
     "ods-29cef4deb1be": {
-      "rows": 302,
+      "rows": 303,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 80809556.24,
-      "rows_not_summed": 302,
+      "amount_not_summed_eur": 80822199.04,
+      "rows_not_summed": 303,
       "years": [],
       "flags": {
-        "no_rna": 302,
-        "year_missing": 302,
-        "beneficiary_not_association": 13,
-        "no_siret": 8,
+        "no_rna": 303,
+        "year_missing": 303,
+        "beneficiary_not_association": 12,
+        "no_siret": 7,
         "amount_zero": 1
       },
       "beneficiary_kinds": {
-        "association": 289,
-        "public_body": 13
+        "association": 291,
+        "public_body": 12
       }
     },
     "ods-29e51334bedb": {
@@ -5325,22 +5355,22 @@
       }
     },
     "ods-33d2de8f46d6": {
-      "rows": 158,
+      "rows": 157,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 62712464.29,
-      "rows_not_summed": 158,
+      "amount_not_summed_eur": 62711680.89,
+      "rows_not_summed": 157,
       "years": [],
       "flags": {
-        "no_rna": 158,
-        "year_missing": 158,
-        "beneficiary_not_association": 10,
-        "no_siret": 5,
+        "no_rna": 157,
+        "year_missing": 157,
+        "beneficiary_not_association": 9,
+        "no_siret": 4,
         "amount_zero": 1
       },
       "beneficiary_kinds": {
         "association": 148,
-        "public_body": 10
+        "public_body": 9
       }
     },
     "ods-3409d16ee8b1": {
@@ -5385,21 +5415,21 @@
       }
     },
     "ods-380b834212ac": {
-      "rows": 466,
+      "rows": 488,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 114534258.87,
-      "rows_not_summed": 466,
+      "amount_not_summed_eur": 115601024.87,
+      "rows_not_summed": 488,
       "years": [],
       "flags": {
-        "no_rna": 466,
-        "year_missing": 466,
-        "beneficiary_not_association": 34,
+        "no_rna": 488,
+        "year_missing": 488,
+        "beneficiary_not_association": 35,
         "no_siret": 9
       },
       "beneficiary_kinds": {
-        "association": 432,
-        "public_body": 34
+        "association": 453,
+        "public_body": 35
       }
     },
     "ods-38cfbb3e8d03": {
@@ -5621,57 +5651,57 @@
       }
     },
     "ods-48c13e1ae63e": {
-      "rows": 1232,
+      "rows": 1176,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 41081260.55,
-      "rows_not_summed": 1232,
+      "amount_not_summed_eur": 39314143.55,
+      "rows_not_summed": 1176,
       "years": [],
       "flags": {
-        "no_siret": 1232,
-        "no_rna": 1232,
-        "year_missing": 1232,
+        "no_siret": 1176,
+        "no_rna": 1176,
+        "year_missing": 1176,
         "beneficiary_not_association": 8
       },
       "beneficiary_kinds": {
-        "association": 1224,
+        "association": 1168,
         "public_body": 8
       }
     },
     "ods-490de479aae2": {
-      "rows": 966,
+      "rows": 1012,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 36380288.4,
-      "rows_not_summed": 966,
+      "amount_not_summed_eur": 36720435.4,
+      "rows_not_summed": 1012,
       "years": [],
       "flags": {
-        "no_rna": 966,
-        "year_missing": 966,
-        "no_siret": 13,
+        "no_rna": 1012,
+        "year_missing": 1012,
+        "no_siret": 12,
         "beneficiary_not_association": 7,
         "amount_zero": 1
       },
       "beneficiary_kinds": {
-        "association": 959,
+        "association": 1005,
         "public_body": 7
       }
     },
     "ods-493132e66053": {
-      "rows": 990,
+      "rows": 978,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 34753906.53,
-      "rows_not_summed": 990,
+      "amount_not_summed_eur": 34940106.53,
+      "rows_not_summed": 978,
       "years": [],
       "flags": {
-        "no_siret": 990,
-        "no_rna": 990,
-        "year_missing": 990,
+        "no_siret": 978,
+        "no_rna": 978,
+        "year_missing": 978,
         "beneficiary_not_association": 6
       },
       "beneficiary_kinds": {
-        "association": 984,
+        "association": 972,
         "public_body": 6
       }
     },
@@ -5695,20 +5725,20 @@
       }
     },
     "ods-4aab54028f81": {
-      "rows": 964,
+      "rows": 930,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 32016389.46,
-      "rows_not_summed": 964,
+      "amount_not_summed_eur": 32012788.46,
+      "rows_not_summed": 930,
       "years": [],
       "flags": {
-        "no_siret": 964,
-        "no_rna": 964,
-        "year_missing": 964,
+        "no_siret": 930,
+        "no_rna": 930,
+        "year_missing": 930,
         "beneficiary_not_association": 6
       },
       "beneficiary_kinds": {
-        "association": 958,
+        "association": 924,
         "public_body": 6
       }
     },
@@ -5731,24 +5761,6 @@
         "public_body": 6
       }
     },
-    "ods-4e8e483e7e6b": {
-      "rows": 208,
-      "amount_individual_eur": 13647664.14,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2025,
-        2026
-      ],
-      "flags": {
-        "no_rna": 208,
-        "no_siret": 3
-      },
-      "beneficiary_kinds": {
-        "association": 208
-      }
-    },
     "ods-51ebd877ed63": {
       "rows": 5,
       "amount_individual_eur": 0.0,
@@ -5768,73 +5780,76 @@
       }
     },
     "ods-53329a73034c": {
-      "rows": 989,
+      "rows": 1025,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 35848519.6,
-      "rows_not_summed": 989,
+      "amount_not_summed_eur": 36484609.6,
+      "rows_not_summed": 1025,
       "years": [],
       "flags": {
-        "no_rna": 989,
-        "year_missing": 989,
+        "no_rna": 1025,
+        "year_missing": 1025,
         "beneficiary_not_association": 6,
-        "no_siret": 2
+        "no_siret": 1
       },
       "beneficiary_kinds": {
-        "association": 983,
+        "association": 1019,
         "public_body": 6
       }
     },
-    "ods-5523f2174317": {
-      "rows": 25,
-      "amount_individual_eur": 2508833.0,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2025
-      ],
-      "flags": {
-        "no_rna": 25
-      },
-      "beneficiary_kinds": {
-        "association": 25
-      }
-    },
     "ods-55a6bff7dfd7": {
-      "rows": 175,
+      "rows": 196,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 25488291.79,
-      "rows_not_summed": 175,
+      "amount_not_summed_eur": 26308446.79,
+      "rows_not_summed": 196,
       "years": [],
       "flags": {
-        "no_rna": 175,
-        "year_missing": 175,
+        "no_rna": 196,
+        "year_missing": 196,
         "no_siret": 5,
         "beneficiary_not_association": 5
       },
       "beneficiary_kinds": {
-        "association": 170,
+        "association": 191,
         "public_body": 5
       }
     },
     "ods-5716744f68f6": {
-      "rows": 846,
+      "rows": 853,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 30709616.23,
-      "rows_not_summed": 846,
+      "amount_not_summed_eur": 31059616.23,
+      "rows_not_summed": 853,
       "years": [],
       "flags": {
-        "no_rna": 846,
-        "year_missing": 846,
+        "no_rna": 853,
+        "year_missing": 853,
         "no_siret": 12,
         "beneficiary_not_association": 3
       },
       "beneficiary_kinds": {
-        "association": 843,
+        "association": 850,
         "public_body": 3
+      }
+    },
+    "ods-588bf40168b8": {
+      "rows": 13,
+      "amount_individual_eur": 33576.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [
+        2021,
+        2022,
+        2023
+      ],
+      "flags": {
+        "no_siret": 13,
+        "no_rna": 13
+      },
+      "beneficiary_kinds": {
+        "association": 13
       }
     },
     "ods-594183b89c42": {
@@ -5913,8 +5928,8 @@
       }
     },
     "ods-5d3d6079476d": {
-      "rows": 518,
-      "amount_individual_eur": 21550495.0,
+      "rows": 519,
+      "amount_individual_eur": 21603995.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -5922,30 +5937,30 @@
         2021
       ],
       "flags": {
-        "no_rna": 518,
+        "no_rna": 519,
         "beneficiary_not_association": 6,
         "aide_en_nature": 6
       },
       "beneficiary_kinds": {
-        "association": 512,
+        "association": 513,
         "public_body": 6
       }
     },
     "ods-5e47d856e79e": {
-      "rows": 248,
+      "rows": 250,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 32168843.77,
-      "rows_not_summed": 248,
+      "amount_not_summed_eur": 32185843.77,
+      "rows_not_summed": 250,
       "years": [],
       "flags": {
-        "no_rna": 248,
-        "year_missing": 248,
+        "no_rna": 250,
+        "year_missing": 250,
         "no_siret": 6,
         "beneficiary_not_association": 6
       },
       "beneficiary_kinds": {
-        "association": 242,
+        "association": 244,
         "public_body": 6
       }
     },
@@ -5966,21 +5981,21 @@
       }
     },
     "ods-63d7c7e19fcb": {
-      "rows": 954,
+      "rows": 967,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 67004156.29,
-      "rows_not_summed": 954,
+      "amount_not_summed_eur": 67145456.29,
+      "rows_not_summed": 967,
       "years": [],
       "flags": {
-        "no_rna": 954,
-        "year_missing": 954,
+        "no_rna": 967,
+        "year_missing": 967,
         "beneficiary_not_association": 9,
         "no_siret": 6,
         "amount_zero": 3
       },
       "beneficiary_kinds": {
-        "association": 945,
+        "association": 958,
         "public_body": 9
       }
     },
@@ -6003,38 +6018,38 @@
       }
     },
     "ods-68773e1ad8f6": {
-      "rows": 594,
+      "rows": 604,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 60700122.27,
-      "rows_not_summed": 594,
+      "amount_not_summed_eur": 63151624.18,
+      "rows_not_summed": 604,
       "years": [],
       "flags": {
-        "no_rna": 594,
-        "year_missing": 594,
-        "no_siret": 10,
-        "beneficiary_not_association": 5,
+        "no_rna": 604,
+        "year_missing": 604,
+        "no_siret": 9,
+        "beneficiary_not_association": 4,
         "amount_zero": 1
       },
       "beneficiary_kinds": {
-        "association": 589,
-        "public_body": 5
+        "association": 600,
+        "public_body": 4
       }
     },
     "ods-69d65f219508": {
-      "rows": 87,
+      "rows": 85,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 137228.73,
-      "rows_not_summed": 87,
+      "amount_not_summed_eur": 69632.33,
+      "rows_not_summed": 85,
       "years": [],
       "flags": {
-        "no_siret": 87,
-        "no_rna": 87,
-        "year_missing": 87
+        "no_siret": 85,
+        "no_rna": 85,
+        "year_missing": 85
       },
       "beneficiary_kinds": {
-        "association": 87
+        "association": 85
       }
     },
     "ods-6bf014556221": {
@@ -6152,22 +6167,6 @@
         "public_body": 2
       }
     },
-    "ods-751c0f8d59f4": {
-      "rows": 3,
-      "amount_individual_eur": 441341.0,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2025
-      ],
-      "flags": {
-        "no_rna": 1
-      },
-      "beneficiary_kinds": {
-        "association": 3
-      }
-    },
     "ods-754c6325337a": {
       "rows": 123,
       "amount_individual_eur": 31179710.7,
@@ -6188,8 +6187,8 @@
       }
     },
     "ods-75a931d4cb88": {
-      "rows": 7841,
-      "amount_individual_eur": 316702925.0,
+      "rows": 851,
+      "amount_individual_eur": 66702479.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -6199,14 +6198,14 @@
         2024
       ],
       "flags": {
-        "no_rna": 7841,
-        "no_siret": 7011,
-        "beneficiary_not_association": 26,
+        "no_rna": 851,
+        "no_siret": 21,
+        "beneficiary_not_association": 9,
         "amount_zero": 1
       },
       "beneficiary_kinds": {
-        "association": 7815,
-        "public_body": 26
+        "association": 842,
+        "public_body": 9
       }
     },
     "ods-7641032238af": {
@@ -6232,22 +6231,22 @@
       }
     },
     "ods-76d285afda86": {
-      "rows": 545,
+      "rows": 558,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 53200951.61,
-      "rows_not_summed": 545,
+      "amount_not_summed_eur": 53598325.61,
+      "rows_not_summed": 558,
       "years": [],
       "flags": {
-        "no_rna": 545,
-        "year_missing": 545,
+        "no_rna": 558,
+        "year_missing": 558,
         "no_siret": 10,
         "beneficiary_not_association": 7,
         "amount_negative": 1,
         "amount_zero": 1
       },
       "beneficiary_kinds": {
-        "association": 538,
+        "association": 551,
         "public_body": 7
       }
     },
@@ -6312,11 +6311,11 @@
       }
     },
     "ods-82f99edc1259": {
-      "rows": 3416,
+      "rows": 3417,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 142250363.84,
-      "rows_not_summed": 3416,
+      "amount_not_summed_eur": 142260363.84,
+      "rows_not_summed": 3417,
       "years": [
         2016,
         2017,
@@ -6328,13 +6327,13 @@
         2023
       ],
       "flags": {
-        "no_rna": 3416,
+        "no_rna": 3417,
         "no_siret": 271,
         "year_missing": 267,
         "amount_zero": 2
       },
       "beneficiary_kinds": {
-        "association": 3416
+        "association": 3417
       }
     },
     "ods-832692b258f7": {
@@ -6505,22 +6504,22 @@
       }
     },
     "ods-9291a84ca89d": {
-      "rows": 128,
+      "rows": 129,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 41770231.12,
-      "rows_not_summed": 128,
+      "amount_not_summed_eur": 42270231.12,
+      "rows_not_summed": 129,
       "years": [],
       "flags": {
-        "no_rna": 128,
-        "year_missing": 128,
+        "no_rna": 129,
+        "year_missing": 129,
         "no_siret": 13,
         "beneficiary_not_association": 11,
         "amount_zero": 1,
         "amount_negative": 1
       },
       "beneficiary_kinds": {
-        "association": 117,
+        "association": 118,
         "public_body": 11
       }
     },
@@ -6583,21 +6582,21 @@
       }
     },
     "ods-999201c84436": {
-      "rows": 1388,
+      "rows": 1380,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 93177211.2,
-      "rows_not_summed": 1388,
+      "amount_not_summed_eur": 93123711.2,
+      "rows_not_summed": 1380,
       "years": [],
       "flags": {
-        "no_siret": 1388,
-        "no_rna": 1388,
-        "year_missing": 1388,
+        "no_siret": 1380,
+        "no_rna": 1380,
+        "year_missing": 1380,
         "amount_zero": 12,
         "beneficiary_not_association": 11
       },
       "beneficiary_kinds": {
-        "association": 1377,
+        "association": 1369,
         "public_body": 11
       }
     },
@@ -6618,28 +6617,22 @@
       }
     },
     "ods-9c1f4ae5d6b2": {
-      "rows": 1098,
-      "amount_individual_eur": 134350424.0,
+      "rows": 32,
+      "amount_individual_eur": 7802550.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [
-        2018,
-        2019,
-        2020,
-        2021,
         2022,
-        2023,
-        2024,
         2025,
         2026
       ],
       "flags": {
-        "no_siret": 1098,
-        "no_rna": 1098
+        "no_siret": 32,
+        "no_rna": 32
       },
       "beneficiary_kinds": {
-        "association": 1098
+        "association": 32
       }
     },
     "ods-9d496d4ff9ba": {
@@ -6728,21 +6721,21 @@
       }
     },
     "ods-a0f6b2d3dd04": {
-      "rows": 852,
+      "rows": 896,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 32562445.48,
-      "rows_not_summed": 852,
+      "amount_not_summed_eur": 33360663.48,
+      "rows_not_summed": 896,
       "years": [],
       "flags": {
-        "no_rna": 852,
-        "year_missing": 852,
+        "no_rna": 896,
+        "year_missing": 896,
         "no_siret": 8,
-        "beneficiary_not_association": 5
+        "beneficiary_not_association": 6
       },
       "beneficiary_kinds": {
-        "association": 847,
-        "public_body": 5
+        "association": 890,
+        "public_body": 6
       }
     },
     "ods-a2905d3d770e": {
@@ -6796,22 +6789,22 @@
       }
     },
     "ods-a606043ddaa3": {
-      "rows": 340,
+      "rows": 342,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 91257080.01,
-      "rows_not_summed": 340,
+      "amount_not_summed_eur": 91325080.01,
+      "rows_not_summed": 342,
       "years": [],
       "flags": {
-        "no_rna": 340,
-        "year_missing": 340,
+        "no_rna": 342,
+        "year_missing": 342,
         "no_siret": 10,
         "beneficiary_not_association": 7,
         "amount_zero": 3,
         "amount_negative": 1
       },
       "beneficiary_kinds": {
-        "association": 333,
+        "association": 335,
         "public_body": 7
       }
     },
@@ -6852,40 +6845,40 @@
       }
     },
     "ods-abe73e816e2e": {
-      "rows": 497,
+      "rows": 522,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 48324387.49,
-      "rows_not_summed": 497,
+      "amount_not_summed_eur": 49578148.49,
+      "rows_not_summed": 522,
       "years": [],
       "flags": {
-        "no_rna": 497,
-        "year_missing": 497,
+        "no_rna": 522,
+        "year_missing": 522,
         "no_siret": 22,
         "amount_zero": 2,
         "beneficiary_not_association": 2,
         "amount_negative": 1
       },
       "beneficiary_kinds": {
-        "association": 495,
+        "association": 520,
         "public_body": 2
       }
     },
     "ods-b06c29ed05fe": {
-      "rows": 182,
+      "rows": 199,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 25838734.8,
-      "rows_not_summed": 182,
+      "amount_not_summed_eur": 26193110.8,
+      "rows_not_summed": 199,
       "years": [],
       "flags": {
-        "no_rna": 182,
-        "year_missing": 182,
+        "no_rna": 199,
+        "year_missing": 199,
         "beneficiary_not_association": 8,
-        "no_siret": 4
+        "no_siret": 3
       },
       "beneficiary_kinds": {
-        "association": 174,
+        "association": 191,
         "public_body": 8
       }
     },
@@ -6985,20 +6978,20 @@
       }
     },
     "ods-bd9cae3eef43": {
-      "rows": 373,
+      "rows": 377,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 33514136.87,
-      "rows_not_summed": 373,
+      "amount_not_summed_eur": 33566636.87,
+      "rows_not_summed": 377,
       "years": [],
       "flags": {
-        "no_rna": 373,
-        "year_missing": 373,
+        "no_rna": 377,
+        "year_missing": 377,
         "beneficiary_not_association": 5,
         "no_siret": 3
       },
       "beneficiary_kinds": {
-        "association": 368,
+        "association": 372,
         "public_body": 5
       }
     },
@@ -7168,20 +7161,20 @@
       }
     },
     "ods-ca5c8632c25c": {
-      "rows": 274,
+      "rows": 285,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 31402431.17,
-      "rows_not_summed": 274,
+      "amount_not_summed_eur": 31719186.17,
+      "rows_not_summed": 285,
       "years": [],
       "flags": {
-        "no_rna": 274,
-        "year_missing": 274,
+        "no_rna": 285,
+        "year_missing": 285,
         "beneficiary_not_association": 6,
         "no_siret": 5
       },
       "beneficiary_kinds": {
-        "association": 268,
+        "association": 279,
         "public_body": 6
       }
     },
@@ -7264,20 +7257,20 @@
       }
     },
     "ods-d5e43b84606b": {
-      "rows": 715,
+      "rows": 724,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 62714671.52,
-      "rows_not_summed": 715,
+      "amount_not_summed_eur": 62886021.52,
+      "rows_not_summed": 724,
       "years": [],
       "flags": {
-        "no_rna": 715,
-        "year_missing": 715,
+        "no_rna": 724,
+        "year_missing": 724,
         "beneficiary_not_association": 4,
         "no_siret": 3
       },
       "beneficiary_kinds": {
-        "association": 711,
+        "association": 720,
         "public_body": 4
       }
     },
@@ -7389,22 +7382,22 @@
       }
     },
     "ods-eafe4c27a3cc": {
-      "rows": 438,
+      "rows": 456,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 113672821.12,
-      "rows_not_summed": 438,
+      "amount_not_summed_eur": 114595561.12,
+      "rows_not_summed": 456,
       "years": [],
       "flags": {
-        "no_rna": 438,
-        "year_missing": 438,
-        "beneficiary_not_association": 28,
+        "no_rna": 456,
+        "year_missing": 456,
+        "beneficiary_not_association": 29,
         "no_siret": 13,
         "amount_zero": 4
       },
       "beneficiary_kinds": {
-        "association": 410,
-        "public_body": 28
+        "association": 427,
+        "public_body": 29
       }
     },
     "ods-ec3269ce3d8b": {
@@ -7490,6 +7483,22 @@
         "public_body": 91
       }
     },
+    "ods-f50db973beed": {
+      "rows": 1,
+      "amount_individual_eur": 0.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 500.0,
+      "rows_not_summed": 1,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
     "ods-f67178baef4d": {
       "rows": 251,
       "amount_individual_eur": 9663036.38,
@@ -7560,20 +7569,20 @@
       }
     },
     "ods-f786f331f70b": {
-      "rows": 208,
+      "rows": 221,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 31612477.18,
-      "rows_not_summed": 208,
+      "amount_not_summed_eur": 32132477.18,
+      "rows_not_summed": 221,
       "years": [],
       "flags": {
-        "no_rna": 208,
-        "year_missing": 208,
-        "beneficiary_not_association": 1
+        "no_rna": 221,
+        "year_missing": 221,
+        "beneficiary_not_association": 2
       },
       "beneficiary_kinds": {
-        "association": 207,
-        "public_body": 1
+        "association": 219,
+        "public_body": 2
       }
     },
     "ods-f7ad8b52fbef": {
@@ -7597,20 +7606,20 @@
       }
     },
     "ods-f7ccfcc04624": {
-      "rows": 252,
+      "rows": 258,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 26369444.73,
-      "rows_not_summed": 252,
+      "amount_not_summed_eur": 26978444.73,
+      "rows_not_summed": 258,
       "years": [],
       "flags": {
-        "no_rna": 252,
-        "year_missing": 252,
+        "no_rna": 258,
+        "year_missing": 258,
         "beneficiary_not_association": 6,
         "no_siret": 5
       },
       "beneficiary_kinds": {
-        "association": 246,
+        "association": 252,
         "public_body": 6
       }
     },
@@ -7656,8 +7665,8 @@
       }
     },
     "ods-f95e85799fae": {
-      "rows": 34,
-      "amount_individual_eur": 3124647.0,
+      "rows": 33,
+      "amount_individual_eur": 2991647.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -7667,11 +7676,10 @@
         2018
       ],
       "flags": {
-        "no_rna": 34,
-        "no_siret": 1
+        "no_rna": 33
       },
       "beneficiary_kinds": {
-        "association": 34
+        "association": 33
       }
     },
     "ods-ff5665ac25f3": {
@@ -7688,41 +7696,6 @@
       },
       "beneficiary_kinds": {
         "association": 18
-      }
-    },
-    "paris": {
-      "rows": 75993,
-      "amount_individual_eur": 3656867081.0,
-      "amount_aggregate_eur": 257466076.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2013,
-        2014,
-        2015,
-        2016,
-        2017,
-        2018,
-        2019,
-        2020,
-        2021,
-        2022,
-        2023,
-        2024,
-        2025,
-        2026
-      ],
-      "flags": {
-        "no_rna": 75993,
-        "no_siret": 427,
-        "siret_invalid": 361,
-        "beneficiary_not_association": 190,
-        "beneficiaire_non_identifie": 21
-      },
-      "beneficiary_kinds": {
-        "inconnu": 59652,
-        "association": 16151,
-        "public_body": 190
       }
     },
     "pays-basque-2023": {
@@ -8060,8 +8033,8 @@
       }
     },
     "region-idf": {
-      "rows": 33070,
-      "amount_individual_eur": 2738934203.79,
+      "rows": 33071,
+      "amount_individual_eur": 2738936203.79,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -8076,14 +8049,14 @@
         2024
       ],
       "flags": {
-        "no_rna": 33070,
-        "no_source_url": 33070,
+        "no_rna": 33071,
+        "no_source_url": 33071,
         "no_siret": 28790,
         "siret_invalid": 265,
         "beneficiary_not_association": 247
       },
       "beneficiary_kinds": {
-        "inconnu": 26933,
+        "inconnu": 26934,
         "association": 5890,
         "public_body": 247
       }
@@ -8374,27 +8347,29 @@
         "public_body": 21
       }
     },
-    "scdl-59551083-3c80c540": {
-      "rows": 147,
-      "amount_individual_eur": 16229549.65,
+    "scdl-59551083-d8f351fa": {
+      "rows": 95,
+      "amount_individual_eur": 10637523.71,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [
-        2019
+        2024,
+        2026
       ],
       "flags": {
-        "no_rna": 147,
-        "beneficiary_not_association": 3
+        "no_rna": 95,
+        "beneficiary_not_association": 3,
+        "no_siret": 1
       },
       "beneficiary_kinds": {
-        "association": 144,
+        "association": 92,
         "public_body": 3
       }
     },
-    "scdl-59551083-5c751bcf": {
-      "rows": 113,
-      "amount_individual_eur": 87054738.09,
+    "scdl-59551083-ee6d5a03": {
+      "rows": 32,
+      "amount_individual_eur": 3657744.9,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -8402,160 +8377,10 @@
         2020
       ],
       "flags": {
-        "no_rna": 113,
-        "beneficiary_not_association": 1
+        "no_rna": 32
       },
       "beneficiary_kinds": {
-        "association": 112,
-        "public_body": 1
-      }
-    },
-    "scdl-59551083-5e12f056": {
-      "rows": 145,
-      "amount_individual_eur": 18361891.4,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2026
-      ],
-      "flags": {
-        "no_rna": 145
-      },
-      "beneficiary_kinds": {
-        "association": 145
-      }
-    },
-    "scdl-59551083-6627842c": {
-      "rows": 253,
-      "amount_individual_eur": 28244110.09,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2024
-      ],
-      "flags": {
-        "no_rna": 253,
-        "no_siret": 58,
-        "beneficiary_not_association": 5
-      },
-      "beneficiary_kinds": {
-        "association": 248,
-        "public_body": 5
-      }
-    },
-    "scdl-59551083-6a7ea843": {
-      "rows": 43,
-      "amount_individual_eur": 6553032.05,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2018
-      ],
-      "flags": {
-        "no_rna": 43,
-        "beneficiary_not_association": 1
-      },
-      "beneficiary_kinds": {
-        "association": 42,
-        "public_body": 1
-      }
-    },
-    "scdl-59551083-a6082d22": {
-      "rows": 41,
-      "amount_individual_eur": 3201952.64,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2017
-      ],
-      "flags": {
-        "no_rna": 41,
-        "beneficiary_not_association": 2
-      },
-      "beneficiary_kinds": {
-        "association": 39,
-        "public_body": 2
-      }
-    },
-    "scdl-59551083-c09bb704": {
-      "rows": 197,
-      "amount_individual_eur": 22087952.68,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2023
-      ],
-      "flags": {
-        "no_siret": 197,
-        "no_rna": 197,
-        "beneficiary_not_association": 4
-      },
-      "beneficiary_kinds": {
-        "association": 193,
-        "public_body": 4
-      }
-    },
-    "scdl-59551083-cc8bea61": {
-      "rows": 149,
-      "amount_individual_eur": 17033814.27,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2022
-      ],
-      "flags": {
-        "no_rna": 149,
-        "beneficiary_not_association": 1
-      },
-      "beneficiary_kinds": {
-        "association": 148,
-        "public_body": 1
-      }
-    },
-    "scdl-59551083-d8f351fa": {
-      "rows": 310,
-      "amount_individual_eur": 35028942.1,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2024,
-        2025,
-        2026
-      ],
-      "flags": {
-        "no_rna": 310,
-        "beneficiary_not_association": 9,
-        "no_siret": 9
-      },
-      "beneficiary_kinds": {
-        "association": 301,
-        "public_body": 9
-      }
-    },
-    "scdl-59551083-ee6d5a03": {
-      "rows": 181,
-      "amount_individual_eur": 16214185.92,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2020,
-        2021
-      ],
-      "flags": {
-        "no_rna": 181,
-        "beneficiary_not_association": 1
-      },
-      "beneficiary_kinds": {
-        "association": 180,
-        "public_body": 1
+        "association": 32
       }
     },
     "scdl-59705982-04af42f3": {
@@ -8695,19 +8520,19 @@
       }
     },
     "scdl-5a215946-0840e508": {
-      "rows": 113,
-      "amount_individual_eur": 243695.0,
+      "rows": 112,
+      "amount_individual_eur": 243045.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [],
       "flags": {
-        "no_siret": 113,
-        "no_rna": 113,
-        "year_missing": 113
+        "no_siret": 112,
+        "no_rna": 112,
+        "year_missing": 112
       },
       "beneficiary_kinds": {
-        "association": 113
+        "association": 112
       }
     },
     "scdl-5a2169b3-ab5a8974": {
@@ -8925,20 +8750,21 @@
       }
     },
     "scdl-5a82b984-9a46d5f2": {
-      "rows": 4,
-      "amount_individual_eur": 298657.0,
+      "rows": 14,
+      "amount_individual_eur": 875325.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [
-        2018
+        2018,
+        2019
       ],
       "flags": {
-        "no_rna": 4,
+        "no_rna": 14,
         "year_missing": 1
       },
       "beneficiary_kinds": {
-        "association": 4
+        "association": 14
       }
     },
     "scdl-5a82b984-ccc4e722": {
@@ -8959,20 +8785,21 @@
       }
     },
     "scdl-5a82b984-cdcbc238": {
-      "rows": 3,
-      "amount_individual_eur": 63780.0,
+      "rows": 14,
+      "amount_individual_eur": 770181.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [
-        2017
+        2017,
+        2018
       ],
       "flags": {
-        "no_rna": 3,
+        "no_rna": 14,
         "year_missing": 1
       },
       "beneficiary_kinds": {
-        "association": 3
+        "association": 14
       }
     },
     "scdl-5abe055d-9f62815f": {
@@ -9053,19 +8880,19 @@
       }
     },
     "scdl-5af957e3-f9954819": {
-      "rows": 111,
+      "rows": 109,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 11339319.75,
-      "rows_not_summed": 111,
+      "amount_not_summed_eur": 11249794.75,
+      "rows_not_summed": 109,
       "years": [],
       "flags": {
-        "no_siret": 111,
-        "no_rna": 111,
-        "year_missing": 111
+        "no_siret": 109,
+        "no_rna": 109,
+        "year_missing": 109
       },
       "beneficiary_kinds": {
-        "association": 111
+        "association": 109
       }
     },
     "scdl-5b1e7b0c-5a549b7b": {
@@ -9134,21 +8961,6 @@
         "association": 375
       }
     },
-    "scdl-5b3a0407-90aba917": {
-      "rows": 147,
-      "amount_individual_eur": 352662.64,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [],
-      "flags": {
-        "no_rna": 147,
-        "year_missing": 147
-      },
-      "beneficiary_kinds": {
-        "association": 147
-      }
-    },
     "scdl-5b4ca90d-7b543ee2": {
       "rows": 141,
       "amount_individual_eur": 106226.44,
@@ -9205,21 +9017,23 @@
       }
     },
     "scdl-5b605beb-ac1aafa7": {
-      "rows": 1,
-      "amount_individual_eur": 133000.0,
+      "rows": 34,
+      "amount_individual_eur": 3124647.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [
+        2016,
+        2017,
         2018
       ],
       "flags": {
-        "no_siret": 1,
-        "no_rna": 1,
-        "beneficiary_not_association": 1
+        "no_rna": 34,
+        "beneficiary_not_association": 34,
+        "no_siret": 1
       },
       "beneficiary_kinds": {
-        "public_body": 1
+        "public_body": 34
       }
     },
     "scdl-5b605beb-cd1ab83d": {
@@ -9310,20 +9124,20 @@
       }
     },
     "scdl-5ba5299f-9d7a236d": {
-      "rows": 45,
-      "amount_individual_eur": 47103.0,
+      "rows": 43,
+      "amount_individual_eur": 41857.91,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [],
       "flags": {
-        "no_siret": 45,
-        "no_rna": 45,
-        "year_missing": 45,
+        "no_siret": 43,
+        "no_rna": 43,
+        "year_missing": 43,
         "beneficiary_not_association": 1
       },
       "beneficiary_kinds": {
-        "association": 44,
+        "association": 42,
         "public_body": 1
       }
     },
@@ -9549,8 +9363,8 @@
       }
     },
     "scdl-5c191228-03ff58b8": {
-      "rows": 555,
-      "amount_individual_eur": 491552.37,
+      "rows": 3446,
+      "amount_individual_eur": 73627234.56,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -9559,11 +9373,11 @@
         2018
       ],
       "flags": {
-        "no_rna": 555,
+        "no_rna": 3446,
         "amount_zero": 101
       },
       "beneficiary_kinds": {
-        "association": 555
+        "association": 3446
       }
     },
     "scdl-5c1bad10-11939840": {
@@ -9912,8 +9726,8 @@
       }
     },
     "scdl-5cf92430-e2388e4d": {
-      "rows": 32,
-      "amount_individual_eur": 87773604.0,
+      "rows": 31,
+      "amount_individual_eur": 80340829.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -9923,34 +9737,33 @@
         2019
       ],
       "flags": {
-        "no_rna": 32,
-        "beneficiary_not_association": 19,
-        "no_siret": 1
+        "no_rna": 31,
+        "beneficiary_not_association": 19
       },
       "beneficiary_kinds": {
         "public_body": 19,
-        "association": 13
+        "association": 12
       }
     },
     "scdl-5d1a81f1-24430707": {
-      "rows": 18,
+      "rows": 8,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 20103.05,
-      "rows_not_summed": 18,
+      "amount_not_summed_eur": 7373.05,
+      "rows_not_summed": 8,
       "years": [],
       "flags": {
-        "no_siret": 18,
-        "no_rna": 18,
-        "year_missing": 18
+        "no_siret": 8,
+        "no_rna": 8,
+        "year_missing": 8
       },
       "beneficiary_kinds": {
-        "association": 18
+        "association": 8
       }
     },
     "scdl-5d3a48e7-95bb2f8d": {
-      "rows": 5593,
-      "amount_individual_eur": 601478178.87,
+      "rows": 5594,
+      "amount_individual_eur": 601510177.87,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -9967,12 +9780,12 @@
         2026
       ],
       "flags": {
-        "no_rna": 5593,
+        "no_rna": 5594,
         "beneficiary_not_association": 1422,
         "no_siret": 97
       },
       "beneficiary_kinds": {
-        "association": 4171,
+        "association": 4172,
         "public_body": 1422
       }
     },
@@ -10180,20 +9993,19 @@
       }
     },
     "scdl-5ecf781d-8c6ce7b4": {
-      "rows": 10,
-      "amount_individual_eur": 397775.61,
+      "rows": 2,
+      "amount_individual_eur": 100214.61,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [
-        2018,
         2019
       ],
       "flags": {
-        "no_rna": 10
+        "no_rna": 2
       },
       "beneficiary_kinds": {
-        "association": 10
+        "association": 2
       }
     },
     "scdl-5ed0d636-7034fadf": {
@@ -10341,19 +10153,19 @@
       }
     },
     "scdl-604f694e-7cd27b66": {
-      "rows": 170,
+      "rows": 160,
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 21000793.8,
-      "rows_not_summed": 170,
+      "amount_not_summed_eur": 20357631.8,
+      "rows_not_summed": 160,
       "years": [],
       "flags": {
-        "no_siret": 170,
-        "no_rna": 170,
-        "year_missing": 170
+        "no_siret": 160,
+        "no_rna": 160,
+        "year_missing": 160
       },
       "beneficiary_kinds": {
-        "association": 170
+        "association": 160
       }
     },
     "scdl-605ca402-79bd60f0": {
@@ -10489,80 +10301,71 @@
       }
     },
     "scdl-60a75ca0-0d87914b": {
-      "rows": 7,
-      "amount_individual_eur": 519621.0,
+      "rows": 2,
+      "amount_individual_eur": 193267.0,
       "amount_aggregate_eur": 599680.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2022,
-        2023
-      ],
-      "flags": {
-        "no_rna": 7,
-        "no_siret": 1,
-        "year_missing": 1
-      },
-      "beneficiary_kinds": {
-        "association": 7
-      }
-    },
-    "scdl-60a75ca0-3c7388ad": {
-      "rows": 25,
-      "amount_individual_eur": 2616896.15,
-      "amount_aggregate_eur": 2616896.15,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2017,
-        2018,
-        2019,
-        2020
-      ],
-      "flags": {
-        "no_rna": 25,
-        "no_siret": 4,
-        "year_missing": 4
-      },
-      "beneficiary_kinds": {
-        "association": 25
-      }
-    },
-    "scdl-60a75ca0-92b96ae4": {
-      "rows": 7,
-      "amount_individual_eur": 601888.0,
-      "amount_aggregate_eur": 601888.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [
         2022
       ],
       "flags": {
-        "no_rna": 7,
-        "year_missing": 2,
-        "no_siret": 1
-      },
-      "beneficiary_kinds": {
-        "association": 7
-      }
-    },
-    "scdl-60a75ca0-acfe0503": {
-      "rows": 6,
-      "amount_individual_eur": 600142.0,
-      "amount_aggregate_eur": 600142.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2020,
-        2021
-      ],
-      "flags": {
-        "no_rna": 6,
+        "no_rna": 2,
         "no_siret": 1,
         "year_missing": 1
       },
       "beneficiary_kinds": {
-        "association": 6
+        "association": 2
+      }
+    },
+    "scdl-60a75ca0-3c7388ad": {
+      "rows": 4,
+      "amount_individual_eur": 0.0,
+      "amount_aggregate_eur": 2616896.15,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 4,
+        "no_rna": 4,
+        "year_missing": 4
+      },
+      "beneficiary_kinds": {
+        "association": 4
+      }
+    },
+    "scdl-60a75ca0-92b96ae4": {
+      "rows": 2,
+      "amount_individual_eur": 24000.0,
+      "amount_aggregate_eur": 601888.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_rna": 2,
+        "year_missing": 2,
+        "no_siret": 1
+      },
+      "beneficiary_kinds": {
+        "association": 2
+      }
+    },
+    "scdl-60a75ca0-acfe0503": {
+      "rows": 2,
+      "amount_individual_eur": 240391.0,
+      "amount_aggregate_eur": 600142.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [
+        2020
+      ],
+      "flags": {
+        "no_rna": 2,
+        "no_siret": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 2
       }
     },
     "scdl-60a75e7a-0723de37": {
@@ -10928,23 +10731,6 @@
         "association": 365
       }
     },
-    "scdl-62de6240-b78d3f67": {
-      "rows": 43,
-      "amount_individual_eur": 2940102.14,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2021
-      ],
-      "flags": {
-        "no_siret": 43,
-        "no_rna": 43
-      },
-      "beneficiary_kinds": {
-        "association": 43
-      }
-    },
     "scdl-62e16054-65369e7a": {
       "rows": 4,
       "amount_individual_eur": 685025.0,
@@ -11106,30 +10892,6 @@
         "association": 8
       }
     },
-    "scdl-637f8b3d-6a907ae1": {
-      "rows": 68,
-      "amount_individual_eur": 204012.8,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2016,
-        2017,
-        2018,
-        2019,
-        2020,
-        2021,
-        2022
-      ],
-      "flags": {
-        "no_siret": 68,
-        "no_rna": 68,
-        "amount_zero": 5
-      },
-      "beneficiary_kinds": {
-        "association": 68
-      }
-    },
     "scdl-63a3186b-b6227c78": {
       "rows": 12,
       "amount_individual_eur": 860000.0,
@@ -11163,8 +10925,8 @@
       }
     },
     "scdl-640a00bb-4874eb0b": {
-      "rows": 57,
-      "amount_individual_eur": 3478544.85,
+      "rows": 45,
+      "amount_individual_eur": 2714556.85,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -11172,11 +10934,11 @@
         2022
       ],
       "flags": {
-        "no_siret": 57,
-        "no_rna": 57
+        "no_siret": 45,
+        "no_rna": 45
       },
       "beneficiary_kinds": {
-        "association": 57
+        "association": 45
       }
     },
     "scdl-64108a5d-877a97a5": {
@@ -11230,8 +10992,8 @@
       }
     },
     "scdl-646223b9-eca51778": {
-      "rows": 44,
-      "amount_individual_eur": 2533181.79,
+      "rows": 36,
+      "amount_individual_eur": 2205968.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -11240,11 +11002,27 @@
         2023
       ],
       "flags": {
-        "no_siret": 44,
-        "no_rna": 44
+        "no_siret": 36,
+        "no_rna": 36
       },
       "beneficiary_kinds": {
-        "association": 44
+        "association": 36
+      }
+    },
+    "scdl-650c0300-30bf1dc0": {
+      "rows": 1,
+      "amount_individual_eur": 0.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 9000.0,
+      "rows_not_summed": 1,
+      "years": [
+        2021
+      ],
+      "flags": {
+        "no_rna": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
       }
     },
     "scdl-650c0300-d7a5ca36": {
@@ -11330,6 +11108,22 @@
       },
       "beneficiary_kinds": {
         "association": 49
+      }
+    },
+    "scdl-65294259-dc656e29": {
+      "rows": 1,
+      "amount_individual_eur": 60000.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [
+        2022
+      ],
+      "flags": {
+        "no_rna": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
       }
     },
     "scdl-65294259-f76e45fe": {
@@ -11605,20 +11399,20 @@
       }
     },
     "scdl-66a2e75f-001bf3bf": {
-      "rows": 418,
-      "amount_individual_eur": 7521990.0,
+      "rows": 398,
+      "amount_individual_eur": 7377390.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [],
       "flags": {
-        "no_siret": 418,
-        "no_rna": 418,
-        "year_missing": 418,
+        "no_siret": 398,
+        "no_rna": 398,
+        "year_missing": 398,
         "beneficiary_not_association": 1
       },
       "beneficiary_kinds": {
-        "association": 417,
+        "association": 397,
         "public_body": 1
       }
     },
@@ -11639,67 +11433,1427 @@
       }
     },
     "scdl-66a2e75f-00e76505": {
-      "rows": 366,
-      "amount_individual_eur": 14177477.0,
+      "rows": 384,
+      "amount_individual_eur": 14880427.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [],
       "flags": {
-        "no_rna": 366,
-        "year_missing": 366,
-        "no_siret": 23
+        "no_rna": 384,
+        "year_missing": 384,
+        "no_siret": 22
       },
       "beneficiary_kinds": {
-        "association": 366
+        "association": 384
       }
     },
     "scdl-66a2e75f-01812f14": {
-      "rows": 302,
-      "amount_individual_eur": 6962597.0,
+      "rows": 295,
+      "amount_individual_eur": 6878597.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [],
       "flags": {
-        "no_siret": 302,
-        "no_rna": 302,
-        "year_missing": 302
+        "no_siret": 295,
+        "no_rna": 295,
+        "year_missing": 295
       },
       "beneficiary_kinds": {
-        "association": 302
+        "association": 295
       }
     },
     "scdl-66a2e75f-01e77d46": {
-      "rows": 487,
-      "amount_individual_eur": 15783661.0,
+      "rows": 455,
+      "amount_individual_eur": 15238337.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [],
       "flags": {
-        "no_siret": 487,
-        "no_rna": 487,
-        "year_missing": 487
+        "no_siret": 455,
+        "no_rna": 455,
+        "year_missing": 455
       },
       "beneficiary_kinds": {
-        "association": 487
+        "association": 455
       }
     },
     "scdl-66a2e75f-02233a08": {
-      "rows": 333,
-      "amount_individual_eur": 13766180.0,
+      "rows": 310,
+      "amount_individual_eur": 13260996.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [],
       "flags": {
-        "no_siret": 333,
-        "no_rna": 333,
-        "year_missing": 333
+        "no_siret": 310,
+        "no_rna": 310,
+        "year_missing": 310
       },
       "beneficiary_kinds": {
-        "association": 333
+        "association": 310
+      }
+    },
+    "scdl-66a2e75f-03251d87": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-040930fd": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-05440e07": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-06a00ecf": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-080c511e": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-0e98f271": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-10a8abc6": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-16b21170": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-1c204a8e": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-1f17c677": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-20796a46": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-26c97d0d": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-347bb95d": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-34814340": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-3d4e78dd": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-3d61746c": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-440ea763": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-4411ba35": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-447a93d2": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-483720ef": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-4b69929e": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-5064faaa": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-514adaba": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-530a8628": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-53c5b3b0": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-547105b0": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-5b1c106a": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-5b7b6ea4": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-5f4b4cb8": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-60b88d61": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-611ef0c6": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-61d79c4d": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-6361adca": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-640afc92": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-65122321": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-66e30028": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-66ea85d8": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-71a28102": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-733e2024": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-75c8fee9": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-79181919": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-7c287049": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-7dac4d8b": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-80b9e052": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-815a3e51": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-85a122f3": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-864a57c7": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-889ceb03": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-89c3281e": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-8b485da0": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-8f907bb5": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-9940368a": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-9964bad6": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-9ce77633": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-a242db22": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-a41fce38": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-b1453605": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-b2b19efc": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-b779deb1": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-b7b733ac": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-bc4ff6e6": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-bd325b95": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-bd6356ba": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-c738173c": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-c73e9c36": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-cc4ef868": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-d8a58942": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-d8fca14e": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-d94c1b13": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-d98104c4": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-db3e6df4": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-de732ff0": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-dfbe236e": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-e1079c38": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-e13ca532": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-e14d83f6": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-ea517b6c": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-ee1b49fb": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-ee83a5b9": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-f2c83677": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-f6eed2f7": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-fb150021": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-fb1a701e": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-fe6c6d20": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
+      }
+    },
+    "scdl-66a2e75f-ff565bfa": {
+      "rows": 1,
+      "amount_individual_eur": 1500.0,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 0.0,
+      "rows_not_summed": 0,
+      "years": [],
+      "flags": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "beneficiary_kinds": {
+        "association": 1
       }
     },
     "scdl-66ced6d5-a82a5be5": {
@@ -11968,8 +13122,8 @@
       }
     },
     "scdl-6883ff18-0ed427e8": {
-      "rows": 25,
-      "amount_individual_eur": 3988461.0,
+      "rows": 20,
+      "amount_individual_eur": 3812661.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -11977,11 +13131,10 @@
         2023
       ],
       "flags": {
-        "no_rna": 25,
-        "no_siret": 5
+        "no_rna": 20
       },
       "beneficiary_kinds": {
-        "association": 25
+        "association": 20
       }
     },
     "scdl-6883ff18-80f77793": {
@@ -12190,56 +13343,37 @@
       }
     },
     "scdl-69eb616d-2572d462": {
-      "rows": 90,
-      "amount_individual_eur": 235243.44,
+      "rows": 18,
+      "amount_individual_eur": 14820.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [
-        2022,
         2023
       ],
       "flags": {
-        "no_siret": 90,
-        "no_rna": 87
+        "no_siret": 18,
+        "no_rna": 18
       },
       "beneficiary_kinds": {
-        "association": 90
+        "association": 18
       }
     },
     "scdl-69eb616d-6c2ebe90": {
-      "rows": 65,
-      "amount_individual_eur": 130688.0,
+      "rows": 12,
+      "amount_individual_eur": 21488.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [
-        2021,
         2022
       ],
       "flags": {
-        "no_siret": 65,
-        "no_rna": 61
+        "no_siret": 12,
+        "no_rna": 10
       },
       "beneficiary_kinds": {
-        "association": 65
-      }
-    },
-    "scdl-69eb616d-9386c4f3": {
-      "rows": 118,
-      "amount_individual_eur": 165137.0,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2023
-      ],
-      "flags": {
-        "no_siret": 118,
-        "no_rna": 118
-      },
-      "beneficiary_kinds": {
-        "association": 118
+        "association": 12
       }
     },
     "scdl-69eb616d-a335a7b9": {
@@ -12258,23 +13392,6 @@
       },
       "beneficiary_kinds": {
         "association": 119
-      }
-    },
-    "scdl-69eb616d-b48a2fc5": {
-      "rows": 66,
-      "amount_individual_eur": 166930.0,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2020
-      ],
-      "flags": {
-        "no_siret": 66,
-        "no_rna": 64
-      },
-      "beneficiary_kinds": {
-        "association": 66
       }
     },
     "sdis-gironde": {
@@ -12754,27 +13871,9 @@
         "public_body": 1
       }
     },
-    "ville-longjumeau": {
-      "rows": 5,
-      "amount_individual_eur": 184000.0,
-      "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
-      "years": [
-        2018
-      ],
-      "flags": {
-        "no_siret": 5,
-        "no_rna": 5,
-        "no_source_url": 5
-      },
-      "beneficiary_kinds": {
-        "inconnu": 5
-      }
-    },
     "ville-lyon": {
-      "rows": 4196,
-      "amount_individual_eur": 205436267.26,
+      "rows": 4197,
+      "amount_individual_eur": 205446267.26,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -12786,15 +13885,15 @@
         2023
       ],
       "flags": {
-        "no_rna": 4196,
-        "no_source_url": 4196,
-        "year_missing": 3582,
+        "no_rna": 4197,
+        "no_source_url": 4197,
+        "year_missing": 3583,
         "no_siret": 1252,
         "siret_invalid": 4,
         "beneficiary_not_association": 1
       },
       "beneficiary_kinds": {
-        "inconnu": 3874,
+        "inconnu": 3875,
         "association": 321,
         "public_body": 1
       }
@@ -12984,37 +14083,21 @@
       }
     },
     "ville-orvault": {
-      "rows": 79,
-      "amount_individual_eur": 18800465.0,
+      "rows": 1,
+      "amount_individual_eur": 50623.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
       "years": [
-        2010,
-        2011,
-        2012,
-        2013,
-        2014,
-        2015,
-        2016,
-        2017,
-        2018,
-        2019,
-        2020,
-        2021,
-        2022,
-        2023,
-        2024,
-        2025,
-        2026
+        2017
       ],
       "flags": {
-        "no_siret": 79,
-        "no_rna": 79,
-        "no_source_url": 79
+        "no_siret": 1,
+        "no_rna": 1,
+        "no_source_url": 1
       },
       "beneficiary_kinds": {
-        "inconnu": 79
+        "inconnu": 1
       }
     },
     "ville-poinconnet": {
@@ -13099,8 +14182,8 @@
       }
     },
     "ville-redon-2018": {
-      "rows": 110,
-      "amount_individual_eur": 375463.21,
+      "rows": 109,
+      "amount_individual_eur": 374813.21,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -13108,15 +14191,15 @@
         2018
       ],
       "flags": {
-        "no_siret": 110,
-        "no_rna": 110,
-        "no_source_url": 110,
-        "beneficiary_not_association": 5
+        "no_siret": 109,
+        "no_rna": 109,
+        "no_source_url": 109,
+        "beneficiary_not_association": 4
       },
       "beneficiary_kinds": {
         "inconnu": 90,
         "association": 15,
-        "public_body": 5
+        "public_body": 4
       }
     },
     "ville-rennes": {
@@ -13226,8 +14309,8 @@
       }
     },
     "ville-sarcelles-2025": {
-      "rows": 23,
-      "amount_individual_eur": 1601940.0,
+      "rows": 9,
+      "amount_individual_eur": 564240.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -13235,11 +14318,11 @@
         2025
       ],
       "flags": {
-        "no_rna": 23,
-        "no_source_url": 23
+        "no_rna": 9,
+        "no_source_url": 9
       },
       "beneficiary_kinds": {
-        "inconnu": 20,
+        "inconnu": 6,
         "association": 3
       }
     },
@@ -13347,8 +14430,8 @@
       }
     },
     "ville-villejuif": {
-      "rows": 339,
-      "amount_individual_eur": 697998.44,
+      "rows": 334,
+      "amount_individual_eur": 689298.44,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
       "rows_not_summed": 0,
@@ -13359,13 +14442,13 @@
         2023
       ],
       "flags": {
-        "no_siret": 339,
-        "no_rna": 339,
-        "no_source_url": 339,
-        "siret_invalid": 330
+        "no_siret": 334,
+        "no_rna": 334,
+        "no_source_url": 334,
+        "siret_invalid": 325
       },
       "beneficiary_kinds": {
-        "inconnu": 305,
+        "inconnu": 300,
         "association": 34
       }
     },
@@ -13417,15 +14500,15 @@
     {
       "type": "rupture_annuelle",
       "year": 2011,
-      "amount_eur": 12542382870.84,
-      "mediane_annees_voisines_eur": 1884099859.95,
+      "amount_eur": 12540337021.84,
+      "mediane_annees_voisines_eur": 1882384112.95,
       "rapport": 6.7,
       "commentaire": "Total sans commune mesure avec les années voisines. Conforme à ce que publie la source — non corrigé. À vérifier : périmètre de l'annexe cette année-là (quelques très grosses subventions y pèsent lourd)."
     },
     {
       "type": "doublons_internes_conserves",
-      "rows": 93067,
-      "groupes": 35844,
+      "rows": 96890,
+      "groupes": 36655,
       "commentaire": "Lignes de clé métier identique au sein d'une même source. Conservées volontairement : l'inspection montre qu'il s'agit majoritairement d'organismes homonymes distincts (23 « Maison des jeunes et de la culture » recevant la même subvention type), et non de doublons."
     },
     {
@@ -13436,7 +14519,7 @@
     },
     {
       "type": "montants_nuls",
-      "rows": 77144,
+      "rows": 77139,
       "commentaire": "Montant à zéro publié tel quel par la source."
     }
   ]

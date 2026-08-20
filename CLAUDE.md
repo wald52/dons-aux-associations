@@ -304,6 +304,15 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   (La Baule-Escoublac, 44) en une seule commune. Ils n'apportaient rien par
   ailleurs — « DEPARTEMENT DE LA SOMME » et « CONSEIL DEPARTEMENTAL DE LA
   SOMME » gardent l'article tous les deux.
+  Effet de bord assumé : `communes-pays-loire` étiquette « Commune de La
+  Baule » ce qui est en réalité **Baule dans le Loiret** — le jeu ODS jumeau
+  est publié sur le portail `@centrevaldeloire` et ses bénéficiaires sont le
+  Mémorial des Loirétains et les Pupilles de l'Enseignement Public du Loiret.
+  Les 182 lignes non nulles sont identiques de part et d'autre (le jeu ODS en
+  porte 362, dont 180 à zéro). Elles restent donc comptées deux fois, pour
+  365 k€ sur 157,7 Md€. On ne corrige PAS le libellé hérité : deviner qu'un
+  « La Baule » veut dire « Baule » ailleurs fondrait deux communes réelles.
+  La couverture, elle, ne compte bien qu'une commune (45024).
 
 - **Paris : deux collectivités jusqu'en 2018, une seule à partir de 2019.**
   La loi n° 2017-257 du 28 février 2017 fusionne la commune et le département

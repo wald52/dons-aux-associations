@@ -1,6 +1,6 @@
 {
   "family": "plf_jaune",
-  "normalized_at": "2026-08-20T00:23:18Z",
+  "normalized_at": "2026-08-20T07:03:33Z",
   "files": [
     {
       "source_id": "plf-jaune-2012",
@@ -41,7 +41,7 @@
         "nic"
       ],
       "parquet": "data/canonical/parts/plf-jaune-2012.parquet",
-      "parquet_bytes": 2174504,
+      "parquet_bytes": 2177769,
       "amount_total": 2967990048.0
     },
     {
@@ -83,7 +83,7 @@
         "nic"
       ],
       "parquet": "data/canonical/parts/plf-jaune-2013.parquet",
-      "parquet_bytes": 1792008,
+      "parquet_bytes": 1788586,
       "amount_total": 12298527650.0
     },
     {
@@ -126,7 +126,7 @@
         "nic"
       ],
       "parquet": "data/canonical/parts/plf-jaune-2014.parquet",
-      "parquet_bytes": 2520232,
+      "parquet_bytes": 2523155,
       "amount_total": 1855004905.0
     },
     {
@@ -167,7 +167,7 @@
         "nic"
       ],
       "parquet": "data/canonical/parts/plf-jaune-2015.parquet",
-      "parquet_bytes": 2310510,
+      "parquet_bytes": 2308510,
       "amount_total": 2136754559.0
     },
     {
@@ -208,7 +208,7 @@
         "nic"
       ],
       "parquet": "data/canonical/parts/plf-jaune-2016.parquet",
-      "parquet_bytes": 2417782,
+      "parquet_bytes": 2418828,
       "amount_total": 2110443829.0
     },
     {
@@ -249,7 +249,7 @@
         "objet"
       ],
       "parquet": "data/canonical/parts/plf-jaune-2017.parquet",
-      "parquet_bytes": 2239471,
+      "parquet_bytes": 2245407,
       "amount_total": 2055099250.0
     },
     {
@@ -290,7 +290,7 @@
       },
       "columns_absent": [],
       "parquet": "data/canonical/parts/plf-jaune-2018.parquet",
-      "parquet_bytes": 4777656,
+      "parquet_bytes": 4775093,
       "amount_total": 4686867781.94
     },
     {
@@ -335,7 +335,7 @@
         "rna"
       ],
       "parquet": "data/canonical/parts/plf-jaune-2019.parquet",
-      "parquet_bytes": 4985597,
+      "parquet_bytes": 4983500,
       "amount_total": 5322357620.24
     },
     {
@@ -379,7 +379,7 @@
         "rna"
       ],
       "parquet": "data/canonical/parts/plf-jaune-2020.parquet",
-      "parquet_bytes": 6578230,
+      "parquet_bytes": 6568986,
       "amount_total": 7240745111.98
     },
     {
@@ -418,7 +418,7 @@
       },
       "columns_absent": [],
       "parquet": "data/canonical/parts/plf-jaune-2021.parquet",
-      "parquet_bytes": 6745374,
+      "parquet_bytes": 6746605,
       "amount_total": 7734537403.82
     },
     {
@@ -460,7 +460,7 @@
       },
       "columns_absent": [],
       "parquet": "data/canonical/parts/plf-jaune-2022.parquet",
-      "parquet_bytes": 6579190,
+      "parquet_bytes": 6574688,
       "amount_total": 8994601274.01
     },
     {
@@ -499,7 +499,7 @@
       },
       "columns_absent": [],
       "parquet": "data/canonical/parts/plf-jaune-2023.parquet",
-      "parquet_bytes": 7285901,
+      "parquet_bytes": 7284186,
       "amount_total": 10543390140.84
     },
     {
@@ -539,7 +539,7 @@
         "rna"
       ],
       "parquet": "data/canonical/parts/plf-jaune-2025.parquet",
-      "parquet_bytes": 8209433,
+      "parquet_bytes": 8200151,
       "amount_total": 11765705475.65
     }
   ]
