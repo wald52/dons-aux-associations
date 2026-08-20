@@ -118,9 +118,27 @@ def decouvrir(limite=None):
 
 
 def ressources_csv(ds):
-    """Ressources plausibles : un CSV hébergé, pas un lien vers une page web."""
-    out = []
-    for r in ds.get("resources", []):
+    """Ressources plausibles, une par fichier réel, avec toutes ses adresses.
+
+    Un portail moissonné par data.gouv.fr ré-inscrit ses fichiers à chaque
+    passage : le jeu de Grenoble-Alpes Métropole porte **1 044 ressources pour
+    neuf fichiers**, la même année revenant sous des dizaines d'identifiants et
+    d'adresses. Les prendre une par une, c'est télécharger cent fois le même
+    CSV, puis le faire entrer cent fois dans la table sous cent `source_id`
+    différents — 91 sources fantômes pour la seule métropole, dont 85 ne
+    portaient plus qu'une ligne après déduplication.
+
+    On regroupe donc les ressources par nom de fichier, et on garde leurs
+    adresses de la plus récente à la plus ancienne. Aucune n'est privilégiée :
+    la plus récente n'est pas forcément la bonne (le portail réorganise ses
+    chemins sans que data.gouv.fr le sache), c'est `traiter_dataset` qui
+    essaiera les suivantes tant qu'une adresse répond 404.
+    """
+    groupes = {}
+    ordonnees = sorted(ds.get("resources", []),
+                       key=lambda r: r.get("last_modified") or r.get("created_at") or "",
+                       reverse=True)
+    for r in ordonnees:
         fmt = (r.get("format") or "").lower()
         url = r.get("url") or ""
         if fmt not in ("csv", "xlsx", "ods"):
@@ -131,8 +149,53 @@ def ressources_csv(ds):
         if hote not in ("static.data.gouv.fr", "www.data.gouv.fr", "data.gouv.fr") \
            and not url.lower().split("?")[0].endswith((".csv", ".xlsx", ".ods")):
             continue
-        out.append({"id": r.get("id"), "titre": r.get("title") or "", "format": fmt, "url": url})
-    return out
+        # On ne regroupe QUE les fichiers hébergés par la collectivité :
+        # c'est là que vit la ré-inscription. Sur `static.data.gouv.fr`, chaque
+        # ressource est un dépôt distinct — deux millésimes y portent souvent
+        # le même nom de fichier, et les fondre effacerait une année entière.
+        base = urllib.parse.unquote(url.split("?")[0].rsplit("/", 1)[-1]).lower()
+        if hote.endswith("data.gouv.fr") or not base.endswith((".csv", ".xlsx", ".ods")):
+            cle = ("id", r.get("id") or url)
+        else:
+            cle = (fmt, base, C.fold(r.get("title") or ""))
+        if cle not in groupes:
+            groupes[cle] = {"id": r.get("id"), "titre": r.get("title") or "",
+                            "format": fmt, "url": url, "urls": []}
+        if url not in groupes[cle]["urls"]:
+            groupes[cle]["urls"].append(url)
+    return list(groupes.values())
+
+
+def telecharger(urls, destination):
+    """Écrit la première adresse qui répond ; retourne celle qui a servi.
+
+    Un portail qui réorganise ses chemins laisse derrière lui des inscriptions
+    périmées chez data.gouv.fr : les neuf fichiers de Grenoble étaient déclarés
+    sous des adresses datées qui répondent toutes 404, alors que la forme
+    courante est servie normalement. Essayer les adresses connues du fichier,
+    de la plus récente à la plus ancienne, récupère le fichier sans avoir à
+    deviner la règle de réécriture du portail.
+    """
+    derniere = None
+    for url in urls:
+        try:
+            with SESSION.get(url, stream=True, timeout=120) as rep:
+                rep.raise_for_status()
+                if int(rep.headers.get("content-length") or 0) > MAX_OCTETS:
+                    raise ValueError("fichier trop volumineux")
+                tmp = destination + ".part"
+                recu = 0
+                with open(tmp, "wb") as f:
+                    for bloc in rep.iter_content(1 << 18):
+                        recu += len(bloc)
+                        if recu > MAX_OCTETS:
+                            break
+                        f.write(bloc)
+                os.replace(tmp, destination)
+            return url
+        except Exception as e:
+            derniere = e
+    raise derniere or ValueError("aucune adresse")
 
 
 def traiter_dataset(ds, force=False):
@@ -145,6 +208,10 @@ def traiter_dataset(ds, force=False):
         "licence": ds.get("license"), "derniere_maj": ds.get("last_modified"),
         "fichiers": [], "ecartes": [],
     }
+    # Dernier filet contre le même fichier publié deux fois sous deux noms :
+    # le regroupement par nom de fichier ne voit pas un `subventions_2019.csv`
+    # aussi déposé en `subventions-2019-v2.csv`. L'empreinte, elle, le voit.
+    vus = {}
     for res in ressources_csv(ds):
         if res["format"] == "ods":
             fiche["ecartes"].append({"titre": res["titre"], "raison": "format ods"})
@@ -157,15 +224,7 @@ def traiter_dataset(ds, force=False):
         if res["format"] == "xlsx" and not (os.path.exists(chemin) and not force):
             brut = os.path.join(RAW, nom[:-4] + ".xlsx")
             try:
-                with SESSION.get(res["url"], stream=True, timeout=120) as rep:
-                    rep.raise_for_status()
-                    with open(brut, "wb") as f:
-                        recu = 0
-                        for bloc in rep.iter_content(1 << 18):
-                            recu += len(bloc)
-                            if recu > MAX_OCTETS:
-                                break
-                            f.write(bloc)
+                res["url"] = telecharger(res["urls"], brut)
                 if xlsx_vers_csv(brut, chemin) < 2:
                     raise ValueError("aucune ligne exploitable")
             except Exception as e:
@@ -180,21 +239,7 @@ def traiter_dataset(ds, force=False):
         if res["format"] == "csv" and not (
                 os.path.exists(chemin) and not force and os.path.getsize(chemin) > MIN_OCTETS):
             try:
-                with SESSION.get(res["url"], stream=True, timeout=120) as rep:
-                    rep.raise_for_status()
-                    taille = int(rep.headers.get("content-length") or 0)
-                    if taille > MAX_OCTETS:
-                        fiche["ecartes"].append({"titre": res["titre"], "raison": "fichier trop volumineux"})
-                        continue
-                    tmp = chemin + ".part"
-                    recu = 0
-                    with open(tmp, "wb") as f:
-                        for bloc in rep.iter_content(1 << 18):
-                            recu += len(bloc)
-                            if recu > MAX_OCTETS:
-                                break
-                            f.write(bloc)
-                    os.replace(tmp, chemin)
+                res["url"] = telecharger(res["urls"], chemin)
             except Exception as e:
                 fiche["ecartes"].append({"titre": res["titre"], "raison": str(e)[:80]})
                 continue
@@ -220,8 +265,15 @@ def traiter_dataset(ds, force=False):
 
         with open(chemin, "rb") as f:
             sha = hashlib.sha256(f.read()).hexdigest()
+        if sha in vus:
+            fiche["ecartes"].append({"titre": res["titre"],
+                                     "raison": "même contenu que " + vus[sha]})
+            os.remove(chemin)
+            continue
+        vus[sha] = res["titre"] or os.path.basename(chemin)
         fiche["fichiers"].append({
             "resource_id": res["id"], "titre": res["titre"], "url": res["url"],
+            "adresses_connues": len(res["urls"]),
             "fichier": os.path.relpath(chemin, ROOT), "octets": os.path.getsize(chemin),
             "sha256": sha, "encodage": meta["encoding"], "separateur": meta["delimiter"],
             "colonnes": entete,

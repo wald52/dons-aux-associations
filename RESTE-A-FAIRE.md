@@ -1,30 +1,38 @@
 # Ce qui reste à faire
 
-État arrêté au **20/08/2026**, après la phase 6b. Chiffres mesurés, pas estimés :
-ils viennent de `data/canonical/quality-report.json`, `couverture.json` et des
-manifestes de moissonnage.
+État arrêté au **20/08/2026**, après la phase 7. Chiffres mesurés, pas estimés :
+ils viennent de `data/canonical/quality-report.json`, `couverture.json`, des
+manifestes de moissonnage et du banc `bench/phase7.json`.
 
 À lire après `CLAUDE.md` (contexte et pièges) et `ROADMAP.md` (ce qui a été fait
 et pourquoi).
+
+> **Avertissement de méthode.** La version précédente de ce fichier annonçait
+> « ~178 fichiers » à dépivoter et « 371 liens morts » : les manifestes en
+> portaient respectivement 37 et deux hôtes. Un chiffre écrit ici sans avoir été
+> relu dans les manifestes envoie la session suivante sur le mauvais chantier.
+> **Vérifier avant d'écrire, et dire d'où vient le chiffre.**
 
 ---
 
 ## Où en est le site
 
-Les phases 0 à 6b sont faites. Sur les quatre objectifs de départ — vitesse,
+Les phases 0 à 7 sont faites. Sur les quatre objectifs de départ — vitesse,
 données justes et exhaustives, recherche croisée, lisibilité — **trois sont
 atteints**. Le site charge en 0,07 s, la recherche croisée fonctionne sur
 2,7 M de lignes sans backend, le design est unifié.
 
-**L'exhaustivité est le seul objectif encore largement ouvert.**
+**L'exhaustivité est le seul objectif encore largement ouvert, et la phase 7 a
+montré qu'elle ne s'ouvrira plus par moissonnage.**
 
 | | valeur |
 |---|---|
-| Lignes servies | 2 690 242 |
-| Total individuel | 157,68 Md€ |
-| Sources | 630 |
-| Bénéficiaires résolus | 406 280 |
-| Dont cumulant 3 échelons ou plus | 6 739 |
+| Lignes servies | 2 687 791 |
+| Total individuel | 144,71 Md€ |
+| Sources | 548 |
+| Bénéficiaires résolus | 406 846 |
+| Dont cumulant 3 échelons ou plus | 6 783 |
+| Contrôles `verify.py` | 30/30 |
 
 ---
 
@@ -34,54 +42,42 @@ Couverture face au référentiel INSEE. **C'est un MINIMUM** : l'appariement
 échoue plutôt qu'il n'invente, donc l'erreur va toujours vers la
 sous-estimation (cf. `CLAUDE.md`).
 
-| Échelon | Couvert | Univers |
-|---|---|---|
-| Communes | **113** | 34 936 |
-| EPCI | **40** | 1 335 |
-| Départements | **37** | 101 |
-| Régions | **6** | 18 |
+| Échelon | Avec données | Repérées | Univers |
+|---|---|---|---|
+| Communes | **86** | 96 | 34 936 |
+| EPCI | **29** | 38 | 1 335 |
+| Départements | **31** | 36 | 101 |
+| Régions | **5** | 7 | 18 |
 
-10,3 % de la population française.
+10,3 % de la population française. (« Repérées » ajoute les collectivités qui
+publient mais dont rien n'est encore exploité.)
 
-### 1a. Dépivoter les tableaux par année — *le plus sûr*
+### 1a. Les deux canaux de moissonnage sont épuisés — *mesuré, pas supposé*
 
-Environ **178 fichiers** publient une colonne par exercice
-(`2018-Subventions Accordées`, `2019-…`) au lieu d'une ligne par versement.
-Ils sont aujourd'hui écartés au moissonnage.
+C'est le résultat le plus utile de la phase 7, et il est négatif.
 
-Le format est régulier, donc automatisable : une colonne dont le libellé
-contient une année devient une ligne portant cette année. Aucun arbitrage
-métier, gain mécanique.
+- **Opendatasoft** : le moissonneur est passé de 11 à 41 portails, repérés en
+  demandant au fédérateur le domaine d'origine de chacun de ses jeux. 98 jeux
+  de plus ont été retenus (273 → 371) et **la couverture n'a pas bougé d'une
+  seule collectivité** : le fédérateur republiait déjà tout. Ne pas relancer ce
+  chantier en espérant de la couverture.
+- **data.gouv.fr** : 666 jeux examinés sur six angles de découverte ; la
+  recherche « subvention » en renvoie 685 aujourd'hui. Il n'y a plus de marge.
 
-Où : la reconnaissance de colonnes est dans `common.py`
-(`ROLES_COLONNES`, `trouver_colonne`, `porte_des_subventions`) ; les fichiers
-écartés sont listés dans `data/sources-manifest/scdl.json` et `ods.json`, avec
-leurs colonnes réelles — de quoi mesurer le gain avant d'écrire une ligne de
-code, comme cela a été fait en phase 6a.
+Il reste des portails Opendatasoft hors du fédérateur, mais rien n'indique
+qu'ils soient nombreux — et cinq de ceux repérés sont déjà morts.
 
-### 1b. Re-tenter les liens morts
-
-**371 échecs amont** : 236 réponses 404 et 135 échecs de connexion chez
-`datacat.datalocale`. Rien à corriger chez nous — à relancer, les portails
-bougent.
-
-### 1c. Élargir la liste des portails Opendatasoft
-
-Le moissonneur `fetch_ods.py` ne visite que **11 portails** (liste en tête du
-fichier, constante `PORTAILS`). Beaucoup d'autres collectivités publient sur
-la même API Explore v2.1 : les ajouter ne demande qu'une ligne chacune, le
-reste du moissonneur ne bouge pas.
-
-### 1d. `api.datasubvention.beta.gouv.fr` — *le plus gros gain, mais bloqué*
+### 1b. `api.datasubvention.beta.gouv.fr` — *le seul gain d'un ordre de grandeur*
 
 Ce serait **la** source de référence : elle agrège Chorus et les données des
 collectivités. L'API vit mais renvoie **401** — réservée aux agents publics et
 aux associations habilitées.
 
 **C'est une démarche administrative, pas technique.** Une demande de compte est
-le seul chemin. À faire hors du code.
+le seul chemin, et c'est désormais le premier poste du reste-à-faire : aucun
+travail de code ne remplacera cette habilitation.
 
-### Ce qui manquera toujours
+### 1c. Ce qui manquera toujours
 
 Les communes de moins de 3 500 habitants ne sont pas tenues de publier, et
 parmi celles qui le sont, l'obligation est peu suivie. Aucun moissonnage ne
@@ -94,76 +90,107 @@ sait pas » est là pour dire.
 
 Toutes signalées dans le rapport de qualité, aucune corrigée en douce.
 
-### 2a. L'année 2011 — **12,54 Md€, soit 6,7 fois les années voisines**
+### 2a. Deux quarantaines d'unité — **60,3 Md€ mis de côté**
 
-Jamais élucidé. C'est **8 % du total affiché** : le plus gros point
-d'interrogation qui subsiste. Le chiffre est conforme à ce que publie la
-source ; c'est le périmètre de l'annexe cette année-là qui reste à vérifier.
+Même doctrine dans les deux cas : montants dans `amount_rejected_eur`, lignes
+conservées et consultables, drapeau `amount_unit_suspect`. La collectivité
+montre son activité, aucun montant douteux n'entre dans un total.
 
-Piste : le PLF Jaune change de structure tous les 3-4 ans, et le millésime qui
-porte 2011 pourrait mêler deux périmètres. Comparer colonne à colonne avec
-2010 et 2012.
+**`plf-jaune-2013` (exercice 2011) — 12,30 Md€, 21 167 lignes.** Élucidé en
+phase 7 : la source publie avec la virgule décalée d'un rang. 100,0 % de ses
+montants sont multiples de 10 (75,9 % au millésime suivant) ; le rapport
+2011/2012 par SIREN pique exactement à 10,0 ; l'Orchestre de Paris passe de
+9 278 494 € en 2010 à 92 784 940 € en 2011 puis revient à 9 278 494 € en 2012 ;
+un poste Fonjep (~7 107 €) y figure à 71 070 €. L'API amont stocke bien la
+valeur gonflée : l'erreur est du publieur.
+**Levée possible** — sans habilitation ni démarche : il suffit que le publieur
+corrige son millésime, ou qu'une source tierce (les rapports annuels des
+associations concernées) confirme le facteur dix association par association.
+C'est la quarantaine la plus proche d'être levée.
 
-### 2b. La quarantaine Lyon — **48 Md€ mis de côté**
-
-`metropole-lyon` : 9 081 lignes totalisant 48 Md€ quand le budget de la
-Métropole avoisine 3,8 Md€. Médiane à 1 584 200 €, minimum 100, et 85 % des
-valeurs multiples de 100 : tout indique des **centimes lus comme des euros**.
-
-On ne divise pas par cent de sa propre autorité. `data.grandlyon.com` renvoie
-**401**, l'amont n'est donc pas vérifiable. Même blocage que 1d.
+**`metropole-lyon` — 48 Md€, 9 081 lignes.** Médiane à 1 584 200 €, minimum
+100, 85 % de valeurs multiples de 100 : tout indique des centimes lus comme des
+euros. `data.grandlyon.com` renvoie **401**, l'amont n'est pas vérifiable.
+Bloqué au même endroit que 1b.
 
 Idem, plus petit : deux lignes de `ville-boulogne-billancourt` à 750 M€ et
-75 M€.
+75 M€ (`PLAFOND_DOUTEUX`).
 
-### 2c. Identifiants et champs manquants
+### 2b. Identifiants et champs manquants
 
 | Défaut | Lignes |
 |---|---|
-| Sans RNA | 2 408 486 |
-| Sans SIRET | 883 176 |
-| Sans URL de source | 804 790 |
-| Département inexploitable | 328 056 |
-| Sans année | 169 105 |
-| Montant nul | 77 139 |
+| Sans RNA | 2 406 141 |
+| Sans SIRET | 886 487 |
+| Sans URL de source | 773 870 |
+| Département inexploitable | 298 590 |
+| **Année déduite du libellé** (`year_from_label`) | **120 796** |
+| Sans année | 45 107 |
+| Montant nul | 77 144 |
 | **SIRET détruits par un tableur** (`2,19301E+13`) | **29 159** |
-| Montants invraisemblables, exclus des totaux | 9 139 |
-| Doublons internes à une source, conservés et signalés | 96 890 |
+| Montants invraisemblables, exclus des totaux | 122 |
+| Doublons internes à une source, conservés et signalés | 97 103 |
 
 Les SIRET en notation scientifique **ne sont pas réparables** : Excel n'a gardé
 que six chiffres significatifs. Le vrai correctif est de re-moissonner l'amont.
 
-### 2d. `cd-finistere` — 5 442 lignes au nom de donateur détruit
+Les 120 796 lignes à année déduite ne sont pas un défaut mais une provenance :
+`year_provenance = "inferred"`. Elles sont exactes tant que le publieur nomme
+correctement ses fichiers, et le drapeau permet de les isoler si un doute naît.
+
+### 2c. `cd-finistere` — 5 442 lignes au nom de donateur détruit
 
 Les octets du fichier hérité sont `\xef\xbf\xbd` (U+FFFD) : « Conseil
 D<?>partemental du Finist<?>re ». Irrécupérable depuis ce fichier. Ces lignes
 ne se dédupliquent pas avec leurs jumelles bien encodées. À re-moissonner.
 
+### 2d. Quatre donateurs que l'appariement rate
+
+Visibles dans `couverture.json`, champ `donateurs_non_apparies` :
+
+- `VILLE DE VINEUIL 41350` — le code postal collé au nom fait échouer
+  l'appariement. Il *identifie* pourtant la commune (41269, contre Vineuil dans
+  l'Indre) : le lire serait plus précis que le nom seul, pas moins.
+- `DEPARTEMENTDESHAUTESPYRENEES` — libellé sans séparateurs à la source.
+- `CONSEIL D PARTEMENTAL DU FINIST RE` — le U+FFFD de 2c.
+- `DEPARTEMENT D ILLE ET VLAINE` — faute de frappe du publieur.
+
+Aucun n'est corrigé : deviner ferait courir le risque d'apparier une
+collectivité qu'on ne couvre pas. Les trois derniers coûtent zéro couverture
+(ces collectivités sont déjà couvertes par d'autres libellés).
+
 ---
 
 ## 3. Dette mineure
 
-- **Le banc de mesure n'a pas été rejoué depuis la phase 6a.** Les chiffres de
-  vitesse dans `CLAUDE.md` sont ceux de 6a ; la 6b ne change que les données
-  (en baisse), donc ils ne peuvent qu'être meilleurs — mais ce n'est pas
-  mesuré. `node scripts/bench/measure.js --label phase6b`.
 - **Le doublon Baule** : 182 lignes, 365 k€. `communes-pays-loire` étiquette
   « Commune de La Baule » ce qui est en réalité **Baule dans le Loiret**. On ne
   corrige pas le libellé : deviner qu'un « La Baule » veut dire « Baule »
   ailleurs fondrait deux communes réelles. Détail dans `CLAUDE.md`.
+- **`measure_of` ne voit pas les libellés à tirets bas.** `fold` ne ramène pas
+  `_` à l'espace, si bien que `subventions_fonctionnement_versees_...csv` n'est
+  pas reconnu comme une exécution budgétaire. Grenoble entre donc en `attribue`
+  alors qu'il publie du « versé ». Le corriger déplacerait des montants hors
+  des totaux dans plusieurs sources à la fois : à mesurer avant de toucher.
+- **Le fichier PLF 2024 est vide à la source** (« csv: fichier vide ou non
+  tabulaire ») : l'exercice 2022 manque donc au corpus PLF Jaune.
 
 ---
 
 ## Ordre recommandé
 
-1. **Le dépivotage (1a)** — mécanique, sans arbitrage métier, et c'est ce qui
-   devrait faire bouger la couverture communale plus que tout le reste.
-   Mesurer le gain sur les manifestes AVANT de coder, comme en phase 6a.
-2. **Les portails ODS (1c) et les liens morts (1b)** — quelques lignes, gain
-   immédiat.
-3. **L'anomalie 2011 (2a)** — un huitième du total repose dessus.
-4. **Les habilitations (1d, 2b)** — à lancer en parallèle, le délai est
-   administratif.
+1. **La demande d'habilitation `datasubvention` (1b)** — c'est le seul chantier
+   qui change l'ordre de grandeur de la couverture, et son délai est
+   administratif : à lancer d'abord, il avancera pendant qu'on code.
+2. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
+   l'histoire du site en dépendent, et c'est la seule des deux quarantaines qui
+   ne demande pas d'habilitation.
+3. **`measure_of` et les tirets bas (dette mineure)** — un défaut de
+   reconnaissance qui déplace des montants entre « voté » et « versé » ;
+   mesurer l'ampleur avant de décider.
+4. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
+   mesurés épuisés (1a). Y revenir sans une source nouvelle serait du travail
+   jetable.
 
 ---
 
@@ -175,15 +202,17 @@ bash scripts/pipeline/tout_reconstruire.sh
 
 # Les moissonnages, quand on veut rafraîchir l'amont :
 python3 scripts/pipeline/fetch_scdl.py     # data.gouv.fr
-python3 scripts/pipeline/fetch_ods.py      # portails Opendatasoft
+python3 scripts/pipeline/fetch_ods.py      # 41 portails Opendatasoft
 python3 scripts/pipeline/fetch_plf_jaune.py
 
-# Le banc de mesure :
+# Le banc de mesure (CHROMIUM_PATH si Playwright cherche une révision absente) :
 node scripts/bench/measure.js --label <phase>
 ```
 
 `normalize_legacy.py` a besoin de `data/sources/*.js`, retirés du dépôt :
-`git checkout 0b14348 -- data/sources` avant de le rejouer.
+`git checkout 0b14348 -- data/sources` avant de le rejouer — **et
+`git rm -r --cached data/sources` avant de commiter**, sinon les 835 Mo
+repartent dans l'historique.
 
 **`verify.py` vient EN DERNIER** (plusieurs contrôles comparent l'index de
 recherche à la table canonique) et **doit rester vert** : 30/30 aujourd'hui.

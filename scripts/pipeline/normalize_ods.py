@@ -70,6 +70,10 @@ def normaliser(fiche, ingested_at):
 
     # Voté ou versé : le titre du jeu le dit, et cela vaut pour tout le fichier.
     mesure = C.measure_of(fiche.get("titre"), os.path.basename(chemin))
+    # Un jeu par exercice, sans colonne d'année : « CA 2013 - Ville de Rennes -
+    # Subventions ordinaires aux associations ». Le titre est alors le seul
+    # endroit où l'exercice soit écrit.
+    annee_repli = C.annee_du_libelle(fiche.get("titre"))
 
     out = {f: [] for f in C.CANONICAL_FIELDS}
     st = {"source_id": source_id, "portail": fiche.get("portail"), "mesure": mesure,
@@ -115,8 +119,13 @@ def normaliser(fiche, ingested_at):
         annee = C.parse_year(r.get(col["annee"])) if col["annee"] else None
         if not annee and date_conv:
             annee = C.parse_year(date_conv)
+        annee_deduite = False
+        if not annee and annee_repli:
+            annee, annee_deduite = annee_repli, True
         if not annee:
             flags.append("year_missing")
+        elif annee_deduite:
+            flags.append("year_from_label")
 
         nature = C.fold(r.get(col["nature"]) or "") if col["nature"] else ""
         if nature and "nature" in nature and "numeraire" not in nature:
@@ -168,7 +177,9 @@ def normaliser(fiche, ingested_at):
             donor_program=None,
             amount_eur=None if rejete else montant,
             amount_rejected_eur=montant if rejete else None,
-            year=annee, year_provenance="published" if annee else "unknown",
+            year=annee,
+            year_provenance=("inferred" if annee_deduite else
+                             "published" if annee else "unknown"),
             date_convention=date_conv[:10] or None,
             purpose_raw=objet or None, purpose_norm=objet_norm,
             granularity=gran, measure=mesure,

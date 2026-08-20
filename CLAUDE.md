@@ -41,31 +41,36 @@ lecture pour s'en servir : c'est un dépôt public.
 
 Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 
-### Aujourd'hui (phase 6b, 20/08/2026)
+### Aujourd'hui (phase 7, 20/08/2026)
 
 | Mesure | v0 | aujourd'hui |
 |---|---|---|
 | Octets transférés | ~73,6 Mo | **0,14 Mo** |
 | Premier affichage | 12,96 s | **0,07 s** |
-| Données exploitables | 57,75 s | **0,59 s** |
+| Données exploitables | 57,75 s | **0,58 s** |
 | Mémoire JS | 1 965 Mo | **3 Mo** |
 | Balises `<script>` | 170 | **1** |
-| Lignes dans la table | 1 595 805 | **2 690 242** |
+| Lignes dans la table | 1 595 805 | **2 687 791** |
 
-(Vitesse relevée en phase 6a ; la 6b ne change que les données, en baisse.
-Le banc n'a pas été rejoué depuis — cf. `RESTE-A-FAIRE.md`.)
+(Banc `bench/phase7.json`, rejoué le 20/08/2026.)
 
-Données : **630 sources**, **157,68 Md€** sommés, 18,2 Md€ ingérés mais
+Données : **548 sources**, **144,71 Md€** sommés, 17,77 Md€ ingérés mais
 délibérément hors des totaux (exécution budgétaire déjà comptée au vote,
-bénéficiaires déclarés hors du champ associatif). 406 280 bénéficiaires
-résolus, dont 6 739 cumulent au moins trois échelons.
+bénéficiaires déclarés hors du champ associatif), et 60,3 Md€ en quarantaine
+d'unité. 406 846 bénéficiaires résolus, dont 6 783 cumulent au moins trois
+échelons.
 
-Couverture face au référentiel INSEE, et c'est un MINIMUM : **113 communes**
-sur 34 936, **40 EPCI** sur 1 335, **37 départements** sur 101, **6 régions**
-sur 18 — soit 10,3 % de la population.
+Couverture face au référentiel INSEE, et c'est un MINIMUM : **86 communes**
+avec données sur 34 936 (96 repérées), **29 EPCI** sur 1 335 (38 repérés),
+**31 départements** sur 101 (36), **5 régions** sur 18 (7) — soit 10,3 % de la
+population. Ces chiffres sont ceux de `couverture.json` ; les « 113 communes,
+40 EPCI, 37 départements » qu'annonçait ce fichier jusqu'en phase 6b ne s'y
+retrouvaient déjà pas.
 
 Le double comptage de Paris est corrigé (phase 6b) : la série ne rompt plus à
-la fusion de 2019, 271 M€ en 2018 puis 291 M€ en 2019.
+la fusion de 2019, 271 M€ en 2018 puis 291 M€ en 2019. L'anomalie de 2011 est
+élucidée et mise en quarantaine (phase 7) : la source y publiait avec la
+virgule décalée d'un rang.
 
 **Ce qui reste à faire est dans `RESTE-A-FAIRE.md`**, chiffré et priorisé.
 
@@ -367,6 +372,58 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   Elle cherche un dossier numéroté précis et échoue alors qu'un Chromium
   utilisable est là.
 
+- **Le Jaune PLF 2013 publie ses montants dix fois trop grands.** Son exercice
+  2011 pesait 12,54 Md€, 6,7 fois ses voisins. Quatre indices concordants :
+  100,0 % de ses 21 127 montants sont multiples de 10 (75,9 % au millésime
+  suivant) ; le rapport 2011/2012 par SIREN pique EXACTEMENT à 10,0 ;
+  l'Orchestre de Paris reçoit 9 278 494 € en 2010, 92 784 940 € en 2011, puis
+  9 278 494 € en 2012 ; un poste Fonjep, dont l'unité est d'environ 7 107 €,
+  y figure à 71 070 €. Divisé par dix, le montant moyen par ligne tombe à
+  58 102 € contre 58 240 € en 2012.
+  **L'erreur est du publieur** : l'API amont (`data.economie.gouv.fr`, champ
+  `subvention_2011_en_euros`, type `double`) stocke bien la valeur gonflée.
+  Mais savoir qu'un chiffre est faux ne dit pas quel est le vrai : on met en
+  quarantaine (`UNITE_DOUTEUSE` dans `normalize_plf_jaune.py`), on ne divise
+  pas. Même doctrine que Lyon, ci-dessous.
+
+- **data.gouv.fr ré-inscrit le même fichier à chaque moissonnage du portail.**
+  Le jeu de Grenoble-Alpes Métropole porte **1 044 ressources pour neuf
+  fichiers réels**. Les prendre une par une, c'est ingérer le même CSV cent
+  fois sous cent `source_id` : 91 sources fantômes, dont 85 ne portant plus
+  qu'une ligne après déduplication. Pire, ces copies n'ont pas d'année
+  (Grenoble ne la met que dans le nom du fichier), donc leur clé métier ne
+  rencontre jamais celle de la source héritée qui l'a — 72,5 M€ comptés deux
+  fois. `ressources_csv` regroupe donc par nom de fichier, **mais seulement
+  pour les fichiers hébergés par la collectivité** : sur `static.data.gouv.fr`
+  chaque ressource est un dépôt distinct, et deux millésimes y portent souvent
+  le même nom de fichier — les fondre effacerait une année entière.
+
+- **Une adresse périmée n'est pas un portail mort.** 235 des « liens morts »
+  étaient des 404 chez `data.metropolegrenoble.fr`, qui répond parfaitement :
+  il a réorganisé ses chemins et data.gouv.fr garde les anciens. `telecharger()`
+  essaie toutes les adresses connues du fichier, de la plus récente à la plus
+  ancienne — la plus récente n'est PAS forcément la bonne, ne pas s'arrêter à
+  elle.
+
+- **Un fichier par exercice ne répète pas l'année dans ses lignes.**
+  160 sources, 160 210 lignes et 4,1 Md€ n'avaient aucune année pour cette
+  seule raison. `annee_du_libelle` la lit dans le nom du fichier puis dans le
+  titre du jeu, et **n'accepte qu'une seule année distincte** : « Subventions
+  2008-2012 » reste sans année, deviner serait inventer. L'année fait partie de
+  la clé métier, donc une source sans année ne se déduplique avec rien.
+  `year_provenance` passe à `inferred`, drapeau `year_from_label`.
+
+- **`EXERCICE` est un jeton de motif, pas un mot.** Il n'apparie que les mots
+  formant une année plausible, ce qui rend `("ca", EXERCICE)` sûr là où
+  `("ca",)` seul attraperait n'importe quoi. Il sert aux colonnes qui datent
+  leur propre montant : `bp_2012`, `ca_2013` chez la Ville de Rennes.
+
+- **Le gisement Opendatasoft est épuisé — mesuré.** Passer le moissonneur de 11
+  à 41 portails a retenu 98 jeux de plus et n'a apporté **aucune collectivité
+  nouvelle** : le fédérateur republiait déjà tout. Les communes de Grand Paris
+  Sud, par exemple, ont bien leur portail, mais le donateur y est
+  l'agglomération. Ne pas relancer ce chantier en espérant de la couverture.
+
 - **`metropole-lyon` est en QUARANTAINE d'unité.** Ses 9 081 lignes totalisent
   48 Md€ quand le budget annuel de la Métropole avoisine 3,8 Md€. La médiane y
   est de 1 584 200 €, le minimum de 100, et 85 % des valeurs sont multiples de
@@ -528,6 +585,15 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       institutionnel commun avec `carte-finances-locales`), bandeau de
       navigation, `methode.html` engendrée depuis les données, tableau de
       couverture et hachures comme relief d'accessibilité.
+
+- [x] **Phase 7** — l'unité et les doublons de ressources. Anomalie 2011
+      élucidée (virgule décalée à la source) et mise en quarantaine ;
+      déduplication des ressources data.gouv.fr et essai des adresses connues
+      dans l'ordre ; quatre graphies de colonnes de plus ; année lue dans le
+      libellé quand aucune colonne ne la porte (120 796 lignes datées,
+      `year_missing` de 169 105 à 45 107) ; `fetch_ods.py` de 11 à 41 portails,
+      sans gain de couverture — résultat négatif à retenir.
+      **2 687 791 lignes, 144,71 Md€, 548 sources.** 30 contrôles.
 
 Détail de chaque phase dans `ROADMAP.md`.
 

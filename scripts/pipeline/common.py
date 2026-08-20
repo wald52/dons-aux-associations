@@ -104,6 +104,11 @@ def parse_amount(v):
 _YEAR_RE = re.compile(r"\b(19\d{2}|20\d{2})\b")
 
 
+# Toutes les années d'un libellé, pour distinguer « subventions_2016.csv »
+# (une seule année, exploitable) de « subventions 2008-2012 » (ambigu).
+_ANNEES_LIBELLE = re.compile(r"(?<!\d)((?:19|20)\d{2})(?!\d)")
+
+
 def parse_year(v):
     """Extrait une année plausible d'un libellé ou d'un nombre."""
     if v is None:
@@ -874,6 +879,17 @@ def mots_colonne(libelle):
     return tuple(_MOTS_COLONNE.findall(fold(_CAMEL.sub(" ", str(libelle or "")))))
 
 
+# Dans un motif, ce jeton tient la place d'un exercice : il n'apparie que les
+# mots qui sont une année plausible. Il sert aux colonnes qui datent leur propre
+# montant — `bp_2012`, `ca_2013` chez la Ville de Rennes — où l'intitulé change
+# à chaque millésime et où aucun motif figé ne peut tenir.
+EXERCICE = "<exercice>"
+
+
+def _est_exercice(mot):
+    return len(mot) == 4 and mot.isdigit() and 1990 <= int(mot) <= 2100
+
+
 # (motifs retenus, mots disqualifiants)
 ROLES_COLONNES = {
     "beneficiaire": (
@@ -881,7 +897,13 @@ ROLES_COLONNES = {
          ("nom", "organisme", "beneficiaire"), ("raison", "sociale"),
          ("beneficiaire",), ("beneficiaires",), ("beneficiere",),
          ("denomination",), ("association",), ("organisme",), ("structure",),
-         ("nom", "tiers"), ("nom",)],
+         ("nom", "tiers"),
+         # Plusieurs portails nomment le bénéficiaire `tiers` tout court
+         # (Ville de Grenoble, Région Bretagne). Le motif est très général,
+         # d'où les disqualifiants `insee`, `commune`, `ville`, `adresse`,
+         # `postal` : sans eux, il attraperait `tiers_commune_insee` et le
+         # bénéficiaire serait lu dans un code géographique.
+         ("tiers",), ("nom",)],
         ("attribuant", "demandeur", "dataset", "prenom", "categorie", "nature",
          "juridique", "type", "code", "numero", "siret", "siren", "id",
          "insee", "commune", "ville", "adresse", "postal"),
@@ -890,6 +912,17 @@ ROLES_COLONNES = {
         [("montant", "vote"), ("montant", "accorde"), ("montant", "attribue"),
          ("montant", "subvention"), ("montant", "total"), ("montant", "euros"),
          ("realise", "numeraire"), ("montant",), ("subvention", "euros"),
+         # Grenoble-Alpes Métropole intitule sa colonne de montant
+         # `total_en_euros`, `total_euros` : trois millésimes (2017, 2018,
+         # 2021) sortaient pour ce seul mot. Le disqualifiant « nature »
+         # protège les colonnes de valorisation en nature, qui portent
+         # souvent le même « total ».
+         ("total", "euros"), ("total", "euro"),
+         # La Ville de Rennes date la colonne elle-même : `bp_2012` (budget
+         # primitif), `ca_2013` (compte administratif). L'étape budgétaire
+         # seule serait un motif bien trop court — c'est l'exercice accolé qui
+         # fait la preuve qu'il s'agit d'un montant.
+         ("bp", EXERCICE), ("ca", EXERCICE), ("br", EXERCICE), ("bs", EXERCICE),
          ("credit", "vote"), ("aide", "montant"), ("subventions",), ("subvention",)],
         ("attribuant", "nom", "objet", "nature", "date", "pourcentage", "taux",
          "nombre", "dossier", "reference", "libelle", "type", "prestation"),
@@ -980,13 +1013,20 @@ def measure_of(*libelles):
 # locaux ou de personnel, pas des euros décaissés. Les sommer avec des
 # versements fausserait les totaux.
 MOTS_AIDE_EN_NATURE = (("total", "aide", "nature"), ("prestations", "nature"),
-                       ("mise", "disposition", "locaux"), ("aide", "nature"))
+                       ("mise", "disposition", "locaux"), ("aide", "nature"),
+                       # La Ville de Grenoble dit « avantages en nature » là où
+                       # d'autres disent « aides » : sans ce mot, ses quatre
+                       # fichiers de valorisations étaient écartés pour
+                       # « aucune colonne de montant », un motif qui cache la
+                       # vraie raison dans le manifeste.
+                       ("avantages", "nature"), ("avantage", "nature"))
 
 
 def _correspond(mots, motif, disqualifiants):
     if any(d in mots for d in disqualifiants):
         return False
-    if all(m in mots for m in motif):
+    if all(any(_est_exercice(x) for x in mots) if m is EXERCICE else m in mots
+           for m in motif):
         return True
     # Les exports Opendatasoft écrivent les colonnes tout en minuscules et sans
     # séparateur : `nombeneficiaire`, `idattribuant`, `dateconvention`. Le
@@ -1008,6 +1048,35 @@ def trouver_colonne(entete, role):
         for colonne, mots in mots_par_colonne:
             if _correspond(mots, motif, disqualifiants):
                 return colonne
+    return None
+
+
+def annee_du_libelle(*libelles):
+    """Année lue dans un titre de fichier ou de jeu, quand aucune colonne ne la porte.
+
+    Beaucoup de collectivités publient **un fichier par exercice** et ne
+    répètent pas l'année dans les lignes : `subventions_grenoble_2016.csv`,
+    « Subventions accordées en 2019 ». Ces fichiers entraient sans année —
+    160 sources, 160 210 lignes et 4,1 Md€ hors de toute lecture par
+    millésime. Pire, l'année faisant partie de la clé métier, une source sans
+    année ne se déduplique pas avec la même donnée publiée ailleurs avec son
+    année : Grenoble-Alpes Métropole était ainsi comptée deux fois, pour
+    72,5 M€.
+
+    On n'accepte qu'une **seule** année distincte dans le libellé. « Subventions
+    2008-2012 » ou « CA 2019 - BP 2020 » ne disent pas de quel exercice il
+    s'agit : deviner serait inventer, la ligne reste alors sans année. Les
+    libellés sont essayés dans l'ordre reçu — le nom du fichier avant le titre
+    du jeu, du plus précis au plus général.
+
+    L'année ainsi obtenue n'est pas publiée dans la ligne : elle est déduite,
+    et `year_provenance` doit le dire (« inferred »).
+    """
+    for libelle in libelles:
+        annees = {int(a) for a in _ANNEES_LIBELLE.findall(str(libelle or ""))
+                  if 1990 <= int(a) <= 2100}
+        if len(annees) == 1:
+            return annees.pop()
     return None
 
 

@@ -64,6 +64,34 @@ def beneficiary_kind(categ, name):
     return "inconnu"
 
 
+# Millésimes dont l'UNITÉ monétaire est fausse À LA SOURCE. Leurs montants sont
+# mis de côté (dans `amount_rejected_eur`) plutôt que sommés — même traitement
+# que la quarantaine de `metropole-lyon` : la ligne reste comptée, le
+# bénéficiaire reste consultable, mais aucun montant faux n'entre dans un total.
+#
+# Le Jaune PLF 2013 (exercice 2011) publie ses montants avec la virgule décalée
+# d'un rang. Quatre indices concordants, tous internes à la donnée :
+#   - 100,0 % de ses 21 127 montants sont multiples de 10, contre 75,9 % au
+#     millésime suivant ; une distribution réelle de subventions ne fait pas ça ;
+#   - le rapport 2011/2012 par SIREN pique exactement à 10,0 (654 SIREN) ;
+#   - l'Orchestre de Paris (SIREN 775670649) reçoit 9 278 494 € en 2010,
+#     92 784 940 € en 2011, puis 9 278 494 € en 2012 — dix fois, au centime ;
+#   - un poste Fonjep, dont le montant unitaire est d'environ 7 107 €, y figure
+#     à 71 070 €.
+# Divisé par dix, le montant moyen par ligne tombe à 58 102 € contre 58 240 €
+# en 2012. Tout dit le facteur dix.
+#
+# L'erreur n'est PAS la nôtre : l'API amont
+# (data.economie.gouv.fr, champ `subvention_2011_en_euros`, type double) stocke
+# bien 92 784 940. Mais savoir qu'un chiffre est faux ne dit pas quel est le
+# vrai : diviser par dix resterait une correction de montant décidée par nous,
+# ce que la doctrine du projet interdit. On met donc en quarantaine, et on le
+# dit — c'est réversible le jour où le publieur corrige son millésime.
+UNITE_DOUTEUSE = {
+    "plf-jaune-2013": "virgule décalée d'un rang à la source (exercice 2011)",
+}
+
+
 def data_year_for(header, rows_sample, plf_year, millesime_col):
     """Année des subventions décrites par le fichier.
 
@@ -241,6 +269,8 @@ def normalize_file(path, entry, ingested_at):
             flags.append("amount_negative")
         if C.amount_is_implausible(amount):
             flags.append("amount_implausible")
+        if source_id in UNITE_DOUTEUSE:
+            flags.append("amount_unit_suspect")
 
         # Donateur : l'État. Le programme budgétaire est le grain le plus fin
         # que l'annexe publie ; le ministère n'est présent que 2013-2017.
@@ -291,7 +321,7 @@ def normalize_file(path, entry, ingested_at):
         # Une valeur invraisemblable n'est pas un montant : elle est écartée de
         # `amount_eur` — que l'on peut donc sommer sans précaution — et conservée
         # verbatim dans `amount_rejected_eur`, pour ne rien perdre.
-        rejected = C.amount_is_implausible(amount)
+        rejected = C.amount_is_implausible(amount) or source_id in UNITE_DOUTEUSE
         out["amount_eur"].append(None if rejected else amount)
         out["amount_rejected_eur"].append(amount if rejected else None)
         out["year"].append(year)

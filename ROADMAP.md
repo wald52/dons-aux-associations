@@ -356,6 +356,140 @@ publie la Ville, 1 213 à 1 376 lignes « département » par an contre 1 232 à
 
 ---
 
+## Phase 7 — L'unité, les doublons de ressources et les portails (20/08/2026)
+
+Phase courte, née d'une relecture de `RESTE-A-FAIRE.md` : trois de ses
+estimations ne tenaient pas devant les manifestes, et l'ordre qu'il
+recommandait envoyait droit sur le chantier le moins rentable. Les mesures
+d'abord, le code ensuite.
+
+### 1. L'anomalie 2011 : la virgule de la source
+
+L'exercice 2011 pesait **12,54 Md€, soit 6,7 fois ses voisins** — 8 % du total
+affiché, jamais élucidé depuis la phase 1a. C'est le Jaune PLF 2013, et lui
+seul : 21 167 lignes, 12,30 Md€.
+
+Quatre indices concordants, tous internes à la donnée :
+
+| Indice | Constat |
+|---|---|
+| Terminaison | **100,0 %** des 21 127 montants sont multiples de 10, contre 75,9 % au millésime suivant |
+| Rapport par SIREN | le rapport 2011/2012 pique **exactement à 10,0** (654 SIREN) |
+| Un cas nominal | l'Orchestre de Paris : 9 278 494 € en 2010, **92 784 940 €** en 2011, 9 278 494 € en 2012 |
+| Une unité connue | un poste Fonjep (~7 107 €) y figure à **71 070 €** |
+
+Divisé par dix, le montant moyen par ligne tombe à 58 102 € contre 58 240 € en
+2012. Tout dit le facteur dix.
+
+**L'erreur n'est pas la nôtre** : interrogée directement, l'API amont
+(`data.economie.gouv.fr`, champ `subvention_2011_en_euros`, type `double`)
+stocke bien 92 784 940. Ce n'est ni notre conversion, ni un artefact d'export.
+
+Mais savoir qu'un chiffre est faux ne dit pas quel est le vrai. Diviser par dix
+resterait une correction de montant décidée par nous, ce que la doctrine
+interdit. **Quarantaine, donc, exactement comme `metropole-lyon`** : montants
+dans `amount_rejected_eur`, lignes conservées et consultables, drapeau
+`amount_unit_suspect`, `UNITE_DOUTEUSE` dans `normalize_plf_jaune.py`.
+Réversible le jour où le publieur corrige son millésime.
+
+### 2. Le même fichier ingéré cent fois
+
+Le jeu de Grenoble-Alpes Métropole porte chez data.gouv.fr **1 044 ressources
+pour neuf fichiers réels** : le moissonnage du portail les ré-inscrit à chaque
+passage. `fetch_scdl.py` les prenait une par une — 524 téléchargements, puis
+524 entrées dans la table sous 524 `source_id` distincts. Après déduplication
+il en restait **91 sources fantômes, dont 85 ne portant plus qu'une ligne**.
+
+Deux effets, tous deux invisibles jusqu'ici :
+- le décompte « 630 sources » était gonflé d'une centaine de fantômes ;
+- surtout, ces copies n'avaient **aucune année** (Grenoble ne la met que dans
+  le nom du fichier), donc leur clé métier ne pouvait pas rencontrer celle de
+  la source héritée `metropole-grenoble`, qui l'a. **72,5 M€ comptés deux fois.**
+
+`ressources_csv` regroupe désormais les ressources par nom de fichier — mais
+seulement pour les fichiers hébergés par la collectivité : sur
+`static.data.gouv.fr`, chaque ressource est un dépôt distinct et deux
+millésimes y portent souvent le même nom. Une empreinte SHA-256 sert de dernier
+filet.
+
+### 3. Les adresses périmées, essayées dans l'ordre
+
+235 des 371 « liens morts » du backlog étaient des 404 chez
+`data.metropolegrenoble.fr`. Le portail répond pourtant : il a réorganisé ses
+chemins et data.gouv.fr garde les anciens. Plutôt que de deviner la règle de
+réécriture, `telecharger()` essaie **toutes les adresses connues du fichier**,
+de la plus récente à la plus ancienne. Aucune n'est privilégiée — la plus
+récente n'est pas forcément la bonne.
+
+Neuf fichiers Grenoble récupérés sur neuf, et au passage un jeu de
+**236 842 lignes** qui échouait depuis la phase 4.
+
+### 4. Quatre graphies de colonnes en plus
+
+Toutes dans `common.py`, donc partagées par les trois familles :
+
+| Motif | Ce qu'il rouvre |
+|---|---|
+| `("total", "euros")` | `total_en_euros`, `total_euros` — trois millésimes de Grenoble |
+| `("tiers",)` | le bénéficiaire nommé `tiers` tout court |
+| `("bp", EXERCICE)`, `("ca", EXERCICE)` | `bp_2012`, `ca_2013` — 24 jeux rennais, 4 070 lignes |
+| `("avantages", "nature")` | dit la vraie raison d'écarter une valorisation |
+
+`EXERCICE` est un jeton de motif qui n'apparie que les mots formant une année
+plausible. C'est ce qui rend `("ca", EXERCICE)` sûr là où `("ca",)` seul
+attraperait n'importe quoi.
+
+### 5. L'année lue dans le libellé
+
+**160 sources, 160 210 lignes et 4,1 Md€ n'avaient aucune année** : leur
+publieur sort un fichier par exercice et ne répète pas l'année dans les lignes.
+`annee_du_libelle` la lit dans le nom du fichier puis dans le titre du jeu, et
+**n'accepte qu'une seule année distincte** — « Subventions 2008-2012 » reste
+sans année, deviner serait inventer. `year_provenance` passe à `inferred` et
+le drapeau `year_from_label` marque les lignes.
+
+Effet : **120 796 lignes** datées, `year_missing` de 169 105 à 45 107. Et
+comme l'année fait partie de la clé métier, la déduplication voit enfin des
+rapprochements qu'elle manquait.
+
+### 6. Trente portails Opendatasoft de plus — et un résultat négatif
+
+`fetch_ods.py` passe de 11 à 41 portails, repérés en demandant au fédérateur le
+domaine d'origine de chacun de ses jeux « subvention ». Cinq domaines sont
+morts et ne sont pas inscrits (`data.corsica` et `opendata.sqy.fr` en 410,
+`opendata.pau.fr` en 404, `ville-soissons.fr` et `opendata.roubaix.fr` en
+défaut de certificat).
+
+Gain : 463 → 574 jeux examinés, **273 → 371 retenus**.
+
+**Gain de couverture : zéro.** Pas une commune, pas un EPCI, pas un département
+de plus — le fédérateur republiait déjà tout ce que ces portails publient. Les
+communes de Grand Paris Sud, par exemple, ont bien leur portail, mais le
+donateur y est l'agglomération, pas la commune. C'est un résultat négatif, et
+il vaut d'être écrit : **le gisement Opendatasoft est épuisé**, il ne faut plus
+en attendre de couverture.
+
+### Le bilan chiffré
+
+| | phase 6b | phase 7 |
+|---|---|---|
+| Lignes | 2 690 242 | **2 687 791** |
+| Total individuel | 157,68 Md€ | **144,71 Md€** |
+| Sources | 630 | **548** |
+| dont ≤ 2 lignes | 114 | **40** |
+| Jeux ODS retenus | 273 | **371** |
+| Fichiers SCDL retenus | 788 | **272** |
+| Lignes sans année | 169 105 | **45 107** |
+| Bénéficiaires résolus | 406 280 | **406 846** |
+| Cumulant ≥ 3 échelons | 6 739 | **6 783** |
+| Contrôles `verify.py` | 30/30 | **30/30** |
+
+Les 13 Md€ de baisse sont la quarantaine 2011, et rien d'autre : ce sont des
+euros qui n'auraient jamais dû être affichés. La vitesse ne bouge pas
+(banc `phase7` : 0,14 Mo, 0,07 s au premier affichage, 3 Mo de mémoire).
+
+---
+
 ## Phase 6 — Le gisement, tel que mesuré le 19/08/2026
 
 Ce qui manque n'est pas une inconnue : quatre gisements ont été quantifiés,

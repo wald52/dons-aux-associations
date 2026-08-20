@@ -77,6 +77,10 @@ def normaliser_fichier(fiche, fichier, ingested_at):
     col["reference"] = C.pick(entete, "referenceDecision", "reference decision")
     # Voté ou versé : lu au titre du jeu et au nom du fichier, une fois pour tout.
     mesure = C.measure_of(fiche.get("titre"), fichier.get("titre"))
+    # Un fichier par exercice, sans colonne d'année : l'exercice n'est alors
+    # écrit que dans le nom du fichier. On le lit une fois pour tout le fichier,
+    # du plus précis (le fichier) au plus général (le jeu).
+    annee_repli = C.annee_du_libelle(fichier.get("titre"), fiche.get("titre"))
 
     out = {f: [] for f in C.CANONICAL_FIELDS}
     st = {
@@ -126,8 +130,13 @@ def normaliser_fichier(fiche, fichier, ingested_at):
             annee = C.parse_year(r.get(col["annee"]))
         if not annee and date_conv:
             annee = C.parse_year(date_conv)
+        annee_deduite = False
+        if not annee and annee_repli:
+            annee, annee_deduite = annee_repli, True
         if not annee:
             flags.append("year_missing")
+        elif annee_deduite:
+            flags.append("year_from_label")
 
         nature = C.fold(r.get(col["nature"]) or "") if col["nature"] else ""
         if nature and "nature" in nature and "numeraire" not in nature:
@@ -178,7 +187,9 @@ def normaliser_fichier(fiche, fichier, ingested_at):
             donor_program=None,
             amount_eur=None if rejete else montant,
             amount_rejected_eur=montant if rejete else None,
-            year=annee, year_provenance="published" if annee else "unknown",
+            year=annee,
+            year_provenance=("inferred" if annee_deduite else
+                             "published" if annee else "unknown"),
             date_convention=date_conv[:10] or None,
             purpose_raw=objet or None, purpose_norm=objet_norm,
             granularity=gran, measure=mesure,

@@ -30,11 +30,11 @@
   </header>
 
   <div class="compteurs">
-    <div class="compteur"><span class="valeur">2 690 242</span>
+    <div class="compteur"><span class="valeur">2 687 791</span>
       <span class="etiquette">versements recensés</span></div>
-    <div class="compteur"><span class="valeur">157,7 Md€</span>
+    <div class="compteur"><span class="valeur">144,7 Md€</span>
       <span class="etiquette">attribués, hors totaux agrégés</span></div>
-    <div class="compteur"><span class="valeur">630</span>
+    <div class="compteur"><span class="valeur">548</span>
       <span class="etiquette">sources</span></div>
     <div class="compteur"><span class="valeur">1991–2036</span>
       <span class="etiquette">années couvertes</span></div>
@@ -53,22 +53,22 @@
       <table>
         <thead><tr><th>Famille de sources</th><th>Sources</th><th>Versements</th><th>Montant</th></tr></thead>
         <tbody>
-      <tr><td>État — annexe Jaune</td><td class='num'>13</td><td class='num'>808 174</td><td class='num montant'>75,9 Md€</td></tr>
-      <tr><td>Sources reprises une par une</td><td class='num'>146</td><td class='num'>805 873</td><td class='num montant'>32,0 Md€</td></tr>
-      <tr><td>Collectivités — moissonnage des portails</td><td class='num'>171</td><td class='num'>687 046</td><td class='num montant'>34,6 Md€</td></tr>
-      <tr><td>Collectivités — moissonnage data.gouv.fr</td><td class='num'>300</td><td class='num'>389 149</td><td class='num montant'>15,2 Md€</td></tr>
+      <tr><td>État — annexe Jaune</td><td class='num'>13</td><td class='num'>808 666</td><td class='num montant'>63,6 Md€</td></tr>
+      <tr><td>Sources reprises une par une</td><td class='num'>144</td><td class='num'>774 953</td><td class='num montant'>31,1 Md€</td></tr>
+      <tr><td>Collectivités — moissonnage des portails</td><td class='num'>189</td><td class='num'>716 178</td><td class='num montant'>34,9 Md€</td></tr>
+      <tr><td>Collectivités — moissonnage data.gouv.fr</td><td class='num'>202</td><td class='num'>387 994</td><td class='num montant'>15,2 Md€</td></tr>
         </tbody>
       </table>
     </div>
-    <p><strong>Le moissonnage est automatique.</strong> 666 jeux de
+    <p><strong>Le moissonnage est automatique.</strong> 664 jeux de
        données ont été examinés sur data.gouv.fr, 148 retenus, soit
-       788 fichiers. Un fichier n'est retenu que si ses colonnes
+       272 fichiers. Un fichier n'est retenu que si ses colonnes
        réelles correspondent à des subventions — le schéma déclaré ne suffit pas. Tout nouveau
        millésime publié par une collectivité sera repris sans intervention.</p>
     <p>Les collectivités qui ne passent pas par data.gouv.fr publient sur leur propre
        portail. Ces portails partagent tous la même interface, donc un second moissonneur
-       les couvre : 11 portails visités,
-       463 jeux examinés, 273
+       les couvre : 41 portails visités,
+       574 jeux examinés, 371
        retenus — au même test sur les colonnes réelles.</p>
     <p>L'annexe budgétaire « Jaune » de l'État est moissonnée de la même façon, sur
        13 millésimes.</p>
@@ -76,11 +76,11 @@
     <h2>Ce que la déduplication retire</h2>
     <p>Deux administrations publient parfois le même versement. Les additionner le
        compterait deux fois. Une clé métier — bénéficiaire, donateur, année, montant, objet —
-       les réconcilie&nbsp;: <strong>760 402 lignes</strong> écartées, soit
-       53,2 Md€.</p>
+       les réconcilie&nbsp;: <strong>580 321 lignes</strong> écartées, soit
+       49,8 Md€.</p>
     <div class="encart">
       <h3>Ce qui n'est PAS dédupliqué</h3>
-      <p>À l'intérieur d'une même source, 96 890 lignes ont une clé
+      <p>À l'intérieur d'une même source, 97 103 lignes ont une clé
          identique et sont <strong>toutes conservées</strong>. L'inspection montre qu'il s'agit
          d'organismes homonymes distincts — vingt-trois « Maison des jeunes et de la culture »
          touchant la même subvention type sont vingt-trois associations, pas un doublon.</p>
@@ -89,7 +89,7 @@
     <h2>Les montants mis en quarantaine</h2>
     <p>Certaines valeurs publiées ne sont pas des montants, ou sont dans une unité douteuse.
        Elles sont conservées dans les données mais <strong>exclues de tous les totaux</strong>
-       — 4375777860013321216,0 Md€ sur 9 139 lignes.</p>
+       — 17503111200038719488,0 Md€ sur 30 372 lignes.</p>
     <ul>
       <li><strong>Métropole de Lyon</strong> : 9&nbsp;081 lignes totalisant 48&nbsp;Md€, quand le
         budget annuel de la Métropole avoisine 3,8&nbsp;Md€. Médiane à 1&nbsp;584&nbsp;200&nbsp;€,
@@ -108,12 +108,12 @@
 
     <h2>Les anomalies que nous signalons sans les corriger</h2>
     <ul>
-<li>L'année <strong>2011</strong> totalise 12,5 Md€, soit 6,7 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li>
+<li>L'année <strong>1991</strong> totalise 78 261 €, soit 513,9 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li><li>L'année <strong>2010</strong> totalise 1,7 Md€, soit 9,0 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li>
       <li><strong>29 159 numéros SIRET ont été détruits par un
         tableur</strong> : ils sont publiés sous la forme <code>2,19301E+13</code>, un nombre dont
         seuls six chiffres significatifs subsistent. Ce n'est pas réparable ; seul un
         re-moissonnage de la source d'origine le corrigerait.</li>
-      <li><strong>328 056 versements n'ont pas de département exploitable</strong>
+      <li><strong>298 590 versements n'ont pas de département exploitable</strong>
         et n'apparaissent donc pas sur la carte, bien qu'ils comptent dans les totaux.</li>
     </ul>
 
@@ -124,8 +124,8 @@
        « Centre communal d'action sociale » existe dans quarante et un départements.</p>
     <p>La conséquence est assumée : une association publiée sans identifiant par deux sources
        peut apparaître deux fois, et un cumul d'échelons peut être <strong>sous-estimé, jamais
-       inventé</strong>. Sur 406 280 bénéficiaires résolus,
-       6 739 sont financés par au moins trois échelons publics.</p>
+       inventé</strong>. Sur 406 846 bénéficiaires résolus,
+       6 783 sont financés par au moins trois échelons publics.</p>
 
     <h2>Ce que la couverture veut dire</h2>
     <p>La carte ne couvre pas la France entière et ne le prétend pas.
@@ -134,9 +134,9 @@
        population</strong> — la couverture se mesure en habitants, pas en nombre de fichiers.</p>
     <p>La raison principale est en amont : <strong>très peu de collectivités publient</strong>.
        Toutes sources confondues, les données ne contiennent que
-       113 communes,
-       40 intercommunalités,
-       37 départements et
+       112 communes,
+       39 intercommunalités,
+       38 départements et
        6 régions
        en tant que <em>financeurs</em>. L'État, lui, est couvert de façon dense.
        Seules les communes de plus de 3&nbsp;500 habitants sont tenues de publier, et

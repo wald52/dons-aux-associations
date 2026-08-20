@@ -55,6 +55,42 @@ PORTAILS = [
     ("data.laregion.fr", "Région Occitanie"),
     ("data.bretagne.bzh", "Région Bretagne"),
     ("data.opendatasoft.com", "Fédérateur Opendatasoft"),
+    # Portails repérés en interrogeant le fédérateur sur le domaine d'origine
+    # de chacun de ses jeux « subvention » : il les republie, mais jamais tous.
+    # Les visiter en direct coûte une ligne et rattrape ce qu'il laisse.
+    # Trente ont répondu à l'API Explore v2.1 ; cinq sont morts et ne sont pas
+    # inscrits (data.corsica et opendata.sqy.fr en 410, opendata.pau.fr en 404,
+    # ville-soissons.fr et opendata.roubaix.fr en défaut de certificat).
+    ("data.blois.agglopolys.fr", "Agglopolys — Blois"),
+    ("data.loire-atlantique.fr", "Département de Loire-Atlantique"),
+    ("data.saint-maur.com", "Ville de Saint-Maur-des-Fossés"),
+    ("data.agglo-montargoise.fr", "Agglomération Montargoise"),
+    ("data.saintnazaireagglo.fr", "Saint-Nazaire Agglomération"),
+    ("opendata.ha-py.fr", "Département des Hautes-Pyrénées"),
+    ("saint-louis-agglo.opendatasoft.com", "Saint-Louis Agglomération"),
+    ("data.grandparissud.fr", "Grand Paris Sud"),
+    ("saint-jean-de-luz-opendatapaysbasque.opendatasoft.com", "Ville de Saint-Jean-de-Luz"),
+    ("data.haute-garonne.fr", "Département de la Haute-Garonne"),
+    ("data.capatlantique.fr", "Cap Atlantique"),
+    ("data.regionreunion.com", "Région Réunion"),
+    ("data.maine-et-loire.fr", "Département de Maine-et-Loire"),
+    ("data.seinesaintdenis.fr", "Département de Seine-Saint-Denis"),
+    ("data.orleans-metropole.fr", "Orléans Métropole"),
+    ("data.larochesuryon.fr", "La Roche-sur-Yon Agglomération"),
+    ("data.montreuil.fr", "Ville de Montreuil"),
+    ("data.sicoval.fr", "Sicoval"),
+    ("data.cceg.fr", "Communauté de communes Erdre et Gesvres"),
+    ("aix-en-provence.opendatasoft.com", "Ville d'Aix-en-Provence"),
+    ("cachan.opendatasoft.com", "Ville de Cachan"),
+    ("bayonne-opendatapaysbasque.opendatasoft.com", "Ville de Bayonne"),
+    ("data.combs-la-ville.fr", "Ville de Combs-la-Ville"),
+    ("data.fleurysurorne.fr", "Ville de Fleury-sur-Orne"),
+    ("data.ville-cesson.fr", "Ville de Cesson"),
+    ("data.ville-bondoufle.fr", "Ville de Bondoufle"),
+    ("data.moissy-cramayel.fr", "Ville de Moissy-Cramayel"),
+    ("lisses-grandparissud.opendatasoft.com", "Ville de Lisses"),
+    ("nandy-grandparissud.opendatasoft.com", "Ville de Nandy"),
+    ("saintgermainlescorbeil-grandparissud.opendatasoft.com", "Ville de Saint-Germain-lès-Corbeil"),
 ]
 
 RECHERCHES = ['search(title,"subvention")', 'search(title,"subventions")',
