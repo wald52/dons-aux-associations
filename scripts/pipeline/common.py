@@ -686,10 +686,150 @@ SQL_COMPTE_DANS_LES_TOTAUX = (
 )
 
 
+# ------------------------------------- identité d'un donateur --------------
+#
+# Une même collectivité ne se nomme pas pareil d'une publication à l'autre :
+# « CONSEIL DEPARTEMENTAL DE LA SOMME » et « DEPARTEMENT DE LA SOMME », « VILLE
+# DE TOULOUSE » et « MAIRIE DE TOULOUSE », « COMMUNE D IFFENDIC » et « COMMUNE
+# DE IFFENDIC ». La clé métier comparait ces libellés tels quels : deux
+# publications d'une même collectivité ne se croisaient donc JAMAIS, et leurs
+# doublons restaient dans les totaux.
+#
+# L'identité se lit en deux temps : la FORME juridique donne le niveau, les
+# mots restants donnent le noyau du nom.
+
+_VIDES_DONATEUR = frozenset(
+    ("de", "du", "des", "d", "la", "le", "les", "l", "et", "aux", "au", "a", "en"))
+
+# Ordonné du plus spécifique au plus général : « conseil departemental » doit
+# gagner avant « departement », sans quoi le noyau garderait « conseil ».
+_FORMES_DONATEUR = (
+    (("conseil", "departemental"), "departement"),
+    (("conseil", "departementale"), "departement"),
+    (("conseil", "general"), "departement"),
+    (("departement",), "departement"),
+    (("conseil", "regional"), "region"),
+    (("region",), "region"),
+    (("communaute", "agglomeration"), "epci"),
+    (("communaute", "communes"), "epci"),
+    (("communaute", "urbaine"), "epci"),
+    (("metropole",), "epci"),
+    (("ville",), "commune"),
+    (("mairie",), "commune"),
+    (("commune",), "commune"),
+)
+
+# Sigles d'intercommunalité tels qu'elles se signent, en tête de libellé.
+_SIGLES_EPCI = {"ca": "epci", "cc": "epci", "cu": "epci", "ct": "epci"}
+
+# Premier mot de chaque forme : sert à trouver où commence la collectivité dans
+# le libellé d'un de ses services.
+_TETES_FORME = frozenset(forme[0] for forme, _ in _FORMES_DONATEUR)
+
+# FUSIONS DE COLLECTIVITÉS — deux entités n'en font plus qu'une à partir d'une
+# date, et c'est la loi qui le dit. Avant cette date les distinguer n'est pas
+# une erreur : c'est la vérité de l'époque, chacune ayant son budget propre.
+#
+#   Paris — la commune de Paris et le département de Paris ont fusionné en une
+#   collectivité unique à statut particulier, « Ville de Paris », le
+#   1er janvier 2019 (loi n° 2017-257 du 28 février 2017 relative au statut de
+#   Paris et à l'aménagement métropolitain : art. 8 pour l'entrée en vigueur,
+#   art. 10 pour la substitution dans tous les droits et obligations).
+#   Ce que publie la Ville le confirme ligne à ligne : son jeu « subventions
+#   votées » porte les deux collectivités de 2013 à 2018, et une seule ensuite.
+#
+# (niveau absorbé, noyau absorbé, niveau absorbant, noyau absorbant, 1re année)
+FUSIONS_COLLECTIVITES = (
+    ("departement", "paris", "commune", "paris", 2019),
+)
+
+
+def _mots_donateur(nom_norm):
+    return [m for m in re.findall(r"[a-z0-9]+", fold(nom_norm or ""))
+            if m not in _VIDES_DONATEUR]
+
+
+def identite_donateur(nom_norm, annee=None):
+    """Identité canonique d'un donateur — « commune:paris », « departement:somme ».
+
+    Sert UNIQUEMENT à la clé métier : `donor_name_raw` reste ce que la source a
+    publié. Un libellé qu'on ne sait pas décomposer se rend tel quel, plié — on
+    ne rapproche jamais deux donateurs sur une ressemblance vague.
+    """
+    mots = _mots_donateur(nom_norm)
+    if not mots:
+        return ""
+
+    # Une DIRECTION est un service interne, jamais une personne morale : le
+    # donateur est la collectivité qu'elle sert. « Direction des Finances et
+    # des Achats - Ville de Paris », c'est la Ville de Paris. On ne coupe que
+    # sur « direction » : un CCAS, une régie ou un syndicat sont, eux, des
+    # entités distinctes de leur commune et ne doivent pas y être fondus.
+    if mots[0] == "direction":
+        # On coupe au DERNIER mot de forme : « direction des finances et des
+        # achats ville de paris » doit rendre « ville paris », pas « finances
+        # achats ville paris ». Couper au premier indice qui contient encore
+        # une forme plus loin garderait tout le nom du service.
+        for i in range(len(mots) - 1, 0, -1):
+            if mots[i] in _TETES_FORME:
+                mots = mots[i:]
+                break
+
+    niveau = None
+    for forme, lvl in _FORMES_DONATEUR:
+        if all(m in mots for m in forme):
+            niveau, mots = lvl, [m for m in mots if m not in forme]
+            break
+    if niveau is None and mots[0] in _SIGLES_EPCI:
+        niveau, mots = _SIGLES_EPCI[mots[0]], mots[1:]
+
+    noyau = " ".join(mots)
+    if not noyau:
+        return fold(nom_norm or "")
+    if niveau is None:
+        return noyau
+
+    if annee is not None:
+        for absorbe, n_absorbe, absorbant, n_absorbant, depuis in FUSIONS_COLLECTIVITES:
+            if niveau == absorbe and noyau == n_absorbe and annee >= depuis:
+                niveau, noyau = absorbant, n_absorbant
+                break
+    return f"{niveau}:{noyau}"
+
+
+def fusion_de_collectivite(nom_norm, annee):
+    """Niveau corrigé quand une fusion a eu lieu, sinon None.
+
+    Un versement de 2021 attribué au « département de Paris » nomme une entité
+    qui n'existait plus : le niveau affiché doit dire commune. Le libellé
+    publié, lui, n'est pas retouché.
+    """
+    if annee is None:
+        return None
+    mots = _mots_donateur(nom_norm)
+    if not mots:
+        return None
+    niveau = None
+    for forme, lvl in _FORMES_DONATEUR:
+        if all(m in mots for m in forme):
+            niveau, mots = lvl, [m for m in mots if m not in forme]
+            break
+    noyau = " ".join(mots)
+    for absorbe, n_absorbe, absorbant, n_absorbant, depuis in FUSIONS_COLLECTIVITES:
+        if niveau == absorbe and noyau == n_absorbe and annee >= depuis:
+            return absorbant
+    return None
+
+
 def business_key(siret, name_norm, donor_norm, year, amount, purpose_norm):
-    """Clé métier de SCHEMA.md — identité d'une subvention entre sources."""
+    """Clé métier de SCHEMA.md — identité d'une subvention entre sources.
+
+    Le donateur y entre par son IDENTITÉ, pas par son libellé : sans cela deux
+    publications de la même collectivité ne se dédupliquent jamais.
+    """
     import hashlib
-    parts = [siret or name_norm or "", donor_norm or "", str(year or ""),
+    parts = [siret or name_norm or "", identite_donateur(donor_norm, year),
+             str(year or ""),
              f"{amount:.2f}" if amount is not None else "", (purpose_norm or "")[:120]]
     return hashlib.sha1("||".join(parts).encode("utf-8")).hexdigest()[:20]
 

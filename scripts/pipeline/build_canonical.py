@@ -321,10 +321,39 @@ def ref_meta():
         return json.load(f)
 
 
+def corriger_niveau_apres_fusion(table):
+    """Remet au bon niveau les lignes qui nomment une collectivité disparue.
+
+    Une subvention de 2021 attribuée au « département de Paris » désigne une
+    entité supprimée le 1er janvier 2019 : la classer en `departement` ferait
+    dire au site qu'un département de Paris versait encore des subventions.
+    Le LIBELLÉ publié n'est pas retouché — seul notre classement l'est, et la
+    règle qui le décide est celle de `common.FUSIONS_COLLECTIVITES`.
+    """
+    noms = table.column("donor_name_norm").to_pylist()
+    annees = table.column("year").to_pylist()
+    niveaux = table.column("donor_level").to_pylist()
+    touches = 0
+    for i, (nom, an, niv) in enumerate(zip(noms, annees, niveaux)):
+        neuf = C.fusion_de_collectivite(nom, an)
+        if neuf and neuf != niv:
+            niveaux[i] = neuf
+            touches += 1
+    if not touches:
+        return table, 0
+    j = table.schema.get_field_index("donor_level")
+    return table.set_column(j, "donor_level", pa.array(niveaux, pa.string())), touches
+
+
 def main():
     print("Assemblage de la table canonique\n")
     table, part_files = load_parts()
     print(f"  {len(part_files)} parties, {table.num_rows:,} lignes lues")
+
+    table, fusions = corriger_niveau_apres_fusion(table)
+    if fusions:
+        print(f"  fusions de collectivités : {fusions:,} lignes dont le niveau "
+              f"nommait une entité disparue à leur date")
 
     table, dedup_stats = dedupe(table)
     print(f"  déduplication entre sources : {dedup_stats['rows_dropped']:,} lignes écartées "
