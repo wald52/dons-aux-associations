@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T19:18:06Z",
+  "generated_at": "2026-08-20T00:33:35Z",
   "referentiel": {
     "source": "wald52/carte-finances-locales (OFGL / BANATIC / INSEE)",
     "millesime": 2024,
@@ -489,8 +489,8 @@
         "nom": "Bas-Rhin",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 22612,
-        "amount_eur": 1093310228.16
+        "rows": 22511,
+        "amount_eur": 1090400892.39
       },
       "68": {
         "nom": "Haut-Rhin",
@@ -531,8 +531,8 @@
         "nom": "Savoie",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 7341,
-        "amount_eur": 361778782.65
+        "rows": 7333,
+        "amount_eur": 361559582.65
       },
       "74": {
         "nom": "Haute-Savoie",
@@ -545,8 +545,8 @@
         "nom": "Paris",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 168825,
-        "amount_eur": 23944007342.51
+        "rows": 168610,
+        "amount_eur": 23942665402.51
       },
       "76": {
         "nom": "Seine-Maritime",
@@ -664,15 +664,15 @@
         "nom": "Hauts-de-Seine",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 19870,
-        "amount_eur": 2190077562.99
+        "rows": 19868,
+        "amount_eur": 2189927562.99
       },
       "93": {
         "nom": "Seine-Saint-Denis",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 35734,
-        "amount_eur": 4292069236.6
+        "rows": 35732,
+        "amount_eur": 4291985036.6
       },
       "94": {
         "nom": "Val-de-Marne",
@@ -725,5 +725,5 @@
       }
     }
   },
-  "lignes_sans_departement": 649923
+  "lignes_sans_departement": 1407363
 }

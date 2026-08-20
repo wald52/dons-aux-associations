@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T19:44:17Z",
+  "generated_at": "2026-08-20T00:36:17Z",
   "methode": "Chaque libellé de donateur est rapproché du référentiel INSEE et désigne AU PLUS UNE collectivité — en cas d'homonymie, aucune. La couverture affichée est donc un minimum : un libellé inhabituel échoue à s'apparier alors que la donnée existe, mais aucune collectivité n'est comptée à tort.",
   "etats": {
     "donnees": "des subventions versées par cette collectivité sont présentes",
@@ -10,19 +10,19 @@
     "commune": {
       "univers": 34936,
       "par_etat": {
-        "sans_donnees": 34853,
-        "donnees": 70,
-        "publie_non_lu": 13
+        "sans_donnees": 34840,
+        "donnees": 86,
+        "publie_non_lu": 10
       },
       "population_totale": 68325284,
-      "population_couverte": 6543015,
-      "part_population_couverte": 9.6,
+      "population_couverte": 7053237,
+      "part_population_couverte": 10.3,
       "detail": {
         "02722": {
           "nom": "Soissons",
           "etat": "donnees",
-          "lignes": 1591,
-          "montant_eur": 8507888.0,
+          "lignes": 1430,
+          "montant_eur": 7665253.0,
           "population": 28046
         },
         "04112": {
@@ -38,6 +38,13 @@
           "lignes": 0,
           "montant_eur": 0,
           "population": 77637
+        },
+        "06029": {
+          "nom": "Cannes",
+          "etat": "donnees",
+          "lignes": 248,
+          "montant_eur": 55445663.5,
+          "population": 74350
         },
         "08105": {
           "nom": "Charleville-Mézières",
@@ -67,6 +74,13 @@
           "montant_eur": 618904.0,
           "population": 19645
         },
+        "18033": {
+          "nom": "Bourges",
+          "etat": "donnees",
+          "lignes": 138,
+          "montant_eur": 18122699.52,
+          "population": 64186
+        },
         "22113": {
           "nom": "Lannion",
           "etat": "donnees",
@@ -91,8 +105,8 @@
         "28134": {
           "nom": "Dreux",
           "etat": "donnees",
-          "lignes": 43,
-          "montant_eur": 2553233.0,
+          "lignes": 65,
+          "montant_eur": 3823397.0,
           "population": 31543
         },
         "29232": {
@@ -105,14 +119,21 @@
         "29239": {
           "nom": "Roscoff",
           "etat": "donnees",
-          "lignes": 92,
-          "montant_eur": 4807903.0,
+          "lignes": 93,
+          "montant_eur": 4812648.09,
           "population": 3334
+        },
+        "31069": {
+          "nom": "Blagnac",
+          "etat": "donnees",
+          "lignes": 1164,
+          "montant_eur": 0.0,
+          "population": 27604
         },
         "31555": {
           "nom": "Toulouse",
           "etat": "donnees",
-          "lignes": 10637,
+          "lignes": 21209,
           "montant_eur": 668290175.44,
           "population": 514819
         },
@@ -126,8 +147,8 @@
         "35040": {
           "nom": "Breteil",
           "etat": "donnees",
-          "lignes": 141,
-          "montant_eur": 10622644.0,
+          "lignes": 282,
+          "montant_eur": 10728870.44,
           "population": 3675
         },
         "35133": {
@@ -140,8 +161,8 @@
         "35203": {
           "nom": "La Nouaye",
           "etat": "donnees",
-          "lignes": 39,
-          "montant_eur": 316499.0,
+          "lignes": 78,
+          "montant_eur": 329098.69,
           "population": 362
         },
         "35206": {
@@ -154,49 +175,49 @@
         "35227": {
           "nom": "Pleumeleuc",
           "etat": "donnees",
-          "lignes": 147,
-          "montant_eur": 352662.64,
+          "lignes": 294,
+          "montant_eur": 705325.28,
           "population": 3543
         },
         "35236": {
           "nom": "Redon",
           "etat": "donnees",
-          "lignes": 224,
-          "montant_eur": 619808.21,
+          "lignes": 399,
+          "montant_eur": 1120409.42,
           "population": 9542
         },
         "35238": {
           "nom": "Rennes",
           "etat": "donnees",
-          "lignes": 17298,
-          "montant_eur": 279071894.9,
+          "lignes": 32840,
+          "montant_eur": 506189601.95,
           "population": 230890
         },
         "35277": {
           "nom": "Saint-Gonlay",
           "etat": "donnees",
-          "lignes": 9,
-          "montant_eur": 22680.0,
+          "lignes": 18,
+          "montant_eur": 25510.5,
           "population": 377
         },
         "35328": {
           "nom": "Sixt-sur-Aff",
           "etat": "donnees",
-          "lignes": 69,
+          "lignes": 121,
           "montant_eur": 62253.05,
           "population": 2273
         },
         "35331": {
           "nom": "Talensac",
           "etat": "donnees",
-          "lignes": 220,
-          "montant_eur": 18847812.0,
+          "lignes": 330,
+          "montant_eur": 19034424.0,
           "population": 2571
         },
         "36006": {
           "nom": "Argenton-sur-Creuse",
           "etat": "donnees",
-          "lignes": 600,
+          "lignes": 1082,
           "montant_eur": 1321364.3,
           "population": 4786
         },
@@ -273,15 +294,15 @@
         "44109": {
           "nom": "Nantes",
           "etat": "donnees",
-          "lignes": 10327,
+          "lignes": 19757,
           "montant_eur": 323388529.23,
           "population": 327734
         },
         "44114": {
           "nom": "Orvault",
           "etat": "donnees",
-          "lignes": 79,
-          "montant_eur": 18800465.0,
+          "lignes": 157,
+          "montant_eur": 37550307.0,
           "population": 28534
         },
         "44168": {
@@ -301,22 +322,22 @@
         "45024": {
           "nom": "Baule",
           "etat": "donnees",
-          "lignes": 182,
+          "lignes": 544,
           "montant_eur": 365259.0,
           "population": 1985
         },
         "45147": {
           "nom": "Fleury-les-Aubrais",
           "etat": "donnees",
-          "lignes": 107,
+          "lignes": 194,
           "montant_eur": 413911.33,
           "population": 21804
         },
         "47031": {
           "nom": "Boé",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 155,
+          "montant_eur": 506826.0,
           "population": 5846
         },
         "49018": {
@@ -350,15 +371,15 @@
         "55029": {
           "nom": "Bar-le-Duc",
           "etat": "donnees",
-          "lignes": 70,
-          "montant_eur": 85038418.15,
+          "lignes": 115,
+          "montant_eur": 89376965.3,
           "population": 14607
         },
         "56121": {
           "nom": "Lorient",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 215,
+          "montant_eur": 24699717.05,
           "population": 58329
         },
         "56206": {
@@ -399,8 +420,8 @@
         "59522": {
           "nom": "Sailly-lez-Lannoy",
           "etat": "donnees",
-          "lignes": 79,
-          "montant_eur": 2340292.8,
+          "lignes": 147,
+          "montant_eur": 2544305.6,
           "population": 1923
         },
         "62041": {
@@ -420,9 +441,30 @@
         "64102": {
           "nom": "Bayonne",
           "etat": "donnees",
-          "lignes": 111,
-          "montant_eur": 10429101.0,
+          "lignes": 223,
+          "montant_eur": 20991202.0,
           "population": 54306
+        },
+        "64483": {
+          "nom": "Saint-Jean-de-Luz",
+          "etat": "donnees",
+          "lignes": 152,
+          "montant_eur": 2467648.13,
+          "population": 14857
+        },
+        "65059": {
+          "nom": "Bagnères-de-Bigorre",
+          "etat": "donnees",
+          "lignes": 3,
+          "montant_eur": 141775.0,
+          "population": 7114
+        },
+        "65440": {
+          "nom": "Tarbes",
+          "etat": "donnees",
+          "lignes": 15,
+          "montant_eur": 2193249.0,
+          "population": 44399
         },
         "69123": {
           "nom": "Lyon",
@@ -476,9 +518,30 @@
         "75056": {
           "nom": "Paris",
           "etat": "donnees",
-          "lignes": 14883,
-          "montant_eur": 702184524.0,
+          "lignes": 198744,
+          "montant_eur": 4431953303.0,
           "population": 2103778
+        },
+        "77122": {
+          "nom": "Combs-la-Ville",
+          "etat": "donnees",
+          "lignes": 18,
+          "montant_eur": 1384151.5,
+          "population": 23350
+        },
+        "77285": {
+          "nom": "Le Mée-sur-Seine",
+          "etat": "donnees",
+          "lignes": 125,
+          "montant_eur": 0.0,
+          "population": 19527
+        },
+        "77288": {
+          "nom": "Melun",
+          "etat": "donnees",
+          "lignes": 83,
+          "montant_eur": 0.0,
+          "population": 45995
         },
         "77337": {
           "nom": "Noisiel",
@@ -487,11 +550,18 @@
           "montant_eur": 685025.0,
           "population": 16053
         },
+        "77410": {
+          "nom": "Saint-Germain-Laxis",
+          "etat": "donnees",
+          "lignes": 6,
+          "montant_eur": 0.0,
+          "population": 742
+        },
         "78146": {
           "nom": "Chatou",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 8,
+          "montant_eur": 850244.0,
           "population": 30598
         },
         "83119": {
@@ -500,6 +570,20 @@
           "lignes": 0,
           "montant_eur": 0,
           "population": 3582
+        },
+        "85191": {
+          "nom": "La Roche-sur-Yon",
+          "etat": "donnees",
+          "lignes": 630,
+          "montant_eur": 58942220.46,
+          "population": 54849
+        },
+        "91340": {
+          "nom": "Lisses",
+          "etat": "donnees",
+          "lignes": 26,
+          "montant_eur": 226051164.0,
+          "population": 7373
         },
         "91345": {
           "nom": "Longjumeau",
@@ -532,8 +616,8 @@
         "92040": {
           "nom": "Issy-les-Moulineaux",
           "etat": "donnees",
-          "lignes": 23,
-          "montant_eur": 14083276.0,
+          "lignes": 46,
+          "montant_eur": 28166552.0,
           "population": 67669
         },
         "92048": {
@@ -556,6 +640,13 @@
           "lignes": 107,
           "montant_eur": 4385021.0,
           "population": 29795
+        },
+        "94016": {
+          "nom": "Cachan",
+          "etat": "donnees",
+          "lignes": 335,
+          "montant_eur": 0.0,
+          "population": 31103
         },
         "94052": {
           "nom": "Nogent-sur-Marne",
@@ -595,22 +686,29 @@
         "97408": {
           "nom": "La Possession",
           "etat": "donnees",
-          "lignes": 88,
-          "montant_eur": 801350.0,
+          "lignes": 321,
+          "montant_eur": 2568279.0,
           "population": 36568
         }
       },
-      "donateurs_dans_les_donnees": 79,
+      "donateurs_dans_les_donnees": 113,
       "donateurs_non_apparies": [
-        "COMMUNE DE SAINT CLAUDE"
+        "CCAS GRANDCHAMP DESFONTAINES",
+        "CCAS VILLE DE NOUMEA",
+        "COMMUNE DE SAINT CLAUDE",
+        "CTRE COM ACTION SOCIALE CCAS",
+        "VILLE DE CHEMERE",
+        "VILLE DE SAINT NAZAIRE",
+        "VILLE DE VINEUIL 41350",
+        "VILLE DU POINCONNET"
       ]
     },
     "epci": {
       "univers": 1335,
       "par_etat": {
-        "sans_donnees": 1304,
-        "donnees": 20,
-        "publie_non_lu": 11
+        "sans_donnees": 1297,
+        "publie_non_lu": 9,
+        "donnees": 29
       },
       "population_totale": 0,
       "population_couverte": 0,
@@ -618,9 +716,9 @@
       "detail": {
         "240200477": {
           "nom": "Communauté d'agglomération GrandSoissons Agglomération",
-          "etat": "donnees",
-          "lignes": 172,
-          "montant_eur": 2175353.0,
+          "etat": "publie_non_lu",
+          "lignes": 0,
+          "montant_eur": 0,
           "population": 0
         },
         "240500462": {
@@ -635,6 +733,13 @@
           "etat": "publie_non_lu",
           "lignes": 0,
           "montant_eur": 0,
+          "population": 0
+        },
+        "200054807": {
+          "nom": "Métropole d'Aix-Marseille-Provence",
+          "etat": "donnees",
+          "lignes": 6352,
+          "montant_eur": 463191617.21,
           "population": 0
         },
         "200036473": {
@@ -668,15 +773,22 @@
         "243100518": {
           "nom": "Toulouse Métropole",
           "etat": "donnees",
-          "lignes": 3521,
+          "lignes": 7159,
           "montant_eur": 949351360.15,
+          "population": 0
+        },
+        "243100633": {
+          "nom": "Communauté d'agglomération du Sicoval",
+          "etat": "donnees",
+          "lignes": 276,
+          "montant_eur": 0.0,
           "population": 0
         },
         "243300316": {
           "nom": "Bordeaux Métropole",
           "etat": "donnees",
-          "lignes": 1177,
-          "montant_eur": 140793249.0,
+          "lignes": 2275,
+          "montant_eur": 275143673.0,
           "population": 0
         },
         "243400470": {
@@ -703,8 +815,8 @@
         "200040715": {
           "nom": "Grenoble-Alpes-Métropole",
           "etat": "donnees",
-          "lignes": 3002,
-          "montant_eur": 86275468.0,
+          "lignes": 4954,
+          "montant_eur": 151378628.0,
           "population": 0
         },
         "244000675": {
@@ -717,29 +829,29 @@
         "244400404": {
           "nom": "Nantes Métropole",
           "etat": "donnees",
-          "lignes": 2874,
+          "lignes": 5209,
           "montant_eur": 289959524.39,
           "population": 0
         },
         "200033025": {
           "nom": "Communauté d'agglomération de Bar-le-Duc - Sud Meuse",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 19,
+          "montant_eur": 2108606.0,
           "population": 0
         },
         "200042174": {
           "nom": "Communauté d'agglomération Lorient Agglomération",
           "etat": "donnees",
-          "lignes": 374,
-          "montant_eur": 55516975.32,
+          "lignes": 622,
+          "montant_eur": 102970919.16,
           "population": 0
         },
         "245701222": {
           "nom": "Communauté d'agglomération du Val de Fensch",
           "etat": "donnees",
-          "lignes": 570,
-          "montant_eur": 15960535.44,
+          "lignes": 715,
+          "montant_eur": 24870841.85,
           "population": 0
         },
         "245804406": {
@@ -759,7 +871,7 @@
         "246300701": {
           "nom": "Clermont Auvergne Métropole",
           "etat": "donnees",
-          "lignes": 327,
+          "lignes": 580,
           "montant_eur": 36011943.75,
           "population": 0
         },
@@ -770,11 +882,32 @@
           "montant_eur": 6033792.51,
           "population": 0
         },
+        "200069300": {
+          "nom": "Communauté d'agglomération Tarbes-Lourdes-Pyrénées",
+          "etat": "donnees",
+          "lignes": 16,
+          "montant_eur": 684363.0,
+          "population": 0
+        },
+        "246500482": {
+          "nom": "Communauté de communes de la Haute-Bigorre",
+          "etat": "donnees",
+          "lignes": 3,
+          "montant_eur": 572360.0,
+          "population": 0
+        },
         "200066009": {
           "nom": "Communauté d'agglomération Mulhouse Alsace Agglomération",
           "etat": "donnees",
           "lignes": 216,
           "montant_eur": 852415.88,
+          "population": 0
+        },
+        "200066058": {
+          "nom": "Communauté d'agglomération Saint-Louis Agglomération",
+          "etat": "donnees",
+          "lignes": 299,
+          "montant_eur": 46552745.82,
           "population": 0
         },
         "200046977": {
@@ -787,8 +920,8 @@
         "200069110": {
           "nom": "Communauté d'agglomération du Grand Chambéry",
           "etat": "donnees",
-          "lignes": 507,
-          "montant_eur": 10576953.37,
+          "lignes": 618,
+          "montant_eur": 14078286.92,
           "population": 0
         },
         "247300452": {
@@ -807,16 +940,30 @@
         },
         "200066884": {
           "nom": "Communauté de communes Quercy Vert-Aveyron",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 20,
+          "montant_eur": 1359219.37,
           "population": 0
         },
         "200036077": {
           "nom": "Communauté de communes du Golfe de Saint-Tropez",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 24,
+          "montant_eur": 837669.7,
+          "population": 0
+        },
+        "248500589": {
+          "nom": "Communauté d'agglomération La Roche-sur-Yon Agglomération",
+          "etat": "donnees",
+          "lignes": 175,
+          "montant_eur": 34301804.12,
+          "population": 0
+        },
+        "200059228": {
+          "nom": "Communauté d'agglomération Grand Paris Sud Seine Essonne Sénart",
+          "etat": "donnees",
+          "lignes": 630,
+          "montant_eur": 34639223.83,
           "population": 0
         },
         "249100546": {
@@ -829,24 +976,30 @@
         "200057974": {
           "nom": "Grand Paris Seine Ouest",
           "etat": "donnees",
-          "lignes": 116,
-          "montant_eur": 40320767.0,
+          "lignes": 114,
+          "montant_eur": 40170767.0,
           "population": 0
         }
       },
-      "donateurs_dans_les_donnees": 24,
+      "donateurs_dans_les_donnees": 40,
       "donateurs_non_apparies": [
+        "AGGLOMERATION MONTARGOISE",
+        "AGGLOPOLYS",
+        "CC ADOUR MADIRAN",
         "CC QUERCY VERT AVEYRON",
+        "COMMUNAUTE D AGGLOMERATION DE BOURGES",
+        "COMMUNAUTE DE COMMUNES DU PAYS MORNANTAIS",
         "COMMUNAUTE DE COMMUNES DU VAL D ESSONNE",
-        "PAYS DE MORMAL"
+        "PAYS DE MORMAL",
+        "SYNDICAT DES TRANSPORTS D ILE DE FRANCE"
       ]
     },
     "departement": {
       "univers": 101,
       "par_etat": {
-        "sans_donnees": 67,
-        "donnees": 27,
-        "publie_non_lu": 7
+        "sans_donnees": 65,
+        "donnees": 31,
+        "publie_non_lu": 5
       },
       "population_totale": 0,
       "population_couverte": 0,
@@ -855,7 +1008,7 @@
         "10": {
           "nom": "Aube",
           "etat": "donnees",
-          "lignes": 37,
+          "lignes": 44,
           "montant_eur": 7562429.0,
           "population": 0
         },
@@ -890,8 +1043,8 @@
         "24": {
           "nom": "Dordogne",
           "etat": "donnees",
-          "lignes": 6922,
-          "montant_eur": 120449218.66,
+          "lignes": 13922,
+          "montant_eur": 243746217.4,
           "population": 0
         },
         "28": {
@@ -904,15 +1057,15 @@
         "29": {
           "nom": "Finistère",
           "etat": "donnees",
-          "lignes": 5603,
-          "montant_eur": 601929757.87,
+          "lignes": 5593,
+          "montant_eur": 601478178.87,
           "population": 0
         },
         "31": {
           "nom": "Haute-Garonne",
           "etat": "donnees",
-          "lignes": 28,
-          "montant_eur": 2950174.0,
+          "lignes": 126,
+          "montant_eur": 8739101.0,
           "population": 0
         },
         "33": {
@@ -922,18 +1075,25 @@
           "montant_eur": 142891904.38,
           "population": 0
         },
+        "34": {
+          "nom": "Hérault",
+          "etat": "donnees",
+          "lignes": 35,
+          "montant_eur": 195695.0,
+          "population": 0
+        },
         "35": {
           "nom": "Ille-et-Vilaine",
           "etat": "donnees",
-          "lignes": 4863,
-          "montant_eur": 99530836.29,
+          "lignes": 2981,
+          "montant_eur": 63294074.0,
           "population": 0
         },
         "38": {
           "nom": "Isère",
           "etat": "donnees",
-          "lignes": 208,
-          "montant_eur": 13647664.14,
+          "lignes": 416,
+          "montant_eur": 27295328.28,
           "population": 0
         },
         "42": {
@@ -945,9 +1105,9 @@
         },
         "43": {
           "nom": "Haute-Loire",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 1308,
+          "montant_eur": 116798954.27,
           "population": 0
         },
         "44": {
@@ -988,8 +1148,8 @@
         "53": {
           "nom": "Mayenne",
           "etat": "donnees",
-          "lignes": 623,
-          "montant_eur": 1428177917.0,
+          "lignes": 1113,
+          "montant_eur": 1509017784.57,
           "population": 0
         },
         "55": {
@@ -1013,6 +1173,13 @@
           "montant_eur": 43179401.65,
           "population": 0
         },
+        "64": {
+          "nom": "Pyrénées-Atlantiques",
+          "etat": "donnees",
+          "lignes": 3325,
+          "montant_eur": 202410803.36,
+          "population": 0
+        },
         "65": {
           "nom": "Hautes-Pyrénées",
           "etat": "donnees",
@@ -1030,22 +1197,22 @@
         "67": {
           "nom": "Bas-Rhin",
           "etat": "donnees",
-          "lignes": 3345,
-          "montant_eur": 73627234.56,
+          "lignes": 3799,
+          "montant_eur": 71209451.16,
           "population": 0
         },
         "73": {
           "nom": "Savoie",
           "etat": "donnees",
-          "lignes": 941,
-          "montant_eur": 99357386.87,
+          "lignes": 1438,
+          "montant_eur": 83904401.16,
           "population": 0
         },
         "75": {
           "nom": "Paris",
           "etat": "donnees",
-          "lignes": 61324,
-          "montant_eur": 2956022497.0,
+          "lignes": 63787,
+          "montant_eur": 2955306777.0,
           "population": 0
         },
         "76": {
@@ -1057,9 +1224,9 @@
         },
         "79": {
           "nom": "Deux-Sèvres",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 1582,
+          "montant_eur": 108348138.97,
           "population": 0
         },
         "80": {
@@ -1079,19 +1246,19 @@
         "92": {
           "nom": "Hauts-de-Seine",
           "etat": "donnees",
-          "lignes": 1193,
-          "montant_eur": 187880038.0,
+          "lignes": 1950,
+          "montant_eur": 230356832.17,
           "population": 0
         },
         "93": {
           "nom": "Seine-Saint-Denis",
           "etat": "donnees",
-          "lignes": 508,
-          "montant_eur": 44283792.0,
+          "lignes": 679,
+          "montant_eur": 44199592.0,
           "population": 0
         }
       },
-      "donateurs_dans_les_donnees": 30,
+      "donateurs_dans_les_donnees": 38,
       "donateurs_non_apparies": [
         "BUDGET PRINCIPAL",
         "CONSEIL D PARTEMENTAL DU FINIST RE",
@@ -1101,9 +1268,9 @@
     "region": {
       "univers": 18,
       "par_etat": {
-        "sans_donnees": 12,
-        "donnees": 3,
-        "publie_non_lu": 3
+        "sans_donnees": 11,
+        "donnees": 5,
+        "publie_non_lu": 2
       },
       "population_totale": 0,
       "population_couverte": 0,
@@ -1112,15 +1279,15 @@
         "11": {
           "nom": "Île-de-France",
           "etat": "donnees",
-          "lignes": 33586,
-          "montant_eur": 3031560555.46,
+          "lignes": 65356,
+          "montant_eur": 3717013652.19,
           "population": 0
         },
         "24": {
           "nom": "Centre-Val de Loire",
           "etat": "donnees",
-          "lignes": 3303,
-          "montant_eur": 729981661.02,
+          "lignes": 8100,
+          "montant_eur": 2159763840.02,
           "population": 0
         },
         "28": {
@@ -1146,28 +1313,35 @@
         },
         "53": {
           "nom": "Bretagne",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 101077,
+          "montant_eur": 8059220902.84,
+          "population": 0
+        },
+        "76": {
+          "nom": "Occitanie",
+          "etat": "donnees",
+          "lignes": 63981,
+          "montant_eur": 7081096851.01,
           "population": 0
         }
       },
-      "donateurs_dans_les_donnees": 4,
+      "donateurs_dans_les_donnees": 6,
       "donateurs_non_apparies": []
     }
   },
   "donateurs_hors_referentiel": {
+    "inconnu": [
+      5881,
+      2000353254.26
+    ],
     "etat": [
-      1572319,
-      104701910611.33
+      1862156,
+      113941874518.27
     ],
     "operateur": [
-      63712,
-      1612923840.67
-    ],
-    "inconnu": [
-      1266,
-      86311383.52
+      64676,
+      2007346291.56
     ]
   }
 }
