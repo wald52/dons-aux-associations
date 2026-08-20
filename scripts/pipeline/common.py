@@ -828,7 +828,14 @@ def business_key(siret, name_norm, donor_norm, year, amount, purpose_norm):
     publications de la même collectivité ne se dédupliquent jamais.
     """
     import hashlib
-    parts = [siret or name_norm or "", identite_donateur(donor_norm, year),
+    # Le NOM d'abord, le SIRET seulement à défaut. Prendre le SIRET en premier
+    # rendait la clé instable entre sources : la Ville de Paris publie le SIRET
+    # dans un jeu et pas dans l'autre, si bien que la même subvention — même
+    # bénéficiaire, même montant, même objet — produisait deux clés et restait
+    # comptée deux fois. Le nom, lui, est présent partout.
+    # Deux organismes homonymes peuvent alors partager une clé : c'est la
+    # déduplication qui refuse de les fondre quand leurs SIRET se contredisent.
+    parts = [name_norm or siret or "", identite_donateur(donor_norm, year),
              str(year or ""),
              f"{amount:.2f}" if amount is not None else "", (purpose_norm or "")[:120]]
     return hashlib.sha1("||".join(parts).encode("utf-8")).hexdigest()[:20]

@@ -165,12 +165,25 @@ def main():
 
     bk = table.column("business_key").to_pylist()
     src = table.column("source_id").to_pylist()
-    groups = collections.defaultdict(set)
+    siret = table.column("beneficiary_siret").to_pylist()
+    groups = collections.defaultdict(list)
     for i in range(n):
-        groups[bk[i]].add(src[i])
-    remaining = sum(1 for v in groups.values() if len(v) > 1)
-    check("aucun doublon inter-sources résiduel", remaining == 0,
-          f"{remaining:,} groupes")
+        groups[bk[i]].append(i)
+
+    # Un doublon inter-sources ne peut subsister QUE si les SIRET du groupe se
+    # contredisent : la clé porte le nom du bénéficiaire, et deux homonymes de
+    # SIRET différents sont deux personnes morales qu'il serait faux de fondre.
+    # Tout autre résidu est une déduplication qui n'a pas fait son travail.
+    inexplique, homonymes = 0, 0
+    for idx in groups.values():
+        if len({src[i] for i in idx}) < 2:
+            continue
+        if len({siret[i] for i in idx if siret[i]}) > 1:
+            homonymes += 1
+        else:
+            inexplique += 1
+    check("aucun doublon inter-sources inexpliqué", inexplique == 0,
+          f"{inexplique:,} groupes ; {homonymes:,} conservés pour SIRET contradictoires")
 
     # 10. Index de recherche croisée (phase 3) — s'il a été construit --------
     rech = os.path.join(ROOT, "data", "canonical", "recherche")

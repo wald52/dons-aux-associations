@@ -69,18 +69,12 @@ def dedupe(table):
         "groups_total": len(groups),
         "collisions_same_source": 0, "rows_same_source": 0,
         "collisions_cross_source": 0, "rows_dropped": 0, "amount_dropped": 0.0,
+        "collisions_homonymes": 0, "rows_homonymes": 0,
         "dropped_by_source": collections.Counter(),
     }
 
-    for key, idx in groups.items():
-        if len(idx) == 1:
-            continue
-        sources = {cols["source_id"][i] for i in idx}
-        if len(sources) == 1:
-            # Doublon interne à une source : on garde, on signale.
-            stats["collisions_same_source"] += 1
-            stats["rows_same_source"] += len(idx)
-            continue
+    def fondre(idx):
+        """Ne garde qu'une ligne du lot, la mieux renseignée."""
         stats["collisions_cross_source"] += 1
         best = min(idx, key=lambda i: (
             CONF_RANK.get(cols["confidence"][i], 9),
@@ -93,6 +87,41 @@ def dedupe(table):
                 stats["rows_dropped"] += 1
                 stats["amount_dropped"] += cols["amount_eur"][i] or 0.0
                 stats["dropped_by_source"][cols["source_id"][i]] += 1
+
+    for key, idx in groups.items():
+        if len(idx) == 1:
+            continue
+        sources = {cols["source_id"][i] for i in idx}
+        if len(sources) == 1:
+            # Doublon interne à une source : on garde, on signale.
+            stats["collisions_same_source"] += 1
+            stats["rows_same_source"] += len(idx)
+            continue
+
+        # La clé porte le NOM du bénéficiaire, pas son SIRET — sans quoi elle
+        # serait instable entre deux sources qui ne publient pas les mêmes
+        # identifiants. Mais des homonymes existent : « MAISON FAMILIALE
+        # RURALE » désigne plusieurs établissements distincts d'un même
+        # département, qui reçoivent la même année le même montant rond pour le
+        # même objet générique. Quand les SIRET se contredisent, ce sont des
+        # personnes morales différentes : les fondre EFFACERAIT une subvention
+        # réelle. On ne fond alors qu'à SIRET égal, et on laisse les lignes
+        # sans SIRET tranquilles — rien ne dit à laquelle elles appartiennent.
+        sirets = {cols["beneficiary_siret"][i] for i in idx
+                  if cols["beneficiary_siret"][i]}
+        if len(sirets) > 1:
+            stats["collisions_homonymes"] += 1
+            stats["rows_homonymes"] += len(idx)
+            par_siret = collections.defaultdict(list)
+            for i in idx:
+                if cols["beneficiary_siret"][i]:
+                    par_siret[cols["beneficiary_siret"][i]].append(i)
+            for lot in par_siret.values():
+                if len(lot) > 1 and len({cols["source_id"][i] for i in lot}) > 1:
+                    fondre(lot)
+            continue
+
+        fondre(idx)
 
     stats["dropped_by_source"] = dict(stats["dropped_by_source"])
     stats["amount_dropped"] = round(stats["amount_dropped"], 2)
