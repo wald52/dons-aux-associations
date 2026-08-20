@@ -41,31 +41,33 @@ lecture pour s'en servir : c'est un dépôt public.
 
 Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 
-### Aujourd'hui (phase 6a, 20/08/2026)
+### Aujourd'hui (phase 6b, 20/08/2026)
 
-| Mesure | v0 | phase 6a |
+| Mesure | v0 | aujourd'hui |
 |---|---|---|
 | Octets transférés | ~73,6 Mo | **0,14 Mo** |
 | Premier affichage | 12,96 s | **0,07 s** |
 | Données exploitables | 57,75 s | **0,59 s** |
 | Mémoire JS | 1 965 Mo | **3 Mo** |
 | Balises `<script>` | 170 | **1** |
-| Lignes dans la table | 1 595 805 | **2 769 440** |
+| Lignes dans la table | 1 595 805 | **2 690 242** |
 
-Le site sert 37 % de lignes de plus qu'en phase 4 sans rien perdre en
-vitesse : il sert un index précalculé, pas une base.
+(Vitesse relevée en phase 6a ; la 6b ne change que les données, en baisse.
+Le banc n'a pas été rejoué depuis — cf. `RESTE-A-FAIRE.md`.)
 
-Données : **559 sources**, 161,7 Md€ sommés, 18,2 Md€ ingérés mais
+Données : **630 sources**, **157,68 Md€** sommés, 18,2 Md€ ingérés mais
 délibérément hors des totaux (exécution budgétaire déjà comptée au vote,
-bénéficiaires déclarés hors du champ associatif). 408 380 bénéficiaires
-résolus, dont 9 016 cumulent au moins trois échelons.
+bénéficiaires déclarés hors du champ associatif). 406 280 bénéficiaires
+résolus, dont 6 739 cumulent au moins trois échelons.
 
-Couverture face au référentiel INSEE, et c'est un MINIMUM : 86 communes sur
-34 936, 29 EPCI sur 1 335, 31 départements sur 101, 5 régions sur 18.
+Couverture face au référentiel INSEE, et c'est un MINIMUM : **113 communes**
+sur 34 936, **40 EPCI** sur 1 335, **37 départements** sur 101, **6 régions**
+sur 18 — soit 10,3 % de la population.
 
-**Le total de Paris est encore surévalué d'environ un facteur deux** — voir
-les pièges : la clé métier manque les doublons quand le donateur change de
-libellé.
+Le double comptage de Paris est corrigé (phase 6b) : la série ne rompt plus à
+la fusion de 2019, 271 M€ en 2018 puis 291 M€ en 2019.
+
+**Ce qui reste à faire est dans `RESTE-A-FAIRE.md`**, chiffré et priorisé.
 
 ### L'état d'origine, pour mémoire (18/08/2026)
 
@@ -515,7 +517,7 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       recours, avec un garde-fou qui refuse de fondre des homonymes aux SIRET
       contradictoires. La source héritée `paris`, copie fautive d'un jeu que
       le moissonneur reprend en entier, est retirée. **2 690 242 lignes,
-      157,7 Md€, 543 sources.** Paris ne rompt plus à la fusion : 271 M€ en
+      157,7 Md€, 630 sources.** Paris ne rompt plus à la fusion : 271 M€ en
       2018, 291 M€ en 2019.
       Restent : dépivotage des tableaux annuels (~178 fichiers), liens morts
       en amont (236 404 et 135 échecs `datacat.datalocale`).
