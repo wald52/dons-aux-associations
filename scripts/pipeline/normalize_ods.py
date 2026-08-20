@@ -58,6 +58,7 @@ ROLES = {
     "benef_rna": "rna_beneficiaire", "attrib_nom": "attribuant",
     "objet": "objet", "montant": "montant", "date_conv": "date_convention",
     "annee": "annee", "nature": "nature",
+    "nature_benef": "nature_beneficiaire",
 }
 
 
@@ -67,8 +68,11 @@ def normaliser(fiche, ingested_at):
     entete, lignes, infos = C.read_rows(chemin)
     col = {k: C.trouver_colonne(entete, r) for k, r in ROLES.items()}
 
+    # Voté ou versé : le titre du jeu le dit, et cela vaut pour tout le fichier.
+    mesure = C.measure_of(fiche.get("titre"), os.path.basename(chemin))
+
     out = {f: [] for f in C.CANONICAL_FIELDS}
-    st = {"source_id": source_id, "portail": fiche.get("portail"),
+    st = {"source_id": source_id, "portail": fiche.get("portail"), "mesure": mesure,
           "editeur": fiche.get("editeur"), "titre": fiche.get("titre"),
           "page": fiche.get("page"), "lues": 0, "gardees": 0, "ecartees": 0,
           "raisons": {}, "drapeaux": {}, "niveaux": {},
@@ -120,11 +124,18 @@ def normaliser(fiche, ingested_at):
 
         objet = C.clean_text(r.get(col["objet"])) if col["objet"] else ""
         gran = "aggregate" if C.looks_aggregate(objet, nom) else "individual"
-        kind = "association"
-        n = C.fold(nom)
-        if any(w in n for w in ("mairie de", "commune de", "ville de", "centre hospitalier",
-                                "conseil departemental", "etablissement public", "syndicat")):
-            kind = "public_body"
+        # Quand la source déclare la nature juridique, elle fait foi ; sinon on
+        # se rabat sur le nom, en le signalant comme une devinette.
+        declaree = C.kind_from_nature(r.get(col["nature_benef"])) if col["nature_benef"] else None
+        if declaree:
+            kind, kind_prov = declaree, "declared"
+        else:
+            kind, kind_prov = "association", "guessed"
+            n = C.fold(nom)
+            if any(w in n for w in ("mairie de", "commune de", "ville de", "centre hospitalier",
+                                    "conseil departemental", "etablissement public", "syndicat")):
+                kind = "public_body"
+        if kind != "association":
             flags.append("beneficiary_not_association")
         if montant == 0:
             flags.append("amount_zero")
@@ -160,7 +171,9 @@ def normaliser(fiche, ingested_at):
             year=annee, year_provenance="published" if annee else "unknown",
             date_convention=date_conv[:10] or None,
             purpose_raw=objet or None, purpose_norm=objet_norm,
-            granularity=gran, is_convention=True if date_conv else None,
+            granularity=gran, measure=mesure,
+            beneficiary_kind_provenance=kind_prov,
+            is_convention=True if date_conv else None,
             quality_flags=flags, confidence=conf,
             source_id=source_id, source_label=fiche.get("titre") or source_id,
             source_url=fiche.get("page"), source_row_ref=ref, source_family="portail",

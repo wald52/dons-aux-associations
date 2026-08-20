@@ -640,13 +640,50 @@ CANONICAL_SCHEMA = pa.schema([
     ("amount_eur", pa.float64()), ("amount_rejected_eur", pa.float64()), ("year", pa.int32()), ("year_provenance", pa.string()),
     ("date_convention", pa.string()),
     ("purpose_raw", pa.string()), ("purpose_norm", pa.string()),
-    ("granularity", pa.string()), ("is_convention", pa.bool_()),
+    ("granularity", pa.string()), ("measure", pa.string()),
+    ("beneficiary_kind_provenance", pa.string()), ("is_convention", pa.bool_()),
     ("quality_flags", pa.list_(pa.string())), ("confidence", pa.string()),
     ("source_id", pa.string()), ("source_label", pa.string()), ("source_url", pa.string()),
     ("source_row_ref", pa.string()), ("source_family", pa.string()),
     ("license", pa.string()), ("ingested_at", pa.string()),
 ])
 CANONICAL_FIELDS = [f.name for f in CANONICAL_SCHEMA]
+
+
+# Ce qui entre dans les totaux affichés du site, défini UNE SEULE FOIS — comme
+# le schéma et la clé métier — pour qu'aucun script ne puisse compter autrement
+# qu'un autre. Trois exclusions, trois raisons distinctes :
+#
+#   granularity == "aggregate"  une ligne de budget déjà somme d'autres lignes ;
+#                               l'additionner aux attributions compte deux fois.
+#   measure     == "verse"      l'exécution budgétaire d'une subvention déjà
+#                               comptée au vote. Même argent, deux publications.
+#   kind        != association  le publieur DÉCLARE un bénéficiaire qui n'est pas
+#                               une association. Hors du périmètre du site.
+#
+# Rien n'est jeté pour autant : ces lignes restent dans la table canonique et
+# restent consultables. Elles ne sont simplement pas sommées.
+def compte_dans_les_totaux(granularity, measure, kind, kind_provenance):
+    if granularity == "aggregate":
+        return False
+    if measure == "verse":
+        return False
+    # Une nature seulement DEVINÉE ne suffit pas à exclure : se tromper en
+    # excluant efface une association réelle, se tromper en incluant laisse une
+    # ligne de trop qui reste visible et corrigeable. On penche du bon côté.
+    if kind_provenance == "declared" and kind not in (None, "association"):
+        return False
+    return True
+
+
+# La même règle, pour les scripts qui interrogent le Parquet en SQL.
+SQL_COMPTE_DANS_LES_TOTAUX = (
+    "granularity IS DISTINCT FROM 'aggregate' "
+    "AND measure IS DISTINCT FROM 'verse' "
+    "AND NOT (beneficiary_kind_provenance = 'declared' "
+    "         AND beneficiary_kind IS NOT NULL "
+    "         AND beneficiary_kind <> 'association')"
+)
 
 
 def business_key(siret, name_norm, donor_norm, year, amount, purpose_norm):
@@ -721,12 +758,71 @@ ROLES_COLONNES = {
          ("libelle", "subvention"), ("description",)],
         ("date", "montant", "nature"),
     ),
+    # `publication` vient en dernier : c'est le libellé du compte administratif
+    # de Paris (« CA 2018 »), seul endroit où l'exercice soit écrit. Sans lui,
+    # 67 413 lignes restaient sans année.
     "annee": ([("annee", "budgetaire"), ("annee", "decision"), ("exercice",),
-               ("millesime",), ("annee",)], ("date",)),
+               ("millesime",), ("annee",), ("publication",)], ("date",)),
     "date_convention": ([("date", "convention"), ("date", "decision"),
                          ("dateconvention",)], ()),
     "nature": ([("nature", "subvention"), ("nature",)], ("juridique", "beneficiaire")),
+    # Quand la source DÉCLARE la nature juridique du bénéficiaire, elle vaut
+    # mieux que notre devinette sur le nom : c'est le publieur qui sait si
+    # « Paris Habitat » est une association ou un établissement public.
+    "nature_beneficiaire": (
+        [("nature", "juridique", "beneficiaire"), ("categorie", "beneficiaire"),
+         ("nature", "juridique"), ("type", "beneficiaire"),
+         ("categorie", "juridique")],
+        ("attribuant", "subvention", "montant"),
+    ),
 }
+
+# Natures juridiques telles que les publieurs les écrivent, ramenées à notre
+# vocabulaire. Ce qui n'est reconnu par aucun motif reste `None` : on ne devine
+# pas à partir d'un libellé qu'on ne comprend pas.
+_NATURES_BENEFICIAIRE = (
+    ("association", ("association", "associatif", "loi 1901", "loi de 1901",
+                     "fondation", "organisme a but non lucratif", "obnl")),
+    ("public_body", ("etablissement public", "etablissements publics",
+                     "etablissement de droit public", "collectivite",
+                     "commune", "departement", "region", "syndicat mixte",
+                     "chambre consulaire", "gip", "epic", "epa")),
+    ("company", ("entreprise", "societe", "sarl", "sas", "sa ", "eurl",
+                 "commercant", "artisan", "cooperative", "sem", "spl")),
+    ("individual", ("personne physique", "personnes physiques", "particulier",
+                    "particuliers", "menage")),
+)
+
+
+def kind_from_nature(libelle):
+    """Nature du bénéficiaire DÉCLARÉE par la source, ou None.
+
+    Le publieur sait ce que nous ne saurions deviner d'un nom : que
+    « Paris Habitat » est un établissement public et non une association.
+    Quand il l'écrit, sa parole prime sur notre heuristique.
+    """
+    t = fold(libelle or "")
+    if not t:
+        return None
+    for kind, motifs in _NATURES_BENEFICIAIRE:
+        if any(m in t for m in motifs):
+            return kind
+    return None
+
+
+# Une même collectivité publie souvent ses subventions deux fois : ce qu'elle a
+# VOTÉ, et ce qu'elle a effectivement VERSÉ (annexe au compte administratif).
+# C'est le même argent vu deux fois. Les additionner double la collectivité, on
+# les distingue donc par `measure` et seul « attribue » entre dans les totaux.
+_MOTS_VERSE = ("compte administratif", "subventions versees", "subventions verses",
+               "mandatees", "mandate", "paiements", "versements effectues")
+
+
+def measure_of(*libelles):
+    """« verse » si le libellé désigne une exécution budgétaire, sinon « attribue »."""
+    t = " ".join(fold(x or "") for x in libelles)
+    return "verse" if any(m in t for m in _MOTS_VERSE) else "attribue"
+
 
 # Colonnes qui trahissent une aide EN NATURE : ce sont des valorisations de
 # locaux ou de personnel, pas des euros décaissés. Les sommer avec des

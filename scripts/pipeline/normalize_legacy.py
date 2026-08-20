@@ -148,6 +148,8 @@ def emit(out, **kw):
 def normalize_source(path, ingested_at):
     name = os.path.basename(path)[:-3]
     registered_id, label, rows = C.read_legacy_source(path)
+    # Voté ou versé : lu au nom de la source et à son libellé.
+    mesure = C.measure_of(name, label)
 
     out = {f: [] for f in C.CANONICAL_FIELDS}
     st = {
@@ -278,7 +280,9 @@ def normalize_source(path, ingested_at):
                  year_provenance="published" if year else "unknown",
                  date_convention=rec["date_convention"],
                  purpose_raw=rec["purpose"] or None, purpose_norm=purpose_norm,
-                 granularity=gran, is_convention=rec["convention"],
+                 granularity=gran, measure=mesure,
+                 beneficiary_kind_provenance="guessed",
+                 is_convention=rec["convention"],
                  quality_flags=flags, confidence=conf,
                  source_id=name, source_label=label or rec["donor_name"] or name,
                  source_url=url, source_row_ref=row_ref, source_family=rec["family"],

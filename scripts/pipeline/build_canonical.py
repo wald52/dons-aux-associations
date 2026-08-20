@@ -113,9 +113,12 @@ def quality_report(table, dedup_stats, part_files):
     years = table.column("year").to_pylist()
     dep = table.column("beneficiary_dep_code").to_pylist()
     kind = table.column("beneficiary_kind").to_pylist()
+    mesure = table.column("measure").to_pylist()
+    kind_prov = table.column("beneficiary_kind_provenance").to_pylist()
 
     per_source = collections.defaultdict(lambda: {
         "rows": 0, "amount_individual": 0.0, "amount_aggregate": 0.0,
+        "amount_not_summed": 0.0, "rows_not_summed": 0,
         "flags": collections.Counter(), "years": set(), "kinds": collections.Counter(),
     })
     for i, s in enumerate(src):
@@ -123,6 +126,10 @@ def quality_report(table, dedup_stats, part_files):
         d["rows"] += 1
         if gran[i] == "aggregate":
             d["amount_aggregate"] += amt[i] or 0
+        elif not C.compte_dans_les_totaux(gran[i], mesure[i], kind[i], kind_prov[i]):
+            # Écartée des totaux, jamais de la table : elle reste consultable.
+            d["amount_not_summed"] += amt[i] or 0
+            d["rows_not_summed"] += 1
         else:
             d["amount_individual"] += amt[i] or 0
         for f in flags[i] or []:
@@ -137,6 +144,8 @@ def quality_report(table, dedup_stats, part_files):
             "rows": d["rows"],
             "amount_individual_eur": round(d["amount_individual"], 2),
             "amount_aggregate_eur": round(d["amount_aggregate"], 2),
+            "amount_not_summed_eur": round(d["amount_not_summed"], 2),
+            "rows_not_summed": d["rows_not_summed"],
             "years": sorted(d["years"]),
             "flags": dict(d["flags"].most_common()),
             "beneficiary_kinds": dict(d["kinds"].most_common()),
@@ -153,8 +162,18 @@ def quality_report(table, dedup_stats, part_files):
         "rows_total": table.num_rows,
         # `amount_eur` est nul pour les valeurs qui ne sont pas des montants :
         # une somme simple est donc juste, sans filtre à ne pas oublier.
-        "amount_individual_eur": round(sum(a or 0 for a, g in zip(amt, gran) if g != "aggregate"), 2),
+        "amount_individual_eur": round(sum(
+            a or 0 for a, g, m, k, kp in zip(amt, gran, mesure, kind, kind_prov)
+            if C.compte_dans_les_totaux(g, m, k, kp)), 2),
         "amount_aggregate_eur": round(sum(a or 0 for a, g in zip(amt, gran) if g == "aggregate"), 2),
+        # Individuelles mais non sommées : exécution budgétaire déjà comptée au
+        # vote, ou bénéficiaire que la source déclare hors du champ associatif.
+        "amount_not_summed_eur": round(sum(
+            a or 0 for a, g, m, k, kp in zip(amt, gran, mesure, kind, kind_prov)
+            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp)), 2),
+        "rows_not_summed": sum(
+            1 for g, m, k, kp in zip(gran, mesure, kind, kind_prov)
+            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp)),
         "amount_rejected_eur": round(sum(x or 0 for x in rejected), 2),
         "rows_rejected": sum(1 for x in rejected if x is not None),
         "years_covered": sorted({y for y in years if y}),
@@ -355,6 +374,8 @@ def main():
           f"en {len(parts_written)} partitions (la plus grosse : {biggest/1048576:.1f} Mo)")
     print(f"  Montant (attributions individuelles) : {report['amount_individual_eur']:,.0f} €")
     print(f"  Montant (totaux agrégés, jamais sommés avec) : {report['amount_aggregate_eur']:,.0f} €")
+    print(f"  Montant écarté des totaux (versé, ou hors associations) : "
+          f"{report['amount_not_summed_eur']:,.0f} € sur {report['rows_not_summed']:,} lignes")
     print(f"  Années : {report['years_covered'][0]}-{report['years_covered'][-1]}")
     print(f"  Départements représentés : {report['departments_present']} / {cov['departements']['univers']}")
     print("\n  Taux de remplissage :")

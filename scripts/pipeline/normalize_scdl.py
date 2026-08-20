@@ -50,6 +50,7 @@ ROLES = {
     "benef_rna": "rna_beneficiaire", "attrib_nom": "attribuant",
     "objet": "objet", "montant": "montant", "date_conv": "date_convention",
     "annee": "annee", "nature": "nature",
+    "nature_benef": "nature_beneficiaire",
 }
 
 
@@ -74,6 +75,8 @@ def normaliser_fichier(fiche, fichier, ingested_at):
     col = {k: C.trouver_colonne(entete, r) for k, r in ROLES.items()}
     col["attrib_id"] = C.pick(entete, "idAttribuant", "siret attribuant", "id attribuant")
     col["reference"] = C.pick(entete, "referenceDecision", "reference decision")
+    # Voté ou versé : lu au titre du jeu et au nom du fichier, une fois pour tout.
+    mesure = C.measure_of(fiche.get("titre"), fichier.get("titre"))
 
     out = {f: [] for f in C.CANONICAL_FIELDS}
     st = {
@@ -132,11 +135,17 @@ def normaliser_fichier(fiche, fichier, ingested_at):
 
         objet = C.clean_text(r.get(col["objet"])) if col["objet"] else ""
         gran = "aggregate" if C.looks_aggregate(objet, nom) else "individual"
-        kind = "association"
-        n = C.fold(nom)
-        if any(w in n for w in ("mairie de", "commune de", "ville de", "centre hospitalier",
-                                "conseil departemental", "etablissement public")):
-            kind = "public_body"
+        # La nature déclarée par la source prime sur la devinette sur le nom.
+        declaree = C.kind_from_nature(r.get(col["nature_benef"])) if col["nature_benef"] else None
+        if declaree:
+            kind, kind_prov = declaree, "declared"
+        else:
+            kind, kind_prov = "association", "guessed"
+            n = C.fold(nom)
+            if any(w in n for w in ("mairie de", "commune de", "ville de", "centre hospitalier",
+                                    "conseil departemental", "etablissement public")):
+                kind = "public_body"
+        if kind != "association":
             flags.append("beneficiary_not_association")
         if montant == 0:
             flags.append("amount_zero")
@@ -172,7 +181,9 @@ def normaliser_fichier(fiche, fichier, ingested_at):
             year=annee, year_provenance="published" if annee else "unknown",
             date_convention=date_conv[:10] or None,
             purpose_raw=objet or None, purpose_norm=objet_norm,
-            granularity=gran, is_convention=True if date_conv else None,
+            granularity=gran, measure=mesure,
+            beneficiary_kind_provenance=kind_prov,
+            is_convention=True if date_conv else None,
             quality_flags=flags, confidence=conf,
             source_id=source_id, source_label=fiche.get("titre") or source_id,
             source_url=fiche.get("page"), source_row_ref=ref_ligne,

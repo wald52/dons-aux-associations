@@ -137,7 +137,12 @@ def main():
 
     # 7. Le total publié exclut bien agrégats et invraisemblables ------------
     gran = table.column("granularity").to_pylist()
-    recomputed = round(sum(amt[i] or 0 for i in range(n) if gran[i] != "aggregate"), 2)
+    mesure = table.column("measure").to_pylist()
+    bkind = table.column("beneficiary_kind").to_pylist()
+    bkprov = table.column("beneficiary_kind_provenance").to_pylist()
+    recomputed = round(sum(
+        amt[i] or 0 for i in range(n)
+        if C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i])), 2)
     check("total individuel reproductible",
           abs(recomputed - report["amount_individual_eur"]) < 1,
           f"{recomputed:,.0f} € = rapport")
@@ -147,6 +152,17 @@ def main():
           table.column("source_id").null_count == 0 and table.column("source_row_ref").null_count == 0)
 
     # 9. Doublons entre sources : aucun ne subsiste --------------------------
+    # Une subvention votée et la même subvention versée ne doivent jamais être
+    # sommées ensemble : ce contrôle garde la distinction vivante.
+    verses = sum(1 for m in mesure if m == "verse")
+    check("mesure renseignée sur toute ligne",
+          all(m in ("attribue", "verse") for m in mesure),
+          f"{verses:,} lignes d'exécution budgétaire, hors totaux")
+    declares = sum(1 for p in bkprov if p == "declared")
+    check("provenance de la nature du bénéficiaire renseignée",
+          all(p in ("declared", "guessed") for p in bkprov),
+          f"{declares:,} natures déclarées par la source")
+
     bk = table.column("business_key").to_pylist()
     src = table.column("source_id").to_pylist()
     groups = collections.defaultdict(set)
@@ -164,7 +180,11 @@ def main():
               sum(tb.column("nb_versements").to_pylist()) == n,
               f"{sum(tb.column('nb_versements').to_pylist()):,}")
         somme_idx = round(sum(x or 0 for x in tb.column("montant_eur").to_pylist()), 2)
-        somme_can = round(sum(amt[i] or 0 for i in range(n) if gran[i] != "aggregate"), 2)
+        # Même règle que l'index et que les agrégats — celle de common.py. La
+        # recopier ici la ferait diverger au premier changement.
+        somme_can = round(sum(
+            amt[i] or 0 for i in range(n)
+            if C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i])), 2)
         check("index : montants = table canonique",
               abs(somme_idx - somme_can) < 1, f"{somme_idx:,.0f} €")
         bids = set(tb.column("benef_id").to_pylist())

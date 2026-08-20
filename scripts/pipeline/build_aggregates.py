@@ -56,6 +56,7 @@ def main():
     table = ds.dataset(CANON, format="parquet", partitioning="hive").to_table(columns=[
         "beneficiary_dep_code", "beneficiary_name_raw", "beneficiary_siren",
         "donor_level", "donor_name_raw", "amount_eur", "year", "granularity",
+        "measure", "beneficiary_kind", "beneficiary_kind_provenance",
         "source_id", "quality_flags",
     ])
     n = table.num_rows
@@ -67,6 +68,14 @@ def main():
     bname = table.column("beneficiary_name_raw").to_pylist()
     dname = table.column("donor_name_raw").to_pylist()
     src = table.column("source_id").to_pylist()
+    mesure = table.column("measure").to_pylist()
+    bkind = table.column("beneficiary_kind").to_pylist()
+    bkprov = table.column("beneficiary_kind_provenance").to_pylist()
+
+    # Une seule règle décide de ce qui est sommé, définie dans common.py. On la
+    # calcule une fois par ligne : elle sert aux trois agrégats ci-dessous.
+    sommable = [C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i])
+                for i in range(n)]
 
     ref = C.referentiel()
     report = json.load(open(os.path.join(ROOT, "data", "canonical",
@@ -85,7 +94,7 @@ def main():
     # compteurs. Même chose pour les lignes dont le montant a été mis de côté :
     # on les COMPTE sans les SOMMER, pour que l'activité reste visible.
     for i in range(n):
-        if gran[i] == "aggregate":
+        if not sommable[i]:
             continue
         y = str(yr[i]) if yr[i] is not None else "inconnue"
         l, a = lvl[i], amt[i]
@@ -170,7 +179,7 @@ def main():
     def top(names, k=40):
         acc = collections.defaultdict(lambda: [0, 0.0])
         for i in range(n):
-            if gran[i] == "aggregate" or amt[i] is None or not names[i]:
+            if not sommable[i] or amt[i] is None or not names[i]:
                 continue
             c = acc[names[i]]
             c[0] += 1
@@ -201,7 +210,7 @@ def main():
 
     by_dep_rows = collections.defaultdict(list)
     for i in range(n):
-        if dep[i] and gran[i] != "aggregate":
+        if dep[i] and sommable[i]:
             by_dep_rows[dep[i]].append(i)
 
     frag_total = 0

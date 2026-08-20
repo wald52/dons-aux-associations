@@ -61,6 +61,7 @@ COLS = [
     "beneficiary_commune_insee",
     "donor_level", "donor_name_raw", "donor_program",
     "amount_eur", "amount_rejected_eur", "year", "granularity",
+    "measure", "beneficiary_kind_provenance",
     "purpose_raw", "source_id", "source_label", "source_url", "quality_flags",
 ]
 
@@ -107,7 +108,11 @@ def main():
             g["deps"][col["beneficiary_dep_code"][i]] += 1
         g["kinds"][col["beneficiary_kind"][i]] += 1
         g["n"] += 1
-        if col["granularity"][i] != "aggregate":
+        # Le cumul d'un bénéficiaire suit la même règle que les totaux du site :
+        # ni agrégat, ni exécution déjà comptée au vote, ni hors champ déclaré.
+        if C.compte_dans_les_totaux(col["granularity"][i], col["measure"][i],
+                                    col["beneficiary_kind"][i],
+                                    col["beneficiary_kind_provenance"][i]):
             g["montant"] += col["amount_eur"][i] or 0.0
         g["ecarte"] += col["amount_rejected_eur"][i] or 0.0
         if col["year"][i]:
@@ -163,8 +168,8 @@ def main():
     vt = vt.append_column("shard", pa.array([shard_of(x) for x in ids], pa.int32()))
     vt = vt.select(["shard", "benef_id", "year", "amount_eur", "amount_rejected_eur",
                     "donor_level", "donor_name_raw", "donor_program",
-                    "purpose_raw", "granularity", "source_id", "source_label",
-                    "source_url"])
+                    "purpose_raw", "granularity", "measure", "source_id",
+                    "source_label", "source_url"])
     vt = vt.sort_by([("shard", "ascending"), ("benef_id", "ascending"),
                      ("year", "ascending")])
     shard_dir = os.path.join(OUT, "versements")

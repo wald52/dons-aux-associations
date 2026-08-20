@@ -300,6 +300,11 @@ def normalize_file(path, entry, ingested_at):
         out["purpose_raw"].append(purpose or None)
         out["purpose_norm"].append(C.normalize_name(purpose) or None)
         out["granularity"].append(row_granularity)
+        # L'annexe Jaune recense ce que l'État a ATTRIBUÉ, jamais une exécution
+        # budgétaire : la mesure est constante pour toute la famille.
+        out["measure"].append("attribue")
+        out["beneficiary_kind_provenance"].append(
+            "declared" if (c_categ and r.get(c_categ)) else "guessed")
         out["is_convention"].append(is_conv)
         out["quality_flags"].append(flags)
         out["confidence"].append(conf)
