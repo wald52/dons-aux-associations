@@ -281,6 +281,38 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   consultable mais jamais sommé. Le titre du jeu suffit à trancher
   (`measure_of`).
 
+- **La règle « versé ⇒ hors totaux » exclut 1,86 Md€ qui ne doublent rien.**
+  Mesuré le 21/08/2026 (`scripts/analyse/mesure_measure.py`) : sur les 99 837
+  lignes que la seule mesure « versé » retire des totaux, 53 635 (5,59 Md€) ont
+  bien une contrepartie « attribué » du même donateur et du même exercice —
+  c'est le double compte qu'on voulait éviter. Les 46 202 autres (1,86 Md€) n'en
+  ont aucune : le département de Loire-Atlantique, dont c'est TOUTE la présence
+  dans le corpus, l'Île-de-France sur les exercices que son jeu « voté » ne
+  couvre pas, Toulouse, Blagnac, le Premier ministre. La règle est aveugle au
+  recouvrement, et la corriger est un arbitrage de doctrine — cf. §4 de
+  `RESTE-A-FAIRE.md`, à trancher par l'utilisateur.
+
+- **Ramener les séparateurs à l'espace dans `measure_of` ne suffit pas, et coûte
+  plus que ça ne rapporte.** `fold` ne rend ni « _ » ni « - » : c'est vrai, et
+  ça ne bouge que 8 lignes (850 k€, Ville de Chatou). Grenoble, le cas qui
+  motivait le correctif, N'EST PAS attrapé pour autant :
+  `subventions_fonctionnement_versees_associations_2019.csv` donne « subventions
+  fonctionnement versees associations », qui ne contient toujours pas le
+  bigramme « subventions versees ». Et passer à une détection par MOTS, qui
+  l'attrape, ferait sortir des totaux 48,05 M€ sans contrepartie contre 6,36 M€
+  de vrai double compte — dont trois exercices entiers de Grenoble-Alpes
+  Métropole (2017, 2018, 2021, 41,49 M€) qui n'existent que par ces fichiers.
+  Résultat négatif à retenir : ne pas « corriger » `fold` ici.
+
+- **La clé métier laisse passer les doublons que seul l'OBJET distingue.**
+  `ville-grenoble` et `ville-grenoble-2016` publient la même subvention sous
+  « SUBVENTION PROJET » d'un côté et « MUSIQUES » de l'autre : même
+  bénéficiaire, même montant, même exercice, même donateur, deux clés. Sur tout
+  le corpus, 4 784 groupes, 6 091 lignes, 144,84 M€. Retirer l'objet de la clé
+  n'est PAS la solution : deux subventions réellement distinctes de même montant
+  à la même association la même année se fondraient — même asymétrie que pour
+  les homonymes.
+
 - **Le compte administratif ne parle pas que d'associations.** Celui de Paris
   donne 5,5 Md€ à des établissements publics, 2,1 Md€ à des entreprises et
   38 878 lignes à des personnes physiques. Quand la source DÉCLARE la nature

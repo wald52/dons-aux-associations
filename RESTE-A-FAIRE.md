@@ -167,13 +167,101 @@ collectivité qu'on ne couvre pas. Les trois derniers coûtent zéro couverture
   « Commune de La Baule » ce qui est en réalité **Baule dans le Loiret**. On ne
   corrige pas le libellé : deviner qu'un « La Baule » veut dire « Baule »
   ailleurs fondrait deux communes réelles. Détail dans `CLAUDE.md`.
-- **`measure_of` ne voit pas les libellés à tirets bas.** `fold` ne ramène pas
-  `_` à l'espace, si bien que `subventions_fonctionnement_versees_...csv` n'est
-  pas reconnu comme une exécution budgétaire. Grenoble entre donc en `attribue`
-  alors qu'il publie du « versé ». Le corriger déplacerait des montants hors
-  des totaux dans plusieurs sources à la fois : à mesurer avant de toucher.
+- **`measure_of` et les tirets bas : MESURÉ le 21/08/2026, correctif NON
+  appliqué — voir §4.** Le défaut est réel mais minuscule, et le corriger seul
+  ferait perdre de l'argent réel plutôt que d'en dédoubler.
 - **Le fichier PLF 2024 est vide à la source** (« csv: fichier vide ou non
   tabulaire ») : l'exercice 2022 manque donc au corpus PLF Jaune.
+
+---
+
+## 4. « Voté / versé » — la mesure du 21/08/2026
+
+Chantier n° 3 de l'ordre recommandé, **mesuré, non corrigé**. Rejouable :
+`python3 scripts/analyse/mesure_measure.py` (demande `duckdb`). Les chiffres
+ci-dessous en sortent, sur la table canonique du 20/08/2026 (2 507 214 lignes
+et 144,71 Md€ comptés dans les totaux).
+
+### 4a. Le défaut signalé est réel, et minuscule
+
+`fold` ne ramène ni « _ » ni « - » à l'espace, alors que tous les motifs de
+`_MOTS_VERSE` sont écrits avec des espaces. Ramener les séparateurs à l'espace
+avant l'appariement fait basculer **2 sources, 8 lignes, 850 244 €** — les deux
+fichiers `subventions-versees-aux-associations-{2019,2020}.xlsx` de la Ville de
+Chatou.
+
+Et cela ne règle pas le cas de Grenoble cité jusqu'ici : dans
+`subventions_fonctionnement_versees_associations_2019.csv`, les séparateurs une
+fois ramenés à l'espace, le libellé donne « subventions fonctionnement versees
+associations », qui ne contient toujours pas la suite contiguë « subventions
+versees ». **Le motif est un bigramme, pas un mot** : les séparateurs n'étaient
+que la moitié du défaut.
+
+### 4b. Une détection par mots attrape Grenoble — et coûte cher
+
+Variante testée : reconnaître « versées », « mandatées », « paiements »… comme
+des MOTS. Elle fait basculer 34 sources, 2 518 lignes, 54,41 M€. Mais en
+regardant si la même collectivité a publié le **même exercice** en « attribué »
+ailleurs :
+
+| | lignes | montant |
+|---|---|---|
+| Vrai double compte (contrepartie « attribué », même exercice) | 678 | 6,36 M€ |
+| **Sans contrepartie — sortiraient des totaux à perte** | **1 840** | **48,05 M€** |
+
+Grenoble-Alpes Métropole en est l'exemple : ses exercices 2015, 2016, 2019,
+2020, 2022 et 2023 sont déjà dédupliqués contre la source héritée
+`metropole-grenoble` par la clé métier — la mesure n'y sert à rien. Mais 2017,
+2018 et 2021 n'existent QUE par ces fichiers « versées ». Les basculer
+effacerait trois exercices entiers d'un EPCI, 41,49 M€.
+
+**Conclusion : ne pas appliquer le correctif seul.** Il déplace peu, et ce
+qu'il déplace est presque entièrement de l'argent réel non dédoublé.
+
+### 4c. Ce que la mesure a trouvé à la place — 1,86 Md€ exclus pour rien
+
+Le vrai défaut n'est pas dans la reconnaissance, il est dans la règle. La règle
+actuelle est aveugle : « versé ⇒ hors totaux », quoi qu'il arrive. Or un
+« versé » ne double un « attribué » que si la collectivité a publié le même
+exercice des deux façons.
+
+| Lignes aujourd'hui classées « versé » | lignes | montant |
+|---|---|---|
+| Total exclu par la seule règle « versé » | 99 837 | 7,45 Md€ |
+| · avec contrepartie « attribué », même donateur, même exercice | 53 635 | 5,59 Md€ |
+| · **sans aucune contrepartie** | **46 202** | **1,86 Md€** |
+
+Les plus gros exclus sans rien dédoubler : le **département de
+Loire-Atlantique (778,3 M€, 28 573 lignes)**, dont c'est la totalité de la
+présence dans le corpus ; l'Île-de-France (529,6 M€ sur les exercices que son
+jeu « attribué » ne couvre pas) ; Toulouse commune (264,3 M€) et métropole
+(117,7 M€) ; Blagnac (29,5 M€) ; le Premier ministre (16,7 M€).
+
+**C'est un arbitrage de doctrine, pas un correctif** — d'où l'absence de code
+ici. Deux lectures se défendent :
+
+- *conditionner l'exclusion au recouvrement* — ne retirer un « versé » que si
+  le même donateur et le même exercice existent en « attribué ». Ramène 1,86 Md€
+  et une vingtaine de collectivités dans les totaux, dont un département entier.
+  Prix : la règle des totaux cesse d'être une propriété de la ligne pour devenir
+  une propriété du corpus, donc elle change quand une source s'ajoute.
+- *garder la règle actuelle* — un total qui ne mélange jamais deux natures de
+  mesure, au prix d'une sous-estimation connue de 1,86 Md€, qu'il faudrait alors
+  écrire sur `methode.html` comme on écrit les quarantaines.
+
+### 4d. Trouvaille annexe — 144,8 M€ de doublons que la clé métier ne voit pas
+
+En vérifiant Grenoble : `ville-grenoble` et `ville-grenoble-2016` publient les
+mêmes subventions (même bénéficiaire, même montant, même exercice, même
+donateur) sous deux objets différents — « SUBVENTION PROJET » contre
+« MUSIQUES ». L'objet entrant dans `business_key`, la déduplication ne les voit
+pas. Sur tout le corpus : **4 784 groupes, 6 091 lignes en trop, 144,84 M€**.
+
+Ce n'est **pas** un correctif évident : retirer l'objet de la clé fondrait deux
+subventions réellement distinctes de même montant à la même association la même
+année — la même asymétrie que pour les homonymes (`CLAUDE.md`). À traiter comme
+un chantier propre, avec une règle qui regarde les sources d'où viennent les
+deux lignes.
 
 ---
 
@@ -185,9 +273,10 @@ collectivité qu'on ne couvre pas. Les trois derniers coûtent zéro couverture
 2. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
    l'histoire du site en dépendent, et c'est la seule des deux quarantaines qui
    ne demande pas d'habilitation.
-3. **`measure_of` et les tirets bas (dette mineure)** — un défaut de
-   reconnaissance qui déplace des montants entre « voté » et « versé » ;
-   mesurer l'ampleur avant de décider.
+3. ~~`measure_of` et les tirets bas~~ — **mesuré (§4)**. Le correctif de
+   séparateurs ne bouge que 8 lignes et 850 k€, tous à perte. Ce que la mesure
+   a trouvé à sa place — 1,86 Md€ exclus des totaux sans rien dédoubler — est
+   une décision de doctrine qui attend l'arbitrage de l'utilisateur.
 4. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
    mesurés épuisés (1a). Y revenir sans une source nouvelle serait du travail
    jetable.
