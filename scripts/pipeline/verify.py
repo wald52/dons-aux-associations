@@ -140,9 +140,12 @@ def main():
     mesure = table.column("measure").to_pylist()
     bkind = table.column("beneficiary_kind").to_pylist()
     bkprov = table.column("beneficiary_kind_provenance").to_pylist()
+    purpose = table.column("purpose_norm").to_pylist()
+    concours = [C.nature_du_concours(purpose[i], flags[i])[0] for i in range(n)]
     recomputed = round(sum(
         amt[i] or 0 for i in range(n)
-        if C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i])), 2)
+        if C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i],
+                                    concours[i])), 2)
     check("total individuel reproductible",
           abs(recomputed - report["amount_individual_eur"]) < 1,
           f"{recomputed:,.0f} € = rapport")
@@ -185,6 +188,50 @@ def main():
     check("aucun doublon inter-sources inexpliqué", inexplique == 0,
           f"{inexplique:,} groupes ; {homonymes:,} conservés pour SIRET contradictoires")
 
+    # 9 bis. Les deux totaux servis au navigateur -----------------------------
+    # Les agrégats sont ce que le site AFFICHE. S'ils s'écartent de la table, le
+    # site ment sans que rien ne le signale : c'est exactement le genre de
+    # divergence silencieuse que ce fichier existe pour attraper.
+    meta_gz = os.path.join(ROOT, "data", "aggregates", "meta.json.gz")
+    if os.path.exists(meta_gz):
+        import gzip as _gzip
+        with _gzip.open(meta_gz, "rt", encoding="utf-8") as f:
+            tot = json.load(f).get("totaux", {})
+
+        def cumul(garde):
+            lignes = montant = 0
+            for i in range(n):
+                if garde(i):
+                    lignes += 1
+                    montant += amt[i] or 0
+            return lignes, round(montant)
+
+        n_vote, m_vote = cumul(lambda i: C.compte_dans_les_totaux(
+            gran[i], mesure[i], bkind[i], bkprov[i], concours[i]))
+        n_paye, m_paye = cumul(lambda i: mesure[i] == "verse" and C.est_un_don(
+            gran[i], bkind[i], bkprov[i], concours[i]))
+        check("agrégats : dons votés = table canonique",
+              tot.get("dons_votes", {}).get("montant_eur") == m_vote
+              and tot.get("dons_votes", {}).get("lignes") == n_vote,
+              f"{m_vote:,.0f} € sur {n_vote:,} versements")
+        check("agrégats : dons payés = table canonique",
+              tot.get("dons_payes", {}).get("montant_eur") == m_paye
+              and tot.get("dons_payes", {}).get("lignes") == n_paye,
+              f"{m_paye:,.0f} € sur {n_paye:,} versements")
+
+        # Voté, payé, hors-don et agrégats forment une partition : toute ligne
+        # tombe dans une case et une seule. Un total qui « fuit » se voit ici.
+        hors = sum(v[0] for v in tot.get("hors_don", {}).values())
+        n_agg = sum(1 for i in range(n) if gran[i] == "aggregate")
+        n_hors_champ = sum(
+            1 for i in range(n)
+            if gran[i] != "aggregate" and concours[i] == "don"
+            and not C.est_un_don(gran[i], bkind[i], bkprov[i], concours[i]))
+        check("toute ligne tombe dans une case et une seule",
+              n_vote + n_paye + hors + n_agg + n_hors_champ == n,
+              f"{n_vote:,} votés + {n_paye:,} payés + {hors:,} hors don "
+              f"+ {n_agg:,} agrégats + {n_hors_champ:,} hors champ = {n:,}")
+
     # 10. Index de recherche croisée (phase 3) — s'il a été construit --------
     rech = os.path.join(ROOT, "data", "canonical", "recherche")
     if os.path.isdir(rech):
@@ -197,7 +244,8 @@ def main():
         # recopier ici la ferait diverger au premier changement.
         somme_can = round(sum(
             amt[i] or 0 for i in range(n)
-            if C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i])), 2)
+            if C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i],
+                                        concours[i])), 2)
         check("index : montants = table canonique",
               abs(somme_idx - somme_can) < 1, f"{somme_idx:,.0f} €")
         bids = set(tb.column("benef_id").to_pylist())

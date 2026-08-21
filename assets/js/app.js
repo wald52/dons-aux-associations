@@ -94,6 +94,32 @@
     return total;
   }
 
+  /** Les mêmes dons, tels que la collectivité déclare les avoir PAYÉS.
+
+    Ils ne s'ajoutent JAMAIS au voté : quand une collectivité publie les deux,
+    c'est le même argent. Ils s'affichent à côté, parce qu'une vingtaine de
+    collectivités — la Loire-Atlantique en entier — ne publient QUE cela, et
+    les taire les faisait disparaître du site.
+    Aucune de ces sources ne donne l'adresse du bénéficiaire : le payé n'a donc
+    pas de géographie, il ne se lit qu'au national. */
+  function totalPaye() {
+    var total = [0, 0];
+    var p = etat.cube.paye;
+    if (!p) return total;
+    [p.national, null].forEach(function (nat) {
+      if (!nat) return;
+      for (var an in nat) {
+        if (etat.annee !== "toutes" && an !== etat.annee) continue;
+        for (var niv in nat[an]) {
+          if (etat.niveau !== "tous" && niv !== etat.niveau) continue;
+          total[0] += nat[an][niv][0];
+          total[1] += nat[an][niv][1];
+        }
+      }
+    });
+    return total;
+  }
+
   function sansDepartement() {
     var total = [0, 0];
     var sd = etat.cube.sans_departement;
@@ -220,8 +246,10 @@
     var t = totalNational();
     var sd = sansDepartement();
     var m = etat.meta;
+    var paye = totalPaye();
     var cases = [
-      [euros(t[1]), "Montant attribué"],
+      [euros(t[1]), "Dons votés"],
+      [paye[0] ? euros(paye[1]) : "—", "Dons payés (à part)"],
       [fmtNombre.format(t[0]), "Versements"],
       [fmtNombre.format(m.totaux.beneficiaires_distincts), "Bénéficiaires distincts"],
       [fmtNombre.format(m.totaux.donateurs_distincts), "Donateurs"],
@@ -355,6 +383,39 @@
       "mais restent invisibles sur la carte. " +
       fmtNombre.format(d.lignes_ecartees) + " doublons entre sources ont par ailleurs été " +
       "retirés (" + euros(d.montant_ecarte_eur) + "). "));
+
+    // Deux totaux plutôt qu'un arbitrage caché : ce qui est VOTÉ et ce qui est
+    // déclaré PAYÉ. Et ce qui n'est pas un don ne se fond pas dans le total.
+    var t = etat.meta.totaux;
+    var b2 = document.createElement("b");
+    b2.textContent = " Voté et payé ne s'additionnent pas. ";
+    el.appendChild(b2);
+    el.appendChild(document.createTextNode(
+      "Une collectivité publie souvent le même argent deux fois : ce qu'elle a voté, " +
+      "puis ce qu'elle a mandaté. Le site affiche les deux côte à côte et ne les " +
+      "somme jamais — " + euros(t.dons_payes.montant_eur) + " sont publiés comme payés, " +
+      "et pour une vingtaine de collectivités, dont le département de Loire-Atlantique, " +
+      "c'est la seule chose qu'elles publient. "));
+
+    var horsDon = t.hors_don || {};
+    var libelles = {prestation: "prestations facturées par l'association",
+                    remboursement: "remboursements et cotisations",
+                    nature: "aides en nature (locaux, personnel)"};
+    var parts = [];
+    var totalHorsDon = 0;
+    Object.keys(horsDon).forEach(function (k) {
+      parts.push(euros(horsDon[k][1]) + " de " + (libelles[k] || k));
+      totalHorsDon += horsDon[k][1];
+    });
+    if (parts.length) {
+      var b3 = document.createElement("b");
+      b3.textContent = " Tout n'est pas un don. ";
+      el.appendChild(b3);
+      el.appendChild(document.createTextNode(
+        "Quand une collectivité achète un service à une association, il y a une " +
+        "contrepartie : ce n'est pas un soutien. " + parts.join(", ") + " sont donc " +
+        "ingérés et consultables, mais hors des totaux (" + euros(totalHorsDon) + " au total). "));
+    }
     var lien = document.createElement("a");
     lien.href = "methode.html";
     lien.textContent = "Sources et méthode";

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T22:31:44Z",
+  "generated_at": "2026-08-21T11:57:30Z",
   "parts": [
     "data/canonical/parts/legacy-agglo-grand-chambery.parquet",
     "data/canonical/parts/legacy-agglo-lorient.parquet",
@@ -802,11 +802,29 @@
     "data/canonical/parts/scdl-69eb616d-b48a2fc5.parquet"
   ],
   "rows_total": 2687791,
-  "amount_individual_eur": 144709737051.07,
+  "amount_individual_eur": 142590743843.52,
   "amount_aggregate_eur": 2026247245.54,
-  "amount_not_summed_eur": 17771271254.47,
-  "rows_not_summed": 159604,
-  "amount_rejected_eur": 1.750311120003872e+28,
+  "amount_not_summed_eur": 19890264462.02,
+  "rows_not_summed": 284678,
+  "by_concours": {
+    "don": {
+      "rows": 2559091,
+      "amount_eur": 162313902012.34
+    },
+    "prestation": {
+      "rows": 121969,
+      "amount_eur": 1863065429.97
+    },
+    "remboursement": {
+      "rows": 2618,
+      "amount_eur": 89403504.61
+    },
+    "nature": {
+      "rows": 4113,
+      "amount_eur": 240884604.16
+    }
+  },
+  "amount_rejected_eur": 1.7503111200038718e+28,
   "rows_rejected": 30372,
   "years_covered": [
     1991,
@@ -1286,10 +1304,10 @@
   "by_source": {
     "agglo-grand-chambery": {
       "rows": 501,
-      "amount_individual_eur": 10362753.37,
+      "amount_individual_eur": 10361553.37,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1200.0,
+      "rows_not_summed": 2,
       "years": [
         2001,
         2016,
@@ -1402,10 +1420,10 @@
     },
     "agglo-quimper-bretagne-occidentale": {
       "rows": 90,
-      "amount_individual_eur": 31155879.92,
+      "amount_individual_eur": 30617173.52,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 538706.4,
+      "rows_not_summed": 3,
       "years": [
         2024
       ],
@@ -1473,10 +1491,10 @@
     },
     "anct-politique-ville": {
       "rows": 137619,
-      "amount_individual_eur": 1762458861.28,
+      "amount_individual_eur": 1761297633.28,
       "amount_aggregate_eur": 14390.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1161228.0,
+      "rows_not_summed": 102,
       "years": [
         2016,
         2017,
@@ -1504,10 +1522,10 @@
     },
     "anct-politique-ville-2": {
       "rows": 129356,
-      "amount_individual_eur": 1604479845.38,
+      "amount_individual_eur": 1603663920.38,
       "amount_aggregate_eur": 18300.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 815925.0,
+      "rows_not_summed": 73,
       "years": [
         2021,
         2022,
@@ -1535,10 +1553,10 @@
     },
     "ars-pays-de-la-loire": {
       "rows": 1903,
-      "amount_individual_eur": 255099452.06,
+      "amount_individual_eur": 255049452.06,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 50000.0,
+      "rows_not_summed": 1,
       "years": [
         2025
       ],
@@ -1642,10 +1660,10 @@
     },
     "cd-bas-rhin": {
       "rows": 3345,
-      "amount_individual_eur": 73627234.56,
+      "amount_individual_eur": 73028156.56,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 599078.0,
+      "rows_not_summed": 6,
       "years": [
         2017,
         2018
@@ -1663,10 +1681,10 @@
     },
     "cd-charente-maritime": {
       "rows": 1989,
-      "amount_individual_eur": 270238305.7,
+      "amount_individual_eur": 266292672.2,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 3945633.5,
+      "rows_not_summed": 9,
       "years": [
         2017,
         2018,
@@ -1782,10 +1800,10 @@
     },
     "cd-dordogne": {
       "rows": 6922,
-      "amount_individual_eur": 120449218.66,
+      "amount_individual_eur": 120089574.66,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 359644.0,
+      "rows_not_summed": 18,
       "years": [
         2017,
         2018,
@@ -1824,10 +1842,10 @@
     },
     "cd-finistere": {
       "rows": 5442,
-      "amount_individual_eur": 583579334.03,
+      "amount_individual_eur": 582904023.76,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 675310.27,
+      "rows_not_summed": 5,
       "years": [
         2017,
         2018,
@@ -1857,10 +1875,10 @@
     },
     "cd-gironde": {
       "rows": 14734,
-      "amount_individual_eur": 142891904.38,
+      "amount_individual_eur": 142547461.81,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 344442.57,
+      "rows_not_summed": 79,
       "years": [
         2013,
         2014,
@@ -2010,10 +2028,10 @@
     },
     "cd-isere": {
       "rows": 208,
-      "amount_individual_eur": 13647664.14,
+      "amount_individual_eur": 13265721.14,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 381943.0,
+      "rows_not_summed": 4,
       "years": [
         2025,
         2026
@@ -2091,10 +2109,10 @@
     },
     "cd-maine-loire-subventions": {
       "rows": 15684,
-      "amount_individual_eur": 212549619.05,
+      "amount_individual_eur": 212299035.99,
       "amount_aggregate_eur": 125182.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 250583.06,
+      "rows_not_summed": 10,
       "years": [
         2004,
         2005,
@@ -2126,10 +2144,10 @@
     },
     "cd-mayenne": {
       "rows": 623,
-      "amount_individual_eur": 1428177917.0,
+      "amount_individual_eur": 1414600617.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 13577300.0,
+      "rows_not_summed": 8,
       "years": [
         2017,
         2018,
@@ -2184,10 +2202,10 @@
     },
     "cd-pyrenees-orientales": {
       "rows": 6857,
-      "amount_individual_eur": 307964213.09,
+      "amount_individual_eur": 305482213.09,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 2482000.0,
+      "rows_not_summed": 52,
       "years": [
         2019,
         2020,
@@ -2214,10 +2232,10 @@
     },
     "cd-savoie": {
       "rows": 111,
-      "amount_individual_eur": 11339319.75,
+      "amount_individual_eur": 11129319.75,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 210000.0,
+      "rows_not_summed": 3,
       "years": [
         2017
       ],
@@ -2235,10 +2253,10 @@
     },
     "cd-savoie-2018": {
       "rows": 108,
-      "amount_individual_eur": 10601868.31,
+      "amount_individual_eur": 10567618.31,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 34250.0,
+      "rows_not_summed": 1,
       "years": [
         2018
       ],
@@ -2255,10 +2273,10 @@
     },
     "cd-savoie-2019": {
       "rows": 111,
-      "amount_individual_eur": 13000027.0,
+      "amount_individual_eur": 12897277.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 102750.0,
+      "rows_not_summed": 1,
       "years": [
         2019
       ],
@@ -2276,10 +2294,10 @@
     },
     "cd-savoie-2020": {
       "rows": 172,
-      "amount_individual_eur": 21075793.8,
+      "amount_individual_eur": 21001265.8,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 74528.0,
+      "rows_not_summed": 2,
       "years": [
         2020
       ],
@@ -2339,10 +2357,10 @@
     },
     "cd-somme": {
       "rows": 1687,
-      "amount_individual_eur": 338620659.7,
+      "amount_individual_eur": 338585659.7,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 35000.0,
+      "rows_not_summed": 1,
       "years": [
         2017,
         2018,
@@ -2393,10 +2411,10 @@
     },
     "cnsa": {
       "rows": 361,
-      "amount_individual_eur": 190880547.81,
+      "amount_individual_eur": 189880547.81,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1000000.0,
+      "rows_not_summed": 4,
       "years": [
         2017,
         2018,
@@ -2420,10 +2438,10 @@
     },
     "commune-bar-le-duc": {
       "rows": 53,
-      "amount_individual_eur": 82783125.0,
+      "amount_individual_eur": 2546170.0,
       "amount_aggregate_eur": 196863929.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 80236955.0,
+      "rows_not_summed": 7,
       "years": [
         2017,
         2021,
@@ -2793,8 +2811,8 @@
         "no_rna": 1141,
         "no_source_url": 1141,
         "no_siret": 623,
-        "siret_invalid": 11,
         "beneficiary_not_association": 11,
+        "siret_invalid": 11,
         "amount_implausible": 3
       },
       "beneficiary_kinds": {
@@ -2834,10 +2852,10 @@
     },
     "culture-2": {
       "rows": 111532,
-      "amount_individual_eur": 5128981280.0,
+      "amount_individual_eur": 5127619942.0,
       "amount_aggregate_eur": 23500.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1361338.0,
+      "rows_not_summed": 12,
       "years": [
         2019,
         2020,
@@ -2930,10 +2948,10 @@
     },
     "ditp": {
       "rows": 7,
-      "amount_individual_eur": 970000.0,
+      "amount_individual_eur": 260000.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 710000.0,
+      "rows_not_summed": 3,
       "years": [
         2023,
         2024,
@@ -3151,10 +3169,10 @@
     },
     "feder-hauts-de-france": {
       "rows": 1075,
-      "amount_individual_eur": 763512873.0,
+      "amount_individual_eur": 763312873.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 200000.0,
+      "rows_not_summed": 1,
       "years": [
         2014,
         2015,
@@ -3203,10 +3221,10 @@
     },
     "metropole-bordeaux": {
       "rows": 1175,
-      "amount_individual_eur": 140713249.0,
+      "amount_individual_eur": 140664303.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 48946.0,
+      "rows_not_summed": 2,
       "years": [
         2018,
         2019,
@@ -3286,7 +3304,7 @@
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "rows_not_summed": 42,
       "years": [],
       "flags": {
         "year_missing": 9081,
@@ -3628,10 +3646,10 @@
     },
     "ods-07f6694716bd": {
       "rows": 63981,
-      "amount_individual_eur": 7081096851.01,
+      "amount_individual_eur": 7073134585.94,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 7962265.07,
+      "rows_not_summed": 60,
       "years": [
         2018,
         2019,
@@ -3736,10 +3754,10 @@
     },
     "ods-0be3aecb7eff": {
       "rows": 89,
-      "amount_individual_eur": 8064701.1,
+      "amount_individual_eur": 5856188.8,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 2208512.3,
+      "rows_not_summed": 43,
       "years": [
         2016,
         2017
@@ -3845,10 +3863,10 @@
     },
     "ods-0e54114ff2f1": {
       "rows": 760,
-      "amount_individual_eur": 89570064.58,
+      "amount_individual_eur": 69221947.42,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 20348117.16,
+      "rows_not_summed": 262,
       "years": [
         2017,
         2018,
@@ -3907,10 +3925,10 @@
     },
     "ods-0eaf7610472f": {
       "rows": 618,
-      "amount_individual_eur": 22290166.53,
+      "amount_individual_eur": 22285166.53,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 5000.0,
+      "rows_not_summed": 1,
       "years": [
         2018
       ],
@@ -4189,10 +4207,10 @@
     },
     "ods-1d09cc860010": {
       "rows": 470,
-      "amount_individual_eur": 68817870.0,
+      "amount_individual_eur": 68758014.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 59856.0,
+      "rows_not_summed": 1,
       "years": [
         2017,
         2018
@@ -4208,10 +4226,10 @@
     },
     "ods-1e0bb586557c": {
       "rows": 102163,
-      "amount_individual_eur": 3671019421.0,
+      "amount_individual_eur": 3654903497.0,
       "amount_aggregate_eur": 32162.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 16115924.0,
+      "rows_not_summed": 59,
       "years": [
         2013,
         2014,
@@ -4241,10 +4259,10 @@
     },
     "ods-1faf48c9dd42": {
       "rows": 209,
-      "amount_individual_eur": 13098094.59,
+      "amount_individual_eur": 12917996.33,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 180098.26,
+      "rows_not_summed": 14,
       "years": [],
       "flags": {
         "no_rna": 209,
@@ -4395,10 +4413,10 @@
     },
     "ods-29a4e6119403": {
       "rows": 1079,
-      "amount_individual_eur": 194874402.0,
+      "amount_individual_eur": 194735622.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 138780.0,
+      "rows_not_summed": 4,
       "years": [
         2020
       ],
@@ -4432,10 +4450,10 @@
     },
     "ods-29e51334bedb": {
       "rows": 14,
-      "amount_individual_eur": 787385.29,
+      "amount_individual_eur": 735211.29,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 52174.0,
+      "rows_not_summed": 1,
       "years": [
         2021,
         2023
@@ -4466,10 +4484,10 @@
     },
     "ods-2c1487b073a2": {
       "rows": 77,
-      "amount_individual_eur": 12055518.84,
+      "amount_individual_eur": 9583522.46,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 2471996.38,
+      "rows_not_summed": 3,
       "years": [
         2021
       ],
@@ -5035,10 +5053,10 @@
     },
     "ods-4660e390f9bf": {
       "rows": 1081,
-      "amount_individual_eur": 250061155.0,
+      "amount_individual_eur": 249757464.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 303691.0,
+      "rows_not_summed": 8,
       "years": [
         2019
       ],
@@ -5116,10 +5134,10 @@
     },
     "ods-4a1b3518712e": {
       "rows": 966,
-      "amount_individual_eur": 246582229.0,
+      "amount_individual_eur": 246081699.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 500530.0,
+      "rows_not_summed": 11,
       "years": [
         2022
       ],
@@ -5180,10 +5198,10 @@
     },
     "ods-5170b30156a4": {
       "rows": 310,
-      "amount_individual_eur": 4315985.95,
+      "amount_individual_eur": 4081299.75,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 234686.2,
+      "rows_not_summed": 13,
       "years": [
         2020,
         2021,
@@ -5362,10 +5380,10 @@
     },
     "ods-59f58891f883": {
       "rows": 10,
-      "amount_individual_eur": 482761.0,
+      "amount_individual_eur": 436761.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 46000.0,
+      "rows_not_summed": 1,
       "years": [
         2021
       ],
@@ -5378,10 +5396,10 @@
     },
     "ods-5b65cfff1f4d": {
       "rows": 10,
-      "amount_individual_eur": 594284.94,
+      "amount_individual_eur": 542628.94,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 51656.0,
+      "rows_not_summed": 1,
       "years": [
         2021,
         2022
@@ -5476,10 +5494,10 @@
     },
     "ods-5d3d6079476d": {
       "rows": 519,
-      "amount_individual_eur": 21603995.0,
+      "amount_individual_eur": 21215020.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 388975.0,
+      "rows_not_summed": 6,
       "years": [
         2021
       ],
@@ -5709,10 +5727,10 @@
     },
     "ods-70eddd26f9ed": {
       "rows": 596,
-      "amount_individual_eur": 27611384.73,
+      "amount_individual_eur": 25682750.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1928634.73,
+      "rows_not_summed": 15,
       "years": [
         2020
       ],
@@ -5766,10 +5784,10 @@
     },
     "ods-75a931d4cb88": {
       "rows": 851,
-      "amount_individual_eur": 66702479.0,
+      "amount_individual_eur": 66679479.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 23000.0,
+      "rows_not_summed": 1,
       "years": [
         2022,
         2023,
@@ -5807,10 +5825,10 @@
     },
     "ods-7903f7cedb22": {
       "rows": 20,
-      "amount_individual_eur": 1783950.39,
+      "amount_individual_eur": 1734553.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 49397.39,
+      "rows_not_summed": 1,
       "years": [
         2014,
         2017
@@ -5889,10 +5907,10 @@
     },
     "ods-7d9e0fc6b7e3": {
       "rows": 14,
-      "amount_individual_eur": 918632.18,
+      "amount_individual_eur": 866830.18,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 51802.0,
+      "rows_not_summed": 1,
       "years": [
         2022,
         2024
@@ -5906,10 +5924,10 @@
     },
     "ods-7da5724956bd": {
       "rows": 49,
-      "amount_individual_eur": 2308613.26,
+      "amount_individual_eur": 2115057.64,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 193555.62,
+      "rows_not_summed": 4,
       "years": [
         2017,
         2018,
@@ -5997,10 +6015,10 @@
     },
     "ods-832692b258f7": {
       "rows": 1129,
-      "amount_individual_eur": 247044015.0,
+      "amount_individual_eur": 246439897.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 604118.0,
+      "rows_not_summed": 8,
       "years": [
         2020,
         2021,
@@ -6046,10 +6064,10 @@
     },
     "ods-85522f5c99db": {
       "rows": 89,
-      "amount_individual_eur": 9102585.88,
+      "amount_individual_eur": 8446585.88,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 656000.0,
+      "rows_not_summed": 1,
       "years": [
         2017,
         2018,
@@ -6163,10 +6181,10 @@
     },
     "ods-8e0894777ece": {
       "rows": 321,
-      "amount_individual_eur": 9195627.1,
+      "amount_individual_eur": 9183052.89,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 12574.21,
+      "rows_not_summed": 2,
       "years": [
         2018
       ],
@@ -6182,10 +6200,10 @@
     },
     "ods-913313fdd41d": {
       "rows": 1025,
-      "amount_individual_eur": 702806037.0,
+      "amount_individual_eur": 702174981.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 631056.0,
+      "rows_not_summed": 9,
       "years": [
         2014,
         2015,
@@ -6290,10 +6308,10 @@
     },
     "ods-93ca6e21fca4": {
       "rows": 101075,
-      "amount_individual_eur": 8059153220.84,
+      "amount_individual_eur": 7980956045.94,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 78197174.9,
+      "rows_not_summed": 863,
       "years": [
         2014,
         2015,
@@ -6506,10 +6524,10 @@
     },
     "ods-a2905d3d770e": {
       "rows": 2514,
-      "amount_individual_eur": 212969195.61,
+      "amount_individual_eur": 211573437.87,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1395757.74,
+      "rows_not_summed": 14,
       "years": [
         2014,
         2018,
@@ -6710,10 +6728,10 @@
     },
     "ods-bcdf9d11a39c": {
       "rows": 892,
-      "amount_individual_eur": 232777572.0,
+      "amount_individual_eur": 232544271.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 233301.0,
+      "rows_not_summed": 5,
       "years": [
         2023,
         2024,
@@ -6731,10 +6749,10 @@
     },
     "ods-bd85b457701f": {
       "rows": 72,
-      "amount_individual_eur": 12165286.45,
+      "amount_individual_eur": 9668648.56,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 2496637.89,
+      "rows_not_summed": 3,
       "years": [
         2020
       ],
@@ -6844,10 +6862,10 @@
     },
     "ods-c3b23e95db8e": {
       "rows": 138,
-      "amount_individual_eur": 18122699.52,
+      "amount_individual_eur": 17911124.84,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 211574.68,
+      "rows_not_summed": 1,
       "years": [],
       "flags": {
         "no_rna": 138,
@@ -7107,10 +7125,10 @@
     },
     "ods-f6c36342d5f0": {
       "rows": 716,
-      "amount_individual_eur": 27368838.95,
+      "amount_individual_eur": 25334995.88,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 2033843.07,
+      "rows_not_summed": 7,
       "years": [
         2019
       ],
@@ -7127,10 +7145,10 @@
     },
     "ods-f725c932e274": {
       "rows": 3325,
-      "amount_individual_eur": 202410803.36,
+      "amount_individual_eur": 201407685.66,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1003117.7,
+      "rows_not_summed": 70,
       "years": [
         2012,
         2016,
@@ -7278,7 +7296,7 @@
       "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "rows_not_summed": 24,
       "years": [
         2011
       ],
@@ -7297,10 +7315,10 @@
     },
     "plf-jaune-2014": {
       "rows": 31851,
-      "amount_individual_eur": 1855004905.0,
+      "amount_individual_eur": 1805617558.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 49387347.0,
+      "rows_not_summed": 49,
       "years": [
         2012
       ],
@@ -7319,10 +7337,10 @@
     },
     "plf-jaune-2015": {
       "rows": 28147,
-      "amount_individual_eur": 2136754559.0,
+      "amount_individual_eur": 2079514898.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 57239661.0,
+      "rows_not_summed": 45,
       "years": [
         2013
       ],
@@ -7339,10 +7357,10 @@
     },
     "plf-jaune-2016": {
       "rows": 29717,
-      "amount_individual_eur": 2110443829.0,
+      "amount_individual_eur": 2046934254.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 63509575.0,
+      "rows_not_summed": 61,
       "years": [
         2014
       ],
@@ -7379,10 +7397,10 @@
     },
     "plf-jaune-2018": {
       "rows": 56497,
-      "amount_individual_eur": 4661268281.55,
+      "amount_individual_eur": 4640915115.02,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 25599500.39,
-      "rows_not_summed": 288,
+      "amount_not_summed_eur": 45952666.92,
+      "rows_not_summed": 511,
       "years": [
         2016
       ],
@@ -7402,10 +7420,10 @@
     },
     "plf-jaune-2019": {
       "rows": 70064,
-      "amount_individual_eur": 5051835779.36,
+      "amount_individual_eur": 5047862338.02,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 270521840.88,
-      "rows_not_summed": 479,
+      "amount_not_summed_eur": 274495282.22,
+      "rows_not_summed": 600,
       "years": [
         2017
       ],
@@ -7425,10 +7443,10 @@
     },
     "plf-jaune-2020": {
       "rows": 92606,
-      "amount_individual_eur": 6921638979.1,
+      "amount_individual_eur": 6697241408.03,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 320546088.97,
-      "rows_not_summed": 1334,
+      "amount_not_summed_eur": 544943660.04,
+      "rows_not_summed": 23057,
       "years": [
         2018
       ],
@@ -7450,10 +7468,10 @@
     },
     "plf-jaune-2021": {
       "rows": 96746,
-      "amount_individual_eur": 7358229672.98,
+      "amount_individual_eur": 7048637322.93,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 376307730.84,
-      "rows_not_summed": 1652,
+      "amount_not_summed_eur": 685900080.89,
+      "rows_not_summed": 29717,
       "years": [
         2019
       ],
@@ -7472,10 +7490,10 @@
     },
     "plf-jaune-2022": {
       "rows": 95820,
-      "amount_individual_eur": 8586636735.49,
+      "amount_individual_eur": 8298482850.97,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 407964538.52,
-      "rows_not_summed": 1519,
+      "amount_not_summed_eur": 696118423.04,
+      "rows_not_summed": 24330,
       "years": [
         2020
       ],
@@ -7495,10 +7513,10 @@
     },
     "plf-jaune-2023": {
       "rows": 102619,
-      "amount_individual_eur": 10130271624.31,
+      "amount_individual_eur": 9776454149.39,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 413118516.53,
-      "rows_not_summed": 1315,
+      "amount_not_summed_eur": 766935991.45,
+      "rows_not_summed": 23108,
       "years": [
         2021
       ],
@@ -7517,10 +7535,10 @@
     },
     "plf-jaune-2025": {
       "rows": 112722,
-      "amount_individual_eur": 11214158493.09,
+      "amount_individual_eur": 10822316568.54,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 551546982.56,
-      "rows_not_summed": 5158,
+      "amount_not_summed_eur": 943388907.11,
+      "rows_not_summed": 29828,
       "years": [
         2023
       ],
@@ -7540,10 +7558,10 @@
     },
     "region-centre": {
       "rows": 753,
-      "amount_individual_eur": 93570538.02,
+      "amount_individual_eur": 93481738.02,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 88800.0,
+      "rows_not_summed": 2,
       "years": [
         2018,
         2019,
@@ -7567,10 +7585,10 @@
     },
     "region-idf": {
       "rows": 31632,
-      "amount_individual_eur": 2734325219.24,
+      "amount_individual_eur": 2734311619.24,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 13600.0,
+      "rows_not_summed": 5,
       "years": [
         2016,
         2017,
@@ -7596,10 +7614,10 @@
     },
     "reserve-ministerielle": {
       "rows": 3243,
-      "amount_individual_eur": 27815090.89,
+      "amount_individual_eur": 27615090.89,
       "amount_aggregate_eur": 27735655.41,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 200000.0,
+      "rows_not_summed": 1,
       "years": [
         2011,
         2012,
@@ -8117,10 +8135,10 @@
     },
     "scdl-5a69f47e-1c7757a3": {
       "rows": 30985,
-      "amount_individual_eur": 4556488973.0,
+      "amount_individual_eur": 4556262168.0,
       "amount_aggregate_eur": 3500.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 226805.0,
+      "rows_not_summed": 18,
       "years": [
         2023
       ],
@@ -8137,10 +8155,10 @@
     },
     "scdl-5a69f47e-27007c8c": {
       "rows": 31314,
-      "amount_individual_eur": 360516032.0,
+      "amount_individual_eur": 360316594.0,
       "amount_aggregate_eur": 5000.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 199438.0,
+      "rows_not_summed": 23,
       "years": [
         2025
       ],
@@ -8157,10 +8175,10 @@
     },
     "scdl-5a69f47e-3a03a2ed": {
       "rows": 19632,
-      "amount_individual_eur": 244366924.26,
+      "amount_individual_eur": 244242199.26,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 124725.0,
+      "rows_not_summed": 13,
       "years": [
         2017
       ],
@@ -8176,10 +8194,10 @@
     },
     "scdl-5a69f47e-5afe59f6": {
       "rows": 29684,
-      "amount_individual_eur": 387391577.38,
+      "amount_individual_eur": 387201895.38,
       "amount_aggregate_eur": 4000.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 189682.0,
+      "rows_not_summed": 16,
       "years": [
         2022
       ],
@@ -8196,10 +8214,10 @@
     },
     "scdl-5a69f47e-6908329e": {
       "rows": 32308,
-      "amount_individual_eur": 380868931.52,
+      "amount_individual_eur": 380711931.52,
       "amount_aggregate_eur": 5800.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 157000.0,
+      "rows_not_summed": 13,
       "years": [
         2024,
         2025,
@@ -8218,10 +8236,10 @@
     },
     "scdl-5a69f47e-752e897c": {
       "rows": 30336,
-      "amount_individual_eur": 395717150.88,
+      "amount_individual_eur": 395142157.88,
       "amount_aggregate_eur": 7190.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 574993.0,
+      "rows_not_summed": 34,
       "years": [
         2020
       ],
@@ -8238,10 +8256,10 @@
     },
     "scdl-5a69f47e-9402b3b4": {
       "rows": 21556,
-      "amount_individual_eur": 1128516160.0,
+      "amount_individual_eur": 1128439060.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 77100.0,
+      "rows_not_summed": 10,
       "years": [
         2019
       ],
@@ -8258,10 +8276,10 @@
     },
     "scdl-5a69f47e-b2f8b9cf": {
       "rows": 27480,
-      "amount_individual_eur": 364594588.76,
+      "amount_individual_eur": 364479288.76,
       "amount_aggregate_eur": 3200.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 115300.0,
+      "rows_not_summed": 14,
       "years": [
         2021
       ],
@@ -8277,10 +8295,10 @@
     },
     "scdl-5a69f47e-d20faec1": {
       "rows": 21063,
-      "amount_individual_eur": 261061713.49,
+      "amount_individual_eur": 260962513.49,
       "amount_aggregate_eur": 1000.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 99200.0,
+      "rows_not_summed": 11,
       "years": [
         2018
       ],
@@ -8297,10 +8315,10 @@
     },
     "scdl-5a69f47e-eb4d30f8": {
       "rows": 22617,
-      "amount_individual_eur": 274055268.13,
+      "amount_individual_eur": 273842358.13,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 212910.0,
+      "rows_not_summed": 23,
       "years": [
         2016
       ],
@@ -8334,10 +8352,10 @@
     },
     "scdl-5a82b984-ccc4e722": {
       "rows": 15,
-      "amount_individual_eur": 907727.0,
+      "amount_individual_eur": 866127.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 41600.0,
+      "rows_not_summed": 1,
       "years": [
         2020
       ],
@@ -8371,10 +8389,10 @@
     },
     "scdl-5abe055d-9f62815f": {
       "rows": 1582,
-      "amount_individual_eur": 108348138.97,
+      "amount_individual_eur": 108161494.49,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 186644.48,
+      "rows_not_summed": 3,
       "years": [
         2015,
         2016,
@@ -8549,10 +8567,10 @@
     },
     "scdl-5b558d6d-c7793c56": {
       "rows": 202,
-      "amount_individual_eur": 36450204.64,
+      "amount_individual_eur": 35358794.64,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1091410.0,
+      "rows_not_summed": 5,
       "years": [
         2001,
         2012,
@@ -8633,10 +8651,10 @@
     },
     "scdl-5b9249d2-06f0f6e2": {
       "rows": 7922,
-      "amount_individual_eur": 853695177.0,
+      "amount_individual_eur": 853639177.0,
       "amount_aggregate_eur": 7650.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 56000.0,
+      "rows_not_summed": 1,
       "years": [
         2017,
         2018,
@@ -8660,10 +8678,10 @@
     },
     "scdl-5b9249d2-3dc1e530": {
       "rows": 1249,
-      "amount_individual_eur": 165298393.0,
+      "amount_individual_eur": 165270827.0,
       "amount_aggregate_eur": 1849412.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 27566.0,
+      "rows_not_summed": 1,
       "years": [
         2025,
         2026
@@ -8887,10 +8905,10 @@
     },
     "scdl-5c053f0d-6555b2a8": {
       "rows": 325,
-      "amount_individual_eur": 430327.89,
+      "amount_individual_eur": 429977.89,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 350.0,
+      "rows_not_summed": 1,
       "years": [
         2016,
         2017,
@@ -8910,10 +8928,10 @@
     },
     "scdl-5c191228-03ff58b8": {
       "rows": 3446,
-      "amount_individual_eur": 73627234.56,
+      "amount_individual_eur": 73028156.56,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 599078.0,
+      "rows_not_summed": 6,
       "years": [
         2017,
         2018
@@ -9134,10 +9152,10 @@
     },
     "scdl-5ce29bb2-c05b6680": {
       "rows": 83,
-      "amount_individual_eur": 13599193.29,
+      "amount_individual_eur": 13230793.29,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 368400.0,
+      "rows_not_summed": 1,
       "years": [
         2001,
         2012,
@@ -9198,10 +9216,10 @@
     },
     "scdl-5cf92430-4ffa8fb5": {
       "rows": 148,
-      "amount_individual_eur": 14193181.12,
+      "amount_individual_eur": 13943181.12,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 250000.0,
+      "rows_not_summed": 1,
       "years": [
         2017,
         2018,
@@ -9235,10 +9253,10 @@
     },
     "scdl-5cf92430-7f8fd04d": {
       "rows": 490,
-      "amount_individual_eur": 258494947.3,
+      "amount_individual_eur": 257330572.3,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1164375.0,
+      "rows_not_summed": 6,
       "years": [
         2017,
         2018,
@@ -9260,10 +9278,10 @@
     },
     "scdl-5cf92430-c1bb0b0c": {
       "rows": 20,
-      "amount_individual_eur": 8224026.0,
+      "amount_individual_eur": 7879026.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 345000.0,
+      "rows_not_summed": 1,
       "years": [
         2018,
         2021,
@@ -9319,10 +9337,10 @@
     },
     "scdl-5d3a48e7-95bb2f8d": {
       "rows": 5594,
-      "amount_individual_eur": 601510177.87,
+      "amount_individual_eur": 600811767.6,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 698410.27,
+      "rows_not_summed": 6,
       "years": [
         2017,
         2018,
@@ -9673,10 +9691,10 @@
     },
     "scdl-60a4ce95-17273ac9": {
       "rows": 2542,
-      "amount_individual_eur": 48039220.87,
+      "amount_individual_eur": 47902084.87,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 137136.0,
+      "rows_not_summed": 7,
       "years": [
         2019
       ],
@@ -9693,10 +9711,10 @@
     },
     "scdl-60a4cf59-2ae5c8ac": {
       "rows": 2119,
-      "amount_individual_eur": 32840904.14,
+      "amount_individual_eur": 32719420.64,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 121483.5,
+      "rows_not_summed": 7,
       "years": [
         2018
       ],
@@ -9713,10 +9731,10 @@
     },
     "scdl-60a4d042-74273342": {
       "rows": 2339,
-      "amount_individual_eur": 42416873.73,
+      "amount_individual_eur": 42315266.73,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 101607.0,
+      "rows_not_summed": 5,
       "years": [
         2017
       ],
@@ -9733,10 +9751,10 @@
     },
     "scdl-60a75ca0-0d87914b": {
       "rows": 1,
-      "amount_individual_eur": 193267.0,
+      "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 193267.0,
+      "rows_not_summed": 1,
       "years": [
         2022
       ],
@@ -9767,10 +9785,10 @@
     },
     "scdl-60a75ca0-acfe0503": {
       "rows": 1,
-      "amount_individual_eur": 240391.0,
+      "amount_individual_eur": 0.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 240391.0,
+      "rows_not_summed": 1,
       "years": [
         2020
       ],
@@ -9858,10 +9876,10 @@
     },
     "scdl-613f046e-b5d15346": {
       "rows": 11650,
-      "amount_individual_eur": 618622511.9,
+      "amount_individual_eur": 618376852.3,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 245659.6,
+      "rows_not_summed": 42,
       "years": [],
       "flags": {
         "no_rna": 11650,
@@ -9876,10 +9894,10 @@
     },
     "scdl-613f046e-efe7116d": {
       "rows": 1000,
-      "amount_individual_eur": 53370995.89,
+      "amount_individual_eur": 53354229.07,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 16766.82,
+      "rows_not_summed": 5,
       "years": [
         2021
       ],
@@ -9945,10 +9963,10 @@
     },
     "scdl-61dc18fb-8eccd276": {
       "rows": 47,
-      "amount_individual_eur": 8891600.0,
+      "amount_individual_eur": 8866600.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 25000.0,
+      "rows_not_summed": 1,
       "years": [
         2020
       ],
@@ -9962,10 +9980,10 @@
     },
     "scdl-61dc18fb-afeefa75": {
       "rows": 41,
-      "amount_individual_eur": 7801994.0,
+      "amount_individual_eur": 7756994.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 45000.0,
+      "rows_not_summed": 1,
       "years": [
         2017
       ],
@@ -10384,10 +10402,10 @@
     },
     "scdl-64108a5d-877a97a5": {
       "rows": 96,
-      "amount_individual_eur": 14594687.69,
+      "amount_individual_eur": 14300887.69,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 293800.0,
+      "rows_not_summed": 3,
       "years": [
         2001,
         2012,
@@ -10408,10 +10426,10 @@
     },
     "scdl-6422edd8-5c1d5128": {
       "rows": 1308,
-      "amount_individual_eur": 116798954.27,
+      "amount_individual_eur": 116726904.27,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 72050.0,
+      "rows_not_summed": 2,
       "years": [
         2017,
         2018,
@@ -10572,7 +10590,7 @@
       "amount_individual_eur": 240086.0,
       "amount_aggregate_eur": 0.0,
       "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "rows_not_summed": 1,
       "years": [
         2021,
         2022
@@ -10682,10 +10700,10 @@
     },
     "scdl-65652028-4f043799": {
       "rows": 365,
-      "amount_individual_eur": 13859356.17,
+      "amount_individual_eur": 13087913.16,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 771443.01,
+      "rows_not_summed": 8,
       "years": [
         2022,
         2023,
@@ -10915,10 +10933,10 @@
     },
     "scdl-679b8416-7008c41c": {
       "rows": 29,
-      "amount_individual_eur": 2653802.56,
+      "amount_individual_eur": 2653202.56,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 600.0,
+      "rows_not_summed": 1,
       "years": [
         2019
       ],
@@ -10953,10 +10971,10 @@
     },
     "scdl-679b8416-9c858e23": {
       "rows": 14,
-      "amount_individual_eur": 106888.36,
+      "amount_individual_eur": 106288.36,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 600.0,
+      "rows_not_summed": 1,
       "years": [
         2018
       ],
@@ -11102,8 +11120,8 @@
       "flags": {
         "no_siret": 4,
         "no_rna": 4,
-        "beneficiary_not_association": 1,
-        "donor_unattributed": 1
+        "donor_unattributed": 1,
+        "beneficiary_not_association": 1
       },
       "beneficiary_kinds": {
         "association": 3,
@@ -11224,10 +11242,10 @@
     },
     "scdl-69368767-0a1ad890": {
       "rows": 42,
-      "amount_individual_eur": 16772593.59,
+      "amount_individual_eur": 16443439.19,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 329154.4,
+      "rows_not_summed": 2,
       "years": [
         2025
       ],
@@ -11244,10 +11262,10 @@
     },
     "scdl-6961493f-1e416b72": {
       "rows": 2,
-      "amount_individual_eur": 240000.0,
+      "amount_individual_eur": 40000.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 200000.0,
+      "rows_not_summed": 1,
       "years": [
         2023
       ],
@@ -11262,10 +11280,10 @@
     },
     "scdl-6961493f-39b4ec15": {
       "rows": 2,
-      "amount_individual_eur": 310000.0,
+      "amount_individual_eur": 40000.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 270000.0,
+      "rows_not_summed": 1,
       "years": [
         2025
       ],
@@ -11280,10 +11298,10 @@
     },
     "scdl-6961493f-ad79e197": {
       "rows": 3,
-      "amount_individual_eur": 420000.0,
+      "amount_individual_eur": 180000.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 240000.0,
+      "rows_not_summed": 1,
       "years": [
         2024
       ],
@@ -11630,10 +11648,10 @@
     },
     "ville-bar-le-duc": {
       "rows": 18,
-      "amount_individual_eur": 2292265.15,
+      "amount_individual_eur": 1282169.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1010096.15,
+      "rows_not_summed": 4,
       "years": [
         2017,
         2018,
@@ -11693,10 +11711,10 @@
     },
     "ville-boulogne": {
       "rows": 49,
-      "amount_individual_eur": 9098028.25,
+      "amount_individual_eur": 6255922.25,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 2842106.0,
+      "rows_not_summed": 2,
       "years": [
         2025
       ],
@@ -11712,10 +11730,10 @@
     },
     "ville-boulogne-billancourt": {
       "rows": 62,
-      "amount_individual_eur": 9379991.25,
+      "amount_individual_eur": 6537885.25,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 2842106.0,
+      "rows_not_summed": 2,
       "years": [],
       "flags": {
         "year_missing": 62,
@@ -11732,10 +11750,10 @@
     },
     "ville-carquefou-2025": {
       "rows": 14,
-      "amount_individual_eur": 1463955.0,
+      "amount_individual_eur": 1436579.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 27376.0,
+      "rows_not_summed": 1,
       "years": [
         2025
       ],
@@ -11940,10 +11958,10 @@
     },
     "ville-lyon": {
       "rows": 4197,
-      "amount_individual_eur": 205446267.26,
+      "amount_individual_eur": 205433847.27,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 12419.99,
+      "rows_not_summed": 2,
       "years": [
         2019,
         2020,
@@ -11991,10 +12009,10 @@
     },
     "ville-marseille": {
       "rows": 11164,
-      "amount_individual_eur": 746779826.37,
+      "amount_individual_eur": 661286825.47,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 85493000.9,
+      "rows_not_summed": 3043,
       "years": [
         2017,
         2018,
@@ -12109,10 +12127,10 @@
     },
     "ville-nogent-2013": {
       "rows": 215,
-      "amount_individual_eur": 2899528.0,
+      "amount_individual_eur": 1972525.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 927003.0,
+      "rows_not_summed": 87,
       "years": [
         2013
       ],
@@ -12130,10 +12148,10 @@
     },
     "ville-nogent-2014": {
       "rows": 213,
-      "amount_individual_eur": 2132945.0,
+      "amount_individual_eur": 1206970.0,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 925975.0,
+      "rows_not_summed": 86,
       "years": [
         2014
       ],
@@ -12188,10 +12206,10 @@
     },
     "ville-quimper": {
       "rows": 76,
-      "amount_individual_eur": 24556273.88,
+      "amount_individual_eur": 23079900.54,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 1476373.34,
+      "rows_not_summed": 3,
       "years": [
         2024,
         2025
@@ -12469,10 +12487,10 @@
     },
     "ville-vaulx": {
       "rows": 556,
-      "amount_individual_eur": 21522332.59,
+      "amount_individual_eur": 20750889.58,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 0.0,
-      "rows_not_summed": 0,
+      "amount_not_summed_eur": 771443.01,
+      "rows_not_summed": 8,
       "years": [
         2005,
         2018,
@@ -12589,7 +12607,7 @@
     {
       "type": "montants_invraisemblables_exclus",
       "rows": 30372,
-      "amount_eur": 1.750311120003872e+28,
+      "amount_eur": 1.7503111200038718e+28,
       "commentaire": "Valeurs supérieures à dix milliards d'euros pour une attribution unique : ce ne sont pas des montants. Cas constaté, un SIRET recopié dans la colonne montant par un convertisseur défaillant. Conservées dans la table avec le drapeau amount_implausible ; la valeur publiée est conservée dans `amount_rejected_eur`, et `amount_eur` est nul — une somme sur `amount_eur` est donc juste sans précaution particulière."
     },
     {

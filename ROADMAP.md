@@ -490,6 +490,61 @@ euros qui n'auraient jamais dû être affichés. La vitesse ne bouge pas
 
 ---
 
+## Phase 8 — Ce qui est un don, et ce qui ne l'est pas (21/08/2026)
+
+Deux décisions de doctrine, prises par l'utilisateur après mesure. Aucune
+donnée n'a été moissonnée : tout vient de ce que le corpus disait déjà.
+
+### 8a. Deux totaux plutôt qu'un arbitrage caché
+
+La règle « versé ⇒ hors totaux » évitait de compter deux fois l'argent d'une
+collectivité qui publie ce qu'elle a voté PUIS ce qu'elle a mandaté. Mesurée,
+elle retirait **1,86 Md€ que rien ne dédoublait** : sur les 99 837 lignes
+écartées, 46 202 n'avaient aucune contrepartie « attribué » du même donateur et
+du même exercice. Le département de Loire-Atlantique — 778,3 M€, 28 573
+subventions, toute sa présence dans le corpus — n'apparaissait donc nulle part.
+
+Le site affiche maintenant **142,59 Md€ de dons votés** et **7,45 Md€ de dons
+payés**, côte à côte, jamais additionnés. `compte_dans_les_totaux` reste le
+voté ; `est_un_don`, sans la mesure, donne les deux.
+
+Limite assumée : aucune des sources d'exécution budgétaire ne donne l'adresse
+du bénéficiaire. Les 99 771 versements « payés » sont TOUS sans département —
+ils se lisent au national, pas sur la carte.
+
+### 8b. Quatre natures de concours, une seule est un don
+
+« Prestation facturée par l'association » — 89 948 lignes, 1,12 Md€ — n'est pas
+un don : la collectivité achète un service, il y a une contrepartie.
+`nature_du_concours` distingue `don`, `prestation`, `remboursement` et `nature`
+(aides en nature : locaux, personnel). **128 700 lignes et 2,19 Md€** sortent
+des totaux, restent ingérées et consultables, et affichent leur motif sur la
+fiche de l'association.
+
+L'appariement se fait sur des **suites de mots**, jamais sur des sous-chaînes :
+« SOUTIEN AUX MANUFACTURES ET MÉTIERS D'ART » contient les lettres de
+« factur- », « DÉMARCHE QUALITÉ » celles de « marche ». Trois motifs ont été
+écartés après relecture du corpus — « achat » (« subvention pour achat d'actif
+immobilisé » finance un achat FAIT PAR l'association), « honoraires », et
+« délégation » seul (« 2ᵉ délégation » est une tranche de crédits).
+
+### 8c. Ce qui n'a PAS été fait, et pourquoi
+
+Le correctif qui motivait ce chantier — ramener « _ » et « - » à l'espace dans
+`measure_of` — **n'a pas été appliqué**. Mesuré : 2 sources, 8 lignes,
+850 244 €, toutes sans contrepartie, donc toutes à perte. Et il n'attrapait même
+pas le cas de Grenoble qui l'avait motivé, le motif étant un bigramme et non un
+mot. Détail dans `RESTE-A-FAIRE.md` §4.
+
+### 8d. Contrôles
+
+33 contrôles dans `verify.py`, dont trois nouveaux : les deux totaux servis au
+navigateur sont comparés à la table canonique, et une partition vérifie que
+chaque ligne tombe dans une case et une seule (2 382 140 votés + 99 771 payés
++ 128 700 hors don + 20 973 agrégats + 56 207 hors champ = 2 687 791).
+
+---
+
 ## Phase 6 — Le gisement, tel que mesuré le 19/08/2026
 
 Ce qui manque n'est pas une inconnue : quatre gisements ont été quantifiés,

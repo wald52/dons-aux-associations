@@ -1,6 +1,6 @@
 # Ce qui reste à faire
 
-État arrêté au **20/08/2026**, après la phase 7. Chiffres mesurés, pas estimés :
+État arrêté au **21/08/2026**, après la phase 8. Chiffres mesurés, pas estimés :
 ils viennent de `data/canonical/quality-report.json`, `couverture.json`, des
 manifestes de moissonnage et du banc `bench/phase7.json`.
 
@@ -28,11 +28,13 @@ montré qu'elle ne s'ouvrira plus par moissonnage.**
 | | valeur |
 |---|---|
 | Lignes servies | 2 687 791 |
-| Total individuel | 144,71 Md€ |
+| **Dons votés** | **142,59 Md€** |
+| **Dons payés** (à côté, jamais additionnés) | **7,45 Md€** |
+| Ingéré mais pas un don (prestations, remboursements, nature) | 2,19 Md€ |
 | Sources | 548 |
 | Bénéficiaires résolus | 406 846 |
 | Dont cumulant 3 échelons ou plus | 6 783 |
-| Contrôles `verify.py` | 30/30 |
+| Contrôles `verify.py` | 33 |
 
 ---
 
@@ -175,12 +177,11 @@ collectivité qu'on ne couvre pas. Les trois derniers coûtent zéro couverture
 
 ---
 
-## 4. « Voté / versé » — la mesure du 21/08/2026
+## 4. « Voté / versé » — mesuré puis tranché (21/08/2026)
 
-Chantier n° 3 de l'ordre recommandé, **mesuré, non corrigé**. Rejouable :
-`python3 scripts/analyse/mesure_measure.py` (demande `duckdb`). Les chiffres
-ci-dessous en sortent, sur la table canonique du 20/08/2026 (2 507 214 lignes
-et 144,71 Md€ comptés dans les totaux).
+Chantier n° 3 de l'ordre recommandé. **Mesuré d'abord, corrigé ensuite — mais
+pas là où on croyait.** Mesure rejouable :
+`python3 scripts/analyse/mesure_measure.py` (demande `duckdb`).
 
 ### 4a. Le défaut signalé est réel, et minuscule
 
@@ -218,38 +219,24 @@ effacerait trois exercices entiers d'un EPCI, 41,49 M€.
 **Conclusion : ne pas appliquer le correctif seul.** Il déplace peu, et ce
 qu'il déplace est presque entièrement de l'argent réel non dédoublé.
 
-### 4c. Ce que la mesure a trouvé à la place — 1,86 Md€ exclus pour rien
+### 4c. Ce que la mesure a trouvé à la place — **TRANCHÉ, phase 8**
 
-Le vrai défaut n'est pas dans la reconnaissance, il est dans la règle. La règle
-actuelle est aveugle : « versé ⇒ hors totaux », quoi qu'il arrive. Or un
-« versé » ne double un « attribué » que si la collectivité a publié le même
-exercice des deux façons.
+Le vrai défaut n'était pas dans la reconnaissance, il était dans la règle : elle
+retirait 1,86 Md€ que rien ne dédoublait, dont la totalité du département de
+Loire-Atlantique (778,3 M€, 28 573 subventions), qui ne publie que ses paiements
+et n'apparaissait donc nulle part.
 
-| Lignes aujourd'hui classées « versé » | lignes | montant |
+| Lignes classées « versé » | lignes | montant |
 |---|---|---|
 | Total exclu par la seule règle « versé » | 99 837 | 7,45 Md€ |
 | · avec contrepartie « attribué », même donateur, même exercice | 53 635 | 5,59 Md€ |
 | · **sans aucune contrepartie** | **46 202** | **1,86 Md€** |
 
-Les plus gros exclus sans rien dédoubler : le **département de
-Loire-Atlantique (778,3 M€, 28 573 lignes)**, dont c'est la totalité de la
-présence dans le corpus ; l'Île-de-France (529,6 M€ sur les exercices que son
-jeu « attribué » ne couvre pas) ; Toulouse commune (264,3 M€) et métropole
-(117,7 M€) ; Blagnac (29,5 M€) ; le Premier ministre (16,7 M€).
+**Arbitrage de l'utilisateur (21/08/2026) : afficher les deux valeurs.** Le site
+montre désormais « dons votés » et « dons payés » côte à côte, et ne les somme
+jamais. Personne n'est effacé, et aucun euro n'est compté deux fois.
 
-**C'est un arbitrage de doctrine, pas un correctif** — d'où l'absence de code
-ici. Deux lectures se défendent :
-
-- *conditionner l'exclusion au recouvrement* — ne retirer un « versé » que si
-  le même donateur et le même exercice existent en « attribué ». Ramène 1,86 Md€
-  et une vingtaine de collectivités dans les totaux, dont un département entier.
-  Prix : la règle des totaux cesse d'être une propriété de la ligne pour devenir
-  une propriété du corpus, donc elle change quand une source s'ajoute.
-- *garder la règle actuelle* — un total qui ne mélange jamais deux natures de
-  mesure, au prix d'une sous-estimation connue de 1,86 Md€, qu'il faudrait alors
-  écrire sur `methode.html` comme on écrit les quarantaines.
-
-### 4d. Trouvaille annexe — 144,8 M€ de doublons que la clé métier ne voit pas
+### 4d. Trouvaille annexe, TOUJOURS OUVERTE — 144,8 M€ de doublons que la clé métier ne voit pas
 
 En vérifiant Grenoble : `ville-grenoble` et `ville-grenoble-2016` publient les
 mêmes subventions (même bénéficiaire, même montant, même exercice, même
@@ -273,10 +260,10 @@ deux lignes.
 2. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
    l'histoire du site en dépendent, et c'est la seule des deux quarantaines qui
    ne demande pas d'habilitation.
-3. ~~`measure_of` et les tirets bas~~ — **mesuré (§4)**. Le correctif de
-   séparateurs ne bouge que 8 lignes et 850 k€, tous à perte. Ce que la mesure
-   a trouvé à sa place — 1,86 Md€ exclus des totaux sans rien dédoubler — est
-   une décision de doctrine qui attend l'arbitrage de l'utilisateur.
+3. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
+   séparateurs n'a PAS été appliqué (8 lignes, 850 k€, toutes à perte). À sa
+   place, deux changements de doctrine tranchés par l'utilisateur : voté et payé
+   s'affichent côte à côte, et seuls les DONS entrent dans les totaux.
 4. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
    mesurés épuisés (1a). Y revenir sans une source nouvelle serait du travail
    jetable.

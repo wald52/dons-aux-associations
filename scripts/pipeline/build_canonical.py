@@ -28,7 +28,6 @@ import sys
 import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -144,6 +143,11 @@ def quality_report(table, dedup_stats, part_files):
     kind = table.column("beneficiary_kind").to_pylist()
     mesure = table.column("measure").to_pylist()
     kind_prov = table.column("beneficiary_kind_provenance").to_pylist()
+    purpose = table.column("purpose_norm").to_pylist()
+    # La nature du concours se lit dans l'objet : elle n'est pas stockée, elle
+    # se recalcule partout depuis la même fonction de `common.py`.
+    concours = [C.nature_du_concours(purpose[i], flags[i])[0]
+                for i in range(table.num_rows)]
 
     per_source = collections.defaultdict(lambda: {
         "rows": 0, "amount_individual": 0.0, "amount_aggregate": 0.0,
@@ -155,7 +159,8 @@ def quality_report(table, dedup_stats, part_files):
         d["rows"] += 1
         if gran[i] == "aggregate":
             d["amount_aggregate"] += amt[i] or 0
-        elif not C.compte_dans_les_totaux(gran[i], mesure[i], kind[i], kind_prov[i]):
+        elif not C.compte_dans_les_totaux(gran[i], mesure[i], kind[i], kind_prov[i],
+                                          concours[i]):
             # Écartée des totaux, jamais de la table : elle reste consultable.
             d["amount_not_summed"] += amt[i] or 0
             d["rows_not_summed"] += 1
@@ -192,17 +197,23 @@ def quality_report(table, dedup_stats, part_files):
         # `amount_eur` est nul pour les valeurs qui ne sont pas des montants :
         # une somme simple est donc juste, sans filtre à ne pas oublier.
         "amount_individual_eur": round(sum(
-            a or 0 for a, g, m, k, kp in zip(amt, gran, mesure, kind, kind_prov)
-            if C.compte_dans_les_totaux(g, m, k, kp)), 2),
+            a or 0 for a, g, m, k, kp, co in zip(amt, gran, mesure, kind, kind_prov, concours)
+            if C.compte_dans_les_totaux(g, m, k, kp, co)), 2),
         "amount_aggregate_eur": round(sum(a or 0 for a, g in zip(amt, gran) if g == "aggregate"), 2),
         # Individuelles mais non sommées : exécution budgétaire déjà comptée au
         # vote, ou bénéficiaire que la source déclare hors du champ associatif.
         "amount_not_summed_eur": round(sum(
-            a or 0 for a, g, m, k, kp in zip(amt, gran, mesure, kind, kind_prov)
-            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp)), 2),
+            a or 0 for a, g, m, k, kp, co in zip(amt, gran, mesure, kind, kind_prov, concours)
+            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp, co)), 2),
         "rows_not_summed": sum(
-            1 for g, m, k, kp in zip(gran, mesure, kind, kind_prov)
-            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp)),
+            1 for g, m, k, kp, co in zip(gran, mesure, kind, kind_prov, concours)
+            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp, co)),
+        # Les quatre natures de concours, dont une seule est un don.
+        "by_concours": {
+            nat: {"rows": sum(1 for c in concours if c == nat),
+                  "amount_eur": round(sum(a or 0 for a, c in zip(amt, concours)
+                                          if c == nat), 2)}
+            for nat in C.NATURES_DU_CONCOURS},
         "amount_rejected_eur": round(sum(x or 0 for x in rejected), 2),
         "rows_rejected": sum(1 for x in rejected if x is not None),
         "years_covered": sorted({y for y in years if y}),
@@ -375,6 +386,10 @@ def corriger_niveau_apres_fusion(table):
 
 
 def main():
+    # Ré-emballer la sortie au CHARGEMENT du module détacherait le flux de
+    # l'importeur : tout `print` de `refresh_rapport.py` lèverait ensuite
+    # « I/O operation on closed file ». Cf. CLAUDE.md.
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
     print("Assemblage de la table canonique\n")
     table, part_files = load_parts()
     print(f"  {len(part_files)} parties, {table.num_rows:,} lignes lues")

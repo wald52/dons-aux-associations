@@ -10,6 +10,7 @@ import gzip
 import io
 import json
 import os
+import functools
 import re
 import unicodedata
 
@@ -655,39 +656,147 @@ CANONICAL_SCHEMA = pa.schema([
 CANONICAL_FIELDS = [f.name for f in CANONICAL_SCHEMA]
 
 
+# ------------------------------------- nature du concours ------------------
+#
+# TOUT ARGENT VERSÉ À UNE ASSOCIATION N'EST PAS UN DON. Une collectivité qui
+# écrit « prestation facturée par l'association » ACHÈTE un service : il y a une
+# contrepartie, la somme n'est pas un soutien. Un remboursement de frais avancés
+# ou la cotisation d'adhésion que la collectivité paie ne soutiennent rien non
+# plus. Et une mise à disposition de locaux est un vrai soutien, mais pas de
+# l'argent décaissé : l'additionner à des euros fausse le total.
+#
+# Quatre natures, donc, et une seule est un don. Comme partout ailleurs ici :
+# **rien n'est jeté**. Les trois autres restent dans la table, restent
+# consultables, et sont comptées à part.
+NATURES_DU_CONCOURS = ("don", "prestation", "remboursement", "nature")
+
+# Mots de liaison : on les retire avant d'apparier, pour que « mise à
+# disposition » et « mise a dispositions de » se lisent pareil.
+_LIAISONS_OBJET = frozenset(("a", "au", "aux", "de", "du", "des", "d", "en", "et",
+                             "le", "la", "les", "l", "par", "pour", "sur", "ou"))
+
+# L'appariement se fait sur des SUITES DE MOTS, jamais sur des sous-chaînes.
+# « SOUTIEN AUX MANUFACTURES ET MÉTIERS D'ART » contient « factur » sans être une
+# facture, et « DÉMARCHE QUALITÉ » contient « marche » sans être un marché
+# public. Une sous-chaîne aurait sorti ces subventions bien réelles du champ.
+_OBJETS_NATURE = (
+    ("mise", "disposition"), ("prestation", "nature"), ("prestations", "nature"),
+    ("aide", "nature"), ("aides", "nature"), ("avantage", "nature"),
+    ("avantages", "nature"), ("valorisation", "nature"),
+)
+_OBJETS_PRESTATION = (
+    ("prestation",), ("prestations",),
+    ("facture",), ("factures",), ("facturee",), ("facturees",), ("facture",),
+    ("marche", "public"), ("marches", "publics"), ("marche", "publics"),
+    ("delegation", "service", "public"),
+)
+_OBJETS_REMBOURSEMENT = (
+    ("remboursement",), ("remboursements",), ("rembourse",), ("remboursee",),
+    ("cotisation",), ("cotisations",), ("adhesion",),
+)
+
+# Volontairement ABSENTS de ces listes, après relecture du corpus :
+#   « achat »      — « SUBVENTION POUR ACHAT D'ACTIF IMMOBILISÉ » est un don qui
+#                    finance un achat FAIT PAR l'association, pas un achat de la
+#                    collectivité. 215 lignes auraient été sorties à tort.
+#   « honoraires » — même ambiguïté.
+#   « délégation » seul — « 2ᵉ délégation » désigne une tranche de crédits.
+
+
+def _suite_de_mots(mots, motif):
+    """Le motif apparaît-il comme une suite de mots consécutifs ?"""
+    n = len(motif)
+    return any(tuple(mots[i:i + n]) == motif for i in range(len(mots) - n + 1))
+
+
+def nature_du_concours(purpose_norm, quality_flags=()):
+    """(nature, provenance) — ce que la somme paie, et d'où on le sait.
+
+    La provenance vaut « declaree » quand la source elle-même qualifie la ligne
+    (colonne `nature` du SCDL, d'où le drapeau `aide_en_nature`), « deduite »
+    quand nous ne faisons que la lire dans l'objet, et « defaut » quand rien ne
+    dit le contraire d'un don.
+
+    On penche toujours du même côté : dans le doute, c'est un don. Sortir à tort
+    une subvention du champ l'efface ; l'y laisser à tort laisse une ligne
+    visible, signalée et corrigeable.
+    """
+    if quality_flags and "aide_en_nature" in quality_flags:
+        return "nature", "declaree"
+    return _nature_de_l_objet(purpose_norm or "")
+
+
+# Les objets se répètent énormément (« FONCTIONNEMENT » revient 25 109 fois) :
+# sans mémoïsation, classer 2,7 M de lignes coûte des minutes pour recalculer
+# quelques dizaines de milliers de réponses distinctes.
+@functools.lru_cache(maxsize=None)
+def _nature_de_l_objet(purpose_norm):
+    mots = [m for m in re.findall(r"[a-z0-9]+", fold(purpose_norm))
+            if m not in _LIAISONS_OBJET]
+    if not mots:
+        return "don", "defaut"
+    # L'ordre compte : « PRESTATION EN NATURE » est une aide en nature avant
+    # d'être une prestation.
+    for nature, motifs in (("nature", _OBJETS_NATURE),
+                           ("prestation", _OBJETS_PRESTATION),
+                           ("remboursement", _OBJETS_REMBOURSEMENT)):
+        if any(_suite_de_mots(mots, m) for m in motifs):
+            return nature, "deduite"
+    return "don", "defaut"
+
+
 # Ce qui entre dans les totaux affichés du site, défini UNE SEULE FOIS — comme
 # le schéma et la clé métier — pour qu'aucun script ne puisse compter autrement
-# qu'un autre. Trois exclusions, trois raisons distinctes :
+# qu'un autre.
 #
 #   granularity == "aggregate"  une ligne de budget déjà somme d'autres lignes ;
 #                               l'additionner aux attributions compte deux fois.
-#   measure     == "verse"      l'exécution budgétaire d'une subvention déjà
-#                               comptée au vote. Même argent, deux publications.
 #   kind        != association  le publieur DÉCLARE un bénéficiaire qui n'est pas
 #                               une association. Hors du périmètre du site.
+#   concours    != don          il y a une contrepartie (prestation facturée,
+#                               remboursement, cotisation) ou la somme n'est pas
+#                               décaissée (aide en nature). Ce n'est pas un don.
 #
 # Rien n'est jeté pour autant : ces lignes restent dans la table canonique et
-# restent consultables. Elles ne sont simplement pas sommées.
-def compte_dans_les_totaux(granularity, measure, kind, kind_provenance):
+# restent consultables. Elles ne sont simplement pas sommées ici.
+def est_un_don(granularity, kind, kind_provenance, concours):
+    """Ligne retenue comme don individuel à une association — voté OU payé."""
     if granularity == "aggregate":
-        return False
-    if measure == "verse":
         return False
     # Une nature seulement DEVINÉE ne suffit pas à exclure : se tromper en
     # excluant efface une association réelle, se tromper en incluant laisse une
     # ligne de trop qui reste visible et corrigeable. On penche du bon côté.
     if kind_provenance == "declared" and kind not in (None, "association"):
         return False
-    return True
+    return concours == "don"
 
 
-# La même règle, pour les scripts qui interrogent le Parquet en SQL.
-SQL_COMPTE_DANS_LES_TOTAUX = (
+# VOTÉ et PAYÉ ne s'additionnent JAMAIS, mais on ne cache plus le payé.
+#
+# Une collectivité publie souvent le même argent deux fois : ce qu'elle a voté,
+# puis ce qu'elle a mandaté (annexe au compte administratif). Les additionner la
+# compterait deux fois. La règle a longtemps été « le payé sort des totaux » —
+# mesuré le 21/08/2026, cela retirait 1,86 Md€ que RIEN ne dédoublait, dont la
+# totalité du département de Loire-Atlantique, qui ne publie que ses paiements.
+#
+# On ne choisit donc plus : le site affiche DEUX totaux côte à côte, et
+# `compte_dans_les_totaux` reste le total par défaut — les dons votés.
+def compte_dans_les_totaux(granularity, measure, kind, kind_provenance, concours):
+    return measure != "verse" and est_un_don(granularity, kind, kind_provenance, concours)
+
+
+# Les mêmes règles, pour les scripts qui interrogent le Parquet en SQL.
+# `concours` n'étant pas une colonne stockée mais une lecture de l'objet, le SQL
+# ne connaît que la part déclarée : les scripts qui ont besoin de la règle
+# complète passent par la fonction Python ci-dessus.
+SQL_EST_UN_DON = (
     "granularity IS DISTINCT FROM 'aggregate' "
-    "AND measure IS DISTINCT FROM 'verse' "
     "AND NOT (beneficiary_kind_provenance = 'declared' "
     "         AND beneficiary_kind IS NOT NULL "
     "         AND beneficiary_kind <> 'association')"
+)
+SQL_COMPTE_DANS_LES_TOTAUX = (
+    SQL_EST_UN_DON + " AND measure IS DISTINCT FROM 'verse'"
 )
 
 

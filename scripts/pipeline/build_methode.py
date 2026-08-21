@@ -9,6 +9,7 @@ Usage : python3 scripts/pipeline/build_methode.py
 
 import html
 import io
+import gzip
 import json
 import os
 import sys
@@ -26,6 +27,17 @@ OUT = os.path.join(ROOT, "methode.html")
 def lire(chemin):
     p = os.path.join(ROOT, chemin)
     return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {}
+
+
+def lire_gz(chemin):
+    """Les agrégats sont la seule source à jour des totaux affichés : ils sont
+    recalculés depuis la table canonique à chaque publication, quand le rapport
+    de qualité, lui, date du dernier assemblage."""
+    p = os.path.join(ROOT, chemin)
+    if not os.path.exists(p):
+        return {}
+    with gzip.open(p, "rt", encoding="utf-8") as f:
+        return json.load(f)
 
 
 def nb(x):
@@ -49,6 +61,20 @@ def main():
     ods = lire("data/sources-manifest/ods.json")
     plf = lire("data/sources-manifest/plf-jaune.json")
     idx = lire("data/canonical/recherche/index-stats.json")
+    meta = lire_gz("data/aggregates/meta.json.gz")
+    tot = meta.get("totaux", {})
+    votes = tot.get("dons_votes", {})
+    payes = tot.get("dons_payes", {})
+    hors_don = tot.get("hors_don", {})
+    LIBELLES_HORS_DON = {
+        "prestation": "prestations facturées par l'association",
+        "remboursement": "remboursements de frais et cotisations d'adhésion",
+        "nature": "aides en nature (locaux, personnel mis à disposition)",
+    }
+    lignes_hors_don = "\n".join(
+        f"      <li><strong>{eur(v[1])}</strong> de {LIBELLES_HORS_DON.get(k, k)}"
+        f" — {nb(v[0])} lignes.</li>"
+        for k, v in hors_don.items())
 
     d = q.get("deduplication", {})
     flags = q.get("quality_flags", {})
@@ -114,8 +140,10 @@ def main():
   <div class="compteurs">
     <div class="compteur"><span class="valeur">{nb(q.get('rows_total', 0))}</span>
       <span class="etiquette">versements recensés</span></div>
-    <div class="compteur"><span class="valeur">{eur(q.get('amount_individual_eur'))}</span>
-      <span class="etiquette">attribués, hors totaux agrégés</span></div>
+    <div class="compteur"><span class="valeur">{eur(votes.get('montant_eur'))}</span>
+      <span class="etiquette">de dons votés</span></div>
+    <div class="compteur"><span class="valeur">{eur(payes.get('montant_eur'))}</span>
+      <span class="etiquette">de dons payés, comptés à part</span></div>
     <div class="compteur"><span class="valeur">{nb(len(q.get('by_source', {})))}</span>
       <span class="etiquette">sources</span></div>
     <div class="compteur"><span class="valeur">{q.get('years_covered', ['?'])[0]}–{q.get('years_covered', ['?'])[-1]}</span>
@@ -184,6 +212,40 @@ def main():
     <p>Deux natures de lignes ne sont par ailleurs <strong>jamais additionnées</strong> : les
        attributions individuelles et les totaux déjà agrégés publiés par certaines collectivités
        ({eur(q.get('amount_aggregate_eur'))}). Les sommer compterait chaque euro deux fois.</p>
+
+    <h2>Ce qui compte comme un don</h2>
+    <p>Tout argent versé à une association n'est pas un don. Quand une collectivité écrit
+       « prestation facturée par l'association », elle <strong>achète un service</strong>&nbsp;:
+       il y a une contrepartie, ce n'est pas un soutien. Ces sommes sont ingérées, restent
+       consultables ligne à ligne, et sont comptées à part&nbsp;:</p>
+    <ul>
+{lignes_hors_don}
+    </ul>
+    <p>La lecture se fait sur les <strong>mots</strong> de l'objet publié, jamais sur des
+       fragments de mots&nbsp;: « soutien aux manufactures et métiers d'art » contient les
+       lettres de « factur- » sans être une facture. Et dans le doute, la ligne reste un
+       don&nbsp;: l'écarter à tort effacerait une subvention réelle, la garder à tort laisse
+       une ligne visible et corrigeable.</p>
+
+    <h2>Voté et payé — deux totaux, jamais une somme</h2>
+    <p>Une collectivité publie souvent le même argent deux fois&nbsp;: ce qu'elle a
+       <strong>voté</strong>, puis ce qu'elle a <strong>mandaté</strong> (annexe au compte
+       administratif). Les additionner la compterait deux fois.</p>
+    <p>Le site affiche donc les deux côte à côte et ne les somme jamais&nbsp;:
+       <strong>{eur(votes.get('montant_eur'))}</strong> votés
+       ({nb(votes.get('lignes', 0))} versements) et
+       <strong>{eur(payes.get('montant_eur'))}</strong> déclarés payés
+       ({nb(payes.get('lignes', 0))} versements).</p>
+    <div class="encart">
+      <h3>Pourquoi le payé n'est plus caché</h3>
+      <p>La règle a longtemps été « le payé sort des totaux ». Mesuré, cela retirait
+         1,86&nbsp;Md€ que <em>rien</em> ne dédoublait&nbsp;: une vingtaine de collectivités —
+         dont le département de Loire-Atlantique, 778&nbsp;M€ sur 28&nbsp;573 subventions —
+         ne publient QUE leurs paiements. Les taire les faisait disparaître du site alors que
+         nous avions leurs chiffres.</p>
+      <p>Aucune des sources qui publient leur exécution budgétaire ne donne l'adresse du
+         bénéficiaire&nbsp;: le payé n'a donc pas de géographie et n'apparaît pas sur la carte.</p>
+    </div>
 
     <h2>Les anomalies que nous signalons sans les corriger</h2>
     <ul>

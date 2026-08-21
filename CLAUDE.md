@@ -54,9 +54,11 @@ Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 
 (Banc `bench/phase7.json`, rejoué le 20/08/2026.)
 
-Données : **548 sources**, **144,71 Md€** sommés, 17,77 Md€ ingérés mais
-délibérément hors des totaux (exécution budgétaire déjà comptée au vote,
-bénéficiaires déclarés hors du champ associatif), et 60,3 Md€ en quarantaine
+Données : **548 sources**, **142,59 Md€ de dons VOTÉS** et **7,45 Md€ de dons
+PAYÉS** affichés côte à côte et jamais additionnés ; 2,19 Md€ ingérés mais hors
+des totaux parce que ce ne sont pas des dons (prestations facturées,
+remboursements, aides en nature), 10,24 Md€ à bénéficiaires déclarés hors du
+champ associatif, 2,03 Md€ de lignes agrégées, et 60,3 Md€ en quarantaine
 d'unité. 406 846 bénéficiaires résolus, dont 6 783 cumulent au moins trois
 échelons.
 
@@ -281,16 +283,42 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   consultable mais jamais sommé. Le titre du jeu suffit à trancher
   (`measure_of`).
 
-- **La règle « versé ⇒ hors totaux » exclut 1,86 Md€ qui ne doublent rien.**
-  Mesuré le 21/08/2026 (`scripts/analyse/mesure_measure.py`) : sur les 99 837
-  lignes que la seule mesure « versé » retire des totaux, 53 635 (5,59 Md€) ont
-  bien une contrepartie « attribué » du même donateur et du même exercice —
-  c'est le double compte qu'on voulait éviter. Les 46 202 autres (1,86 Md€) n'en
-  ont aucune : le département de Loire-Atlantique, dont c'est TOUTE la présence
-  dans le corpus, l'Île-de-France sur les exercices que son jeu « voté » ne
-  couvre pas, Toulouse, Blagnac, le Premier ministre. La règle est aveugle au
-  recouvrement, et la corriger est un arbitrage de doctrine — cf. §4 de
-  `RESTE-A-FAIRE.md`, à trancher par l'utilisateur.
+- **Voté et payé s'affichent CÔTE À CÔTE, et ne s'additionnent jamais**
+  (phase 8). La règle « versé ⇒ hors totaux » retirait 1,86 Md€ que rien ne
+  dédoublait : mesuré le 21/08/2026, sur les 99 837 lignes qu'elle écartait,
+  46 202 n'avaient aucune contrepartie « attribué » du même donateur et du même
+  exercice — le département de Loire-Atlantique (778 M€) n'existait dans le site
+  que par ses paiements, et n'apparaissait donc nulle part. Le site affiche
+  maintenant deux totaux : `compte_dans_les_totaux` reste le voté, et
+  `est_un_don` sans la mesure donne le payé. **Ne jamais les sommer** : quand une
+  collectivité publie les deux, c'est le même argent. Aucune source de payé ne
+  donne l'adresse du bénéficiaire — le payé n'a donc pas de géographie et ne peut
+  pas colorer la carte.
+
+- **Tout argent versé à une association n'est pas un don** (phase 8).
+  « Prestation facturée par l'association » (89 948 lignes, 1,12 Md€) est un
+  ACHAT : il y a une contrepartie. `nature_du_concours` distingue quatre natures
+  — `don`, `prestation`, `remboursement`, `nature` — et seul le don entre dans
+  les totaux. Mesuré : 128 700 lignes et 2,19 Md€ sortent des totaux, restent
+  ingérées, consultables et affichées avec leur motif.
+  **L'appariement se fait sur des SUITES DE MOTS, jamais sur des sous-chaînes** :
+  « SOUTIEN AUX MANUFACTURES ET MÉTIERS D'ART » contient les lettres de
+  « factur- », « DÉMARCHE QUALITÉ » celles de « marche ». Une sous-chaîne aurait
+  effacé des subventions bien réelles.
+  Volontairement ABSENTS des motifs, après relecture du corpus : « achat »
+  (« SUBVENTION POUR ACHAT D'ACTIF IMMOBILISÉ » finance un achat FAIT PAR
+  l'association — 215 lignes sorties à tort), « honoraires », et « délégation »
+  seul (« 2ᵉ délégation » est une tranche de crédits). Dans le doute, c'est un
+  don : écarter à tort efface une subvention, garder à tort laisse une ligne
+  visible et corrigeable.
+
+- **`data/canonical/parts/` n'étant pas versionné, `quality-report.json` se
+  fige** sur la règle des totaux du dernier assemblage, et `verify.py` le voit
+  (« total individuel reproductible » échoue). `refresh_rapport.py` le recalcule
+  depuis la table canonique en appelant les fonctions de `build_canonical.py` —
+  aucune règle n'y est réécrite ; seuls `deduplication` et `parts`, qui décrivent
+  l'assemblage, sont repris du rapport précédent. Après un vrai
+  `tout_reconstruire.sh`, ce script n'a rien à faire.
 
 - **Ramener les séparateurs à l'espace dans `measure_of` ne suffit pas, et coûte
   plus que ça ne rapporte.** `fold` ne rend ni « _ » ni « - » : c'est vrai, et
@@ -627,6 +655,15 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       sans gain de couverture — résultat négatif à retenir.
       **2 687 791 lignes, 144,71 Md€, 548 sources.** 30 contrôles.
 
+- [x] **Phase 8** — ce qui est un don, et ce qui ne l'est pas. Quatre natures
+      de concours (`nature_du_concours`), une seule est un don : 128 700 lignes
+      et 2,19 Md€ de prestations facturées, remboursements et aides en nature
+      sortent des totaux, restent consultables et affichent leur motif. Voté et
+      payé s'affichent côte à côte au lieu que le payé disparaisse — la
+      Loire-Atlantique, 778 M€, redevient visible. **142,59 Md€ votés,
+      7,45 Md€ payés.** 33 contrôles, dont trois nouveaux qui comparent les
+      agrégats servis au navigateur à la table canonique.
+
 Détail de chaque phase dans `ROADMAP.md`.
 
 ---
@@ -656,6 +693,10 @@ scripts/pipeline/tout_reconstruire.sh` rejoue toute la chaîne dans le bon
 ordre, les moissonnages exceptés (ils ont leur propre cache). **`verify.py` y
 vient EN DERNIER** : plusieurs de ses contrôles comparent l'index de recherche
 à la table canonique et échouent tant que l'index n'est pas reconstruit.
+
+`refresh_rapport.py` recalcule `quality-report.json` et `coverage.json` depuis
+la table canonique quand les parties d'assemblage ne sont pas là — cf. le piège
+correspondant.
 
 **`normalize_legacy.py` ne peut plus tourner en l'état** : ses entrées
 (`data/sources/*.js`) ont été retirées du dépôt. Les récupérer d'abord par

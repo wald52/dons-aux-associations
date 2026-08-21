@@ -62,7 +62,8 @@ COLS = [
     "donor_level", "donor_name_raw", "donor_program",
     "amount_eur", "amount_rejected_eur", "year", "granularity",
     "measure", "beneficiary_kind_provenance",
-    "purpose_raw", "source_id", "source_label", "source_url", "quality_flags",
+    "purpose_raw", "purpose_norm", "source_id", "source_label", "source_url",
+    "quality_flags",
 ]
 
 
@@ -98,6 +99,7 @@ def main():
         "echelons": set(), "donateurs": set(),
         "siren": None, "rna": None, "norm": None,
     })
+    natures = []
     for i in range(n):
         bid = benef_id(col["beneficiary_siren"][i], col["beneficiary_rna"][i],
                        col["beneficiary_name_norm"][i], col["beneficiary_dep_code"][i])
@@ -108,11 +110,15 @@ def main():
             g["deps"][col["beneficiary_dep_code"][i]] += 1
         g["kinds"][col["beneficiary_kind"][i]] += 1
         g["n"] += 1
-        # Le cumul d'un bénéficiaire suit la même règle que les totaux du site :
-        # ni agrégat, ni exécution déjà comptée au vote, ni hors champ déclaré.
+        # Le cumul d'un bénéficiaire suit la même règle que les totaux du site,
+        # celle de `common.py`. Le cumul ne retient que les DONS votés : une prestation facturée par
+        # l'association n'est pas un soutien, et le payé se lit à part.
+        nature = C.nature_du_concours(col["purpose_norm"][i],
+                                      col["quality_flags"][i])[0]
+        natures.append(nature)
         if C.compte_dans_les_totaux(col["granularity"][i], col["measure"][i],
                                     col["beneficiary_kind"][i],
-                                    col["beneficiary_kind_provenance"][i]):
+                                    col["beneficiary_kind_provenance"][i], nature):
             g["montant"] += col["amount_eur"][i] or 0.0
         g["ecarte"] += col["amount_rejected_eur"][i] or 0.0
         if col["year"][i]:
@@ -166,9 +172,13 @@ def main():
     import shutil
     vt = table.append_column("benef_id", pa.array(ids, pa.string()))
     vt = vt.append_column("shard", pa.array([shard_of(x) for x in ids], pa.int32()))
+    # La nature du concours voyage AVEC le versement : la fiche d'une
+    # association doit pouvoir dire « ceci est une prestation facturée, pas un
+    # don » sans réimplémenter la règle en JavaScript.
+    vt = vt.append_column("concours", pa.array(natures, pa.string()))
     vt = vt.select(["shard", "benef_id", "year", "amount_eur", "amount_rejected_eur",
                     "donor_level", "donor_name_raw", "donor_program",
-                    "purpose_raw", "granularity", "measure", "source_id",
+                    "purpose_raw", "granularity", "measure", "concours", "source_id",
                     "source_label", "source_url"])
     vt = vt.sort_by([("shard", "ascending"), ("benef_id", "ascending"),
                      ("year", "ascending")])
