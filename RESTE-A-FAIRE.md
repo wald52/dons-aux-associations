@@ -69,15 +69,21 @@ C'est le résultat le plus utile de la phase 7, et il est négatif.
 Il reste des portails Opendatasoft hors du fédérateur, mais rien n'indique
 qu'ils soient nombreux — et cinq de ceux repérés sont déjà morts.
 
-### 1b. `api.datasubvention.beta.gouv.fr` — *le seul gain d'un ordre de grandeur*
+### 1b. `api.datasubvention.beta.gouv.fr` — **ABANDONNÉ (décision du 21/08/2026)**
 
-Ce serait **la** source de référence : elle agrège Chorus et les données des
+Ce serait la source de référence : elle agrège Chorus et les données des
 collectivités. L'API vit mais renvoie **401** — réservée aux agents publics et
 aux associations habilitées.
 
-**C'est une démarche administrative, pas technique.** Une demande de compte est
-le seul chemin, et c'est désormais le premier poste du reste-à-faire : aucun
-travail de code ne remplacera cette habilitation.
+**L'utilisateur a tranché : il n'y aura pas accès.** Ce chantier sort donc de la
+liste. Ne pas le reproposer, et ne pas construire de plan qui en dépende : la
+couverture du site devra se faire sans, ou ne pas se faire.
+
+Conséquence à assumer : **le plafond de couverture est celui d'aujourd'hui, à
+peu de chose près.** Ce qui reste (§1d) apporte de la profondeur — des exercices
+en plus sur des collectivités déjà présentes — pas un changement d'échelle.
+
+### 1c. Ce qui manquera toujours
 
 ### 1c. Ce qui manquera toujours
 
@@ -85,6 +91,40 @@ Les communes de moins de 3 500 habitants ne sont pas tenues de publier, et
 parmi celles qui le sont, l'obligation est peu suivie. Aucun moissonnage ne
 comblera cela : la lacune est légale. C'est ce que la page « Ce que ce site ne
 sait pas » est là pour dire.
+
+### 1d. L'inventaire de ce qui a été téléchargé PUIS écarté — *mesuré le 21/08/2026*
+
+Le seul gisement restant qui ne dépende de personne : les fichiers que les
+moissonneurs ont déjà vus et rejetés. Relevé dans les `ecartes` des manifestes,
+qui enregistrent les colonnes réelles de chaque fichier rejeté — la mesure se
+fait donc hors ligne, sans re-télécharger.
+
+**Portails Opendatasoft — 203 jeux écartés**, dont 28 sans colonnes enregistrées.
+
+| Ce qui bloque | jeux | de qui |
+|---|---|---|
+| En-tête mal détecté (les « colonnes » sont une ligne de données) | 51 | Ville de Rennes, BP et CA |
+| `libelle` porte le bénéficiaire, motif trop générique pour être pris | 18 | Ville de Rennes |
+| `organismes` | 12 | Agglopolys (Blois) |
+| `organisme_de_formation_libelle_et_code` | 8 | Région Île-de-France |
+| `beneficiare` — faute de frappe du publieur | 4 | Ville de Rennes, CA |
+| `attributaires`, `noms` | 4 | Ville de Blois |
+| `liborgabenef` / `mtsubv` — colonnes abrégées | 2 | une région |
+| **Reconnus en l'état — le manifeste date d'avant le correctif de phase 6a** | **4** | **communes de Fronton et Labarthe-sur-Lèze (31)** |
+| Hors champ pour de bon (statistiques, Fédération Wallonie-Bruxelles, vélos) | ~70 | — |
+
+**data.gouv.fr — 95 fichiers écartés dans 50 jeux** : 41 en-têtes non détectés
+(dont le Département d'Ille-et-Vilaine), 19 échecs réseau sur
+`datacat.datalocale.fr`, 8 fichiers au format OpenDocument que le lecteur ne
+sait pas ouvrir, 3 liens morts chez Rennes Métropole, et une dizaine de cas
+uniques (`Libellé tiers`, `BGT_NOM`, en-tête d'Antibes lu en une seule colonne).
+**Aucun n'est récupérable sans toucher au code.**
+
+Ce que cela vaut, honnêtement : **69 des 91 jeux récupérables sont la Ville de
+Rennes**, déjà présente dans le corpus par sa source héritée. Le gain est en
+PROFONDEUR (des exercices, des séries budgétaires), pas en couverture. Les
+seules collectivités vraiment nouvelles au bout du compte sont Blois/Agglopolys
+et deux communes de Haute-Garonne.
 
 ---
 
@@ -254,17 +294,24 @@ deux lignes.
 
 ## Ordre recommandé
 
-1. **La demande d'habilitation `datasubvention` (1b)** — c'est le seul chantier
-   qui change l'ordre de grandeur de la couverture, et son délai est
-   administratif : à lancer d'abord, il avancera pendant qu'on code.
-2. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
-   l'histoire du site en dépendent, et c'est la seule des deux quarantaines qui
-   ne demande pas d'habilitation.
-3. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
+*Révisé le 21/08/2026, `datasubvention` étant abandonné (1b).*
+
+1. **Décider ce que devient le site sans changement d'échelle.** C'est la
+   question à trancher avant de coder quoi que ce soit : le plafond de
+   couverture est atteint, et la valeur du site se déplace vers ce qu'il FAIT de
+   ce qu'il a — croisements, séries, exports, lisibilité — plutôt que vers un
+   corpus plus gros.
+2. **Les jeux écartés à rouvrir (1d)** — le seul gisement qui ne dépende de
+   personne. Trois correctifs de reconnaissance (en-tête mal détecté, `beneficiare`,
+   `organismes`) rouvrent ~91 jeux, mais 69 sont la Ville de Rennes : gain en
+   profondeur, pas en couverture. Demande un re-moissonnage complet.
+3. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
+   l'histoire du site en dépendent.
+4. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
    séparateurs n'a PAS été appliqué (8 lignes, 850 k€, toutes à perte). À sa
    place, deux changements de doctrine tranchés par l'utilisateur : voté et payé
    s'affichent côte à côte, et seuls les DONS entrent dans les totaux.
-4. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
+5. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
    mesurés épuisés (1a). Y revenir sans une source nouvelle serait du travail
    jetable.
 

@@ -283,6 +283,19 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   consultable mais jamais sommé. Le titre du jeu suffit à trancher
   (`measure_of`).
 
+- **`api.datasubvention.beta.gouv.fr` est ABANDONNÉ** — décision de
+  l'utilisateur, 21/08/2026 : il n'aura pas l'habilitation. Ne pas le
+  reproposer, ne pas bâtir de plan qui en dépende. Conséquence à assumer et à
+  dire : **le plafond de couverture du site est celui d'aujourd'hui**, et sa
+  valeur se déplace vers ce qu'il fait de ce qu'il a.
+
+- **Les manifestes de moissonnage enregistrent les COLONNES des fichiers
+  écartés** (`ecartes[].champs` pour ODS, `ecartes[].ecartes[].colonnes` pour
+  data.gouv.fr). Un inventaire de ce qui reste récupérable se mesure donc hors
+  ligne, sans rien re-télécharger. Fait le 21/08/2026, résultat dans
+  `RESTE-A-FAIRE.md` §1d : ~91 jeux rouvrables, mais **69 sont la Ville de
+  Rennes**, déjà présente — le gain serait en profondeur, pas en couverture.
+
 - **Voté et payé s'affichent CÔTE À CÔTE, et ne s'additionnent jamais**
   (phase 8). La règle « versé ⇒ hors totaux » retirait 1,86 Md€ que rien ne
   dédoublait : mesuré le 21/08/2026, sur les 99 837 lignes qu'elle écartait,
