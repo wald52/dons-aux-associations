@@ -5,7 +5,7 @@
  *
  *   beneficiaires.parquet  261 444 bénéficiaires résolus, triés par nom —
  *                          la recherche et le classement des cumuls ;
- *   versements.parquet     1,69 M de versements triés par bénéficiaire,
+ *   versements/NN.parquet   2,69 M de versements triés par bénéficiaire,
  *                          en petits row groups : la fiche d'une association
  *                          ne télécharge que les blocs qui la concernent,
  *                          par requêtes HTTP Range.

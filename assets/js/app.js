@@ -398,13 +398,14 @@
       "c'est la seule chose qu'elles publient. "));
 
     var horsDon = t.hors_don || {};
-    var libelles = {prestation: "prestations facturées par l'association",
-                    remboursement: "remboursements et cotisations",
-                    nature: "aides en nature (locaux, personnel)"};
+    // L'élision est dans le libellé : « de aides » se lit mal.
+    var libelles = {prestation: "de prestations facturées par l'association",
+                    remboursement: "de remboursements et de cotisations",
+                    nature: "d'aides en nature (locaux, personnel)"};
     var parts = [];
     var totalHorsDon = 0;
     Object.keys(horsDon).forEach(function (k) {
-      parts.push(euros(horsDon[k][1]) + " de " + (libelles[k] || k));
+      parts.push(euros(horsDon[k][1]) + " " + (libelles[k] || k));
       totalHorsDon += horsDon[k][1];
     });
     if (parts.length) {
