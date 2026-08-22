@@ -1,6 +1,6 @@
 # Ce qui reste à faire
 
-État arrêté au **21/08/2026**, après la phase 8. Chiffres mesurés, pas estimés :
+État arrêté au **22/08/2026**, après la phase 9. Chiffres mesurés, pas estimés :
 ils viennent de `data/canonical/quality-report.json`, `couverture.json`, des
 manifestes de moissonnage et du banc `bench/phase7.json`.
 
@@ -27,14 +27,18 @@ montré qu'elle ne s'ouvrira plus par moissonnage.**
 
 | | valeur |
 |---|---|
-| Lignes servies | 2 687 791 |
-| **Dons votés** | **142,59 Md€** |
-| **Dons payés** (à côté, jamais additionnés) | **7,45 Md€** |
-| Ingéré mais pas un don (prestations, remboursements, nature) | 2,19 Md€ |
-| Sources | 548 |
-| Bénéficiaires résolus | 406 846 |
-| Dont cumulant 3 échelons ou plus | 6 783 |
-| Contrôles `verify.py` | 33 |
+| Lignes servies | 2 540 282 |
+| **Dons votés** | **127,80 Md€** |
+| **Dons payés** (à côté, jamais additionnés) | **10,02 Md€** |
+| Ingéré mais pas un don (prestations, remboursements, nature) | 1,57 Md€ |
+| Sources | 655 |
+| Bénéficiaires résolus | 420 514 |
+| Dont cumulant 3 échelons ou plus | 9 613 |
+| Contrôles `verify.py` | **33 / 33** |
+
+Le total baisse en gagnant 107 sources : la déduplication passe de 580 321 à
+1 064 346 lignes retirées. Les jeux rouverts republient largement ce que le site
+avait déjà, et la clé métier les rapproche.
 
 ---
 
@@ -44,14 +48,14 @@ Couverture face au référentiel INSEE. **C'est un MINIMUM** : l'appariement
 échoue plutôt qu'il n'invente, donc l'erreur va toujours vers la
 sous-estimation (cf. `CLAUDE.md`).
 
-| Échelon | Avec données | Repérées | Univers |
+| Échelon | Avec données | Univers | phase 8 |
 |---|---|---|---|
-| Communes | **86** | 96 | 34 936 |
-| EPCI | **29** | 38 | 1 335 |
-| Départements | **31** | 36 | 101 |
-| Régions | **5** | 7 | 18 |
+| Communes | **90** | 34 936 | 86 |
+| EPCI | **31** | 1 335 | 29 |
+| Départements | **34** | 101 | 31 |
+| Régions | **7** | 18 | 5 |
 
-10,3 % de la population française. (« Repérées » ajoute les collectivités qui
+10,9 % de la population française. (« Repérées » ajoute les collectivités qui
 publient mais dont rien n'est encore exploité.)
 
 ### 1a. Les deux canaux de moissonnage sont épuisés — *mesuré, pas supposé*
@@ -117,24 +121,26 @@ silence, sans aucune trace dans le manifeste. Huit ont été testés en
 téléchargeant l'adresse réelle : **cinq servent un SCDL valide** (Bourges,
 l'Aude, Grand Paris Seine Ouest, les Hauts-de-Seine, Boulogne-Billancourt).
 
-**Le gain a été mesuré pour de bon**, en moissonnant les six portails dans un
-bac à sable (sans toucher au dépôt) : **29 jeux examinés, 18 retenus,
-12 870 lignes**. Ville de Bordeaux (4 160 lignes), Bourges et Bourges Plus
-(4 705), Hauts-de-Seine (2 256), Aude (123), Issy (152), Grand Paris Seine Ouest
-(116), Le Haillan et Pessac. Soit **une dizaine de collectivités nouvelles, dont
-deux départements** — le premier vrai gain de couverture depuis la phase 4.
+**FAIT le 22/08/2026 — le pipeline a été entièrement rejoué.** Moissonnage des
+trois familles, normalisation, assemblage, agrégats, index, contrôles. Résultat :
 
-Les correctifs sont dans le code, mais **ils ne produisent rien tant que le
-pipeline n'est pas rejoué** : `data/raw/` n'est pas versionné, et
-`build_canonical.py` a besoin de TOUTES les parties, sources héritées comprises
-(`git checkout 0b14348 -- data/sources`). C'est le prochain geste, et il se
-compte en heures, pas en minutes. L'espace disque n'est pas un obstacle
-(29 Go libres mesurés).
+| | avant | après |
+|---|---|---|
+| Jeux retenus data.gouv.fr | 148 | **377** (504 fichiers) |
+| Jeux retenus Opendatasoft | 371 | **407** |
+| Sources dans la table | 548 | **655** |
+| Communes couvertes | 86 | **90** |
+| Départements | 31 | **34** |
+| Régions | 5 | **7** |
+| Associations à 3 échelons ou plus | 6 783 | **9 613** |
+| Contrôles `verify.py` | 32/33 | **33/33** |
 
-Un garde-fou a été posé pour ce jour-là : `fetch_ods.py --portail` ÉCRASAIT le
-manifeste avec le seul portail demandé, faisant disparaître les 46 autres sans
-erreur. Il fusionne désormais avec l'existant — vérifié : un moissonnage du seul
-Aude fait passer le manifeste de 371 à 372 jeux retenus, sans rien perdre.
+Bordeaux (469,0 M€), Bourges (117,7 M€), les Hauts-de-Seine (318,4 M€), l'Aude,
+Issy-les-Moulineaux, Grand Paris Seine Ouest et Blois sont entrés.
+
+Un troisième blocage a été trouvé en route : **`openpyxl` n'était pas installé**,
+ce qui écartait 110 fichiers XLSX sous un motif noyé dans la liste des raisons.
+Installé, puis moissonnage relancé — le cache ne reprend que ce qui manque.
 
 **Ce que Nice, Montpellier, Strasbourg, Lille et Toulon ne publient pas.**
 Vérifié des deux côtés : ni portail (Strasbourg et Angers ont un portail ouvert

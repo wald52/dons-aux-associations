@@ -41,7 +41,7 @@ lecture pour s'en servir : c'est un dépôt public.
 
 Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 
-### Aujourd'hui (phase 7, 20/08/2026)
+### Aujourd'hui (phase 9, 22/08/2026)
 
 | Mesure | v0 | aujourd'hui |
 |---|---|---|
@@ -50,29 +50,31 @@ Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 | Données exploitables | 57,75 s | **0,58 s** |
 | Mémoire JS | 1 965 Mo | **3 Mo** |
 | Balises `<script>` | 170 | **1** |
-| Lignes dans la table | 1 595 805 | **2 687 791** |
+| Lignes dans la table | 1 595 805 | **2 540 282** |
 
-(Banc `bench/phase7.json`, rejoué le 20/08/2026.)
+(Premier écran : 113 Ko gzippés. Banc de vitesse `bench/phase7.json`, inchangé
+par la phase 9 — le volume servi n'a pas bougé.)
 
-Données : **548 sources**, **142,59 Md€ de dons VOTÉS** et **7,45 Md€ de dons
-PAYÉS** affichés côte à côte et jamais additionnés ; 2,19 Md€ ingérés mais hors
+Données : **655 sources**, **127,80 Md€ de dons VOTÉS** et **10,02 Md€ de dons
+PAYÉS** affichés côte à côte et jamais additionnés ; 1,57 Md€ ingérés mais hors
 des totaux parce que ce ne sont pas des dons (prestations facturées,
-remboursements, aides en nature), 10,24 Md€ à bénéficiaires déclarés hors du
-champ associatif, 2,03 Md€ de lignes agrégées, et 60,3 Md€ en quarantaine
-d'unité. 406 846 bénéficiaires résolus, dont 6 783 cumulent au moins trois
-échelons.
+remboursements, aides en nature), 2,08 Md€ de lignes agrégées, et la quarantaine
+d'unité. 420 514 bénéficiaires résolus, dont **9 613 cumulent au moins trois
+échelons**.
 
-Couverture face au référentiel INSEE, et c'est un MINIMUM : **86 communes**
-avec données sur 34 936 (96 repérées), **29 EPCI** sur 1 335 (38 repérés),
-**31 départements** sur 101 (36), **5 régions** sur 18 (7) — soit 10,3 % de la
-population. Ces chiffres sont ceux de `couverture.json` ; les « 113 communes,
-40 EPCI, 37 départements » qu'annonçait ce fichier jusqu'en phase 6b ne s'y
-retrouvaient déjà pas.
+**Le total a BAISSÉ de 142,59 à 127,80 Md€ en gagnant 107 sources, et c'est
+normal** : la déduplication est passée de 580 321 à **1 064 346 lignes retirées**
+(85,86 Md€). Les jeux rouverts par la phase 9 sont en grande partie des
+republications de ce que le site avait déjà, et la clé métier les rapproche. Plus
+de sources, plus de couverture, moins de double compte, total plus bas et plus
+juste.
 
-Le double comptage de Paris est corrigé (phase 6b) : la série ne rompt plus à
-la fusion de 2019, 271 M€ en 2018 puis 291 M€ en 2019. L'anomalie de 2011 est
-élucidée et mise en quarantaine (phase 7) : la source y publiait avec la
-virgule décalée d'un rang.
+Couverture face au référentiel INSEE, et c'est un MINIMUM : **90 communes**
+sur 34 936, **31 EPCI** sur 1 335, **34 départements** sur 101, **7 régions**
+sur 18 — 10,9 % de la population. Bordeaux, Bourges, les départements des
+Hauts-de-Seine et de l'Aude sont entrés en phase 9.
+
+**33 contrôles sur 33 dans `verify.py`.**
 
 **Ce qui reste à faire est dans `RESTE-A-FAIRE.md`**, chiffré et priorisé.
 
@@ -516,6 +518,13 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   collectivités nouvelles. **Le fédérateur est loin de tout republier.**
   Leçon de méthode : chercher à partir de ce qui MANQUE, pas de ce qu'on a.
 
+- **`openpyxl` absent de la machine coûte 110 fichiers, et le manifeste le dit
+  mal.** Le moissonnage du 22/08/2026 a d'abord écarté 110 XLSX pour
+  « No module named 'openpyxl' » — un motif noyé au milieu des vraies raisons
+  d'écarter. `pip install openpyxl`, puis relancer `fetch_scdl.py` : le cache
+  ne reprend que ce qui manque, et les 110 fichiers entrent. Vérifier ce motif
+  AVANT de conclure quoi que ce soit sur un moissonnage.
+
 - **Un filtre d'adresse perdait 333 jeux de 63 organisations, sans trace.**
   `ressources_csv` exigeait qu'une adresse finisse par « .csv ». Les points
   d'export d'API (`.../datasets/<jeu>/exports/csv`, `.../resource/493/download/`)
@@ -715,6 +724,17 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       Loire-Atlantique, 778 M€, redevient visible. **142,59 Md€ votés,
       7,45 Md€ payés.** 33 contrôles, dont trois nouveaux qui comparent les
       agrégats servis au navigateur à la table canonique.
+
+- [x] **Phase 9** — le gisement rouvert par le bon bout. En cherchant à partir
+      des collectivités ABSENTES plutôt que des portails connus : six portails
+      Opendatasoft inconnus du fédérateur (Bordeaux Métropole, Hauts-de-Seine,
+      Aude, Grand Paris Seine Ouest, Issy, Bourges Plus). Et un filtre d'adresse
+      qui perdait **333 jeux de 63 organisations sans laisser de trace**. Plus
+      `openpyxl` absent de la machine, qui coûtait 110 fichiers XLSX.
+      data.gouv.fr passe de 148 à **377 jeux retenus** (504 fichiers),
+      Opendatasoft de 371 à **407**. **2 540 282 lignes, 655 sources,
+      127,80 Md€ votés**, 90 communes, 34 départements, 7 régions.
+      **33/33 contrôles.**
 
 Détail de chaque phase dans `ROADMAP.md`.
 

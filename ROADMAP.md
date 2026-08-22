@@ -545,6 +545,55 @@ chaque ligne tombe dans une case et une seule (2 382 140 votés + 99 771 payés
 
 ---
 
+## Phase 9 — Le gisement rouvert par le bon bout (22/08/2026)
+
+La phase 7 avait conclu que les deux canaux de moissonnage étaient épuisés.
+Elle avait tort, et la raison est une leçon de méthode : **elle cherchait à
+partir des portails connus**. En cherchant à partir des collectivités
+ABSENTES — les 30 plus grosses communes sans aucune donnée, dont on fabrique
+les adresses de portail plausibles — on trouve tout autre chose.
+
+### 9a. Trois blocages, trouvés en cherchant autrement
+
+1. **Six portails Opendatasoft inconnus du fédérateur** : Bordeaux Métropole,
+   les départements des Hauts-de-Seine et de l'Aude, Grand Paris Seine Ouest,
+   Issy-les-Moulineaux, Bourges Plus. 185 domaines sondés pour les trouver.
+2. **Un filtre d'adresse perdait 333 jeux de 63 organisations**, sans laisser
+   de trace ni dans les retenus ni dans les écartés. `ressources_csv` exigeait
+   qu'une adresse finisse par « .csv » ; les points d'export d'API
+   (`.../exports/csv`, `.../download/`) n'y répondent pas et servent pourtant
+   de vrais fichiers.
+3. **`openpyxl` n'était pas installé** sur la machine de moissonnage : 110
+   fichiers XLSX écartés sous un motif noyé au milieu des vraies raisons.
+
+### 9b. Ce que ça donne, pipeline entièrement rejoué
+
+| | phase 8 | phase 9 |
+|---|---|---|
+| Jeux retenus data.gouv.fr | 148 | **377** (504 fichiers) |
+| Jeux retenus Opendatasoft | 371 | **407** |
+| Sources | 548 | **655** |
+| Lignes | 2 687 791 | 2 540 282 |
+| Dons votés | 142,59 Md€ | **127,80 Md€** |
+| Dons payés | 7,45 Md€ | **10,02 Md€** |
+| Communes / EPCI / départements / régions | 86 / 29 / 31 / 5 | **90 / 31 / 34 / 7** |
+| Associations à 3 échelons ou plus | 6 783 | **9 613** |
+| Contrôles | 32/33 | **33/33** |
+
+**Le total baisse en gagnant 107 sources, et c'est le signe que ça marche** :
+la déduplication passe de 580 321 à 1 064 346 lignes retirées (85,86 Md€). Les
+jeux rouverts republient en grande partie ce que le site avait déjà ; la clé
+métier les rapproche au lieu de les compter deux fois.
+
+### 9c. Ce qui n'est pas un défaut de moissonnage
+
+Nice, Montpellier, Strasbourg et Toulon ne publient pas leurs subventions —
+vérifié sur leur portail ET sur data.gouv.fr. Strasbourg et Angers ont un
+portail ouvert avec zéro jeu de subventions. Leur absence est une absence de
+publication, et c'est à ce titre que le site doit la dire.
+
+---
+
 ## Phase 6 — Le gisement, tel que mesuré le 19/08/2026
 
 Ce qui manque n'est pas une inconnue : quatre gisements ont été quantifiés,
