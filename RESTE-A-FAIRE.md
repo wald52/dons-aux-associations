@@ -58,6 +58,15 @@ sous-estimation (cf. `CLAUDE.md`).
 10,9 % de la population française. (« Repérées » ajoute les collectivités qui
 publient mais dont rien n'est encore exploité.)
 
+> **Une autre façon de poser la question, instruite le 22/08/2026 :
+> `SOURCES-RECEPTION.md`.** Au lieu de moissonner ce que les collectivités
+> publient, regarder ce que les associations DÉCLARENT recevoir. Inventaire
+> vérifié des sources, avec leurs volumes mesurés — dont les 227 586 comptes
+> annuels déposés au Journal officiel (montants dans des PDF scannés : impasse),
+> les 45,6 Md€ d'APU vers les ISBLSM des comptes nationaux, et le compte 6574
+> des balances comptables DGFiP, qui couvre **31 797 communes** contre 90 ici.
+> Rien n'est engagé : le document s'arrête à l'inventaire.
+
 ### 1a. Les deux canaux de moissonnage sont épuisés — *mesuré, pas supposé*
 
 C'est le résultat le plus utile de la phase 7, et il est négatif.
