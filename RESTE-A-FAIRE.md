@@ -1,6 +1,6 @@
 # Ce qui reste à faire
 
-État arrêté au **20/08/2026**, après la phase 7. Chiffres mesurés, pas estimés :
+État arrêté au **22/08/2026**, après la phase 9. Chiffres mesurés, pas estimés :
 ils viennent de `data/canonical/quality-report.json`, `couverture.json`, des
 manifestes de moissonnage et du banc `bench/phase7.json`.
 
@@ -27,12 +27,18 @@ montré qu'elle ne s'ouvrira plus par moissonnage.**
 
 | | valeur |
 |---|---|
-| Lignes servies | 2 687 791 |
-| Total individuel | 144,71 Md€ |
-| Sources | 548 |
-| Bénéficiaires résolus | 406 846 |
-| Dont cumulant 3 échelons ou plus | 6 783 |
-| Contrôles `verify.py` | 30/30 |
+| Lignes servies | 2 540 282 |
+| **Dons votés** | **127,80 Md€** |
+| **Dons payés** (à côté, jamais additionnés) | **10,02 Md€** |
+| Ingéré mais pas un don (prestations, remboursements, nature) | 1,57 Md€ |
+| Sources | 655 |
+| Bénéficiaires résolus | 420 514 |
+| Dont cumulant 3 échelons ou plus | 9 613 |
+| Contrôles `verify.py` | **33 / 33** |
+
+Le total baisse en gagnant 107 sources : la déduplication passe de 580 321 à
+1 064 346 lignes retirées. Les jeux rouverts republient largement ce que le site
+avait déjà, et la clé métier les rapproche.
 
 ---
 
@@ -42,14 +48,14 @@ Couverture face au référentiel INSEE. **C'est un MINIMUM** : l'appariement
 échoue plutôt qu'il n'invente, donc l'erreur va toujours vers la
 sous-estimation (cf. `CLAUDE.md`).
 
-| Échelon | Avec données | Repérées | Univers |
+| Échelon | Avec données | Univers | phase 8 |
 |---|---|---|---|
-| Communes | **86** | 96 | 34 936 |
-| EPCI | **29** | 38 | 1 335 |
-| Départements | **31** | 36 | 101 |
-| Régions | **5** | 7 | 18 |
+| Communes | **90** | 34 936 | 86 |
+| EPCI | **31** | 1 335 | 29 |
+| Départements | **34** | 101 | 31 |
+| Régions | **7** | 18 | 5 |
 
-10,3 % de la population française. (« Repérées » ajoute les collectivités qui
+10,9 % de la population française. (« Repérées » ajoute les collectivités qui
 publient mais dont rien n'est encore exploité.)
 
 ### 1a. Les deux canaux de moissonnage sont épuisés — *mesuré, pas supposé*
@@ -67,15 +73,83 @@ C'est le résultat le plus utile de la phase 7, et il est négatif.
 Il reste des portails Opendatasoft hors du fédérateur, mais rien n'indique
 qu'ils soient nombreux — et cinq de ceux repérés sont déjà morts.
 
-### 1b. `api.datasubvention.beta.gouv.fr` — *le seul gain d'un ordre de grandeur*
+### 1b. `api.datasubvention.beta.gouv.fr` — **ABANDONNÉ (décision du 21/08/2026)**
 
-Ce serait **la** source de référence : elle agrège Chorus et les données des
+Ce serait la source de référence : elle agrège Chorus et les données des
 collectivités. L'API vit mais renvoie **401** — réservée aux agents publics et
 aux associations habilitées.
 
-**C'est une démarche administrative, pas technique.** Une demande de compte est
-le seul chemin, et c'est désormais le premier poste du reste-à-faire : aucun
-travail de code ne remplacera cette habilitation.
+**L'utilisateur a tranché : il n'y aura pas accès.** Ce chantier sort donc de la
+liste. Ne pas le reproposer, et ne pas construire de plan qui en dépende : la
+couverture du site devra se faire sans, ou ne pas se faire.
+
+Conséquence à assumer : **le plafond de couverture est celui d'aujourd'hui, à
+peu de chose près.** Ce qui reste (§1d) apporte de la profondeur — des exercices
+en plus sur des collectivités déjà présentes — pas un changement d'échelle.
+
+### 1b bis. Chercher hors des deux canaux — *fait le 21/08/2026, ET ÇA A DONNÉ*
+
+La phase 7 concluait que les deux canaux étaient épuisés. C'était vrai **de la
+manière dont on cherchait** : en partant des portails connus. En partant des
+collectivités ABSENTES, on trouve autre chose.
+
+Méthode : prendre les 30 plus grosses communes sans aucune donnée (Nice,
+Montpellier, Strasbourg, Bordeaux, Lille, Toulon, Reims…), fabriquer les
+adresses plausibles de leur portail, et interroger l'API Explore. 185 domaines
+sondés.
+
+**Six portails Opendatasoft inconnus du fédérateur ET du site :**
+
+| Portail | Qui | Jeux « subvention » |
+|---|---|---|
+| `opendata.bordeaux-metropole.fr` | Bordeaux Métropole, Ville de Bordeaux, Pessac, Le Haillan | 4 |
+| `opendata.hauts-de-seine.fr` | **Département des Hauts-de-Seine** | 6 |
+| `opendata.aude.fr` | **Département de l'Aude** | 1 |
+| `data.seineouest.fr` | Grand Paris Seine Ouest | 4 |
+| `data.issy.com` | Ville d'Issy-les-Moulineaux | 9 |
+| `data.bourgesplus.fr` | Bourges Plus | 5 |
+
+Les quatre jeux de Bordeaux ont été vérifiés colonne à colonne : tous seraient
+retenus. Bordeaux est la 9ᵉ ville de France.
+
+**Et une découverte plus grosse encore : un filtre d'adresse perdait 333 jeux.**
+`ressources_csv` exigeait qu'une adresse FINISSE par « .csv ». Les points
+d'export d'API — `.../datasets/<jeu>/exports/csv`, `.../resource/493/download/` —
+ne finissent pas ainsi et servent pourtant de vrais fichiers. Mesuré sur les six
+angles de découverte : **333 jeux de 63 organisations** étaient écartés en
+silence, sans aucune trace dans le manifeste. Huit ont été testés en
+téléchargeant l'adresse réelle : **cinq servent un SCDL valide** (Bourges,
+l'Aude, Grand Paris Seine Ouest, les Hauts-de-Seine, Boulogne-Billancourt).
+
+**FAIT le 22/08/2026 — le pipeline a été entièrement rejoué.** Moissonnage des
+trois familles, normalisation, assemblage, agrégats, index, contrôles. Résultat :
+
+| | avant | après |
+|---|---|---|
+| Jeux retenus data.gouv.fr | 148 | **377** (504 fichiers) |
+| Jeux retenus Opendatasoft | 371 | **407** |
+| Sources dans la table | 548 | **655** |
+| Communes couvertes | 86 | **90** |
+| Départements | 31 | **34** |
+| Régions | 5 | **7** |
+| Associations à 3 échelons ou plus | 6 783 | **9 613** |
+| Contrôles `verify.py` | 32/33 | **33/33** |
+
+Bordeaux (469,0 M€), Bourges (117,7 M€), les Hauts-de-Seine (318,4 M€), l'Aude,
+Issy-les-Moulineaux, Grand Paris Seine Ouest et Blois sont entrés.
+
+Un troisième blocage a été trouvé en route : **`openpyxl` n'était pas installé**,
+ce qui écartait 110 fichiers XLSX sous un motif noyé dans la liste des raisons.
+Installé, puis moissonnage relancé — le cache ne reprend que ce qui manque.
+
+**Ce que Nice, Montpellier, Strasbourg, Lille et Toulon ne publient pas.**
+Vérifié des deux côtés : ni portail (Strasbourg et Angers ont un portail ouvert
+avec ZÉRO jeu de subventions), ni data.gouv.fr. Seule Lille publie — et son
+adresse d'export répond du HTML. Leur absence du site n'est donc pas un défaut
+de moissonnage : **c'est une absence de publication**, et c'est à ce titre
+qu'elle doit être dite.
+
+### 1c. Ce qui manquera toujours
 
 ### 1c. Ce qui manquera toujours
 
@@ -83,6 +157,40 @@ Les communes de moins de 3 500 habitants ne sont pas tenues de publier, et
 parmi celles qui le sont, l'obligation est peu suivie. Aucun moissonnage ne
 comblera cela : la lacune est légale. C'est ce que la page « Ce que ce site ne
 sait pas » est là pour dire.
+
+### 1d. L'inventaire de ce qui a été téléchargé PUIS écarté — *mesuré le 21/08/2026*
+
+Le seul gisement restant qui ne dépende de personne : les fichiers que les
+moissonneurs ont déjà vus et rejetés. Relevé dans les `ecartes` des manifestes,
+qui enregistrent les colonnes réelles de chaque fichier rejeté — la mesure se
+fait donc hors ligne, sans re-télécharger.
+
+**Portails Opendatasoft — 203 jeux écartés**, dont 28 sans colonnes enregistrées.
+
+| Ce qui bloque | jeux | de qui |
+|---|---|---|
+| En-tête mal détecté (les « colonnes » sont une ligne de données) | 51 | Ville de Rennes, BP et CA |
+| `libelle` porte le bénéficiaire, motif trop générique pour être pris | 18 | Ville de Rennes |
+| `organismes` | 12 | Agglopolys (Blois) |
+| `organisme_de_formation_libelle_et_code` | 8 | Région Île-de-France |
+| `beneficiare` — faute de frappe du publieur | 4 | Ville de Rennes, CA |
+| `attributaires`, `noms` | 4 | Ville de Blois |
+| `liborgabenef` / `mtsubv` — colonnes abrégées | 2 | une région |
+| **Reconnus en l'état — le manifeste date d'avant le correctif de phase 6a** | **4** | **communes de Fronton et Labarthe-sur-Lèze (31)** |
+| Hors champ pour de bon (statistiques, Fédération Wallonie-Bruxelles, vélos) | ~70 | — |
+
+**data.gouv.fr — 95 fichiers écartés dans 50 jeux** : 41 en-têtes non détectés
+(dont le Département d'Ille-et-Vilaine), 19 échecs réseau sur
+`datacat.datalocale.fr`, 8 fichiers au format OpenDocument que le lecteur ne
+sait pas ouvrir, 3 liens morts chez Rennes Métropole, et une dizaine de cas
+uniques (`Libellé tiers`, `BGT_NOM`, en-tête d'Antibes lu en une seule colonne).
+**Aucun n'est récupérable sans toucher au code.**
+
+Ce que cela vaut, honnêtement : **69 des 91 jeux récupérables sont la Ville de
+Rennes**, déjà présente dans le corpus par sa source héritée. Le gain est en
+PROFONDEUR (des exercices, des séries budgétaires), pas en couverture. Les
+seules collectivités vraiment nouvelles au bout du compte sont Blois/Agglopolys
+et deux communes de Haute-Garonne.
 
 ---
 
@@ -175,12 +283,11 @@ collectivité qu'on ne couvre pas. Les trois derniers coûtent zéro couverture
 
 ---
 
-## 4. « Voté / versé » — la mesure du 21/08/2026
+## 4. « Voté / versé » — mesuré puis tranché (21/08/2026)
 
-Chantier n° 3 de l'ordre recommandé, **mesuré, non corrigé**. Rejouable :
-`python3 scripts/analyse/mesure_measure.py` (demande `duckdb`). Les chiffres
-ci-dessous en sortent, sur la table canonique du 20/08/2026 (2 507 214 lignes
-et 144,71 Md€ comptés dans les totaux).
+Chantier n° 3 de l'ordre recommandé. **Mesuré d'abord, corrigé ensuite — mais
+pas là où on croyait.** Mesure rejouable :
+`python3 scripts/analyse/mesure_measure.py` (demande `duckdb`).
 
 ### 4a. Le défaut signalé est réel, et minuscule
 
@@ -218,66 +325,79 @@ effacerait trois exercices entiers d'un EPCI, 41,49 M€.
 **Conclusion : ne pas appliquer le correctif seul.** Il déplace peu, et ce
 qu'il déplace est presque entièrement de l'argent réel non dédoublé.
 
-### 4c. Ce que la mesure a trouvé à la place — 1,86 Md€ exclus pour rien
+### 4c. Ce que la mesure a trouvé à la place — **TRANCHÉ, phase 8**
 
-Le vrai défaut n'est pas dans la reconnaissance, il est dans la règle. La règle
-actuelle est aveugle : « versé ⇒ hors totaux », quoi qu'il arrive. Or un
-« versé » ne double un « attribué » que si la collectivité a publié le même
-exercice des deux façons.
+Le vrai défaut n'était pas dans la reconnaissance, il était dans la règle : elle
+retirait 1,86 Md€ que rien ne dédoublait, dont la totalité du département de
+Loire-Atlantique (778,3 M€, 28 573 subventions), qui ne publie que ses paiements
+et n'apparaissait donc nulle part.
 
-| Lignes aujourd'hui classées « versé » | lignes | montant |
+| Lignes classées « versé » | lignes | montant |
 |---|---|---|
 | Total exclu par la seule règle « versé » | 99 837 | 7,45 Md€ |
 | · avec contrepartie « attribué », même donateur, même exercice | 53 635 | 5,59 Md€ |
 | · **sans aucune contrepartie** | **46 202** | **1,86 Md€** |
 
-Les plus gros exclus sans rien dédoubler : le **département de
-Loire-Atlantique (778,3 M€, 28 573 lignes)**, dont c'est la totalité de la
-présence dans le corpus ; l'Île-de-France (529,6 M€ sur les exercices que son
-jeu « attribué » ne couvre pas) ; Toulouse commune (264,3 M€) et métropole
-(117,7 M€) ; Blagnac (29,5 M€) ; le Premier ministre (16,7 M€).
+**Arbitrage de l'utilisateur (21/08/2026) : afficher les deux valeurs.** Le site
+montre désormais « dons votés » et « dons payés » côte à côte, et ne les somme
+jamais. Personne n'est effacé, et aucun euro n'est compté deux fois.
 
-**C'est un arbitrage de doctrine, pas un correctif** — d'où l'absence de code
-ici. Deux lectures se défendent :
+### 4d. Les doublons que la clé métier ne voit pas — **signalés, non corrigés**
 
-- *conditionner l'exclusion au recouvrement* — ne retirer un « versé » que si
-  le même donateur et le même exercice existent en « attribué ». Ramène 1,86 Md€
-  et une vingtaine de collectivités dans les totaux, dont un département entier.
-  Prix : la règle des totaux cesse d'être une propriété de la ligne pour devenir
-  une propriété du corpus, donc elle change quand une source s'ajoute.
-- *garder la règle actuelle* — un total qui ne mélange jamais deux natures de
-  mesure, au prix d'une sous-estimation connue de 1,86 Md€, qu'il faudrait alors
-  écrire sur `methode.html` comme on écrit les quarantaines.
+`ville-grenoble` et `ville-grenoble-2016` publient la même subvention sous
+« SUBVENTION PROJET » d'un côté et « MUSIQUES » de l'autre : même bénéficiaire,
+même donateur, même exercice, même montant, deux clés — parce que l'objet fait
+partie de la clé métier.
 
-### 4d. Trouvaille annexe — 144,8 M€ de doublons que la clé métier ne voit pas
+**Chiffre corrigé le 21/08/2026 : 18 369 groupes, 22 867 lignes, 442,62 M€.**
+Une première mesure annonçait 4 784 groupes et 144,84 M€ : elle appariait les
+donateurs sur leur LIBELLÉ, quand la clé métier, elle, les apparie sur leur
+IDENTITÉ (`identite_donateur`). Mesurer autrement que ne compte le code, c'est
+sous-estimer — le bon chiffre est celui qui utilise la même clé.
 
-En vérifiant Grenoble : `ville-grenoble` et `ville-grenoble-2016` publient les
-mêmes subventions (même bénéficiaire, même montant, même exercice, même
-donateur) sous deux objets différents — « SUBVENTION PROJET » contre
-« MUSIQUES ». L'objet entrant dans `business_key`, la déduplication ne les voit
-pas. Sur tout le corpus : **4 784 groupes, 6 091 lignes en trop, 144,84 M€**.
+Ils restent **dans les totaux**, et sont désormais signalés dans le rapport de
+qualité (`doublons_probables_hors_cle`) et sur `methode.html`. Retirer l'objet
+de la clé n'est PAS la solution : deux subventions réellement distinctes de même
+montant à la même association la même année se fondraient — même asymétrie que
+pour les homonymes, et du mauvais côté.
 
-Ce n'est **pas** un correctif évident : retirer l'objet de la clé fondrait deux
-subventions réellement distinctes de même montant à la même association la même
-année — la même asymétrie que pour les homonymes (`CLAUDE.md`). À traiter comme
-un chantier propre, avec une règle qui regarde les sources d'où viennent les
-deux lignes.
+### 4e. Deux autres signalements ajoutés le 21/08/2026
+
+- **`nom_de_beneficiaire_numerique`** — 7 121 lignes, 1,80 Md€. La source a
+  recopié le SIREN ou le RNA dans la colonne du nom : le site affiche
+  « 911671485 » comme bénéficiaire de 911,7 M€. Identifiable mais illisible, et
+  ces lignes ne se rapprochent pas de celles du même organisme correctement
+  nommé.
+- **`nature_devinee_gros_montants`** — 166 430 lignes, 49,88 Md€ comptés comme
+  « association » parce que la source ne dit pas le contraire. On y trouve SNCF
+  Voyageurs, SNCF Réseau, l'Agence France-Presse, le Centre national du cinéma,
+  l'Association internationale de développement (Banque mondiale). **Rien n'est
+  retiré** — deviner une exclusion effacerait des associations réelles, et c'est
+  la doctrine du projet — mais la liste des vingt plus gros est dans le rapport,
+  et c'est un arbitrage métier à faire un jour.
 
 ---
 
 ## Ordre recommandé
 
-1. **La demande d'habilitation `datasubvention` (1b)** — c'est le seul chantier
-   qui change l'ordre de grandeur de la couverture, et son délai est
-   administratif : à lancer d'abord, il avancera pendant qu'on code.
-2. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
-   l'histoire du site en dépendent, et c'est la seule des deux quarantaines qui
-   ne demande pas d'habilitation.
-3. ~~`measure_of` et les tirets bas~~ — **mesuré (§4)**. Le correctif de
-   séparateurs ne bouge que 8 lignes et 850 k€, tous à perte. Ce que la mesure
-   a trouvé à sa place — 1,86 Md€ exclus des totaux sans rien dédoubler — est
-   une décision de doctrine qui attend l'arbitrage de l'utilisateur.
-4. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
+*Révisé le 21/08/2026, `datasubvention` étant abandonné (1b).*
+
+1. **Décider ce que devient le site sans changement d'échelle.** C'est la
+   question à trancher avant de coder quoi que ce soit : le plafond de
+   couverture est atteint, et la valeur du site se déplace vers ce qu'il FAIT de
+   ce qu'il a — croisements, séries, exports, lisibilité — plutôt que vers un
+   corpus plus gros.
+2. **Les jeux écartés à rouvrir (1d)** — le seul gisement qui ne dépende de
+   personne. Trois correctifs de reconnaissance (en-tête mal détecté, `beneficiare`,
+   `organismes`) rouvrent ~91 jeux, mais 69 sont la Ville de Rennes : gain en
+   profondeur, pas en couverture. Demande un re-moissonnage complet.
+3. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
+   l'histoire du site en dépendent.
+4. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
+   séparateurs n'a PAS été appliqué (8 lignes, 850 k€, toutes à perte). À sa
+   place, deux changements de doctrine tranchés par l'utilisateur : voté et payé
+   s'affichent côte à côte, et seuls les DONS entrent dans les totaux.
+5. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
    mesurés épuisés (1a). Y revenir sans une source nouvelle serait du travail
    jetable.
 

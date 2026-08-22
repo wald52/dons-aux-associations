@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T22:31:50Z",
+  "generated_at": "2026-08-22T13:48:19Z",
   "referentiel": {
     "source": "wald52/carte-finances-locales (OFGL / BANATIC / INSEE)",
     "millesime": 2024,
@@ -20,204 +20,204 @@
         "nom": "Ain",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 6768,
-        "amount_eur": 362282354.01
+        "rows": 5142,
+        "amount_eur": 234049768.83
       },
       "02": {
         "nom": "Aisne",
         "reg_code": "32",
         "statut": "avec_donnees",
-        "rows": 12711,
-        "amount_eur": 477081800.08
+        "rows": 9151,
+        "amount_eur": 303754131.53
       },
       "03": {
         "nom": "Allier",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 5961,
-        "amount_eur": 278524021.02
+        "rows": 4609,
+        "amount_eur": 197676676.76
       },
       "04": {
         "nom": "Alpes-de-Haute-Provence",
         "reg_code": "93",
         "statut": "avec_donnees",
-        "rows": 4411,
-        "amount_eur": 131370552.74
+        "rows": 3424,
+        "amount_eur": 95187395.38
       },
       "05": {
         "nom": "Hautes-Alpes",
         "reg_code": "93",
         "statut": "avec_donnees",
-        "rows": 4106,
-        "amount_eur": 94185413.75
+        "rows": 3114,
+        "amount_eur": 66293647.15
       },
       "06": {
         "nom": "Alpes-Maritimes",
         "reg_code": "93",
         "statut": "avec_donnees",
-        "rows": 13027,
-        "amount_eur": 700420074.37
+        "rows": 9760,
+        "amount_eur": 470137632.38
       },
       "07": {
         "nom": "Ardèche",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 5697,
-        "amount_eur": 209654660.03
+        "rows": 4342,
+        "amount_eur": 143597347.35
       },
       "08": {
         "nom": "Ardennes",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 6364,
-        "amount_eur": 215580667.18
+        "rows": 5085,
+        "amount_eur": 148362762.34
       },
       "09": {
         "nom": "Ariège",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 4447,
-        "amount_eur": 98808527.55
+        "rows": 3379,
+        "amount_eur": 67771058.02
       },
       "10": {
         "nom": "Aube",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 5872,
-        "amount_eur": 237422207.74
+        "rows": 4604,
+        "amount_eur": 160534005.01
       },
       "11": {
         "nom": "Aude",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 6879,
-        "amount_eur": 259613516.96
+        "rows": 5387,
+        "amount_eur": 176812917.4
       },
       "12": {
         "nom": "Aveyron",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 6229,
-        "amount_eur": 198445187.56
+        "rows": 4766,
+        "amount_eur": 136773678.26
       },
       "13": {
         "nom": "Bouches-du-Rhône",
         "reg_code": "93",
         "statut": "avec_donnees",
-        "rows": 40994,
-        "amount_eur": 2111105818.64
+        "rows": 35914,
+        "amount_eur": 1839719168.72
       },
       "14": {
         "nom": "Calvados",
         "reg_code": "28",
         "statut": "avec_donnees",
-        "rows": 13926,
-        "amount_eur": 694330261.55
+        "rows": 10794,
+        "amount_eur": 490611928.9
       },
       "15": {
         "nom": "Cantal",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 3620,
-        "amount_eur": 111409539.03
+        "rows": 2810,
+        "amount_eur": 78176619.13
       },
       "16": {
         "nom": "Charente",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 6361,
-        "amount_eur": 257792528.71
+        "rows": 4920,
+        "amount_eur": 180019120.8
       },
       "17": {
         "nom": "Charente-Maritime",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 11421,
-        "amount_eur": 773381484.19
+        "rows": 9190,
+        "amount_eur": 618376156.49
       },
       "18": {
         "nom": "Cher",
         "reg_code": "24",
         "statut": "avec_donnees",
-        "rows": 5772,
-        "amount_eur": 222066693.67
+        "rows": 4404,
+        "amount_eur": 159692024.0
       },
       "19": {
         "nom": "Corrèze",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 6314,
-        "amount_eur": 158292708.86
+        "rows": 4991,
+        "amount_eur": 112290047.38
       },
       "21": {
         "nom": "Côte-d'Or",
         "reg_code": "27",
         "statut": "avec_donnees",
-        "rows": 11433,
-        "amount_eur": 499313275.37
+        "rows": 8822,
+        "amount_eur": 351803435.84
       },
       "22": {
         "nom": "Côtes-d'Armor",
         "reg_code": "53",
         "statut": "avec_donnees",
-        "rows": 8599,
-        "amount_eur": 376459157.93
+        "rows": 6489,
+        "amount_eur": 259860068.94
       },
       "23": {
         "nom": "Creuse",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 4672,
-        "amount_eur": 86056732.45
+        "rows": 3808,
+        "amount_eur": 62295174.85
       },
       "24": {
         "nom": "Dordogne",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 14014,
-        "amount_eur": 417166141.96
+        "rows": 12421,
+        "amount_eur": 321524935.76
       },
       "25": {
         "nom": "Doubs",
         "reg_code": "27",
         "statut": "avec_donnees",
-        "rows": 12851,
-        "amount_eur": 489703435.14
+        "rows": 10171,
+        "amount_eur": 352672877.98
       },
       "26": {
         "nom": "Drôme",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 8831,
-        "amount_eur": 453269165.99
+        "rows": 6804,
+        "amount_eur": 305513748.15
       },
       "27": {
         "nom": "Eure",
         "reg_code": "28",
         "statut": "avec_donnees",
-        "rows": 7502,
-        "amount_eur": 335157089.32
+        "rows": 6068,
+        "amount_eur": 228851722.77
       },
       "28": {
         "nom": "Eure-et-Loir",
         "reg_code": "24",
         "statut": "avec_donnees",
-        "rows": 5747,
-        "amount_eur": 226430525.88
+        "rows": 4446,
+        "amount_eur": 158253117.92
       },
       "29": {
         "nom": "Finistère",
         "reg_code": "53",
         "statut": "avec_donnees",
-        "rows": 11993,
-        "amount_eur": 640862334.77
+        "rows": 9092,
+        "amount_eur": 455749580.19
       },
       "2A": {
         "nom": "Corse-du-Sud",
         "reg_code": "94",
         "statut": "avec_donnees",
-        "rows": 903,
-        "amount_eur": 11057745.26
+        "rows": 883,
+        "amount_eur": 10695776.59
       },
       "2B": {
         "nom": "Haute-Corse",
@@ -230,500 +230,500 @@
         "nom": "Gard",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 14329,
-        "amount_eur": 583850539.54
+        "rows": 11189,
+        "amount_eur": 399406632.84
       },
       "31": {
         "nom": "Haute-Garonne",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 39107,
-        "amount_eur": 2789443153.36
+        "rows": 33404,
+        "amount_eur": 2416913107.24
       },
       "32": {
         "nom": "Gers",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 4404,
-        "amount_eur": 140758359.64
+        "rows": 3382,
+        "amount_eur": 97964815.49
       },
       "33": {
         "nom": "Gironde",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 40431,
-        "amount_eur": 1515234185.5
+        "rows": 34414,
+        "amount_eur": 1124266342.79
       },
       "34": {
         "nom": "Hérault",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 24155,
-        "amount_eur": 1081709148.82
+        "rows": 18842,
+        "amount_eur": 778670125.12
       },
       "35": {
         "nom": "Ille-et-Vilaine",
         "reg_code": "53",
         "statut": "avec_donnees",
-        "rows": 39410,
-        "amount_eur": 1287454438.0
+        "rows": 34929,
+        "amount_eur": 1014015971.7
       },
       "36": {
         "nom": "Indre",
         "reg_code": "24",
         "statut": "avec_donnees",
-        "rows": 5305,
-        "amount_eur": 141645813.18
+        "rows": 4156,
+        "amount_eur": 99891536.69
       },
       "37": {
         "nom": "Indre-et-Loire",
         "reg_code": "24",
         "statut": "avec_donnees",
-        "rows": 12624,
-        "amount_eur": 440546893.31
+        "rows": 10346,
+        "amount_eur": 313354674.95
       },
       "38": {
         "nom": "Isère",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 27075,
-        "amount_eur": 1100735665.67
+        "rows": 23005,
+        "amount_eur": 830614060.62
       },
       "39": {
         "nom": "Jura",
         "reg_code": "27",
         "statut": "avec_donnees",
-        "rows": 5570,
-        "amount_eur": 176107153.57
+        "rows": 4340,
+        "amount_eur": 119250511.15
       },
       "40": {
         "nom": "Landes",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 5285,
-        "amount_eur": 210894317.32
+        "rows": 3952,
+        "amount_eur": 141472119.31
       },
       "41": {
         "nom": "Loir-et-Cher",
         "reg_code": "24",
         "statut": "avec_donnees",
-        "rows": 5881,
-        "amount_eur": 230562977.04
+        "rows": 4496,
+        "amount_eur": 167322499.45
       },
       "42": {
         "nom": "Loire",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 13400,
-        "amount_eur": 689264132.29
+        "rows": 10534,
+        "amount_eur": 460774566.47
       },
       "43": {
         "nom": "Haute-Loire",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 4963,
-        "amount_eur": 148785894.73
+        "rows": 3784,
+        "amount_eur": 98867247.73
       },
       "44": {
         "nom": "Loire-Atlantique",
         "reg_code": "52",
         "statut": "avec_donnees",
-        "rows": 38079,
-        "amount_eur": 1817272095.08
+        "rows": 32659,
+        "amount_eur": 1452287424.24
       },
       "45": {
         "nom": "Loiret",
         "reg_code": "24",
         "statut": "avec_donnees",
-        "rows": 10947,
-        "amount_eur": 528552904.01
+        "rows": 8418,
+        "amount_eur": 366595234.58
       },
       "46": {
         "nom": "Lot",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 3991,
-        "amount_eur": 130816914.18
+        "rows": 3171,
+        "amount_eur": 92638856.4
       },
       "47": {
         "nom": "Lot-et-Garonne",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 6112,
-        "amount_eur": 258096029.27
+        "rows": 4619,
+        "amount_eur": 171977024.5
       },
       "48": {
         "nom": "Lozère",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 4210,
-        "amount_eur": 96345904.76
+        "rows": 3157,
+        "amount_eur": 66438991.97
       },
       "49": {
         "nom": "Maine-et-Loire",
         "reg_code": "52",
         "statut": "avec_donnees",
-        "rows": 27680,
-        "amount_eur": 1142949397.63
+        "rows": 24880,
+        "amount_eur": 899001366.83
       },
       "50": {
         "nom": "Manche",
         "reg_code": "28",
         "statut": "avec_donnees",
-        "rows": 6465,
-        "amount_eur": 310162978.09
+        "rows": 4934,
+        "amount_eur": 216152887.93
       },
       "51": {
         "nom": "Marne",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 10972,
-        "amount_eur": 527209182.43
+        "rows": 8804,
+        "amount_eur": 378183232.92
       },
       "52": {
         "nom": "Haute-Marne",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 4872,
-        "amount_eur": 136007898.34
+        "rows": 3872,
+        "amount_eur": 97989870.17
       },
       "53": {
         "nom": "Mayenne",
         "reg_code": "52",
         "statut": "avec_donnees",
-        "rows": 5890,
-        "amount_eur": 1650723262.25
+        "rows": 4627,
+        "amount_eur": 1580464536.26
       },
       "54": {
         "nom": "Meurthe-et-Moselle",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 15298,
-        "amount_eur": 671016226.21
+        "rows": 11814,
+        "amount_eur": 462022985.66
       },
       "55": {
         "nom": "Meuse",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 4423,
-        "amount_eur": 251740852.31
+        "rows": 3432,
+        "amount_eur": 200953191.87
       },
       "56": {
         "nom": "Morbihan",
         "reg_code": "53",
         "statut": "avec_donnees",
-        "rows": 10260,
-        "amount_eur": 621367855.62
+        "rows": 7701,
+        "amount_eur": 436230430.03
       },
       "57": {
         "nom": "Moselle",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 14037,
-        "amount_eur": 834571360.89
+        "rows": 11159,
+        "amount_eur": 544700767.46
       },
       "58": {
         "nom": "Nièvre",
         "reg_code": "27",
         "statut": "avec_donnees",
-        "rows": 10804,
-        "amount_eur": 247202997.09
+        "rows": 9593,
+        "amount_eur": 191564554.14
       },
       "59": {
         "nom": "Nord",
         "reg_code": "32",
         "statut": "avec_donnees",
-        "rows": 40036,
-        "amount_eur": 3598296879.98
+        "rows": 31151,
+        "amount_eur": 2644939962.44
       },
       "60": {
         "nom": "Oise",
         "reg_code": "32",
         "statut": "avec_donnees",
-        "rows": 11901,
-        "amount_eur": 608003185.07
+        "rows": 9410,
+        "amount_eur": 424808687.07
       },
       "61": {
         "nom": "Orne",
         "reg_code": "28",
         "statut": "avec_donnees",
-        "rows": 5713,
-        "amount_eur": 261506925.11
+        "rows": 4405,
+        "amount_eur": 179019100.11
       },
       "62": {
         "nom": "Pas-de-Calais",
         "reg_code": "32",
         "statut": "avec_donnees",
-        "rows": 16159,
-        "amount_eur": 1227876474.34
+        "rows": 12619,
+        "amount_eur": 866711954.38
       },
       "63": {
         "nom": "Puy-de-Dôme",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 13514,
-        "amount_eur": 581851951.47
+        "rows": 10457,
+        "amount_eur": 413011858.19
       },
       "64": {
         "nom": "Pyrénées-Atlantiques",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 10374,
-        "amount_eur": 548255593.36
+        "rows": 7737,
+        "amount_eur": 382979840.26
       },
       "65": {
         "nom": "Hautes-Pyrénées",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 4278,
-        "amount_eur": 213377097.24
+        "rows": 3268,
+        "amount_eur": 157104370.85
       },
       "66": {
         "nom": "Pyrénées-Orientales",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 14933,
-        "amount_eur": 633695038.57
+        "rows": 13188,
+        "amount_eur": 530908929.14
       },
       "67": {
         "nom": "Bas-Rhin",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 22617,
-        "amount_eur": 1037761328.16
+        "rows": 18516,
+        "amount_eur": 749337063.23
       },
       "68": {
         "nom": "Haut-Rhin",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 10685,
-        "amount_eur": 511436550.26
+        "rows": 8425,
+        "amount_eur": 349293877.0
       },
       "69": {
         "nom": "Rhône",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 41517,
-        "amount_eur": 1819870902.41
+        "rows": 36725,
+        "amount_eur": 1439303553.38
       },
       "70": {
         "nom": "Haute-Saône",
         "reg_code": "27",
         "statut": "avec_donnees",
-        "rows": 4065,
-        "amount_eur": 175590985.84
+        "rows": 3113,
+        "amount_eur": 120689809.74
       },
       "71": {
         "nom": "Saône-et-Loire",
         "reg_code": "27",
         "statut": "avec_donnees",
-        "rows": 8483,
-        "amount_eur": 351990067.24
+        "rows": 6622,
+        "amount_eur": 247547028.72
       },
       "72": {
         "nom": "Sarthe",
         "reg_code": "52",
         "statut": "avec_donnees",
-        "rows": 8550,
-        "amount_eur": 435370746.66
+        "rows": 6521,
+        "amount_eur": 296016789.86
       },
       "73": {
         "nom": "Savoie",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 7335,
-        "amount_eur": 348676772.65
+        "rows": 5776,
+        "amount_eur": 259328580.94
       },
       "74": {
         "nom": "Haute-Savoie",
         "reg_code": "84",
         "statut": "avec_donnees",
-        "rows": 7787,
-        "amount_eur": 501387176.61
+        "rows": 5876,
+        "amount_eur": 336607703.8
       },
       "75": {
         "nom": "Paris",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 91361,
-        "amount_eur": 14859106967.83
+        "rows": 83616,
+        "amount_eur": 13444064453.38
       },
       "76": {
         "nom": "Seine-Maritime",
         "reg_code": "28",
         "statut": "avec_donnees",
-        "rows": 17203,
-        "amount_eur": 1020872528.44
+        "rows": 13310,
+        "amount_eur": 698208674.65
       },
       "77": {
         "nom": "Seine-et-Marne",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 14563,
-        "amount_eur": 963265013.67
+        "rows": 11927,
+        "amount_eur": 624433976.22
       },
       "78": {
         "nom": "Yvelines",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 14070,
-        "amount_eur": 854570457.35
+        "rows": 11253,
+        "amount_eur": 586542995.13
       },
       "79": {
         "nom": "Deux-Sèvres",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 6667,
-        "amount_eur": 244608679.89
+        "rows": 5026,
+        "amount_eur": 169188032.29
       },
       "80": {
         "nom": "Somme",
         "reg_code": "32",
         "statut": "avec_donnees",
-        "rows": 12536,
-        "amount_eur": 907480497.87
+        "rows": 10233,
+        "amount_eur": 745246930.98
       },
       "81": {
         "nom": "Tarn",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 6907,
-        "amount_eur": 246063552.52
+        "rows": 5317,
+        "amount_eur": 171254339.67
       },
       "82": {
         "nom": "Tarn-et-Garonne",
         "reg_code": "76",
         "statut": "avec_donnees",
-        "rows": 4940,
-        "amount_eur": 186363587.49
+        "rows": 3757,
+        "amount_eur": 125917956.74
       },
       "83": {
         "nom": "Var",
         "reg_code": "93",
         "statut": "avec_donnees",
-        "rows": 10908,
-        "amount_eur": 514200566.12
+        "rows": 8287,
+        "amount_eur": 346414874.04
       },
       "84": {
         "nom": "Vaucluse",
         "reg_code": "93",
         "statut": "avec_donnees",
-        "rows": 9931,
-        "amount_eur": 520028046.44
+        "rows": 7612,
+        "amount_eur": 389606507.7
       },
       "85": {
         "nom": "Vendée",
         "reg_code": "52",
         "statut": "avec_donnees",
-        "rows": 6780,
-        "amount_eur": 451297158.1
+        "rows": 5110,
+        "amount_eur": 300950051.54
       },
       "86": {
         "nom": "Vienne",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 10188,
-        "amount_eur": 475740277.69
+        "rows": 7796,
+        "amount_eur": 341623191.95
       },
       "87": {
         "nom": "Haute-Vienne",
         "reg_code": "75",
         "statut": "avec_donnees",
-        "rows": 9627,
-        "amount_eur": 670401202.16
+        "rows": 7519,
+        "amount_eur": 579335216.06
       },
       "88": {
         "nom": "Vosges",
         "reg_code": "44",
         "statut": "avec_donnees",
-        "rows": 5822,
-        "amount_eur": 270038860.38
+        "rows": 4581,
+        "amount_eur": 183137374.69
       },
       "89": {
         "nom": "Yonne",
         "reg_code": "27",
         "statut": "avec_donnees",
-        "rows": 6914,
-        "amount_eur": 189344784.5
+        "rows": 5556,
+        "amount_eur": 135904200.82
       },
       "90": {
         "nom": "Territoire de Belfort",
         "reg_code": "27",
         "statut": "avec_donnees",
-        "rows": 3436,
-        "amount_eur": 111006488.78
+        "rows": 2779,
+        "amount_eur": 78346565.53
       },
       "91": {
         "nom": "Essonne",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 13068,
-        "amount_eur": 876819321.74
+        "rows": 10099,
+        "amount_eur": 572786418.76
       },
       "92": {
         "nom": "Hauts-de-Seine",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 19877,
-        "amount_eur": 1865612472.99
+        "rows": 15492,
+        "amount_eur": 1419576091.08
       },
       "93": {
         "nom": "Seine-Saint-Denis",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 35761,
-        "amount_eur": 2993346471.01
+        "rows": 28852,
+        "amount_eur": 2325325659.43
       },
       "94": {
         "nom": "Val-de-Marne",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 20748,
-        "amount_eur": 1588247524.44
+        "rows": 16524,
+        "amount_eur": 1101745581.35
       },
       "95": {
         "nom": "Val-d'Oise",
         "reg_code": "11",
         "statut": "avec_donnees",
-        "rows": 14266,
-        "amount_eur": 765966365.16
+        "rows": 11705,
+        "amount_eur": 516732269.64
       },
       "971": {
         "nom": "Guadeloupe",
         "reg_code": "01",
         "statut": "avec_donnees",
-        "rows": 9526,
-        "amount_eur": 282875916.47
+        "rows": 7136,
+        "amount_eur": 189091024.04
       },
       "972": {
         "nom": "Martinique",
         "reg_code": "02",
         "statut": "avec_donnees",
-        "rows": 9032,
-        "amount_eur": 285406671.26
+        "rows": 6704,
+        "amount_eur": 190272814.09
       },
       "973": {
         "nom": "Guyane",
         "reg_code": "03",
         "statut": "avec_donnees",
-        "rows": 8668,
-        "amount_eur": 251698939.28
+        "rows": 6673,
+        "amount_eur": 181038867.6
       },
       "974": {
         "nom": "La Réunion",
         "reg_code": "04",
         "statut": "avec_donnees",
-        "rows": 13993,
-        "amount_eur": 581778896.2
+        "rows": 10468,
+        "amount_eur": 384680843.5
       },
       "976": {
         "nom": "Mayotte",
         "reg_code": "06",
         "statut": "avec_donnees",
-        "rows": 6092,
-        "amount_eur": 210283623.88
+        "rows": 4636,
+        "amount_eur": 136894785.0
       }
     }
   },
-  "lignes_sans_departement": 1402762
+  "lignes_sans_departement": 1495308
 }

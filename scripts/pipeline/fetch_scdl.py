@@ -143,11 +143,33 @@ def ressources_csv(ds):
         url = r.get("url") or ""
         if fmt not in ("csv", "xlsx", "ods"):
             continue
-        # Une « ressource » pointant vers le site de la collectivité est une
-        # page d'information, pas un jeu de données.
+        # Une « ressource » pointant vers le site de la collectivité est parfois
+        # une page d'information, pas un jeu de données — d'où ce filtre. Mais
+        # exiger que l'adresse FINISSE par « .csv » écartait tous les points
+        # d'export d'API, qui servent pourtant de vrais fichiers :
+        #
+        #   .../api/explore/v2.1/catalog/datasets/<jeu>/exports/csv
+        #   .../dataset/datasets/388/resource/493/download/
+        #
+        # Mesuré le 21/08/2026 sur les six angles de découverte : **333 jeux de
+        # 63 organisations** étaient perdus ainsi, SANS AUCUNE TRACE dans le
+        # manifeste — ni retenus, ni écartés, invisibles. Parmi eux, des
+        # collectivités que le site ne couvre pas du tout : les départements de
+        # l'Aude et des Hauts-de-Seine, Grand Paris Seine Ouest, Bourges Plus,
+        # la Région Pays de la Loire.
+        #
+        # On fait donc confiance au FORMAT déclaré quand l'adresse ressemble à
+        # un téléchargement. Ce qui répond du HTML est écarté plus loin, avec
+        # son vrai motif — un rejet doit dire pourquoi.
         hote = urllib.parse.urlparse(url).netloc
+        chemin = url.lower().split("?")[0]
+        telechargeable = (chemin.endswith((".csv", ".xlsx", ".ods"))
+                          or chemin.rstrip("/").endswith(("/exports/csv", "/exports/xlsx",
+                                                          "/exports/ods", "/download"))
+                          or "/download/" in chemin
+                          or "/exports/" in chemin)
         if hote not in ("static.data.gouv.fr", "www.data.gouv.fr", "data.gouv.fr") \
-           and not url.lower().split("?")[0].endswith((".csv", ".xlsx", ".ods")):
+           and not telechargeable:
             continue
         # On ne regroupe QUE les fichiers hébergés par la collectivité :
         # c'est là que vit la ré-inscription. Sur `static.data.gouv.fr`, chaque
@@ -246,6 +268,17 @@ def traiter_dataset(ds, force=False):
 
         if os.path.getsize(chemin) < MIN_OCTETS:
             fiche["ecartes"].append({"titre": res["titre"], "raison": "fichier vide"})
+            os.remove(chemin)
+            continue
+        # Un point d'export qui répond une page d'erreur ou un écran de
+        # connexion sert du HTML sous un format déclaré « csv ». Le dire ainsi
+        # plutôt que de laisser `read_rows` échouer sur un motif obscur :
+        # un rejet doit nommer sa vraie cause.
+        with open(chemin, "rb") as f:
+            debut = f.read(400).lstrip().lower()
+        if debut.startswith((b"<!doctype", b"<html", b"<?xml")):
+            fiche["ecartes"].append({"titre": res["titre"], "url": res["url"],
+                                     "raison": "réponse HTML, pas un fichier de données"})
             os.remove(chemin)
             continue
         try:

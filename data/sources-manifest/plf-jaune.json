@@ -1,6 +1,6 @@
 {
   "family": "plf_jaune",
-  "fetched_at": "2026-08-20T21:59:25Z",
+  "fetched_at": "2026-08-22T13:19:17Z",
   "discovery_queries": [
     "jaune associations subventionnees",
     "effort financier etat faveur des associations"
@@ -186,14 +186,7 @@
           "title": "Export au format CSV"
         }
       ],
-      "converted_from": "xlsx",
-      "source_url": "https://data.economie.gouv.fr/api/v2/catalog/datasets/projet-de-loi-de-finances-pour-2019-plf-2019-donnees-de-lannexe-jaune-effort-fin/attachments/plf2019_jaune_asso_liste_associations2017_xlsx",
-      "source_format": "xlsx",
-      "cached": false,
-      "file": "data/raw/plf-jaune/plf-2019.csv",
-      "bytes": 10385062,
-      "sha256": "e0c1d8ceefa5be01c0a2c7f65b84c1d73e330856156527b0c8fe6ba954e614bc",
-      "lines": 70071
+      "error": "xlsx: conversion impossible (No module named 'openpyxl') | csv: fichier vide ou non tabulaire | csv: 404 Client Error: Not Found for url: https://data.economie.gouv.fr/explore/dataset/projet-de-loi-de-finances-pour-2019-plf-2019-donnees-de-lannexe-jaune-effort-"
     },
     {
       "plf_year": 2020,
@@ -215,14 +208,13 @@
           "title": "projet-de-loi-de-finances-pour-2020-plf-2020-donnees-de-lannexe-jaune-effort-fin.csv"
         }
       ],
-      "converted_from": "xlsx",
-      "source_url": "https://data.economie.gouv.fr/api/v2/catalog/datasets/projet-de-loi-de-finances-pour-2020-plf-2020-donnees-de-lannexe-jaune-effort-fin/attachments/credits_aux_associations_2018_xlsx",
-      "source_format": "xlsx",
+      "source_url": "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-de-finances-pour-2020-plf-2020-donnees-de-lannexe-jaune-effort-fin/exports/csv?use_labels=true",
+      "source_format": "csv",
       "cached": false,
       "file": "data/raw/plf-jaune/plf-2020.csv",
-      "bytes": 12670865,
-      "sha256": "35b7388b3d56f43a0258c74749182deba05fa4ef3bb14397255c2b5c73233213",
-      "lines": 92607
+      "bytes": 13058282,
+      "sha256": "ade0c16a23a4fe9f9e4812b7087f4118e4938a41831915775f445b028fd0a222",
+      "lines": 92114
     },
     {
       "plf_year": 2021,
@@ -244,14 +236,7 @@
           "title": "projet-de-loi-de-finances-pour-2021-plf-2021-donnees-de-lannexe-jaune-effort-fin.csv"
         }
       ],
-      "converted_from": "xlsx",
-      "source_url": "https://data.economie.gouv.fr/api/v2/catalog/datasets/projet-de-loi-de-finances-pour-2021-plf-2021-donnees-de-lannexe-jaune-effort-fin/attachments/plf_2021_credits_attribues_au_monde_associatif_2019_xlsx",
-      "source_format": "xlsx",
-      "cached": false,
-      "file": "data/raw/plf-jaune/plf-2021.csv",
-      "bytes": 18908919,
-      "sha256": "055638a23ebae8035124229b94c8a048d6cf407b2227520e395df171a6600304",
-      "lines": 96747
+      "error": "xlsx: conversion impossible (No module named 'openpyxl') | csv: fichier vide ou non tabulaire"
     },
     {
       "plf_year": 2022,
@@ -307,14 +292,7 @@
           "title": "plf-2023-effort-financier-de-l-etat-en-faveur-des-associations-liste-des-credits.csv"
         }
       ],
-      "converted_from": "xlsx",
-      "source_url": "https://data.economie.gouv.fr/api/v2/catalog/datasets/plf-2023-effort-financier-de-l-etat-en-faveur-des-associations-liste-des-credits/attachments/plf_2023_effort_financier_de_l_etat_en_faveur_des_associations_liste_des_credits_attribues_xlsx",
-      "source_format": "xlsx",
-      "cached": false,
-      "file": "data/raw/plf-jaune/plf-2023.csv",
-      "bytes": 20800649,
-      "sha256": "1cb3a48e475aa2b4b1f4ef0cf2c5bab96f45ca71adb75c750795f111871270e9",
-      "lines": 102621
+      "error": "xlsx: conversion impossible (No module named 'openpyxl') | csv: fichier vide ou non tabulaire"
     },
     {
       "plf_year": 2024,

@@ -57,7 +57,7 @@ def main():
         "beneficiary_dep_code", "beneficiary_name_raw", "beneficiary_siren",
         "donor_level", "donor_name_raw", "amount_eur", "year", "granularity",
         "measure", "beneficiary_kind", "beneficiary_kind_provenance",
-        "source_id", "quality_flags",
+        "source_id", "quality_flags", "purpose_norm",
     ])
     n = table.num_rows
     dep = table.column("beneficiary_dep_code").to_pylist()
@@ -72,10 +72,38 @@ def main():
     bkind = table.column("beneficiary_kind").to_pylist()
     bkprov = table.column("beneficiary_kind_provenance").to_pylist()
 
+    purpose = table.column("purpose_norm").to_pylist()
+    flags = table.column("quality_flags").to_pylist()
+
     # Une seule règle décide de ce qui est sommé, définie dans common.py. On la
-    # calcule une fois par ligne : elle sert aux trois agrégats ci-dessous.
-    sommable = [C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i])
-                for i in range(n)]
+    # calcule une fois par ligne : elle sert à tous les agrégats ci-dessous.
+    #
+    # `sommable` = un DON individuel à une association, voté. C'est le total par
+    # défaut du site. `paye` est le même filtre sur l'exécution budgétaire : il
+    # s'affiche À CÔTÉ, jamais additionné — c'est le même argent vu deux fois
+    # quand la collectivité publie les deux, et la seule trace qu'on ait quand
+    # elle ne publie que ses paiements.
+    concours = [C.nature_du_concours(purpose[i], flags[i])[0] for i in range(n)]
+    don = [C.est_un_don(gran[i], bkind[i], bkprov[i], concours[i]) for i in range(n)]
+    sommable = [don[i] and mesure[i] != "verse" for i in range(n)]
+    paye = [don[i] and mesure[i] == "verse" for i in range(n)]
+
+    def cumul(garde):
+        lignes = montant = 0
+        for i in range(n):
+            if garde(i):
+                lignes += 1
+                montant += amt[i] or 0
+        return lignes, montant
+
+    n_vote, m_vote = cumul(lambda i: sommable[i])
+    n_paye, m_paye = cumul(lambda i: paye[i])
+    hors_don = collections.defaultdict(lambda: [0, 0.0])
+    for i in range(n):
+        if gran[i] != "aggregate" and concours[i] != "don":
+            h = hors_don[concours[i]]
+            h[0] += 1
+            h[1] += amt[i] or 0
 
     ref = C.referentiel()
     report = json.load(open(os.path.join(ROOT, "data", "canonical",
@@ -84,29 +112,44 @@ def main():
     # --- cube creux : département -> année -> niveau -> [lignes, montant] ----
     # Les lignes agrégées (postes budgétaires) sont exclues : les additionner
     # aux attributions individuelles compterait deux fois.
-    cube = collections.defaultdict(lambda: collections.defaultdict(
-        lambda: collections.defaultdict(lambda: [0, 0.0])))
+    def cube_vide():
+        return collections.defaultdict(lambda: collections.defaultdict(
+            lambda: collections.defaultdict(lambda: [0, 0.0])))
+
+    cube = cube_vide()
     national = collections.defaultdict(lambda: collections.defaultdict(lambda: [0, 0.0]))
     sans_dep = collections.defaultdict(lambda: [0, 0.0])
+    # Le payé a son propre cube, de même forme. Une vingtaine de collectivités
+    # seulement publient leur exécution budgétaire : un cube à part pèse quelques
+    # kilo-octets, là où doubler chaque cellule du cube principal le doublerait
+    # tout entier pour des zéros.
+    cube_paye = cube_vide()
+    national_paye = collections.defaultdict(lambda: collections.defaultdict(lambda: [0, 0.0]))
+    sans_dep_paye = collections.defaultdict(lambda: [0, 0.0])
 
     # Les lignes sans année vont dans un seau dédié plutôt que d'être perdues :
     # elles représentent 14 839 versements, et les taire ferait mentir les
     # compteurs. Même chose pour les lignes dont le montant a été mis de côté :
     # on les COMPTE sans les SOMMER, pour que l'activité reste visible.
     for i in range(n):
-        if not sommable[i]:
+        if not (sommable[i] or paye[i]):
             continue
         y = str(yr[i]) if yr[i] is not None else "inconnue"
         l, a = lvl[i], amt[i]
-        cell = national[y][l]
+        nat = national if sommable[i] else national_paye
+        cell = nat[y][l]
         cell[0] += 1
         cell[1] += a or 0
         if dep[i]:
-            c = cube[dep[i]][y][l]
+            c = (cube if sommable[i] else cube_paye)[dep[i]][y][l]
             c[0] += 1
             c[1] += a or 0
         else:
-            sd = sans_dep[y]
+            # Aucune des sources qui publient leur exécution budgétaire ne donne
+            # l'adresse du bénéficiaire : les 147 760 lignes « payé » sont TOUTES
+            # sans département. Elles ne peuvent donc pas colorer la carte, et
+            # se lisent au national et ici — les taire les ferait disparaître.
+            sd = (sans_dep if sommable[i] else sans_dep_paye)[y]
             sd[0] += 1
             sd[1] += a or 0
 
@@ -121,16 +164,28 @@ def main():
 
     write_gz({
         "schema": ["lignes", "montant_eur"],
-        "note": ("Cube creux département × année × niveau de donateur. "
-                 "Les lignes de granularité « aggregate » (postes budgétaires) "
-                 "sont exclues, pour ne pas compter deux fois. L'année « inconnue » "
-                 "regroupe les versements dont la source ne donne pas l'exercice. "
-                 "Les montants mis en quarantaine comptent pour 0 € mais restent "
-                 "comptés en nombre de versements."),
+        "note": ("Cube creux département × année × niveau de donateur, pour les "
+                 "DONS VOTÉS. Les lignes de granularité « aggregate » (postes "
+                 "budgétaires) sont exclues, pour ne pas compter deux fois ; les "
+                 "sommes qui ne sont pas des dons (prestations facturées, "
+                 "remboursements, aides en nature) le sont aussi. L'année "
+                 "« inconnue » regroupe les versements dont la source ne donne "
+                 "pas l'exercice. Les montants mis en quarantaine comptent pour "
+                 "0 € mais restent comptés en nombre de versements."),
         "departements": compact(cube),
         "national": {y: {l: [v[0], round(v[1])] for l, v in lv.items()}
                      for y, lv in national.items()},
         "sans_departement": {y: [v[0], round(v[1])] for y, v in sans_dep.items()},
+        "note_paye": ("Les mêmes dons, tels que la collectivité déclare les avoir "
+                      "PAYÉS (annexe au compte administratif). À lire à côté du "
+                      "voté, JAMAIS additionné : quand une collectivité publie les "
+                      "deux, c'est le même argent."),
+        "paye": {
+            "departements": compact(cube_paye),
+            "national": {y: {l: [v[0], round(v[1])] for l, v in lv.items()}
+                         for y, lv in national_paye.items()},
+            "sans_departement": {y: [v[0], round(v[1])] for y, v in sans_dep_paye.items()},
+        },
     }, "cube.json.gz")
 
     # --- métadonnées ---------------------------------------------------------
@@ -152,6 +207,13 @@ def main():
         "regions": regs_meta,
         "totaux": {
             "lignes": report["rows_total"],
+            # Les deux mesures, côte à côte et jamais additionnées. Le total
+            # « voté » reste celui qu'affiche le site par défaut.
+            "dons_votes": {"lignes": n_vote, "montant_eur": round(m_vote)},
+            "dons_payes": {"lignes": n_paye, "montant_eur": round(m_paye)},
+            # Ce qui est ingéré et consultable, mais n'est pas un don.
+            "hors_don": {k: [v[0], round(v[1])] for k, v in sorted(
+                hors_don.items(), key=lambda x: -x[1][1])},
             "montant_individuel_eur": round(report["amount_individual_eur"]),
             "montant_agrege_eur": round(report["amount_aggregate_eur"]),
             "sources": len(report["by_source"]),
@@ -209,9 +271,27 @@ def main():
         os.remove(old)
 
     by_dep_rows = collections.defaultdict(list)
+    by_dep_paye = collections.defaultdict(lambda: [0, 0.0])
+    by_dep_hors_don = collections.defaultdict(lambda: collections.defaultdict(lambda: [0, 0.0]))
     for i in range(n):
-        if dep[i] and sommable[i]:
+        if not dep[i]:
+            continue
+        if sommable[i]:
             by_dep_rows[dep[i]].append(i)
+        elif paye[i]:
+            c = by_dep_paye[dep[i]]
+            c[0] += 1
+            c[1] += amt[i] or 0
+        elif gran[i] != "aggregate" and concours[i] != "don":
+            h = by_dep_hors_don[dep[i]][concours[i]]
+            h[0] += 1
+            h[1] += amt[i] or 0
+
+    # Un département qui ne publie QUE ses paiements (la Loire-Atlantique) n'a
+    # aucune ligne « votée » : sans cette ligne, il n'aurait pas de fragment du
+    # tout et le clic sur la carte ne montrerait rien.
+    for code in list(by_dep_paye) + list(by_dep_hors_don):
+        by_dep_rows.setdefault(code, [])
 
     frag_total = 0
     for code, idxs in by_dep_rows.items():
@@ -244,6 +324,12 @@ def main():
             "donateurs": [[k, v[0], round(v[1])] for k, v in
                           sorted(donor.items(), key=lambda x: -x[1][1])[:40]],
             "sources": sources.most_common(20),
+            # Lu à côté du montant, jamais additionné : cf. `note_paye` du cube.
+            "paye": [by_dep_paye[code][0], round(by_dep_paye[code][1])],
+            # Ingéré, consultable, mais pas un don : prestations facturées,
+            # remboursements, aides en nature.
+            "hors_don": {k: [v[0], round(v[1])] for k, v in
+                         sorted(by_dep_hors_don[code].items(), key=lambda x: -x[1][1])},
             "schema": ["nom", "lignes", "montant_eur"],
         }
         raw = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")

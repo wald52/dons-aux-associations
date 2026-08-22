@@ -41,7 +41,7 @@ lecture pour s'en servir : c'est un dépôt public.
 
 Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 
-### Aujourd'hui (phase 7, 20/08/2026)
+### Aujourd'hui (phase 9, 22/08/2026)
 
 | Mesure | v0 | aujourd'hui |
 |---|---|---|
@@ -50,27 +50,31 @@ Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 | Données exploitables | 57,75 s | **0,58 s** |
 | Mémoire JS | 1 965 Mo | **3 Mo** |
 | Balises `<script>` | 170 | **1** |
-| Lignes dans la table | 1 595 805 | **2 687 791** |
+| Lignes dans la table | 1 595 805 | **2 540 282** |
 
-(Banc `bench/phase7.json`, rejoué le 20/08/2026.)
+(Premier écran : 113 Ko gzippés. Banc de vitesse `bench/phase7.json`, inchangé
+par la phase 9 — le volume servi n'a pas bougé.)
 
-Données : **548 sources**, **144,71 Md€** sommés, 17,77 Md€ ingérés mais
-délibérément hors des totaux (exécution budgétaire déjà comptée au vote,
-bénéficiaires déclarés hors du champ associatif), et 60,3 Md€ en quarantaine
-d'unité. 406 846 bénéficiaires résolus, dont 6 783 cumulent au moins trois
-échelons.
+Données : **655 sources**, **127,80 Md€ de dons VOTÉS** et **10,02 Md€ de dons
+PAYÉS** affichés côte à côte et jamais additionnés ; 1,57 Md€ ingérés mais hors
+des totaux parce que ce ne sont pas des dons (prestations facturées,
+remboursements, aides en nature), 2,08 Md€ de lignes agrégées, et la quarantaine
+d'unité. 420 514 bénéficiaires résolus, dont **9 613 cumulent au moins trois
+échelons**.
 
-Couverture face au référentiel INSEE, et c'est un MINIMUM : **86 communes**
-avec données sur 34 936 (96 repérées), **29 EPCI** sur 1 335 (38 repérés),
-**31 départements** sur 101 (36), **5 régions** sur 18 (7) — soit 10,3 % de la
-population. Ces chiffres sont ceux de `couverture.json` ; les « 113 communes,
-40 EPCI, 37 départements » qu'annonçait ce fichier jusqu'en phase 6b ne s'y
-retrouvaient déjà pas.
+**Le total a BAISSÉ de 142,59 à 127,80 Md€ en gagnant 107 sources, et c'est
+normal** : la déduplication est passée de 580 321 à **1 064 346 lignes retirées**
+(85,86 Md€). Les jeux rouverts par la phase 9 sont en grande partie des
+republications de ce que le site avait déjà, et la clé métier les rapproche. Plus
+de sources, plus de couverture, moins de double compte, total plus bas et plus
+juste.
 
-Le double comptage de Paris est corrigé (phase 6b) : la série ne rompt plus à
-la fusion de 2019, 271 M€ en 2018 puis 291 M€ en 2019. L'anomalie de 2011 est
-élucidée et mise en quarantaine (phase 7) : la source y publiait avec la
-virgule décalée d'un rang.
+Couverture face au référentiel INSEE, et c'est un MINIMUM : **90 communes**
+sur 34 936, **31 EPCI** sur 1 335, **34 départements** sur 101, **7 régions**
+sur 18 — 10,9 % de la population. Bordeaux, Bourges, les départements des
+Hauts-de-Seine et de l'Aude sont entrés en phase 9.
+
+**33 contrôles sur 33 dans `verify.py`.**
 
 **Ce qui reste à faire est dans `RESTE-A-FAIRE.md`**, chiffré et priorisé.
 
@@ -281,16 +285,55 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   consultable mais jamais sommé. Le titre du jeu suffit à trancher
   (`measure_of`).
 
-- **La règle « versé ⇒ hors totaux » exclut 1,86 Md€ qui ne doublent rien.**
-  Mesuré le 21/08/2026 (`scripts/analyse/mesure_measure.py`) : sur les 99 837
-  lignes que la seule mesure « versé » retire des totaux, 53 635 (5,59 Md€) ont
-  bien une contrepartie « attribué » du même donateur et du même exercice —
-  c'est le double compte qu'on voulait éviter. Les 46 202 autres (1,86 Md€) n'en
-  ont aucune : le département de Loire-Atlantique, dont c'est TOUTE la présence
-  dans le corpus, l'Île-de-France sur les exercices que son jeu « voté » ne
-  couvre pas, Toulouse, Blagnac, le Premier ministre. La règle est aveugle au
-  recouvrement, et la corriger est un arbitrage de doctrine — cf. §4 de
-  `RESTE-A-FAIRE.md`, à trancher par l'utilisateur.
+- **`api.datasubvention.beta.gouv.fr` est ABANDONNÉ** — décision de
+  l'utilisateur, 21/08/2026 : il n'aura pas l'habilitation. Ne pas le
+  reproposer, ne pas bâtir de plan qui en dépende. Conséquence à assumer et à
+  dire : **le plafond de couverture du site est celui d'aujourd'hui**, et sa
+  valeur se déplace vers ce qu'il fait de ce qu'il a.
+
+- **Les manifestes de moissonnage enregistrent les COLONNES des fichiers
+  écartés** (`ecartes[].champs` pour ODS, `ecartes[].ecartes[].colonnes` pour
+  data.gouv.fr). Un inventaire de ce qui reste récupérable se mesure donc hors
+  ligne, sans rien re-télécharger. Fait le 21/08/2026, résultat dans
+  `RESTE-A-FAIRE.md` §1d : ~91 jeux rouvrables, mais **69 sont la Ville de
+  Rennes**, déjà présente — le gain serait en profondeur, pas en couverture.
+
+- **Voté et payé s'affichent CÔTE À CÔTE, et ne s'additionnent jamais**
+  (phase 8). La règle « versé ⇒ hors totaux » retirait 1,86 Md€ que rien ne
+  dédoublait : mesuré le 21/08/2026, sur les 99 837 lignes qu'elle écartait,
+  46 202 n'avaient aucune contrepartie « attribué » du même donateur et du même
+  exercice — le département de Loire-Atlantique (778 M€) n'existait dans le site
+  que par ses paiements, et n'apparaissait donc nulle part. Le site affiche
+  maintenant deux totaux : `compte_dans_les_totaux` reste le voté, et
+  `est_un_don` sans la mesure donne le payé. **Ne jamais les sommer** : quand une
+  collectivité publie les deux, c'est le même argent. Aucune source de payé ne
+  donne l'adresse du bénéficiaire — le payé n'a donc pas de géographie et ne peut
+  pas colorer la carte.
+
+- **Tout argent versé à une association n'est pas un don** (phase 8).
+  « Prestation facturée par l'association » (89 948 lignes, 1,12 Md€) est un
+  ACHAT : il y a une contrepartie. `nature_du_concours` distingue quatre natures
+  — `don`, `prestation`, `remboursement`, `nature` — et seul le don entre dans
+  les totaux. Mesuré : 128 700 lignes et 2,19 Md€ sortent des totaux, restent
+  ingérées, consultables et affichées avec leur motif.
+  **L'appariement se fait sur des SUITES DE MOTS, jamais sur des sous-chaînes** :
+  « SOUTIEN AUX MANUFACTURES ET MÉTIERS D'ART » contient les lettres de
+  « factur- », « DÉMARCHE QUALITÉ » celles de « marche ». Une sous-chaîne aurait
+  effacé des subventions bien réelles.
+  Volontairement ABSENTS des motifs, après relecture du corpus : « achat »
+  (« SUBVENTION POUR ACHAT D'ACTIF IMMOBILISÉ » finance un achat FAIT PAR
+  l'association — 215 lignes sorties à tort), « honoraires », et « délégation »
+  seul (« 2ᵉ délégation » est une tranche de crédits). Dans le doute, c'est un
+  don : écarter à tort efface une subvention, garder à tort laisse une ligne
+  visible et corrigeable.
+
+- **`data/canonical/parts/` n'étant pas versionné, `quality-report.json` se
+  fige** sur la règle des totaux du dernier assemblage, et `verify.py` le voit
+  (« total individuel reproductible » échoue). `refresh_rapport.py` le recalcule
+  depuis la table canonique en appelant les fonctions de `build_canonical.py` —
+  aucune règle n'y est réécrite ; seuls `deduplication` et `parts`, qui décrivent
+  l'assemblage, sont repris du rapport précédent. Après un vrai
+  `tout_reconstruire.sh`, ce script n'a rien à faire.
 
 - **Ramener les séparateurs à l'espace dans `measure_of` ne suffit pas, et coûte
   plus que ça ne rapporte.** `fold` ne rend ni « _ » ni « - » : c'est vrai, et
@@ -306,12 +349,26 @@ l'historique : `git checkout 0b14348 -- data/sources`.
 
 - **La clé métier laisse passer les doublons que seul l'OBJET distingue.**
   `ville-grenoble` et `ville-grenoble-2016` publient la même subvention sous
-  « SUBVENTION PROJET » d'un côté et « MUSIQUES » de l'autre : même
-  bénéficiaire, même montant, même exercice, même donateur, deux clés. Sur tout
-  le corpus, 4 784 groupes, 6 091 lignes, 144,84 M€. Retirer l'objet de la clé
-  n'est PAS la solution : deux subventions réellement distinctes de même montant
-  à la même association la même année se fondraient — même asymétrie que pour
-  les homonymes.
+  « SUBVENTION PROJET » et « MUSIQUES » : même bénéficiaire, même donateur, même
+  exercice, même montant, deux clés. **18 369 groupes, 22 867 lignes,
+  442,62 M€** — signalés dans le rapport (`doublons_probables_hors_cle`), jamais
+  retirés : ôter l'objet de la clé fondrait deux subventions réellement
+  distinctes de même montant à la même association la même année.
+  **Mesurer avec la même clé que le code, sinon on sous-estime** : une première
+  mesure appariait les donateurs sur leur libellé et trouvait 144,84 M€, trois
+  fois moins, parce que la clé métier apparie sur `identite_donateur`.
+
+- **Le nom d'un bénéficiaire est parfois son numéro** — 7 121 lignes, 1,80 Md€,
+  dont un « 911671485 » à 911,7 M€. La source a recopié le SIREN ou le RNA dans
+  la colonne du nom. Signalé (`nom_de_beneficiaire_numerique`), pas corrigé.
+
+- **49,88 Md€ sont comptés comme « association » sur une DEVINETTE.** Quand la
+  source ne déclare pas la nature juridique, le défaut est « association » —
+  c'est le bon côté où se tromper, et c'est assumé. Mais la liste des vingt plus
+  gros (`nature_devinee_gros_montants`) contient SNCF Voyageurs, SNCF Réseau,
+  l'AFP, le CNC et l'Association internationale de développement. Ne pas
+  « corriger » sur le nom : ce serait deviner une exclusion, et effacer des
+  associations réelles. C'est un arbitrage métier, pas un correctif.
 
 - **Le compte administratif ne parle pas que d'associations.** Celui de Paris
   donne 5,5 Md€ à des établissements publics, 2,1 Md€ à des entreprises et
@@ -450,11 +507,43 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   `("ca",)` seul attraperait n'importe quoi. Il sert aux colonnes qui datent
   leur propre montant : `bp_2012`, `ca_2013` chez la Ville de Rennes.
 
-- **Le gisement Opendatasoft est épuisé — mesuré.** Passer le moissonneur de 11
-  à 41 portails a retenu 98 jeux de plus et n'a apporté **aucune collectivité
-  nouvelle** : le fédérateur republiait déjà tout. Les communes de Grand Paris
-  Sud, par exemple, ont bien leur portail, mais le donateur y est
-  l'agglomération. Ne pas relancer ce chantier en espérant de la couverture.
+- **Le gisement Opendatasoft n'était PAS épuisé — la phase 7 cherchait mal.**
+  Elle partait des portails connus et concluait à l'épuisement (passer de 11 à
+  41 portails n'avait apporté aucune collectivité). En partant des
+  collectivités ABSENTES — les 30 plus grosses communes sans donnée, dont on
+  fabrique les adresses de portail plausibles — on trouve **six portails
+  inconnus du fédérateur** : Bordeaux Métropole, les départements des
+  Hauts-de-Seine et de l'Aude, Grand Paris Seine Ouest, Issy-les-Moulineaux,
+  Bourges Plus. Mesuré en bac à sable : 18 jeux, 12 870 lignes, une dizaine de
+  collectivités nouvelles. **Le fédérateur est loin de tout republier.**
+  Leçon de méthode : chercher à partir de ce qui MANQUE, pas de ce qu'on a.
+
+- **`openpyxl` absent de la machine coûte 110 fichiers, et le manifeste le dit
+  mal.** Le moissonnage du 22/08/2026 a d'abord écarté 110 XLSX pour
+  « No module named 'openpyxl' » — un motif noyé au milieu des vraies raisons
+  d'écarter. `pip install openpyxl`, puis relancer `fetch_scdl.py` : le cache
+  ne reprend que ce qui manque, et les 110 fichiers entrent. Vérifier ce motif
+  AVANT de conclure quoi que ce soit sur un moissonnage.
+
+- **Un filtre d'adresse perdait 333 jeux de 63 organisations, sans trace.**
+  `ressources_csv` exigeait qu'une adresse finisse par « .csv ». Les points
+  d'export d'API (`.../datasets/<jeu>/exports/csv`, `.../resource/493/download/`)
+  n'y répondent pas et servent pourtant de vrais fichiers. Ces jeux
+  n'apparaissaient NI dans `datasets` NI dans `ecartes` : invisibles. Corrigé en
+  faisant confiance au format déclaré quand l'adresse ressemble à un
+  téléchargement ; ce qui répond du HTML est écarté en le disant.
+  À retenir : **un rejet qui ne laisse pas de trace est pire qu'un mauvais
+  rejet** — on ne peut même pas le mesurer.
+
+- **`fetch_ods.py --portail` écrasait le manifeste** avec le seul portail
+  demandé : les 46 autres disparaissaient du manifeste, donc de la
+  normalisation, donc du site, sans une erreur. Il fusionne désormais.
+
+- **Nice, Montpellier, Strasbourg et Toulon ne publient pas leurs subventions.**
+  Vérifié des deux côtés le 21/08/2026 : ni sur leur portail (Strasbourg et
+  Angers ont un portail ouvert avec ZÉRO jeu de subventions), ni sur
+  data.gouv.fr. Leur absence n'est pas un défaut de moissonnage, c'est une
+  absence de publication — et c'est à ce titre qu'elle doit être dite.
 
 - **`metropole-lyon` est en QUARANTAINE d'unité.** Ses 9 081 lignes totalisent
   48 Md€ quand le budget annuel de la Métropole avoisine 3,8 Md€. La médiane y
@@ -627,6 +716,26 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       sans gain de couverture — résultat négatif à retenir.
       **2 687 791 lignes, 144,71 Md€, 548 sources.** 30 contrôles.
 
+- [x] **Phase 8** — ce qui est un don, et ce qui ne l'est pas. Quatre natures
+      de concours (`nature_du_concours`), une seule est un don : 128 700 lignes
+      et 2,19 Md€ de prestations facturées, remboursements et aides en nature
+      sortent des totaux, restent consultables et affichent leur motif. Voté et
+      payé s'affichent côte à côte au lieu que le payé disparaisse — la
+      Loire-Atlantique, 778 M€, redevient visible. **142,59 Md€ votés,
+      7,45 Md€ payés.** 33 contrôles, dont trois nouveaux qui comparent les
+      agrégats servis au navigateur à la table canonique.
+
+- [x] **Phase 9** — le gisement rouvert par le bon bout. En cherchant à partir
+      des collectivités ABSENTES plutôt que des portails connus : six portails
+      Opendatasoft inconnus du fédérateur (Bordeaux Métropole, Hauts-de-Seine,
+      Aude, Grand Paris Seine Ouest, Issy, Bourges Plus). Et un filtre d'adresse
+      qui perdait **333 jeux de 63 organisations sans laisser de trace**. Plus
+      `openpyxl` absent de la machine, qui coûtait 110 fichiers XLSX.
+      data.gouv.fr passe de 148 à **377 jeux retenus** (504 fichiers),
+      Opendatasoft de 371 à **407**. **2 540 282 lignes, 655 sources,
+      127,80 Md€ votés**, 90 communes, 34 départements, 7 régions.
+      **33/33 contrôles.**
+
 Détail de chaque phase dans `ROADMAP.md`.
 
 ---
@@ -656,6 +765,10 @@ scripts/pipeline/tout_reconstruire.sh` rejoue toute la chaîne dans le bon
 ordre, les moissonnages exceptés (ils ont leur propre cache). **`verify.py` y
 vient EN DERNIER** : plusieurs de ses contrôles comparent l'index de recherche
 à la table canonique et échouent tant que l'index n'est pas reconstruit.
+
+`refresh_rapport.py` recalcule `quality-report.json` et `coverage.json` depuis
+la table canonique quand les parties d'assemblage ne sont pas là — cf. le piège
+correspondant.
 
 **`normalize_legacy.py` ne peut plus tourner en l'état** : ses entrées
 (`data/sources/*.js`) ont été retirées du dépôt. Les récupérer d'abord par

@@ -28,7 +28,6 @@ import sys
 import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -144,6 +143,11 @@ def quality_report(table, dedup_stats, part_files):
     kind = table.column("beneficiary_kind").to_pylist()
     mesure = table.column("measure").to_pylist()
     kind_prov = table.column("beneficiary_kind_provenance").to_pylist()
+    purpose = table.column("purpose_norm").to_pylist()
+    # La nature du concours se lit dans l'objet : elle n'est pas stockée, elle
+    # se recalcule partout depuis la même fonction de `common.py`.
+    concours = [C.nature_du_concours(purpose[i], flags[i])[0]
+                for i in range(table.num_rows)]
 
     per_source = collections.defaultdict(lambda: {
         "rows": 0, "amount_individual": 0.0, "amount_aggregate": 0.0,
@@ -155,7 +159,8 @@ def quality_report(table, dedup_stats, part_files):
         d["rows"] += 1
         if gran[i] == "aggregate":
             d["amount_aggregate"] += amt[i] or 0
-        elif not C.compte_dans_les_totaux(gran[i], mesure[i], kind[i], kind_prov[i]):
+        elif not C.compte_dans_les_totaux(gran[i], mesure[i], kind[i], kind_prov[i],
+                                          concours[i]):
             # Écartée des totaux, jamais de la table : elle reste consultable.
             d["amount_not_summed"] += amt[i] or 0
             d["rows_not_summed"] += 1
@@ -192,17 +197,23 @@ def quality_report(table, dedup_stats, part_files):
         # `amount_eur` est nul pour les valeurs qui ne sont pas des montants :
         # une somme simple est donc juste, sans filtre à ne pas oublier.
         "amount_individual_eur": round(sum(
-            a or 0 for a, g, m, k, kp in zip(amt, gran, mesure, kind, kind_prov)
-            if C.compte_dans_les_totaux(g, m, k, kp)), 2),
+            a or 0 for a, g, m, k, kp, co in zip(amt, gran, mesure, kind, kind_prov, concours)
+            if C.compte_dans_les_totaux(g, m, k, kp, co)), 2),
         "amount_aggregate_eur": round(sum(a or 0 for a, g in zip(amt, gran) if g == "aggregate"), 2),
         # Individuelles mais non sommées : exécution budgétaire déjà comptée au
         # vote, ou bénéficiaire que la source déclare hors du champ associatif.
         "amount_not_summed_eur": round(sum(
-            a or 0 for a, g, m, k, kp in zip(amt, gran, mesure, kind, kind_prov)
-            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp)), 2),
+            a or 0 for a, g, m, k, kp, co in zip(amt, gran, mesure, kind, kind_prov, concours)
+            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp, co)), 2),
         "rows_not_summed": sum(
-            1 for g, m, k, kp in zip(gran, mesure, kind, kind_prov)
-            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp)),
+            1 for g, m, k, kp, co in zip(gran, mesure, kind, kind_prov, concours)
+            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp, co)),
+        # Les quatre natures de concours, dont une seule est un don.
+        "by_concours": {
+            nat: {"rows": sum(1 for c in concours if c == nat),
+                  "amount_eur": round(sum(a or 0 for a, c in zip(amt, concours)
+                                          if c == nat), 2)}
+            for nat in C.NATURES_DU_CONCOURS},
         "amount_rejected_eur": round(sum(x or 0 for x in rejected), 2),
         "rows_rejected": sum(1 for x in rejected if x is not None),
         "years_covered": sorted({y for y in years if y}),
@@ -273,6 +284,115 @@ def anomalies(table, report):
                             "majoritairement d'organismes homonymes distincts (23 « Maison "
                             "des jeunes et de la culture » recevant la même subvention type), "
                             "et non de doublons."),
+        })
+
+    # DOUBLONS QUE LA CLÉ MÉTIER NE VOIT PAS — l'objet fait partie de la clé,
+    # si bien que deux publications d'une même subvention sous deux libellés
+    # d'objet différents produisent deux clés. `ville-grenoble` écrit
+    # « SUBVENTION PROJET » là où `ville-grenoble-2016` écrit « MUSIQUES » :
+    # même bénéficiaire, même montant, même exercice, même donateur.
+    #
+    # On les COMPTE sans les retirer. Retirer l'objet de la clé fondrait deux
+    # subventions réellement distinctes de même montant à la même association la
+    # même année — la même asymétrie que pour les homonymes, et du mauvais côté :
+    # fondre EFFACE une subvention réelle, garder en laisse une de trop, visible
+    # et corrigeable.
+    bn = table.column("beneficiary_name_norm").to_pylist()
+    dn = table.column("donor_name_norm").to_pylist()
+    src = table.column("source_id").to_pylist()
+    po = table.column("purpose_norm").to_pylist()
+    kind_a = table.column("beneficiary_kind").to_pylist()
+    prov_a = table.column("beneficiary_kind_provenance").to_pylist()
+    me = table.column("measure").to_pylist()
+    familles = collections.defaultdict(lambda: [set(), set(), 0, 0.0])
+    for i in range(len(y)):
+        nat = C.nature_du_concours(po[i], fl[i])[0]
+        if not C.compte_dans_les_totaux(g[i], me[i], kind_a[i], prov_a[i], nat):
+            continue
+        if not a[i] or a[i] <= 0:
+            continue
+        cle = (bn[i], C.identite_donateur(dn[i], y[i]), y[i], round(a[i], 2))
+        f = familles[cle]
+        f[0].add(src[i])
+        f[1].add(po[i] or "")
+        f[2] += 1
+        f[3] += a[i]
+    groupes = lignes = 0
+    montant = 0.0
+    for (_, _, _, valeur), (sources, objets, compte, somme) in familles.items():
+        # Plusieurs sources ET plusieurs objets : la marque d'une même
+        # subvention republiée sous un autre libellé.
+        if len(sources) > 1 and len(objets) > 1:
+            groupes += 1
+            lignes += compte - 1
+            montant += valeur * (compte - 1)
+    if groupes:
+        out.append({
+            "type": "doublons_probables_hors_cle",
+            "groupes": groupes,
+            "rows": lignes,
+            "amount_eur": round(montant, 2),
+            "commentaire": ("Même bénéficiaire, même donateur, même exercice et même "
+                            "montant, publiés par plusieurs sources sous des objets "
+                            "différents. L'objet faisant partie de la clé métier, la "
+                            "déduplication ne les rapproche pas. COMPTÉS DANS LES TOTAUX "
+                            "et signalés ici : retirer l'objet de la clé fondrait deux "
+                            "subventions réellement distinctes de même montant à la même "
+                            "association la même année, ce qui effacerait de l'argent réel."),
+        })
+
+    # UN NOM QUI EST UN NUMÉRO — la source a recopié le SIREN ou le RNA dans la
+    # colonne du nom. Le bénéficiaire est identifiable, mais il est illisible
+    # pour un humain, et deux lignes du même organisme ne se rapprochent pas si
+    # l'une porte le nom et l'autre le numéro.
+    import re as _re
+    numerique = _re.compile(r"^(?:[0-9]{9,14}|W[0-9]{9})$")
+    n_num = 0
+    m_num = 0.0
+    for i in range(len(y)):
+        nat = C.nature_du_concours(po[i], fl[i])[0]
+        if not C.compte_dans_les_totaux(g[i], me[i], kind_a[i], prov_a[i], nat):
+            continue
+        if bn[i] and numerique.match(bn[i]):
+            n_num += 1
+            m_num += a[i] or 0
+    if n_num:
+        out.append({
+            "type": "nom_de_beneficiaire_numerique",
+            "rows": n_num,
+            "amount_eur": round(m_num, 2),
+            "commentaire": ("Le nom du bénéficiaire est un identifiant (SIREN ou RNA) "
+                            "recopié dans la colonne du nom. Conservé tel quel — c'est "
+                            "ce que la source publie — mais ces organismes sont "
+                            "illisibles sur le site et ne se rapprochent pas de leurs "
+                            "propres lignes correctement nommées."),
+        })
+
+    # LES PLUS GROS BÉNÉFICIAIRES DONT LA NATURE EST DEVINÉE. Le site classe
+    # « association » par défaut, faute de mieux : c'est le bon côté où se
+    # tromper (exclure à tort efface une association réelle). Mais quand la
+    # devinette porte des centaines de millions d'euros, elle mérite un œil.
+    par_benef = collections.defaultdict(float)
+    for i in range(len(y)):
+        nat = C.nature_du_concours(po[i], fl[i])[0]
+        if not C.compte_dans_les_totaux(g[i], me[i], kind_a[i], prov_a[i], nat):
+            continue
+        if prov_a[i] == "guessed" and kind_a[i] == "association" and bn[i]:
+            par_benef[bn[i]] += a[i] or 0
+    gros = sorted(par_benef.items(), key=lambda x: -x[1])[:20]
+    if gros:
+        out.append({
+            "type": "nature_devinee_gros_montants",
+            "rows": len(par_benef),
+            "amount_eur": round(sum(par_benef.values()), 2),
+            "principaux": [[nom, round(v, 2)] for nom, v in gros],
+            "commentaire": ("Bénéficiaires comptés comme associations parce que la "
+                            "source ne dit pas le contraire, jamais parce qu'elle "
+                            "l'affirme. La liste demande un œil humain : on y trouve "
+                            "des sociétés (SNCF Voyageurs), des opérateurs publics "
+                            "(Centre national du cinéma) et des organismes "
+                            "internationaux. Rien n'est retiré — deviner une exclusion "
+                            "effacerait des associations réelles."),
         })
 
     rej = table.column("amount_rejected_eur").to_pylist()
@@ -375,6 +495,10 @@ def corriger_niveau_apres_fusion(table):
 
 
 def main():
+    # Ré-emballer la sortie au CHARGEMENT du module détacherait le flux de
+    # l'importeur : tout `print` de `refresh_rapport.py` lèverait ensuite
+    # « I/O operation on closed file ». Cf. CLAUDE.md.
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
     print("Assemblage de la table canonique\n")
     table, part_files = load_parts()
     print(f"  {len(part_files)} parties, {table.num_rows:,} lignes lues")

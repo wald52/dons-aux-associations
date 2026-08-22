@@ -42,7 +42,9 @@ RAW = os.path.join(ROOT, "data", "raw", "ods")
 MANIFEST = os.path.join(ROOT, "data", "sources-manifest", "ods.json")
 
 # Portails vérifiés joignables. `data.opendatasoft.com` est le fédérateur : il
-# rassemble les jeux de nombreux portails qui n'exposent pas leur propre API.
+# rassemble les jeux de nombreux portails qui n'exposent pas leur propre API —
+# mais il est LOIN de tout republier : six portails ajoutés en dernier lieu ne
+# lui étaient pas connus.
 PORTAILS = [
     ("opendata.paris.fr", "Ville de Paris"),
     ("data.iledefrance.fr", "Région Île-de-France"),
@@ -91,6 +93,17 @@ PORTAILS = [
     ("lisses-grandparissud.opendatasoft.com", "Ville de Lisses"),
     ("nandy-grandparissud.opendatasoft.com", "Ville de Nandy"),
     ("saintgermainlescorbeil-grandparissud.opendatasoft.com", "Ville de Saint-Germain-lès-Corbeil"),
+    # Repérés le 21/08/2026 en partant des collectivités ABSENTES du site plutôt
+    # que des portails connus : on prend les plus grosses communes sans donnée
+    # (Nice, Montpellier, Bordeaux, Lille…) et on teste leur portail. Aucun ne
+    # figurait dans le fédérateur ni dans data.gouv.fr sous une forme lisible.
+    # Résultat : six portails, dont DEUX DÉPARTEMENTS entiers.
+    ("opendata.bordeaux-metropole.fr", "Bordeaux Métropole"),
+    ("opendata.hauts-de-seine.fr", "Département des Hauts-de-Seine"),
+    ("opendata.aude.fr", "Département de l'Aude"),
+    ("data.seineouest.fr", "Grand Paris Seine Ouest"),
+    ("data.issy.com", "Ville d'Issy-les-Moulineaux"),
+    ("data.bourgesplus.fr", "Bourges Plus"),
 ]
 
 RECHERCHES = ['search(title,"subvention")', 'search(title,"subventions")',
@@ -283,13 +296,29 @@ def main():
     for hote, editeur in portails:
         toutes.extend(traiter_portail(hote, editeur, args.force, args.limite))
 
+    # UN MOISSONNAGE PARTIEL NE DOIT PAS EFFACER LE RESTE. `--portail` écrivait
+    # un manifeste ne contenant que le portail demandé : les 46 autres
+    # disparaissaient du manifeste, donc de la normalisation, donc du site —
+    # sans erreur ni avertissement. On fusionne désormais avec l'existant, en
+    # remplaçant seulement ce qui vient des portails effectivement visités.
+    ancien = {}
+    if args.portail and os.path.exists(MANIFEST):
+        ancien = json.load(open(MANIFEST, encoding="utf-8"))
+    visites = {h for h, _ in portails}
+    garde = lambda x: (x.get("portail") not in visites)
+    toutes = ([x for x in ancien.get("datasets", []) if garde(x)]
+              + [x for x in ancien.get("ecartes", []) if garde(x)]
+              + toutes)
+    portails_manifeste = ({(p["hote"], p["editeur"]) for p in ancien.get("portails", [])}
+                          | set(portails)) if ancien else set(portails)
+
     retenus = [f for f in toutes if f.get("retenu")]
     os.makedirs(os.path.dirname(MANIFEST), exist_ok=True)
     with open(MANIFEST, "w", encoding="utf-8") as f:
         json.dump({
             "family": "ods",
             "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            "portails": [{"hote": h, "editeur": e} for h, e in portails],
+            "portails": [{"hote": h, "editeur": e} for h, e in sorted(portails_manifeste)],
             "jeux_examines": len(toutes),
             "jeux_retenus": len(retenus),
             "lignes_annoncees": sum(f.get("lignes") or 0 for f in retenus),

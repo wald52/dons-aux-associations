@@ -5,7 +5,7 @@
  *
  *   beneficiaires.parquet  261 444 bénéficiaires résolus, triés par nom —
  *                          la recherche et le classement des cumuls ;
- *   versements.parquet     1,69 M de versements triés par bénéficiaire,
+ *   versements/NN.parquet   2,69 M de versements triés par bénéficiaire,
  *                          en petits row groups : la fiche d'une association
  *                          ne télécharge que les blocs qui la concernent,
  *                          par requêtes HTTP Range.
@@ -164,18 +164,31 @@ async function demarrerMoteur() {
 
 // --- recherche --------------------------------------------------------------
 
+// Ce que le site refuse d'appeler un don, et pourquoi — dit à l'utilisateur,
+// pas seulement au code.
+var RAISONS_HORS_DON = {
+  prestation: "Prestation facturée par l'association : la collectivité achète un " +
+    "service, il y a une contrepartie. Ce n'est pas un don, donc hors des totaux.",
+  remboursement: "Remboursement de frais ou cotisation d'adhésion : la collectivité " +
+    "rend une avance ou paie sa part. Ce n'est pas un soutien, donc hors des totaux.",
+  nature: "Aide en nature (locaux, personnel mis à disposition), valorisée en euros " +
+    "mais jamais décaissée. Comptée à part pour ne pas gonfler les montants."
+};
+
 var SELECTION = "benef_id, nom, siren, rna, dep_code, kind, nb_versements, montant_eur, " +
-  "montant_ecarte_eur, annee_min, annee_max, nb_echelons, echelons, nb_donateurs";
+  "montant_ecarte_eur, annee_min, annee_max, nb_echelons, echelons, nb_donateurs, " +
+  "donateur_principal, part_principal_pct, financeurs_publient_jusqu_a";
 
 async function chercher() {
   var q = plier($("#q").value);
   var dep = $("#filtre-dep").value;
   var cumul = $("#filtre-cumul").value;
+  var dependance = $("#filtre-dependance").value;
   var hote = $("#resultats");
   $("#fiche").hidden = true;
   hote.hidden = false;
 
-  if (q.length < 3 && !cumul) {
+  if (q.length < 3 && !cumul && !dependance) {
     vider(hote);
     if (q.length > 0) hote.appendChild(el("p", "chargement", "Au moins trois caractères…"));
     else await montrerCumuls();  // vue par défaut : les cumuls remarquables
@@ -187,6 +200,12 @@ async function chercher() {
   if (q.length >= 3) { sql += " AND nom_norm LIKE '%' || ? || '%'"; params.push(q); }
   if (dep) { sql += " AND dep_code = ?"; params.push(dep); }
   if (cumul) { sql += " AND nb_echelons >= " + parseInt(cumul, 10); }
+  // La dépendance ne veut rien dire sur une association qui a touché 300 € une
+  // fois : on la réserve à celles dont le financement est mesurable.
+  if (dependance) {
+    sql += " AND part_principal_pct >= " + parseInt(dependance, 10) +
+           " AND montant_eur >= 10000";
+  }
   sql += " ORDER BY montant_eur DESC LIMIT 40";
 
   vider(hote);
@@ -289,11 +308,17 @@ async function montrerFiche(b) {
     "Sans identifiant national — reconnue par son nom et son département."));
 
   var stats = el("div", "compteurs");
-  [[euros(b.montant_eur), "reçus au total"],
+  var cases = [[euros(b.montant_eur), "reçus au total"],
    [fmtNombre.format(Number(b.nb_versements)), "versements"],
    [String(b.nb_echelons), "échelon" + (Number(b.nb_echelons) > 1 ? "s" : "") + " financeur" + (Number(b.nb_echelons) > 1 ? "s" : "")],
-   [String(b.nb_donateurs), "donateur" + (Number(b.nb_donateurs) > 1 ? "s" : "") + " distinct" + (Number(b.nb_donateurs) > 1 ? "s" : "")]
-  ].forEach(function (c) {
+   [String(b.nb_donateurs), "donateur" + (Number(b.nb_donateurs) > 1 ? "s" : "") + " distinct" + (Number(b.nb_donateurs) > 1 ? "s" : "")]];
+  // La dépendance : quelle part vient du principal financeur. C'est la question
+  // que le corpus permet de poser et qu'aucun guichet ne pose.
+  if (b.part_principal_pct != null) {
+    cases.push([Math.round(Number(b.part_principal_pct)) + " %",
+                "du principal financeur"]);
+  }
+  cases.forEach(function (c) {
     var d = el("div", "compteur");
     d.appendChild(el("span", "valeur", c[0]));
     d.appendChild(el("span", "etiquette", c[1]));
@@ -316,7 +341,8 @@ async function montrerFiche(b) {
   var fichier = await assurerShard(b.benef_id);
   var vers = await requete(
     "SELECT year, donor_level, donor_name_raw, donor_program, purpose_raw, " +
-    "amount_eur, amount_rejected_eur, granularity, source_label, source_url " +
+    "amount_eur, amount_rejected_eur, granularity, measure, concours, " +
+    "source_label, source_url " +
     "FROM '" + fichier + "' WHERE benef_id = ? ORDER BY year DESC, amount_eur DESC",
     [b.benef_id]);
   vider(corps);
@@ -324,8 +350,12 @@ async function montrerFiche(b) {
   // --- trajectoire : total par année ---------------------------------------
   var parAn = {};
   var parDonateur = {};
+  // La trajectoire ne trace que les DONS VOTÉS — la même règle que les totaux
+  // du site, celle de `common.py`. Y mêler une prestation facturée ou une
+  // exécution budgétaire ferait une courbe qui ne veut rien dire.
   vers.forEach(function (v) {
     if (v.granularity === "aggregate" || v.amount_eur == null) return;
+    if (v.concours !== "don" || v.measure === "verse") return;
     var y = v.year == null ? "?" : String(v.year);
     parAn[y] = (parAn[y] || 0) + Number(v.amount_eur);
     var k = v.donor_name_raw || "—";
@@ -399,6 +429,15 @@ async function montrerFiche(b) {
     if (v.granularity === "aggregate") {
       m.title = "Ligne agrégée (total publié par la source), jamais sommée avec les versements individuels.";
       m.classList.add("ecarte");
+    } else if (v.concours && v.concours !== "don") {
+      // Rien n'est caché : la ligne s'affiche, avec la raison pour laquelle
+      // elle ne compte pas comme un don.
+      m.title = RAISONS_HORS_DON[v.concours] || "Ce n'est pas un don.";
+      m.classList.add("ecarte");
+    } else if (v.measure === "verse") {
+      m.title = "Montant déclaré PAYÉ (exécution budgétaire). Affiché à part du voté, " +
+        "jamais additionné avec lui : c'est souvent le même argent.";
+      m.classList.add("ecarte");
     }
     tr.appendChild(m);
     tbody.appendChild(tr);
@@ -442,6 +481,7 @@ function anti_rebond(fn, ms) {
   $("#q").addEventListener("input", anti_rebond(chercher, 250));
   selDep.addEventListener("change", chercher);
   $("#filtre-cumul").addEventListener("change", chercher);
+  $("#filtre-dependance").addEventListener("change", chercher);
 
   await montrerCumuls();
   window.__DATA_READY = true;

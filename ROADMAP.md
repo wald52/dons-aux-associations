@@ -490,6 +490,110 @@ euros qui n'auraient jamais dû être affichés. La vitesse ne bouge pas
 
 ---
 
+## Phase 8 — Ce qui est un don, et ce qui ne l'est pas (21/08/2026)
+
+Deux décisions de doctrine, prises par l'utilisateur après mesure. Aucune
+donnée n'a été moissonnée : tout vient de ce que le corpus disait déjà.
+
+### 8a. Deux totaux plutôt qu'un arbitrage caché
+
+La règle « versé ⇒ hors totaux » évitait de compter deux fois l'argent d'une
+collectivité qui publie ce qu'elle a voté PUIS ce qu'elle a mandaté. Mesurée,
+elle retirait **1,86 Md€ que rien ne dédoublait** : sur les 99 837 lignes
+écartées, 46 202 n'avaient aucune contrepartie « attribué » du même donateur et
+du même exercice. Le département de Loire-Atlantique — 778,3 M€, 28 573
+subventions, toute sa présence dans le corpus — n'apparaissait donc nulle part.
+
+Le site affiche maintenant **142,59 Md€ de dons votés** et **7,45 Md€ de dons
+payés**, côte à côte, jamais additionnés. `compte_dans_les_totaux` reste le
+voté ; `est_un_don`, sans la mesure, donne les deux.
+
+Limite assumée : aucune des sources d'exécution budgétaire ne donne l'adresse
+du bénéficiaire. Les 99 771 versements « payés » sont TOUS sans département —
+ils se lisent au national, pas sur la carte.
+
+### 8b. Quatre natures de concours, une seule est un don
+
+« Prestation facturée par l'association » — 89 948 lignes, 1,12 Md€ — n'est pas
+un don : la collectivité achète un service, il y a une contrepartie.
+`nature_du_concours` distingue `don`, `prestation`, `remboursement` et `nature`
+(aides en nature : locaux, personnel). **128 700 lignes et 2,19 Md€** sortent
+des totaux, restent ingérées et consultables, et affichent leur motif sur la
+fiche de l'association.
+
+L'appariement se fait sur des **suites de mots**, jamais sur des sous-chaînes :
+« SOUTIEN AUX MANUFACTURES ET MÉTIERS D'ART » contient les lettres de
+« factur- », « DÉMARCHE QUALITÉ » celles de « marche ». Trois motifs ont été
+écartés après relecture du corpus — « achat » (« subvention pour achat d'actif
+immobilisé » finance un achat FAIT PAR l'association), « honoraires », et
+« délégation » seul (« 2ᵉ délégation » est une tranche de crédits).
+
+### 8c. Ce qui n'a PAS été fait, et pourquoi
+
+Le correctif qui motivait ce chantier — ramener « _ » et « - » à l'espace dans
+`measure_of` — **n'a pas été appliqué**. Mesuré : 2 sources, 8 lignes,
+850 244 €, toutes sans contrepartie, donc toutes à perte. Et il n'attrapait même
+pas le cas de Grenoble qui l'avait motivé, le motif étant un bigramme et non un
+mot. Détail dans `RESTE-A-FAIRE.md` §4.
+
+### 8d. Contrôles
+
+33 contrôles dans `verify.py`, dont trois nouveaux : les deux totaux servis au
+navigateur sont comparés à la table canonique, et une partition vérifie que
+chaque ligne tombe dans une case et une seule (2 382 140 votés + 99 771 payés
++ 128 700 hors don + 20 973 agrégats + 56 207 hors champ = 2 687 791).
+
+---
+
+## Phase 9 — Le gisement rouvert par le bon bout (22/08/2026)
+
+La phase 7 avait conclu que les deux canaux de moissonnage étaient épuisés.
+Elle avait tort, et la raison est une leçon de méthode : **elle cherchait à
+partir des portails connus**. En cherchant à partir des collectivités
+ABSENTES — les 30 plus grosses communes sans aucune donnée, dont on fabrique
+les adresses de portail plausibles — on trouve tout autre chose.
+
+### 9a. Trois blocages, trouvés en cherchant autrement
+
+1. **Six portails Opendatasoft inconnus du fédérateur** : Bordeaux Métropole,
+   les départements des Hauts-de-Seine et de l'Aude, Grand Paris Seine Ouest,
+   Issy-les-Moulineaux, Bourges Plus. 185 domaines sondés pour les trouver.
+2. **Un filtre d'adresse perdait 333 jeux de 63 organisations**, sans laisser
+   de trace ni dans les retenus ni dans les écartés. `ressources_csv` exigeait
+   qu'une adresse finisse par « .csv » ; les points d'export d'API
+   (`.../exports/csv`, `.../download/`) n'y répondent pas et servent pourtant
+   de vrais fichiers.
+3. **`openpyxl` n'était pas installé** sur la machine de moissonnage : 110
+   fichiers XLSX écartés sous un motif noyé au milieu des vraies raisons.
+
+### 9b. Ce que ça donne, pipeline entièrement rejoué
+
+| | phase 8 | phase 9 |
+|---|---|---|
+| Jeux retenus data.gouv.fr | 148 | **377** (504 fichiers) |
+| Jeux retenus Opendatasoft | 371 | **407** |
+| Sources | 548 | **655** |
+| Lignes | 2 687 791 | 2 540 282 |
+| Dons votés | 142,59 Md€ | **127,80 Md€** |
+| Dons payés | 7,45 Md€ | **10,02 Md€** |
+| Communes / EPCI / départements / régions | 86 / 29 / 31 / 5 | **90 / 31 / 34 / 7** |
+| Associations à 3 échelons ou plus | 6 783 | **9 613** |
+| Contrôles | 32/33 | **33/33** |
+
+**Le total baisse en gagnant 107 sources, et c'est le signe que ça marche** :
+la déduplication passe de 580 321 à 1 064 346 lignes retirées (85,86 Md€). Les
+jeux rouverts republient en grande partie ce que le site avait déjà ; la clé
+métier les rapproche au lieu de les compter deux fois.
+
+### 9c. Ce qui n'est pas un défaut de moissonnage
+
+Nice, Montpellier, Strasbourg et Toulon ne publient pas leurs subventions —
+vérifié sur leur portail ET sur data.gouv.fr. Strasbourg et Angers ont un
+portail ouvert avec zéro jeu de subventions. Leur absence est une absence de
+publication, et c'est à ce titre que le site doit la dire.
+
+---
+
 ## Phase 6 — Le gisement, tel que mesuré le 19/08/2026
 
 Ce qui manque n'est pas une inconnue : quatre gisements ont été quantifiés,

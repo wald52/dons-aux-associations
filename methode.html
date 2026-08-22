@@ -30,11 +30,13 @@
   </header>
 
   <div class="compteurs">
-    <div class="compteur"><span class="valeur">2 687 791</span>
+    <div class="compteur"><span class="valeur">2 540 282</span>
       <span class="etiquette">versements recensés</span></div>
-    <div class="compteur"><span class="valeur">144,7 Md€</span>
-      <span class="etiquette">attribués, hors totaux agrégés</span></div>
-    <div class="compteur"><span class="valeur">548</span>
+    <div class="compteur"><span class="valeur">127,8 Md€</span>
+      <span class="etiquette">de dons votés</span></div>
+    <div class="compteur"><span class="valeur">10,0 Md€</span>
+      <span class="etiquette">de dons payés, comptés à part</span></div>
+    <div class="compteur"><span class="valeur">655</span>
       <span class="etiquette">sources</span></div>
     <div class="compteur"><span class="valeur">1991–2036</span>
       <span class="etiquette">années couvertes</span></div>
@@ -53,34 +55,34 @@
       <table>
         <thead><tr><th>Famille de sources</th><th>Sources</th><th>Versements</th><th>Montant</th></tr></thead>
         <tbody>
-      <tr><td>État — annexe Jaune</td><td class='num'>13</td><td class='num'>808 666</td><td class='num montant'>63,6 Md€</td></tr>
-      <tr><td>Sources reprises une par une</td><td class='num'>144</td><td class='num'>774 953</td><td class='num montant'>31,1 Md€</td></tr>
-      <tr><td>Collectivités — moissonnage des portails</td><td class='num'>189</td><td class='num'>716 178</td><td class='num montant'>34,9 Md€</td></tr>
-      <tr><td>Collectivités — moissonnage data.gouv.fr</td><td class='num'>202</td><td class='num'>387 994</td><td class='num montant'>15,2 Md€</td></tr>
+      <tr><td>Sources reprises une par une</td><td class='num'>144</td><td class='num'>774 920</td><td class='num montant'>30,9 Md€</td></tr>
+      <tr><td>Collectivités — moissonnage des portails</td><td class='num'>209</td><td class='num'>726 102</td><td class='num montant'>35,2 Md€</td></tr>
+      <tr><td>État — annexe Jaune</td><td class='num'>10</td><td class='num'>538 745</td><td class='num montant'>39,9 Md€</td></tr>
+      <tr><td>Collectivités — moissonnage data.gouv.fr</td><td class='num'>292</td><td class='num'>500 515</td><td class='num montant'>21,8 Md€</td></tr>
         </tbody>
       </table>
     </div>
-    <p><strong>Le moissonnage est automatique.</strong> 664 jeux de
-       données ont été examinés sur data.gouv.fr, 148 retenus, soit
-       272 fichiers. Un fichier n'est retenu que si ses colonnes
+    <p><strong>Le moissonnage est automatique.</strong> 663 jeux de
+       données ont été examinés sur data.gouv.fr, 377 retenus, soit
+       504 fichiers. Un fichier n'est retenu que si ses colonnes
        réelles correspondent à des subventions — le schéma déclaré ne suffit pas. Tout nouveau
        millésime publié par une collectivité sera repris sans intervention.</p>
     <p>Les collectivités qui ne passent pas par data.gouv.fr publient sur leur propre
        portail. Ces portails partagent tous la même interface, donc un second moissonneur
-       les couvre : 41 portails visités,
-       574 jeux examinés, 371
+       les couvre : 47 portails visités,
+       603 jeux examinés, 407
        retenus — au même test sur les colonnes réelles.</p>
     <p>L'annexe budgétaire « Jaune » de l'État est moissonnée de la même façon, sur
-       13 millésimes.</p>
+       10 millésimes.</p>
 
     <h2>Ce que la déduplication retire</h2>
     <p>Deux administrations publient parfois le même versement. Les additionner le
        compterait deux fois. Une clé métier — bénéficiaire, donateur, année, montant, objet —
-       les réconcilie&nbsp;: <strong>580 321 lignes</strong> écartées, soit
-       49,8 Md€.</p>
+       les réconcilie&nbsp;: <strong>1 064 346 lignes</strong> écartées, soit
+       85,9 Md€.</p>
     <div class="encart">
       <h3>Ce qui n'est PAS dédupliqué</h3>
-      <p>À l'intérieur d'une même source, 97 103 lignes ont une clé
+      <p>À l'intérieur d'une même source, 98 039 lignes ont une clé
          identique et sont <strong>toutes conservées</strong>. L'inspection montre qu'il s'agit
          d'organismes homonymes distincts — vingt-trois « Maison des jeunes et de la culture »
          touchant la même subvention type sont vingt-trois associations, pas un doublon.</p>
@@ -89,7 +91,7 @@
     <h2>Les montants mis en quarantaine</h2>
     <p>Certaines valeurs publiées ne sont pas des montants, ou sont dans une unité douteuse.
        Elles sont conservées dans les données mais <strong>exclues de tous les totaux</strong>
-       — 17503111200038719488,0 Md€ sur 30 372 lignes.</p>
+       — 17503111200038719488,0 Md€ sur 30 373 lignes.</p>
     <ul>
       <li><strong>Métropole de Lyon</strong> : 9&nbsp;081 lignes totalisant 48&nbsp;Md€, quand le
         budget annuel de la Métropole avoisine 3,8&nbsp;Md€. Médiane à 1&nbsp;584&nbsp;200&nbsp;€,
@@ -104,17 +106,56 @@
     </ul>
     <p>Deux natures de lignes ne sont par ailleurs <strong>jamais additionnées</strong> : les
        attributions individuelles et les totaux déjà agrégés publiés par certaines collectivités
-       (2,0 Md€). Les sommer compterait chaque euro deux fois.</p>
+       (2,1 Md€). Les sommer compterait chaque euro deux fois.</p>
+
+    <h2>Ce qui compte comme un don</h2>
+    <p>Tout argent versé à une association n'est pas un don. Quand une collectivité écrit
+       « prestation facturée par l'association », elle <strong>achète un service</strong>&nbsp;:
+       il y a une contrepartie, ce n'est pas un soutien. Ces sommes sont ingérées, restent
+       consultables ligne à ligne, et sont comptées à part&nbsp;:</p>
+    <ul>
+      <li><strong>1,2 Md€</strong> de prestations facturées par l'association — 71 037 lignes.</li>
+      <li><strong>311,9 M€</strong> de aides en nature (locaux, personnel mis à disposition) — 7 640 lignes.</li>
+      <li><strong>72,1 M€</strong> de remboursements de frais et cotisations d'adhésion — 1 901 lignes.</li>
+    </ul>
+    <p>La lecture se fait sur les <strong>mots</strong> de l'objet publié, jamais sur des
+       fragments de mots&nbsp;: « soutien aux manufactures et métiers d'art » contient les
+       lettres de « factur- » sans être une facture. Et dans le doute, la ligne reste un
+       don&nbsp;: l'écarter à tort effacerait une subvention réelle, la garder à tort laisse
+       une ligne visible et corrigeable.</p>
+
+    <h2>Voté et payé — deux totaux, jamais une somme</h2>
+    <p>Une collectivité publie souvent le même argent deux fois&nbsp;: ce qu'elle a
+       <strong>voté</strong>, puis ce qu'elle a <strong>mandaté</strong> (annexe au compte
+       administratif). Les additionner la compterait deux fois.</p>
+    <p>Le site affiche donc les deux côte à côte et ne les somme jamais&nbsp;:
+       <strong>127,8 Md€</strong> votés
+       (2 232 363 versements) et
+       <strong>10,0 Md€</strong> déclarés payés
+       (123 829 versements).</p>
+    <div class="encart">
+      <h3>Pourquoi le payé n'est plus caché</h3>
+      <p>La règle a longtemps été « le payé sort des totaux ». Mesuré, cela retirait
+         1,86&nbsp;Md€ que <em>rien</em> ne dédoublait&nbsp;: une vingtaine de collectivités —
+         dont le département de Loire-Atlantique, 778&nbsp;M€ sur 28&nbsp;573 subventions —
+         ne publient QUE leurs paiements. Les taire les faisait disparaître du site alors que
+         nous avions leurs chiffres.</p>
+      <p>Aucune des sources qui publient leur exécution budgétaire ne donne l'adresse du
+         bénéficiaire&nbsp;: le payé n'a donc pas de géographie et n'apparaît pas sur la carte.</p>
+    </div>
 
     <h2>Les anomalies que nous signalons sans les corriger</h2>
     <ul>
-<li>L'année <strong>1991</strong> totalise 78 261 €, soit 513,9 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li><li>L'année <strong>2010</strong> totalise 1,7 Md€, soit 9,0 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li>
+<li>L'année <strong>1991</strong> totalise 78 261 €, soit 513,9 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li><li>L'année <strong>2010</strong> totalise 1,7 Md€, soit 5,5 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li>
       <li><strong>29 159 numéros SIRET ont été détruits par un
         tableur</strong> : ils sont publiés sous la forme <code>2,19301E+13</code>, un nombre dont
         seuls six chiffres significatifs subsistent. Ce n'est pas réparable ; seul un
         re-moissonnage de la source d'origine le corrigerait.</li>
-      <li><strong>298 590 versements n'ont pas de département exploitable</strong>
+      <li><strong>268 691 versements n'ont pas de département exploitable</strong>
         et n'apparaissent donc pas sur la carte, bien qu'ils comptent dans les totaux.</li>
+      <li><strong>Des doublons que la clé métier ne voit pas</strong> — 27 515 lignes, 797,8 M€. Même bénéficiaire, même donateur, même exercice, même montant, publiés par deux sources sous des objets différents. L'objet faisant partie de la clé, la déduplication ne les rapproche pas. Ils restent DANS les totaux : retirer l'objet de la clé fondrait deux subventions réellement distinctes de même montant à la même association la même année.</li>
+      <li><strong>Des bénéficiaires dont le nom est un numéro</strong> — 7 121 lignes, 1,8 Md€. La source a recopié le SIREN ou le RNA dans la colonne du nom. L'organisme est identifiable mais illisible, et ne se rapproche pas de ses propres lignes correctement nommées.</li>
+      <li><strong>Des bénéficiaires comptés comme associations faute de mieux</strong> — 169 654 lignes, 56,4 Md€. La source ne dit pas leur nature juridique : nous la devinons sur le nom, et le défaut est « association ». On y trouve donc des sociétés et des opérateurs publics. Rien n'est retiré — deviner une exclusion effacerait des associations réelles — mais la liste demande un œil humain.</li>
     </ul>
 
     <h2>Comment une association est reconnue</h2>
@@ -124,20 +165,20 @@
        « Centre communal d'action sociale » existe dans quarante et un départements.</p>
     <p>La conséquence est assumée : une association publiée sans identifiant par deux sources
        peut apparaître deux fois, et un cumul d'échelons peut être <strong>sous-estimé, jamais
-       inventé</strong>. Sur 406 846 bénéficiaires résolus,
-       6 783 sont financés par au moins trois échelons publics.</p>
+       inventé</strong>. Sur 400 839 bénéficiaires résolus,
+       9 613 sont financés par au moins trois échelons publics.</p>
 
     <h2>Ce que la couverture veut dire</h2>
     <p>La carte ne couvre pas la France entière et ne le prétend pas.
-       86 communes sur 34 936 ont des
-       données, soit <strong>10,3&nbsp;% de la
+       90 communes sur 34 936 ont des
+       données, soit <strong>10,9&nbsp;% de la
        population</strong> — la couverture se mesure en habitants, pas en nombre de fichiers.</p>
     <p>La raison principale est en amont : <strong>très peu de collectivités publient</strong>.
        Toutes sources confondues, les données ne contiennent que
-       112 communes,
-       39 intercommunalités,
-       38 départements et
-       6 régions
+       117 communes,
+       41 intercommunalités,
+       43 départements et
+       7 régions
        en tant que <em>financeurs</em>. L'État, lui, est couvert de façon dense.
        Seules les communes de plus de 3&nbsp;500 habitants sont tenues de publier, et
        l'obligation est peu suivie.</p>
@@ -155,7 +196,7 @@
 
   <footer>
     Données publiques sous Licence Ouverte 2.0. Page engendrée le
-    2026-08-20 à partir de <code>quality-report.json</code>,
+    2026-08-22 à partir de <code>quality-report.json</code>,
     <code>couverture.json</code> et des manifestes de moissonnage.
   </footer>
 </div>
