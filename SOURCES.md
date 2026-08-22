@@ -1,5 +1,13 @@
 # Suivi des sources — Subventions publiques aux associations
 
+> **Ce fichier ne recense que les sources NOMINATIVES**, celles qui disent quelle
+> association a reçu quoi et qui alimentent la table canonique. Trois sources de
+> plus sont moissonnées depuis la phase 10 sans jamais entrer dans les totaux,
+> parce qu'elles ne nomment aucun bénéficiaire — le compte 6574 des balances
+> DGFiP, les comptes annuels déposés au Journal officiel et le D751 des comptes
+> nationaux. Elles servent à mesurer ce qui manque, et sont documentées dans
+> **`SOURCES-RECEPTION.md`**.
+
 ## Architecture
 
 ```

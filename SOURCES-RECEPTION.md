@@ -7,9 +7,27 @@ reproduisent sont en fin de fichier.
 À lire après `CLAUDE.md` (contexte et pièges) et `SOURCES.md` (l'inventaire du
 côté payeur, celui que le site exploite aujourd'hui).
 
-**Ce document n'engage rien.** Il répond à une question de méthode posée par
-l'utilisateur, et s'arrête là : aucune de ces sources n'est moissonnée, aucune
-n'entre dans le pipeline.
+**ENGAGÉ le 22/08/2026 — phase 10.** Ce document s'arrêtait à l'inventaire.
+Ses trois options (§6) ont depuis été mises en œuvre : le compte 6574 des
+balances DGFiP est moissonné et sert de dénominateur, les 227 586 dépôts de
+comptes du Journal officiel sont croisés avec l'index des bénéficiaires, et le
+D751 des comptes nationaux donne l'échelle. **Aucune de ces sources n'entre dans
+la table canonique** : aucune ne nomme de bénéficiaire, et les sommer avec les
+versements nominatifs compterait deux fois le même argent.
+
+L'impasse, elle, reste une impasse : les montants des comptes déposés sont dans
+des PDF scannés (§2b), et rien ne les en sortira sans OCR.
+
+Ce qui a été mesuré une fois engagé, et qui n'était pas dans l'inventaire :
+
+| | mesuré le 22/08/2026 |
+|---|---|
+| Communes déclarant un compte 6574 (2010-2025) | **34 829** sur 34 936 |
+| Ce qu'elles déclarent | **51,10 Md€**, dont le site connaît **14,9 %** |
+| Organismes ayant déposé leurs comptes | **31 683** (par SIREN distinct) |
+| Reconnus dans l'index du site | **18 745** — 59,2 % |
+| Associations loi 1901 reconnues | **67,9 %** |
+| Fonds de dotation reconnus | **3,5 %** — la preuve que le seuil mélange dons privés et argent public |
 
 ---
 
@@ -242,21 +260,27 @@ mieux.
 
 ---
 
-## 6. Ce que ça pourrait donner — options, pas plan
+## 6. Ce que ça a donné — les trois options, faites
 
-Classées par coût croissant. **Rien n'est engagé** : c'est à l'utilisateur de
-trancher.
+Classées par coût croissant lorsqu'elles n'étaient que des options. Les trois
+ont été retenues par l'utilisateur le 22/08/2026 et mises en œuvre le jour
+même (phase 10, cf. `ROADMAP.md`).
 
-1. **Mesurer l'angle mort.** Croiser les 227 586 dépôts de comptes avec l'index
+1. **FAIT — Mesurer l'angle mort.** Croiser les 227 586 dépôts de comptes avec l'index
    de bénéficiaires du site. API seule, aucun PDF, aucun montant à extraire.
    C'est le meilleur rapport valeur / coût de la liste.
-2. **Donner un dénominateur territorial.** Le compte 6574 par collectivité et par
+2. **FAIT — Donner un dénominateur territorial.** Le compte 6574 par collectivité et par
    exercice : la carte de couverture passerait de « publie / ne publie pas » à
    « le site connaît Y € sur X € versés ».
-3. **Afficher les totaux de contrôle** sur `methode.html` : 45,6 Md€ d'APU vers
+3. **FAIT — Afficher les totaux de contrôle** sur `methode.html` : 45,6 Md€ d'APU vers
    les ISBLSM en 2023 face au total du site pour le même exercice.
    **Attention** : les 149,68 Md€ affichés sont un **cumul 2001-2027**, pas un
-   flux annuel. La comparaison n'a de sens qu'exercice par exercice.
+   flux annuel. La comparaison n'a de sens qu'exercice par exercice — c'est
+   ainsi qu'elle est faite : sur l'exercice 2023, le site retrouve 24,0 Md€ des
+   45,6 Md€ de la comptabilité nationale.
+
+Les scripts correspondants : `fetch_balances.py` + `build_denominateur.py`,
+`fetch_jo_comptes.py` + `build_angle_mort.py`, `fetch_totaux_controle.py`.
 
 ---
 

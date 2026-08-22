@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T14:45:23Z",
+  "generated_at": "2026-08-22T18:09:09Z",
   "methode": "Chaque libellé de donateur est rapproché du référentiel INSEE et désigne AU PLUS UNE collectivité — en cas d'homonymie, aucune. La couverture affichée est donc un minimum : un libellé inhabituel échoue à s'apparier alors que la donnée existe, mais aucune collectivité n'est comptée à tort.",
   "etats": {
     "donnees": "des subventions versées par cette collectivité sont présentes",
@@ -1423,8 +1423,8 @@
     "region": {
       "univers": 18,
       "par_etat": {
-        "sans_donnees": 9,
-        "donnees": 7,
+        "sans_donnees": 10,
+        "donnees": 6,
         "publie_non_lu": 2
       },
       "population_totale": 0,
@@ -1471,13 +1471,6 @@
           "etat": "donnees",
           "lignes": 101144,
           "montant_eur": 9350345988.48,
-          "population": 0
-        },
-        "75": {
-          "nom": "Nouvelle-Aquitaine",
-          "etat": "donnees",
-          "lignes": 0,
-          "montant_eur": 0,
           "population": 0
         },
         "76": {

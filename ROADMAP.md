@@ -608,6 +608,114 @@ publication, et c'est à ce titre que le site doit la dire.
 
 ---
 
+## Phase 10 — Le dénominateur, l'angle mort et l'échelle (22/08/2026)
+
+**Le problème que cette phase règle.** Depuis la phase 1, le site répond à
+« qui a reçu quoi » parmi ce qu'il a trouvé. Il ne savait répondre ni à
+« combien manque-t-il ? » ni à « par rapport à quoi ? ». La carte de couverture
+était binaire — une commune absente pouvait aussi bien ne rien verser que ne
+rien publier — et le total affiché, 149,68 Md€ cumulés, n'avait aucune échelle.
+
+La phase 9 avait établi que le moissonnage de l'open data volontaire était
+épuisé. La sortie n'était donc pas de chercher plus de subventions nominatives,
+mais de changer de question : **mesurer ce qui manque**.
+
+**Règle qui gouverne toute la phase : aucun de ces chiffres n'entre dans les
+totaux du site.** Aucun ne nomme de bénéficiaire ; les sommer avec les
+versements nominatifs compterait deux fois le même argent. `verify.py` ne
+vérifie donc pas ici une somme mais une SÉPARATION.
+
+### 10a. Le dénominateur — compte 6574 des balances comptables DGFiP
+
+La comptabilité officielle de toutes les collectivités, publiée exercice par
+exercice sur `data.economie.gouv.fr`, qu'elles fassent de l'open data ou non.
+19 jeux, 565 916 lignes, licence ouverte.
+
+| Échelon | Exercices | Déclarent | Déclaré | Le site en connaît |
+|---|---|---|---|---|
+| Communes | 2010-2025 | **34 829** / 34 936 | **51,10 Md€** | 7,60 Md€ — **14,9 %**, par 82 communes |
+| Intercommunalités | 2019-2025 | 1 278 / 1 335 | 16,84 Md€ | 1,91 Md€ — 11,4 % |
+| Départements | 2019-2025 | 100 / 101 | 11,81 Md€ | 4,32 Md€ — 36,6 % |
+| Régions | 2020-2025 | 14 / 18 | 14,23 Md€ | 12,96 Md€ — 91,1 % |
+
+Trois réserves indissociables du chiffre : le compte dit « et autres personnes
+de droit privé » (il surestime), une subvention peut être imputée ailleurs —
+6568, 657362 vers un CCAS, investissement au 204 — (il sous-estime), et le
+déclaré est MANDATÉ quand les totaux du site sont VOTÉS. Une part au-dessus de
+100 % est donc normale.
+
+Quatre pièges, tous documentés dans `CLAUDE.md` : `like '6574%'` n'est pas un
+préfixe en ODSQL ; la colonne `insee` n'est pas le code INSEE ; un budget
+annexe ne nomme pas sa collectivité mais porte son SIREN (d'où un appariement
+en deux passes, 12 002 lignes non rattachées au lieu de 227 038) ; et les
+collectivités uniques — Corse, CTU, Alsace, Mayotte — n'ont pas de SIREN en 22.
+
+**Résultat négatif à retenir** : la présentation croisée nature-fonction ne
+peut pas prolonger la série avant 2019. Vérifié sur 2020, où les deux
+présentations coexistent — elle ne couvre que les collectivités au-dessus du
+seuil de la présentation fonctionnelle (communes : 2 438 M€ contre 3 044).
+
+### 10b. L'angle mort — les comptes annuels déposés au Journal officiel
+
+227 586 dépôts, **31 683 organismes** tenus de déposer parce qu'ils franchissent
+153 000 € de dons et/ou de subventions (art. L612-4 et D612-5 du code de
+commerce). Croisés par SIREN et RNA avec l'index des bénéficiaires :
+**18 745 reconnus, 12 938 non reconnus** — 40,8 %.
+
+Le croisement se valide lui-même, et c'est ce qui rend le chiffre publiable :
+
+| Nature | Organismes | Reconnus |
+|---|---|---|
+| Associations loi 1901 | 26 843 | **67,9 %** |
+| Fonds de dotation | 3 669 | **3,5 %** |
+| Fondations | 740 | 40,4 % |
+
+Les fonds de dotation vivent de dons privés : qu'ils soient invisibles du site
+est la preuve que le seuil de 153 000 € mélange argent privé et argent public.
+Le nombre d'organismes non reconnus est donc un **majorant**, jamais « les
+associations subventionnées que le site rate ». Les plus gros déposants non
+reconnus sont des comités de la Ligue contre le cancer et des associations
+diocésaines.
+
+Aucun montant n'est lu : ils sont dans des PDF scannés (2 sur 24 contiennent le
+mot « subvention » en clair), et les extraire par OCR afficherait un chiffre
+deviné par une machine sur une image.
+
+### 10c. L'échelle — D751 des comptes nationaux
+
+| Exercice | Comptes nationaux (D751) | Le site retrouve | Part |
+|---|---|---|---|
+| 2015 | 32,3 Md€ | 3,8 Md€ | 11,8 % |
+| 2019 | 35,8 Md€ | 15,5 Md€ | 43,2 % |
+| 2021 | 40,0 Md€ | 21,6 Md€ | 53,9 % |
+| 2023 | **45,6 Md€** | **24,0 Md€** | **52,6 %** |
+
+Exercice par exercice, jamais en bloc : le total du site est un cumul, D751 un
+flux annuel. La page de méthode signale d'elle-même le creux de 2022 — l'annexe
+Jaune y manque, ce n'est pas une baisse des subventions.
+
+### 10d. Un faux positif corrigé au passage
+
+En construisant le dénominateur, le même appariement a buté sur les SIREN de
+régions. `build_couverture.py` en déduisait un code de région, ce qui n'existe
+pas : le SIREN d'une région est bâti sur son chef-lieu. La Nouvelle-Aquitaine
+s'affichait « données présentes » avec zéro versement et zéro euro. **Le site
+couvre 6 régions, pas 7.** La règle des départements, elle, est juste et ne
+vit plus qu'à un seul endroit (`code_departement_du_siren`), où elle gagne
+l'outre-mer et Mayotte : 15 départements rattachés par SIREN au lieu de 3.
+
+### 10e. Ce que le site en montre
+
+- « Ce qu'on ne sait pas » : deux sections nouvelles — le dénominateur par
+  échelon, par exercice et par département ; l'angle mort avec sa ventilation
+  par nature d'organisme.
+- « Sources & méthode » : la section « Par rapport à quoi ? ».
+- L'accueil : une phrase, chargée après le premier écran pour ne rien coûter
+  au chemin critique.
+- `verify.py` : 11 contrôles de plus, **44/45**.
+
+---
+
 ## Phase 6 — Le gisement, tel que mesuré le 19/08/2026
 
 Ce qui manque n'est pas une inconnue : quatre gisements ont été quantifiés,

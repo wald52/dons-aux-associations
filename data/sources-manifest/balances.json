@@ -1,0 +1,372 @@
+{
+ "family": "balances",
+ "fetched_at": "2026-08-22T17:38:55Z",
+ "hote": "data.economie.gouv.fr",
+ "filtre": "startswith(compte,'6574')",
+ "licence": "Licence Ouverte 2.0",
+ "jeux": 19,
+ "lignes": 565916,
+ "montant_eur": 94213097295.89,
+ "datasets": [
+  {
+   "dataset": "balances-comptables-des-communes-en-2010",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2010/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2010.csv",
+   "lignes": 35104,
+   "montant_eur": 3285233535.44,
+   "comptes": {
+    "6574": 35104
+   },
+   "exercices": {
+    "2010": 35104
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2011",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2011/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2011.csv",
+   "lignes": 35088,
+   "montant_eur": 3331344274.84,
+   "comptes": {
+    "6574": 35087,
+    "65748": 1
+   },
+   "exercices": {
+    "2011": 35088
+   },
+   "budgets_pere_et_fils": 1
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2012",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2012/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2012.csv",
+   "lignes": 35039,
+   "montant_eur": 3346856555.57,
+   "comptes": {
+    "6574": 35039
+   },
+   "exercices": {
+    "2012": 35039
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2013",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2013/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2013.csv",
+   "lignes": 35099,
+   "montant_eur": 3399518029.63,
+   "comptes": {
+    "6574": 35098,
+    "65748": 1
+   },
+   "exercices": {
+    "2013": 35099
+   },
+   "budgets_pere_et_fils": 1
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2014",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2014/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2014.csv",
+   "lignes": 34961,
+   "montant_eur": 3389870684.66,
+   "comptes": {
+    "6574": 34961
+   },
+   "exercices": {
+    "2014": 34961
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2015",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2015/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2015.csv",
+   "lignes": 34861,
+   "montant_eur": 3290645567.56,
+   "comptes": {
+    "6574": 34861
+   },
+   "exercices": {
+    "2015": 34861
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2016",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2016/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2016.csv",
+   "lignes": 34101,
+   "montant_eur": 3166603083.84,
+   "comptes": {
+    "6574": 34101
+   },
+   "exercices": {
+    "2016": 34101
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2017",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2017/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2017.csv",
+   "lignes": 33599,
+   "montant_eur": 3111369211.57,
+   "comptes": {
+    "6574": 33599
+   },
+   "exercices": {
+    "2017": 33599
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2018",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2018/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2018.csv",
+   "lignes": 33561,
+   "montant_eur": 3076340851.09,
+   "comptes": {
+    "6574": 33553,
+    "65748": 5,
+    "65742": 3
+   },
+   "exercices": {
+    "2018": 33561
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2019",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2019/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2019.csv",
+   "lignes": 33312,
+   "montant_eur": 3156400336.73,
+   "comptes": {
+    "6574": 33298,
+    "65748": 11,
+    "65742": 2,
+    "65741": 1
+   },
+   "exercices": {
+    "2019": 33312
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2020",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2020/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2020.csv",
+   "lignes": 31866,
+   "montant_eur": 3044233094.03,
+   "comptes": {
+    "6574": 31797,
+    "65748": 56,
+    "65742": 7,
+    "65741": 6
+   },
+   "exercices": {
+    "2020": 31866
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2021",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2021/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2021.csv",
+   "lignes": 32133,
+   "montant_eur": 2965161987.51,
+   "comptes": {
+    "6574": 31969,
+    "65748": 120,
+    "65742": 24,
+    "65741": 20
+   },
+   "exercices": {
+    "2021": 32133
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2022",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2022/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2022.csv",
+   "lignes": 33335,
+   "montant_eur": 3060025218.25,
+   "comptes": {
+    "6574": 27561,
+    "65748": 4840,
+    "65741": 771,
+    "65742": 163
+   },
+   "exercices": {
+    "2022": 33335
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2023",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2023/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2023.csv",
+   "lignes": 35246,
+   "montant_eur": 3102938271.86,
+   "comptes": {
+    "65748": 21217,
+    "6574": 10961,
+    "65741": 2541,
+    "65742": 527
+   },
+   "exercices": {
+    "2023": 35246
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2024",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2024/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2024.csv",
+   "lignes": 36746,
+   "montant_eur": 3281527076.86,
+   "comptes": {
+    "65748": 31909,
+    "65741": 3817,
+    "65742": 734,
+    "65743": 234,
+    "6574": 52
+   },
+   "exercices": {
+    "2024": 36746
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-communes-en-2025",
+   "echelon": "commune",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-communes-en-2025/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-communes-en-2025.csv",
+   "lignes": 36562,
+   "montant_eur": 3328119993.08,
+   "comptes": {
+    "65748": 32104,
+    "65741": 3492,
+    "65742": 696,
+    "65743": 253,
+    "6574": 17
+   },
+   "exercices": {
+    "2025": 36562
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-departements",
+   "echelon": "departement",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-departements/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-departements.csv",
+   "lignes": 1280,
+   "montant_eur": 11809324812.58,
+   "comptes": {
+    "6574": 482,
+    "65748": 394,
+    "65742": 211,
+    "65741": 178,
+    "65743": 15
+   },
+   "exercices": {
+    "2019": 138,
+    "2020": 141,
+    "2021": 152,
+    "2022": 166,
+    "2023": 188,
+    "2024": 250,
+    "2025": 245
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-regions-",
+   "echelon": "region",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-regions-/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-regions-.csv",
+   "lignes": 223,
+   "montant_eur": 14230634881.13,
+   "comptes": {
+    "65748": 68,
+    "65742": 62,
+    "65741": 44,
+    "6574": 41,
+    "65743": 8
+   },
+   "exercices": {
+    "2020": 23,
+    "2021": 28,
+    "2022": 30,
+    "2023": 40,
+    "2024": 53,
+    "2025": 49
+   },
+   "budgets_pere_et_fils": 0
+  },
+  {
+   "dataset": "balances-comptables-des-groupements-a-fiscalite-propre-depuis-2010",
+   "echelon": "epci",
+   "url": "https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-groupements-a-fiscalite-propre-depuis-2010/",
+   "licence": "Licence Ouverte 2.0",
+   "fichier": "data/raw/balances/balances-comptables-des-groupements-a-fiscalite-propre-depuis-2010.csv",
+   "lignes": 13800,
+   "montant_eur": 16836949829.66,
+   "comptes": {
+    "6574": 7046,
+    "65748": 4540,
+    "65741": 1062,
+    "65742": 900,
+    "65743": 252
+   },
+   "exercices": {
+    "2019": 1659,
+    "2020": 1709,
+    "2021": 1733,
+    "2022": 1839,
+    "2023": 2010,
+    "2024": 2437,
+    "2025": 2413
+   },
+   "budgets_pere_et_fils": 0
+  }
+ ]
+}

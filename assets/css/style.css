@@ -318,6 +318,12 @@ td.ecarte { color: var(--ardoise); font-weight: 400; }
 .jauge { display: flex; height: 15px; border-radius: 3px; overflow: hidden; background: var(--etat-vide); gap: 2px; }
 .jauge i { display: block; height: 100%; }
 .detail-couverture { margin: 5px 0 0; font-size: var(--t-sm); color: var(--ardoise); }
+
+/* Part connue en cellule de tableau : la barre n'est qu'un appui visuel, la
+   valeur reste écrite à côté — une part qui dépasse 100 % est réelle et la
+   barre, elle, sature à 100 %. */
+.jauge-part { height: 6px; width: 82px; margin-top: 4px; border-radius: 2px; }
+td.num .jauge-part { display: flex; }
 .puce { display: inline-flex; align-items: center; gap: 6px; margin-right: 18px; font-size: var(--t-sm); }
 .puce i { width: 13px; height: 13px; border-radius: 3px; display: block; border: 1px solid rgba(0,0,0,.14); }
 .chantier { background: var(--surface); border: 1px solid var(--filet); border-radius: var(--rayon); padding: 14px 18px; margin-bottom: 11px; box-shadow: var(--ombre); }
