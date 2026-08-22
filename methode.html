@@ -153,6 +153,9 @@
         re-moissonnage de la source d'origine le corrigerait.</li>
       <li><strong>298 590 versements n'ont pas de département exploitable</strong>
         et n'apparaissent donc pas sur la carte, bien qu'ils comptent dans les totaux.</li>
+      <li><strong>Des doublons que la clé métier ne voit pas</strong> — 22 867 lignes, 442,6 M€. Même bénéficiaire, même donateur, même exercice, même montant, publiés par deux sources sous des objets différents. L'objet faisant partie de la clé, la déduplication ne les rapproche pas. Ils restent DANS les totaux : retirer l'objet de la clé fondrait deux subventions réellement distinctes de même montant à la même association la même année.</li>
+      <li><strong>Des bénéficiaires dont le nom est un numéro</strong> — 7 121 lignes, 1,8 Md€. La source a recopié le SIREN ou le RNA dans la colonne du nom. L'organisme est identifiable mais illisible, et ne se rapproche pas de ses propres lignes correctement nommées.</li>
+      <li><strong>Des bénéficiaires comptés comme associations faute de mieux</strong> — 166 430 lignes, 49,9 Md€. La source ne dit pas leur nature juridique : nous la devinons sur le nom, et le défaut est « association ». On y trouve donc des sociétés et des opérateurs publics. Rien n'est retiré — deviner une exclusion effacerait des associations réelles — mais la liste demande un œil humain.</li>
     </ul>
 
     <h2>Comment une association est reconnue</h2>
@@ -193,7 +196,7 @@
 
   <footer>
     Données publiques sous Licence Ouverte 2.0. Page engendrée le
-    2026-08-21 à partir de <code>quality-report.json</code>,
+    2026-08-22 à partir de <code>quality-report.json</code>,
     <code>couverture.json</code> et des manifestes de moissonnage.
   </footer>
 </div>

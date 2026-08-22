@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T11:57:30Z",
+  "generated_at": "2026-08-22T12:45:53Z",
   "parts": [
     "data/canonical/parts/legacy-agglo-grand-chambery.parquet",
     "data/canonical/parts/legacy-agglo-lorient.parquet",
@@ -12603,6 +12603,107 @@
       "rows": 97103,
       "groupes": 36672,
       "commentaire": "Lignes de clé métier identique au sein d'une même source. Conservées volontairement : l'inspection montre qu'il s'agit majoritairement d'organismes homonymes distincts (23 « Maison des jeunes et de la culture » recevant la même subvention type), et non de doublons."
+    },
+    {
+      "type": "doublons_probables_hors_cle",
+      "groupes": 18369,
+      "rows": 22867,
+      "amount_eur": 442620271.69,
+      "commentaire": "Même bénéficiaire, même donateur, même exercice et même montant, publiés par plusieurs sources sous des objets différents. L'objet faisant partie de la clé métier, la déduplication ne les rapproche pas. COMPTÉS DANS LES TOTAUX et signalés ici : retirer l'objet de la clé fondrait deux subventions réellement distinctes de même montant à la même association la même année, ce qui effacerait de l'argent réel."
+    },
+    {
+      "type": "nom_de_beneficiaire_numerique",
+      "rows": 7121,
+      "amount_eur": 1798213791.48,
+      "commentaire": "Le nom du bénéficiaire est un identifiant (SIREN ou RNA) recopié dans la colonne du nom. Conservé tel quel — c'est ce que la source publie — mais ces organismes sont illisibles sur le site et ne se rapprochent pas de leurs propres lignes correctement nommées."
+    },
+    {
+      "type": "nature_devinee_gros_montants",
+      "rows": 166430,
+      "amount_eur": 49883505511.48,
+      "principaux": [
+        [
+          "911671485",
+          911671485.0
+        ],
+        [
+          "SNCF VOYAGEURS SA TER CENTRE",
+          900438509.0
+        ],
+        [
+          "SNCF MOBILITES",
+          869147708.82
+        ],
+        [
+          "PASS CULTURE",
+          781266843.0
+        ],
+        [
+          "W761003097",
+          761003097.0
+        ],
+        [
+          "CAISSE DES ECOLES DE ROUBAIX",
+          703945174.0
+        ],
+        [
+          "AGENCE FRANCE PRESSE",
+          697305195.0
+        ],
+        [
+          "SNCF RESEAU",
+          557301770.09
+        ],
+        [
+          "MAA MINIST RE DE L AGRICULTURE ET DE L ALIMENTATION",
+          467599531.63
+        ],
+        [
+          "GROUPEMENT D INTERET PUBLIC POUR LA REUSSITE EDUCATIVE A PARIS",
+          435114095.89
+        ],
+        [
+          "CENTRE NATIONAL CINEMA IMAGE ANIMEE",
+          427962607.0
+        ],
+        [
+          "MEGALIS BRETAGNE",
+          388387055.12
+        ],
+        [
+          "CENTRE NATIONAL DE LA MUSIQUE",
+          375044423.0
+        ],
+        [
+          "FEDERATION DES CENTRES SOCIAUX ET SOCIOCULTURELS DE FRANCE",
+          367810556.4
+        ],
+        [
+          "SNCF VOYAGEURS",
+          354282756.0
+        ],
+        [
+          "AGENCE DE SERVICES ET DE PAIEMENT",
+          315007129.67
+        ],
+        [
+          "ASP AGENCE DE SERVICES ET DE PAIEMENT",
+          228221203.05
+        ],
+        [
+          "ANIMATION PREVENTION INSERTION",
+          227769321.54
+        ],
+        [
+          "THEATRE MUSICAL DE PARIS",
+          208605603.0
+        ],
+        [
+          "NATIONALE POUR LA FORMATION PROFESSIONNELLE DES ADULTES",
+          179270665.0
+        ]
+      ],
+      "commentaire": "Bénéficiaires comptés comme associations parce que la source ne dit pas le contraire, jamais parce qu'elle l'affirme. La liste demande un œil humain : on y trouve des sociétés (SNCF Voyageurs), des opérateurs publics (Centre national du cinéma) et des organismes internationaux. Rien n'est retiré — deviner une exclusion effacerait des associations réelles."
     },
     {
       "type": "montants_invraisemblables_exclus",

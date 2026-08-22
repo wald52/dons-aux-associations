@@ -276,19 +276,39 @@ et n'apparaissait donc nulle part.
 montre désormais « dons votés » et « dons payés » côte à côte, et ne les somme
 jamais. Personne n'est effacé, et aucun euro n'est compté deux fois.
 
-### 4d. Trouvaille annexe, TOUJOURS OUVERTE — 144,8 M€ de doublons que la clé métier ne voit pas
+### 4d. Les doublons que la clé métier ne voit pas — **signalés, non corrigés**
 
-En vérifiant Grenoble : `ville-grenoble` et `ville-grenoble-2016` publient les
-mêmes subventions (même bénéficiaire, même montant, même exercice, même
-donateur) sous deux objets différents — « SUBVENTION PROJET » contre
-« MUSIQUES ». L'objet entrant dans `business_key`, la déduplication ne les voit
-pas. Sur tout le corpus : **4 784 groupes, 6 091 lignes en trop, 144,84 M€**.
+`ville-grenoble` et `ville-grenoble-2016` publient la même subvention sous
+« SUBVENTION PROJET » d'un côté et « MUSIQUES » de l'autre : même bénéficiaire,
+même donateur, même exercice, même montant, deux clés — parce que l'objet fait
+partie de la clé métier.
 
-Ce n'est **pas** un correctif évident : retirer l'objet de la clé fondrait deux
-subventions réellement distinctes de même montant à la même association la même
-année — la même asymétrie que pour les homonymes (`CLAUDE.md`). À traiter comme
-un chantier propre, avec une règle qui regarde les sources d'où viennent les
-deux lignes.
+**Chiffre corrigé le 21/08/2026 : 18 369 groupes, 22 867 lignes, 442,62 M€.**
+Une première mesure annonçait 4 784 groupes et 144,84 M€ : elle appariait les
+donateurs sur leur LIBELLÉ, quand la clé métier, elle, les apparie sur leur
+IDENTITÉ (`identite_donateur`). Mesurer autrement que ne compte le code, c'est
+sous-estimer — le bon chiffre est celui qui utilise la même clé.
+
+Ils restent **dans les totaux**, et sont désormais signalés dans le rapport de
+qualité (`doublons_probables_hors_cle`) et sur `methode.html`. Retirer l'objet
+de la clé n'est PAS la solution : deux subventions réellement distinctes de même
+montant à la même association la même année se fondraient — même asymétrie que
+pour les homonymes, et du mauvais côté.
+
+### 4e. Deux autres signalements ajoutés le 21/08/2026
+
+- **`nom_de_beneficiaire_numerique`** — 7 121 lignes, 1,80 Md€. La source a
+  recopié le SIREN ou le RNA dans la colonne du nom : le site affiche
+  « 911671485 » comme bénéficiaire de 911,7 M€. Identifiable mais illisible, et
+  ces lignes ne se rapprochent pas de celles du même organisme correctement
+  nommé.
+- **`nature_devinee_gros_montants`** — 166 430 lignes, 49,88 Md€ comptés comme
+  « association » parce que la source ne dit pas le contraire. On y trouve SNCF
+  Voyageurs, SNCF Réseau, l'Agence France-Presse, le Centre national du cinéma,
+  l'Association internationale de développement (Banque mondiale). **Rien n'est
+  retiré** — deviner une exclusion effacerait des associations réelles, et c'est
+  la doctrine du projet — mais la liste des vingt plus gros est dans le rapport,
+  et c'est un arbitrage métier à faire un jour.
 
 ---
 

@@ -347,12 +347,26 @@ l'historique : `git checkout 0b14348 -- data/sources`.
 
 - **La clé métier laisse passer les doublons que seul l'OBJET distingue.**
   `ville-grenoble` et `ville-grenoble-2016` publient la même subvention sous
-  « SUBVENTION PROJET » d'un côté et « MUSIQUES » de l'autre : même
-  bénéficiaire, même montant, même exercice, même donateur, deux clés. Sur tout
-  le corpus, 4 784 groupes, 6 091 lignes, 144,84 M€. Retirer l'objet de la clé
-  n'est PAS la solution : deux subventions réellement distinctes de même montant
-  à la même association la même année se fondraient — même asymétrie que pour
-  les homonymes.
+  « SUBVENTION PROJET » et « MUSIQUES » : même bénéficiaire, même donateur, même
+  exercice, même montant, deux clés. **18 369 groupes, 22 867 lignes,
+  442,62 M€** — signalés dans le rapport (`doublons_probables_hors_cle`), jamais
+  retirés : ôter l'objet de la clé fondrait deux subventions réellement
+  distinctes de même montant à la même association la même année.
+  **Mesurer avec la même clé que le code, sinon on sous-estime** : une première
+  mesure appariait les donateurs sur leur libellé et trouvait 144,84 M€, trois
+  fois moins, parce que la clé métier apparie sur `identite_donateur`.
+
+- **Le nom d'un bénéficiaire est parfois son numéro** — 7 121 lignes, 1,80 Md€,
+  dont un « 911671485 » à 911,7 M€. La source a recopié le SIREN ou le RNA dans
+  la colonne du nom. Signalé (`nom_de_beneficiaire_numerique`), pas corrigé.
+
+- **49,88 Md€ sont comptés comme « association » sur une DEVINETTE.** Quand la
+  source ne déclare pas la nature juridique, le défaut est « association » —
+  c'est le bon côté où se tromper, et c'est assumé. Mais la liste des vingt plus
+  gros (`nature_devinee_gros_montants`) contient SNCF Voyageurs, SNCF Réseau,
+  l'AFP, le CNC et l'Association internationale de développement. Ne pas
+  « corriger » sur le nom : ce serait deviner une exclusion, et effacer des
+  associations réelles. C'est un arbitrage métier, pas un correctif.
 
 - **Le compte administratif ne parle pas que d'associations.** Celui de Paris
   donne 5,5 Md€ à des établissements publics, 2,1 Md€ à des entreprises et

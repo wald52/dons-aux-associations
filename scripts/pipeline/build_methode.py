@@ -92,6 +92,38 @@ def main():
 
     rejet = next((a for a in anomalies if a["type"] == "montants_invraisemblables_exclus"), None)
     ruptures = [a for a in anomalies if a["type"] == "rupture_annuelle"]
+    par_type = {a["type"]: a for a in anomalies}
+
+    def bloc_anomalie(cle, titre, texte):
+        a = par_type.get(cle)
+        if not a:
+            return ""
+        return (f"      <li><strong>{titre}</strong> — {nb(a.get('rows', 0))} lignes, "
+                f"{eur(a.get('amount_eur'))}. {texte}</li>")
+
+    lignes_credibilite = "\n".join(filter(None, [
+        bloc_anomalie(
+            "doublons_probables_hors_cle",
+            "Des doublons que la clé métier ne voit pas",
+            "Même bénéficiaire, même donateur, même exercice, même montant, publiés "
+            "par deux sources sous des objets différents. L'objet faisant partie de "
+            "la clé, la déduplication ne les rapproche pas. Ils restent DANS les "
+            "totaux : retirer l'objet de la clé fondrait deux subventions réellement "
+            "distinctes de même montant à la même association la même année."),
+        bloc_anomalie(
+            "nom_de_beneficiaire_numerique",
+            "Des bénéficiaires dont le nom est un numéro",
+            "La source a recopié le SIREN ou le RNA dans la colonne du nom. "
+            "L'organisme est identifiable mais illisible, et ne se rapproche pas de "
+            "ses propres lignes correctement nommées."),
+        bloc_anomalie(
+            "nature_devinee_gros_montants",
+            "Des bénéficiaires comptés comme associations faute de mieux",
+            "La source ne dit pas leur nature juridique : nous la devinons sur le nom, "
+            "et le défaut est « association ». On y trouve donc des sociétés et des "
+            "opérateurs publics. Rien n'est retiré — deviner une exclusion effacerait "
+            "des associations réelles — mais la liste demande un œil humain."),
+    ]))
     com = cov.get("niveaux", {}).get("commune", {})
 
     lignes_familles = "\n".join(
@@ -256,6 +288,7 @@ def main():
         re-moissonnage de la source d'origine le corrigerait.</li>
       <li><strong>{nb(flags.get('dep_unknown', 0))} versements n'ont pas de département exploitable</strong>
         et n'apparaissent donc pas sur la carte, bien qu'ils comptent dans les totaux.</li>
+{lignes_credibilite}
     </ul>
 
     <h2>Comment une association est reconnue</h2>

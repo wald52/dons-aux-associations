@@ -97,9 +97,16 @@ def main():
         "kinds": collections.Counter(),
         "n": 0, "montant": 0.0, "ecarte": 0.0, "annees": set(),
         "echelons": set(), "donateurs": set(),
+        # Qui finance vraiment cette association, et pour combien.
+        "par_donateur": collections.Counter(),
         "siren": None, "rna": None, "norm": None,
     })
     natures = []
+    # Dernier exercice où CHAQUE donateur publie encore, tous bénéficiaires
+    # confondus. Sans cela, une association qui disparaît des données ne se
+    # distingue pas d'un financeur qui a cessé de publier — et le site dirait
+    # « elle a perdu ses subventions » là où il ne sait rien.
+    dernier_exercice_donateur = {}
     for i in range(n):
         bid = benef_id(col["beneficiary_siren"][i], col["beneficiary_rna"][i],
                        col["beneficiary_name_norm"][i], col["beneficiary_dep_code"][i])
@@ -111,8 +118,9 @@ def main():
         g["kinds"][col["beneficiary_kind"][i]] += 1
         g["n"] += 1
         # Le cumul d'un bénéficiaire suit la même règle que les totaux du site,
-        # celle de `common.py`. Le cumul ne retient que les DONS votés : une prestation facturée par
-        # l'association n'est pas un soutien, et le payé se lit à part.
+        # celle de `common.py` : les DONS votés, et eux seuls. Une prestation
+        # facturée par l'association n'est pas un soutien, et le payé se lit
+        # à part.
         nature = C.nature_du_concours(col["purpose_norm"][i],
                                       col["quality_flags"][i])[0]
         natures.append(nature)
@@ -120,6 +128,14 @@ def main():
                                     col["beneficiary_kind"][i],
                                     col["beneficiary_kind_provenance"][i], nature):
             g["montant"] += col["amount_eur"][i] or 0.0
+            # Le principal financeur se mesure sur les mêmes euros que le
+            # cumul affiché : les dons votés, et eux seuls.
+            ident = C.identite_donateur(col["donor_name_raw"][i]) or "?"
+            g["par_donateur"][ident] += col["amount_eur"][i] or 0.0
+            if col["year"][i]:
+                precedent = dernier_exercice_donateur.get(ident)
+                if precedent is None or col["year"][i] > precedent:
+                    dernier_exercice_donateur[ident] = col["year"][i]
         g["ecarte"] += col["amount_rejected_eur"][i] or 0.0
         if col["year"][i]:
             g["annees"].add(col["year"][i])
@@ -136,6 +152,32 @@ def main():
     rows = []
     for bid, g in groups.items():
         annees = sorted(g["annees"])
+
+        # DÉPENDANCE — quelle part du financement vient du principal financeur.
+        # C'est la question que le corpus permet de poser et qu'aucun guichet ne
+        # pose : une association financée à 95 % par une seule collectivité ne
+        # vit pas la même vie qu'une association qui a cinq financeurs.
+        total_donateurs = sum(g["par_donateur"].values())
+        principal, montant_principal = (g["par_donateur"].most_common(1) or [(None, 0.0)])[0]
+        part = (round(100.0 * montant_principal / total_donateurs, 1)
+                if total_donateurs > 0 else None)
+
+        # Jusqu'à quel exercice ses financeurs publient-ils encore ? C'est une
+        # information brute, offerte au lecteur, PAS un verdict.
+        #
+        # Un indicateur de « décrochage » a été essayé ici — l'association
+        # n'apparaît plus alors que ses financeurs publient toujours — puis
+        # ABANDONNÉ : il désignait 202 380 bénéficiaires, la moitié du corpus.
+        # Il ne distinguait rien, parce qu'une association qui cesse de toucher
+        # une subvention est le cas ordinaire, et que le plus gros financeur de
+        # presque tout le monde (l'État) publie jusqu'en 2027. Le site ne dira
+        # donc jamais « elle a perdu ses subventions » : il montre la dernière
+        # année où on la voit et la dernière année où ses financeurs publient,
+        # et laisse conclure.
+        dernier_financeur = max(
+            (dernier_exercice_donateur.get(d) or 0 for d in g["par_donateur"]),
+            default=0)
+
         rows.append({
             "benef_id": bid,
             "nom": g["noms"].most_common(1)[0][0],
@@ -151,6 +193,9 @@ def main():
             "nb_echelons": len(g["echelons"]),
             "echelons": ",".join(sorted(g["echelons"])),
             "nb_donateurs": len(g["donateurs"]),
+            "donateur_principal": principal,
+            "part_principal_pct": part,
+            "financeurs_publient_jusqu_a": dernier_financeur or None,
         })
     rows.sort(key=lambda r: r["nom_norm"])
 
@@ -162,6 +207,8 @@ def main():
         ("annee_min", pa.int32()), ("annee_max", pa.int32()),
         ("nb_echelons", pa.int8()), ("echelons", pa.string()),
         ("nb_donateurs", pa.int32()),
+        ("donateur_principal", pa.string()), ("part_principal_pct", pa.float32()),
+        ("financeurs_publient_jusqu_a", pa.int32()),
     ])
     tb = pa.Table.from_pylist(rows, schema=schema_b)
     os.makedirs(OUT, exist_ok=True)

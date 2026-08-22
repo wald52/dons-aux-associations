@@ -1012,8 +1012,25 @@ ROLES_COLONNES = {
          # d'où les disqualifiants `insee`, `commune`, `ville`, `adresse`,
          # `postal` : sans eux, il attraperait `tiers_commune_insee` et le
          # bénéficiaire serait lu dans un code géographique.
-         ("tiers",), ("nom",)],
-        ("attribuant", "demandeur", "dataset", "prenom", "categorie", "nature",
+         ("tiers",),
+         # Quatre graphies relevées dans les jeux ÉCARTÉS des manifestes, donc
+         # mesurées et non supposées (cf. RESTE-A-FAIRE.md §1d) :
+         #   `beneficiare`   faute de frappe de la Ville de Rennes, dans ses
+         #                   comptes administratifs d'équipement ;
+         #   `organismes`    Agglopolys et la Ville de Blois — le singulier
+         #                   était reconnu, le pluriel non ;
+         #   `attributaires` celui à qui la subvention est attribuée, Blois 2018 ;
+         #   `noms`          Blois 2023, pluriel du repli le plus général.
+         # Gain mesuré : 10 jeux, 0 régression sur les 876 jeux de colonnes
+         # connus. Dont une collectivité et une intercommunalité NOUVELLES.
+         ("beneficiare",), ("organismes",), ("attributaire",), ("attributaires",),
+         ("noms",),
+         ("nom",)],
+        # « financeur » disqualifie : `organismes_financeurs` est celui qui
+        # PAIE. Sans lui, le motif `organismes` lisait le bénéficiaire dans la
+        # colonne du donateur — une inversion silencieuse.
+        ("attribuant", "attribuants", "financeur", "financeurs",
+         "demandeur", "dataset", "prenom", "categorie", "nature",
          "juridique", "type", "code", "numero", "siret", "siren", "id",
          "insee", "commune", "ville", "adresse", "postal"),
     ),
