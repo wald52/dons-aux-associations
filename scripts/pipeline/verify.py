@@ -272,6 +272,79 @@ def main():
         check("index : aucun bénéficiaire orphelin", orphelins == 0)
         check("index : total des shards = table canonique", vrows == n)
 
+    # 11. Dénominateur, angle mort et totaux de contrôle (phase 10) ----------
+    #
+    # Ces trois jeux disent ce que le site NE VOIT PAS. Le risque qu'ils font
+    # courir est unique en son genre : qu'un de leurs montants finisse par se
+    # glisser dans les totaux du site. Le premier contrôle ne vérifie donc pas
+    # une somme, il vérifie une SÉPARATION.
+    denom_json = os.path.join(ROOT, "data", "canonical", "denominateur.json")
+    if os.path.exists(denom_json):
+        sources = set(table.column("source_id").to_pylist())
+        check("dénominateur : aucune balance DGFiP dans la table canonique",
+              not any(s and (s.startswith("balances") or s.startswith("dgfip")
+                             or s.startswith("6574")) for s in sources),
+              f"{len(sources)} sources")
+
+        dn = json.load(open(denom_json, encoding="utf-8"))
+        for niveau, r in dn["resume"].items():
+            total_detail = sum(e["declare_eur"] for e in dn["niveaux"][niveau].values())
+            if not check(f"dénominateur : {niveau}, résumé = détail",
+                         abs(total_detail - r["declare_eur"]) <= 1,
+                         f"{total_detail:,} €"):
+                break
+        somme_exercices = sum(v["declare_eur"]
+                              for niveau in dn["par_exercice"]
+                              for v in dn["par_exercice"][niveau].values())
+        somme_resume = sum(r["declare_eur"] for r in dn["resume"].values())
+        # Les deux séries arrondissent à l'euro, l'une par exercice et l'autre
+        # par collectivité : sur 36 000 collectivités, quelques centaines
+        # d'euros d'écart d'arrondi sont attendus et ne signalent rien.
+        tolerance = max(1000, somme_resume * 1e-8)
+        check("dénominateur : séries annuelles = totaux par échelon",
+              abs(somme_exercices - somme_resume) <= tolerance,
+              f"{somme_exercices:,} €, écart {somme_exercices - somme_resume:,} €")
+        # Ce que le site connaît d'une collectivité ne peut pas dépasser ce
+        # qu'il connaît en tout : un rapprochement qui gonfle serait un
+        # double comptage.
+        connu_total = sum(r["site_vote_eur"] for r in dn["resume"].values())
+        check("dénominateur : connu du site ≤ total voté du site",
+              connu_total <= somme_can + 1,
+              f"{connu_total:,} € rapprochés sur {somme_can:,.0f} €")
+
+    am_json = os.path.join(ROOT, "data", "canonical", "angle-mort.json")
+    if os.path.exists(am_json):
+        am = json.load(open(am_json, encoding="utf-8"))
+        check("angle mort : reconnus + non reconnus = organismes",
+              am["reconnus"] + am["non_reconnus"] == am["organismes"],
+              f"{am['organismes']:,} organismes")
+        check("angle mort : un organisme dépose au moins une fois",
+              am["organismes"] <= am["depots"],
+              f"{am['depots']:,} dépôts")
+        check("angle mort : les reconnus le sont par un identifiant du site",
+              am["reconnus_par_siren"] <= am["index_du_site"]["siren"]
+              and am["reconnus_par_rna_seul"] <= am["index_du_site"]["rna"])
+        somme_types = sum(v["organismes"] for v in am["par_type"].values())
+        check("angle mort : ventilation par nature complète",
+              somme_types == am["organismes"], f"{somme_types:,}")
+
+    tc_json = os.path.join(ROOT, "data", "canonical", "totaux-controle.json")
+    if os.path.exists(tc_json):
+        tc = json.load(open(tc_json, encoding="utf-8"))
+        verse = tc["series"].get("T_7301.D751", {}).get("valeurs_md_eur", {})
+        recu = tc["series"].get("T_7501.D751", {}).get("valeurs_md_eur", {})
+        communs = sorted(set(verse) & set(recu))
+        # Invariant des comptes nationaux : ce que les administrations versent
+        # aux ISBLSM est une PART de ce que les ISBLSM reçoivent, le reste
+        # venant des ménages et des entreprises. Si l'ordre s'inversait, c'est
+        # que la lecture aurait confondu les sections « Emplois » et
+        # « Ressources » du tableau.
+        inversions = [a for a in communs if verse[a] > recu[a] + 1e-9]
+        check("totaux de contrôle : versé par les APU ≤ reçu par les ISBLSM",
+              not inversions and len(communs) > 30,
+              f"{len(communs)} exercices comparés"
+              + (f", inversions : {inversions[:5]}" if inversions else ""))
+
     print()
     failed = [r for r in results if not r[1]]
     print(f"  {len(results) - len(failed)}/{len(results)} contrôles passés")

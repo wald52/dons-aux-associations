@@ -20,6 +20,13 @@ python3 scripts/pipeline/build_carte.py       | tail -2
 python3 scripts/pipeline/build_aggregates.py  | tail -3
 python3 scripts/pipeline/build_search_index.py | tail -4
 python3 scripts/pipeline/build_couverture.py  | tail -7
+
+# Le dénominateur et l'angle mort disent ce que le site NE VOIT PAS. Ils ne
+# touchent pas à la table canonique et ne sont sommés avec rien ; le second lit
+# l'index de recherche, il vient donc après lui. `build_methode.py` les lit tous
+# les deux et passe en dernier des constructions.
+python3 scripts/pipeline/build_denominateur.py | tail -6
+python3 scripts/pipeline/build_angle_mort.py   | tail -5
 python3 scripts/pipeline/build_methode.py     | tail -2
 
 # Les contrôles viennent EN DERNIER : plusieurs d'entre eux comparent l'index

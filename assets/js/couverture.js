@@ -220,6 +220,220 @@
     t.appendChild(tbody);
   }
 
+  /* ------------------------------------------------------------------------
+   * Le dénominateur : ce que les collectivités déclarent à la DGFiP.
+   *
+   * Ces montants ne sont JAMAIS ajoutés à ceux du site : ils ne nomment aucun
+   * bénéficiaire, et les sommer compterait deux fois le même argent. Ils ne
+   * servent qu'à mettre un dénominateur sous la couverture.
+   * --------------------------------------------------------------------- */
+
+  function montant(eur) {
+    if (!eur) return "—";
+    if (Math.abs(eur) >= 1e9) {
+      return (eur / 1e9).toFixed(2).replace(".", ",") + " Md€";
+    }
+    return fmt.format(Math.round(eur / 1e6)) + " M€";
+  }
+
+  function pourcent(p) {
+    return p == null ? "—" : p.toFixed(1).replace(".", ",") + " %";
+  }
+
+  /** Jauge d'une part, avec sa valeur écrite à côté : une barre seule ne dit
+   *  rien à qui ne la voit pas, et une part au-dessus de 100 % est réelle. */
+  function cellulePart(p) {
+    var td = el("td", "num");
+    if (p == null) { td.textContent = "—"; return td; }
+    var jauge = el("div", "jauge jauge-part");
+    var seg = el("i");
+    seg.style.width = Math.min(p, 100) + "%";
+    seg.style.backgroundColor = "var(--etat-ok)";
+    jauge.appendChild(seg);
+    td.appendChild(el("span", null, pourcent(p)));
+    td.appendChild(jauge);
+    return td;
+  }
+
+  function ligneTableau(cellules, entete) {
+    var tr = el("tr");
+    cellules.forEach(function (c) {
+      if (c && c.nodeType === 1) { tr.appendChild(c); return; }
+      tr.appendChild(el(entete ? "th" : "td", null, c));
+    });
+    return tr;
+  }
+
+  function dessinerDenominateur() {
+    var d = etat.denominateur;
+    if (!d) return;
+    var r = d.resume;
+
+    var hote = $("#denominateur-resume");
+    vider(hote);
+    var communes = r.commune;
+    [[fmt.format(communes.declarants),
+      "communes déclarent un compte 6574 sur " + fmt.format(communes.univers) +
+      " (" + communes.exercices[0] + "-" + communes.exercices[1] + ")"],
+     [montant(communes.declare_eur),
+      "déclarés par ces communes sur la période"],
+     [montant(communes.site_vote_eur),
+      "connus du site, soit " + pourcent(communes.part_connue_pct) + " de ce montant"],
+     [fmt.format(communes.connus_du_site),
+      "communes dont le site connaît au moins un versement nominatif"]
+    ].forEach(function (paire) {
+      var bloc = el("div", "compteur");
+      bloc.appendChild(el("span", "valeur", paire[0]));
+      bloc.appendChild(el("span", "etiquette", paire[1]));
+      hote.appendChild(bloc);
+    });
+
+    var t = $("#table-denominateur");
+    vider(t);
+    var thead = el("thead");
+    thead.appendChild(ligneTableau(
+      ["Échelon", "Exercices", "Collectivités qui déclarent", "Dont connues du site",
+       "Déclaré (compte 6574)", "Connu du site (voté)", "Part connue"], true));
+    t.appendChild(thead);
+    var tbody = el("tbody");
+    Object.keys(LIBELLE_NIVEAU).forEach(function (niv) {
+      var n = r[niv];
+      if (!n) return;
+      tbody.appendChild(ligneTableau([
+        LIBELLE_NIVEAU[niv],
+        n.exercices.length ? n.exercices[0] + "-" + n.exercices[1] : "—",
+        fmt.format(n.declarants) + " / " + fmt.format(n.univers),
+        fmt.format(n.connus_du_site),
+        el("td", "num montant", montant(n.declare_eur)),
+        el("td", "num montant", montant(n.site_vote_eur)),
+        cellulePart(n.part_connue_pct)
+      ]));
+    });
+    t.appendChild(tbody);
+
+    var res = $("#denominateur-reserves");
+    vider(res);
+    res.appendChild(el("b", null, "Ce rapprochement est un ordre de grandeur, pas une note. "));
+    res.appendChild(document.createTextNode(d.reserves.join(" ")));
+    res.appendChild(document.createTextNode(
+      " Une part peut dépasser 100 % sans que rien ne soit faux : une collectivité qui vote " +
+      "plus qu'elle ne mandate, ou qui publie aussi ses subventions d'investissement, " +
+      "dépasse mécaniquement son propre compte 6574. Source : " +
+      (d.source.hote || "") + ", " + fmt.format(d.source.lignes || 0) +
+      " lignes moissonnées, " + (d.source.licence || "") + "."));
+  }
+
+  function dessinerExercices() {
+    var d = etat.denominateur;
+    var t = $("#table-exercices");
+    if (!d || !t) return;
+    vider(t);
+    var thead = el("thead");
+    thead.appendChild(ligneTableau(
+      ["Exercice", "Budgets communaux déclarants", "Déclaré (6574)",
+       "Le site en connaît (voté)", "Le site en connaît (payé)", "Part connue"], true));
+    t.appendChild(thead);
+    var tbody = el("tbody");
+    var serie = d.par_exercice.commune;
+    Object.keys(serie).sort().forEach(function (an) {
+      var v = serie[an];
+      var part = v.declare_eur ? Math.round(v.site_vote_eur / v.declare_eur * 1000) / 10 : null;
+      tbody.appendChild(ligneTableau([
+        an,
+        el("td", "num", fmt.format(v.budgets)),
+        el("td", "num montant", montant(v.declare_eur)),
+        el("td", "num montant", montant(v.site_vote_eur)),
+        el("td", "num montant", montant(v.site_paye_eur)),
+        cellulePart(part)
+      ]));
+    });
+    t.appendChild(tbody);
+  }
+
+  function dessinerDenominateurDepartements() {
+    var d = etat.denominateur;
+    var t = $("#table-denominateur-departements");
+    if (!d || !t || !d.communes_par_departement) return;
+    vider(t);
+    var noms = etat.meta.departements.valeurs;
+    var thead = el("thead");
+    thead.appendChild(ligneTableau(
+      ["Département", "Communes qui déclarent", "Dont connues du site",
+       "Déclaré par les communes", "Connu du site", "Part connue"], true));
+    t.appendChild(thead);
+    var tbody = el("tbody");
+    var codes = Object.keys(d.communes_par_departement).sort(function (a, b) {
+      return d.communes_par_departement[b].declare_eur - d.communes_par_departement[a].declare_eur;
+    });
+    codes.forEach(function (code) {
+      var v = d.communes_par_departement[code];
+      tbody.appendChild(ligneTableau([
+        (noms[code] ? noms[code][0] : code) + " (" + code + ")",
+        el("td", "num", fmt.format(v.declarants) + " / " + fmt.format(v.communes)),
+        el("td", "num", fmt.format(v.connus)),
+        el("td", "num montant", montant(v.declare_eur)),
+        el("td", "num montant", montant(v.site_vote_eur)),
+        cellulePart(v.part_connue_pct)
+      ]));
+    });
+    t.appendChild(tbody);
+  }
+
+  /* ------------------------------------------------------------------------
+   * L'angle mort : les organismes tenus de déposer leurs comptes que le site
+   * ne reconnaît pas. Le croisement se fait sur les identifiants légaux, et
+   * le seuil de 153 000 € mélange dons privés et argent public — d'où un
+   * majorant, jamais un décompte d'associations subventionnées oubliées.
+   * --------------------------------------------------------------------- */
+
+  function dessinerAngleMort() {
+    var a = etat.angleMort;
+    if (!a) return;
+
+    var hote = $("#angle-mort-resume");
+    vider(hote);
+    [[fmt.format(a.organismes), "organismes ont déposé des comptes annuels (" +
+      fmt.format(a.depots) + " dépôts)"],
+     [fmt.format(a.reconnus), "sont reconnus dans les données du site, par SIREN ou RNA"],
+     [fmt.format(a.non_reconnus), "ne le sont pas, soit " +
+      pourcent(a.part_non_reconnus_pct) + " des organismes"]
+    ].forEach(function (paire) {
+      var bloc = el("div", "compteur");
+      bloc.appendChild(el("span", "valeur", paire[0]));
+      bloc.appendChild(el("span", "etiquette", paire[1]));
+      hote.appendChild(bloc);
+    });
+
+    var t = $("#table-angle-mort");
+    vider(t);
+    var thead = el("thead");
+    thead.appendChild(ligneTableau(
+      ["Nature de l'organisme", "Déposent des comptes", "Reconnus par le site",
+       "Part reconnue"], true));
+    t.appendChild(thead);
+    var tbody = el("tbody");
+    Object.keys(a.par_type).forEach(function (type) {
+      var v = a.par_type[type];
+      var part = v.organismes ? Math.round(v.reconnus / v.organismes * 1000) / 10 : null;
+      tbody.appendChild(ligneTableau([
+        type,
+        el("td", "num", fmt.format(v.organismes)),
+        el("td", "num", fmt.format(v.reconnus)),
+        cellulePart(part)
+      ]));
+    });
+    t.appendChild(tbody);
+
+    var res = $("#angle-mort-reserves");
+    vider(res);
+    res.appendChild(el("b", null, "Ce chiffre est un majorant, et le tableau le montre. "));
+    res.appendChild(document.createTextNode(
+      "Les fonds de dotation, financés par des dons privés, ne sont presque jamais reconnus — " +
+      "c'est normal, ils ne reçoivent pas de subventions. " + a.reserves.join(" ") +
+      " Source : " + (a.source.dataset || "") + " sur " + (a.source.hote || "") + ", " +
+      (a.source.licence || "") + "."));
+  }
+
   function dessinerChantiers() {
     var hote = $("#chantiers");
     vider(hote);
@@ -250,14 +464,21 @@
 
   (async function () {
     try {
+      // Le dénominateur et l'angle mort sont des ajouts : la page doit
+      // s'afficher entière même si l'un des deux manque (agrégat pas encore
+      // reconstruit). D'où le repli à null plutôt qu'un échec global.
       var res = await Promise.all([
         chargerGz("data/aggregates/couverture.json.gz"),
         chargerGz("data/aggregates/map-departements.json.gz"),
-        chargerGz("data/aggregates/meta.json.gz")
+        chargerGz("data/aggregates/meta.json.gz"),
+        chargerGz("data/aggregates/denominateur.json.gz").catch(function () { return null; }),
+        chargerGz("data/aggregates/angle-mort.json.gz").catch(function () { return null; })
       ]);
       etat.couverture = res[0];
       etat.carte = res[1];
       etat.meta = res[2];
+      etat.denominateur = res[3];
+      etat.angleMort = res[4];
       etat.moisson = etat.couverture.moisson;
       $("#chargement").remove();
       $("#application").hidden = false;
@@ -265,6 +486,10 @@
       dessinerNiveaux();
       dessinerCarte();
       dessinerTable();
+      dessinerDenominateur();
+      dessinerExercices();
+      dessinerDenominateurDepartements();
+      dessinerAngleMort();
       dessinerChantiers();
       window.__DATA_READY = true;
     } catch (e) {

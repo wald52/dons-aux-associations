@@ -126,6 +126,87 @@ def main():
     ]))
     com = cov.get("niveaux", {}).get("commune", {})
 
+    # --- les totaux de contrôle ---------------------------------------------
+    #
+    # Un total sans échelle ne veut rien dire : 149,68 Md€ cumulés, est-ce
+    # tout, ou un dixième ? La comptabilité nationale donne le seul repère
+    # officiel — D751, ce que les administrations publiques versent aux ISBLSM
+    # chaque année. La comparaison ne vaut qu'EXERCICE PAR EXERCICE : le total
+    # du site est un cumul pluriannuel, D751 est un flux annuel.
+    controle = lire("data/canonical/totaux-controle.json")
+    denom = lire_gz("data/aggregates/denominateur.json.gz")
+    bloc_controle = ""
+    serie_apu = (controle.get("series", {}).get("T_7301.D751", {})
+                 .get("valeurs_md_eur", {}))
+    if serie_apu:
+        cube = lire_gz("data/aggregates/cube.json.gz")
+        national = cube.get("national", {})
+        annees = [a for a in sorted(serie_apu) if a in national][-12:]
+        lignes_controle = []
+        for a in annees:
+            insee_md = serie_apu[a]
+            site = sum(v[1] for v in national.get(a, {}).values())
+            part = site / (insee_md * 1e9) * 100 if insee_md else None
+            lignes_controle.append(
+                f"      <tr><td>{a}</td>"
+                f"<td class='num montant'>{str(round(insee_md, 1)).replace('.', ',')}&nbsp;Md€</td>"
+                f"<td class='num montant'>{eur(site)}</td>"
+                f"<td class='num'>{('—' if part is None else str(round(part, 1)).replace('.', ',') + ' %')}</td></tr>")
+        # Un creux dans la colonne du site n'est pas une baisse des subventions :
+        # c'est un exercice dont l'annexe Jaune manque. On le dit ici plutôt que
+        # de laisser le lecteur conclure à une chute de l'argent public.
+        creux = []
+        sommet = 0.0
+        for a in annees:
+            etat_an = national.get(a, {}).get("etat", [0, 0.0])[1]
+            if sommet and etat_an < sommet / 2:
+                creux.append(a)
+            sommet = max(sommet, etat_an)
+        phrase_creux = ""
+        if creux:
+            pluriel = len(creux) > 1
+            phrase_creux = (
+                "      <p>" + ("Les exercices " if pluriel else "L'exercice ")
+                + ", ".join(creux)
+                + (" creusent" if pluriel else " creuse") + " la colonne du site&nbsp;: "
+                "ce n'est pas une baisse des subventions, mais l'absence de l'annexe Jaune "
+                "de l'État, qui pèse à elle seule les deux tiers du total"
+                + (" — le fichier de l'exercice 2022 est vide à la source."
+                   if creux == ["2022"] else
+                   ". Le fichier de l'exercice 2022 est vide à la source&nbsp;; les "
+                   "exercices les plus récents ne sont pas encore parus.")
+                + "</p>\n")
+        reserves = " ".join(controle.get("reserves", []))
+        r_denom = denom.get("resume", {}).get("commune", {})
+        phrase_denom = ""
+        if r_denom:
+            phrase_denom = (
+                f"      <p>Second repère, territorial celui-là&nbsp;: le compte 6574 des balances "
+                f"comptables de la DGFiP. {nb(r_denom.get('declarants', 0))} communes y déclarent "
+                f"{eur(r_denom.get('declare_eur'))} de subventions de fonctionnement aux "
+                f"associations entre {r_denom.get('exercices', ['', ''])[0]} et "
+                f"{r_denom.get('exercices', ['', ''])[-1]}&nbsp;; le site en connaît "
+                f"<strong>{eur(r_denom.get('site_vote_eur'))}</strong>, soit "
+                f"{str(r_denom.get('part_connue_pct', '—')).replace('.', ',')}&nbsp;%. Le détail "
+                f"échelon par échelon est sur la page "
+                f"<a href=\"couverture.html\">Ce qu'on ne sait pas</a>.</p>\n")
+        bloc_controle = f"""    <p>Un total ne veut rien dire sans échelle. Celle-ci vient des comptes nationaux
+       de l'INSEE&nbsp;: l'opération <strong>D751, «&nbsp;transferts courants aux ISBLSM&nbsp;»</strong>,
+       mesure ce que l'ensemble des administrations publiques verse chaque année aux
+       institutions sans but lucratif au service des ménages.</p>
+    <div class="table-enveloppe"><table>
+      <thead><tr><th>Exercice</th><th>Comptes nationaux (D751)</th>
+        <th>Le site retrouve (voté)</th><th>Part</th></tr></thead>
+      <tbody>
+{chr(10).join(lignes_controle)}
+      </tbody>
+    </table></div>
+    <p class="avertissement"><strong>Ces deux colonnes ne mesurent pas la même chose.</strong>
+       {html.escape(reserves)} Le rapprochement dit un ordre de grandeur, pas un taux de
+       complétude&nbsp;: une part faible sur un exercice ancien signale surtout que peu de
+       collectivités publiaient alors.</p>
+{phrase_creux}{phrase_denom}"""
+
     lignes_familles = "\n".join(
         f"      <tr><td>{html.escape(k)}</td><td class='num'>{nb(v['sources'])}</td>"
         f"<td class='num'>{nb(v['lignes'])}</td><td class='num montant'>{eur(v['montant'])}</td></tr>"
@@ -319,6 +400,9 @@ def main():
        rapprochant son nom du référentiel INSEE, et un libellé inhabituel peut échouer à
        s'apparier alors que la donnée existe. L'erreur va toujours vers la sous-estimation.
        Le détail figure sur la page <a href="couverture.html">Ce qu'on ne sait pas</a>.</p>
+
+    <h2>Par rapport à quoi&nbsp;? Les totaux de contrôle</h2>
+{bloc_controle}
 
     <h2>Reproduire ces chiffres</h2>
     <p>Le pipeline est public et reconstructible d'une commande. Chaque ligne du site porte

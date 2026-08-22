@@ -424,6 +424,33 @@
     el.appendChild(document.createTextNode("."));
   }
 
+  /** Le dénominateur, en une phrase — chargé APRÈS le premier écran.
+   *
+   *  Ces 5 Ko n'ont rien à faire sur le chemin critique : la carte doit
+   *  s'afficher sans les attendre. Mais laisser croire que les totaux du site
+   *  sont le tout serait pire que de charger un fichier de plus, d'où cette
+   *  phrase, ajoutée dès qu'elle est disponible et silencieusement omise si
+   *  l'agrégat manque. */
+  async function ajouterDenominateur() {
+    var d;
+    try {
+      d = await chargerGz("data/aggregates/denominateur.json.gz");
+    } catch (e) { return; }
+    var c = d && d.resume && d.resume.commune;
+    if (!c || !c.declare_eur) return;
+    var el = $("#avertissement");
+    if (!el) return;
+    var b = document.createElement("b");
+    b.textContent = " Et par rapport à quoi ? ";
+    el.insertBefore(b, el.lastChild.previousSibling);
+    var phrase = document.createTextNode(
+      "Toutes les communes déclarent à la DGFiP ce qu'elles versent aux associations, " +
+      "qu'elles publient ou non : " + fmtNombre.format(c.declarants) + " d'entre elles " +
+      "déclarent " + euros(c.declare_eur) + " entre " + c.exercices[0] + " et " +
+      c.exercices[1] + ", quand le site en connaît " + euros(c.site_vote_eur) + ". ");
+    el.insertBefore(phrase, el.lastChild.previousSibling);
+  }
+
   // --- démarrage -----------------------------------------------------------
 
   async function demarrer() {
@@ -446,6 +473,7 @@
 
       // Marqueur du banc de mesure : les données sont exploitables.
       window.__DATA_READY = true;
+      ajouterDenominateur();
     } catch (err) {
       var c = $("#chargement");
       if (c) c.textContent = "Chargement impossible : " + err.message;
