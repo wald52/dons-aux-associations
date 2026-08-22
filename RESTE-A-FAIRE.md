@@ -581,13 +581,52 @@ Deux choses que la spécification n'avait pas vues :
 
 La fiche est partageable par son adresse : `couverture.html#commune=35238`.
 
-### 5c. Les 3 220 gros déposants que le site ne reconnaît pas
+### 5c. L'angle mort — **CLASSÉ le 22/08/2026, et la consigne a changé**
 
-`data/canonical/angle-mort.json` liste les organismes non reconnus ayant déposé
-au moins huit exercices. Cinquante seulement sont servis. C'est une liste de
-travail : chaque nom qui devrait être là et n'y est pas désigne soit une source
-manquante, soit un identifiant perdu. **Ne pas la publier comme « associations
-oubliées »** — le seuil de 153 000 € mélange dons privés et argent public.
+**Ce paragraphe demandait un travail impossible.** Il présentait les 3 220 gros
+déposants non reconnus comme « une liste de travail » : 3 220 noms à examiner un
+par un, ce que personne ne fera jamais. Une liste n'était pas le livrable — la
+CAUSE de chaque absence l'est, et elle se calcule sans le moindre arbitrage
+humain.
+
+Les 12 938 organismes non reconnus sont désormais rangés sous six causes,
+toutes lues dans une donnée existante :
+
+| Cause | Organismes | Part |
+|---|---|---|
+| Reconnu par nom + département, sans identifiant commun | 157 | 1,2 % |
+| **Fonds de dotation ou fondation — vit de dons privés** | **3 967** | **30,7 %** |
+| Nom connu du site, mais dans un autre département | 531 | 4,1 % |
+| Aucun financeur ne publie sur ce territoire | 755 | 5,8 % |
+| **Territoire dont le site connaît moins de 1 % du 6574 communal** | **3 430** | **26,5 %** |
+| **Aucune explication automatique** | **4 098** | **31,7 %** |
+
+**68,3 % des absences s'expliquent donc toutes seules.** Le reste n'est pas une
+liste à traiter : c'est la mesure de ce qu'on ignore, et la page le dit en ces
+termes — *aucune donnée publique ne permet de savoir si un organisme donné
+reçoit de l'argent public*.
+
+#### Deux résultats négatifs, mesurés le 22/08/2026
+
+- **L'appariement par identifiant n'était pas trop strict.** On pouvait croire
+  le chiffre de 12 938 gonflé par des organismes que le site connaît sans
+  identifiant. Testé en appariant sur NOM + DÉPARTEMENT, la règle d'identité
+  que le site s'applique déjà à lui-même : **157 organismes récupérés, soit
+  1,2 %**. L'angle mort est réel.
+- **Les jeux `osop-*` du portail DILA ne disent pas l'origine des ressources.**
+  `SOURCES-RECEPTION.md` les signalait comme « une typologie d'organisation »
+  prometteuse. Vérifié : `osop-comptes-de-resultats` (68 477 lignes) ne couvre
+  que les **syndicats de salariés et d'employeurs**, et son champ `ressources`
+  est une TRANCHE (1 à 4), pas une origine. Rien à en tirer pour distinguer
+  l'argent public de l'argent privé.
+
+#### Ce qui reste possible, et qui ne demande toujours personne
+
+Les **531 « nom connu ailleurs »** sont le seul gisement d'amélioration
+technique : le Journal officiel donne le département du SIÈGE, le site celui de
+l'adresse publiée par le financeur. Les rapprocher demanderait une règle
+d'identité inter-registres, donc un risque de faux positif — à ne pas ouvrir
+sans mesurer d'abord combien de ces 531 sont de vrais homonymes.
 
 ### 5d. Le dénominateur avant 2019, hors communes — *bloqué, mesuré*
 
@@ -611,10 +650,13 @@ assumer la borne de 2019.
    connaît rien des subventions communales.
 2. ~~La fiche d'une commune (5b)~~ — **faite le 22/08/2026.** Il n'existe plus
    une seule commune sur laquelle le site n'ait rien à dire.
-3. **Les 3 220 gros déposants non reconnus (5c).** Le dernier des trois
-   chantiers ouverts par la phase 10, et le seul qui demande un œil humain
-   plutôt qu'un script : chaque nom qui devrait être là et n'y est pas désigne
-   une source manquante ou un identifiant perdu.
+3. ~~Les 3 220 gros déposants non reconnus (5c)~~ — **classés le 22/08/2026,
+   et la consigne était mauvaise.** Une liste de 3 220 noms n'est traitable par
+   personne : ce sont les CAUSES qui sont le livrable, et 68,3 % des absences
+   s'expliquent automatiquement. Leçon à retenir pour la suite : quand un
+   chantier se formule « il faudra vérifier N éléments à la main » avec N au-delà
+   de quelques dizaines, c'est le chantier qui est mal posé, pas le lecteur qui
+   manque de courage.
 4. **Décider ce que devient le site sans changement d'échelle.** Le plafond de
    couverture est atteint, et la valeur du site se déplace vers ce qu'il FAIT de
    ce qu'il a — croisements, séries, exports, lisibilité — plutôt que vers un
@@ -660,7 +702,7 @@ node scripts/bench/measure.js --label <phase>
 repartent dans l'historique.
 
 **`verify.py` vient EN DERNIER** (plusieurs contrôles comparent l'index de
-recherche à la table canonique) et **doit rester vert** : 48/49 aujourd'hui,
+recherche à la table canonique) et **doit rester vert** : 49/50 aujourd'hui,
 le seul échec étant « conservation des lignes », qui compare la table aux
 parties d'assemblage — non versionnées, donc absentes tant que les
 normaliseurs n'ont pas été rejoués.

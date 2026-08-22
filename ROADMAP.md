@@ -777,6 +777,40 @@ Quatre contrôles de plus : aucune commune perdue au découpage, chacune dans so
 département, toutes au référentiel, et la somme des fichiers servis égale le
 détail canonique. **48/49.**
 
+### 10h. L'angle mort, classé plutôt qu'énuméré (22/08/2026)
+
+`RESTE-A-FAIRE.md` §5c demandait d'examiner 3 220 déposants non reconnus un par
+un. L'utilisateur a répondu ce qu'il fallait répondre : « je ne peux pas traiter
+à la main 3 200 éléments ». **Le chantier était mal posé** — une liste n'était
+pas le livrable.
+
+Les 12 938 organismes non reconnus sont désormais rangés sous six causes,
+toutes lues dans une donnée existante, aucune devinée :
+
+| Cause | Organismes | Part |
+|---|---|---|
+| Reconnu par nom + département, sans identifiant commun | 157 | 1,2 % |
+| Fonds de dotation ou fondation — vit de dons privés | 3 967 | 30,7 % |
+| Nom connu du site, mais dans un autre département | 531 | 4,1 % |
+| Aucun financeur ne publie sur ce territoire | 755 | 5,8 % |
+| Territoire dont le site connaît moins de 1 % du 6574 communal | 3 430 | 26,5 % |
+| Aucune explication automatique | 4 098 | 31,7 % |
+
+**68,3 % des absences s'expliquent seules.** Le reste est présenté pour ce
+qu'il est : la mesure de ce qu'on ignore, avec la phrase qui va avec — aucune
+donnée publique ne permet de savoir si un organisme donné reçoit de l'argent
+public.
+
+Deux résultats négatifs mesurés en chemin : apparier sur NOM + DÉPARTEMENT ne
+récupère que 157 organismes (1,2 %), donc l'angle mort n'est pas un artefact
+d'appariement ; et les jeux `osop-*` du portail DILA ne couvrent que les
+syndicats, leur champ `ressources` étant une tranche et non une origine.
+
+Un piège de raisonnement évité au passage : classer une absence en « le site
+devrait le connaître » parce qu'un financeur publie dans le département
+sur-affirme — la Région publie, mais c'est la commune qui verse. D'où le palier
+« moins de 1 % du 6574 communal », qui explique à lui seul 3 430 absences.
+
 ---
 
 ## Phase 6 — Le gisement, tel que mesuré le 19/08/2026

@@ -782,6 +782,34 @@
       hote.appendChild(bloc);
     });
 
+    // La ventilation par CAUSE : le seul produit exploitable de ce croisement.
+    // Ranger douze mille organismes sous six causes mesurées vaut mieux que
+    // publier douze mille noms que personne ne lira.
+    var tc = $("#table-causes");
+    if (tc && a.causes) {
+      vider(tc);
+      var theadC = el("thead");
+      theadC.appendChild(ligneTableau(
+        ["Cause", "Organismes", "Part", "Ce que cela veut dire"], true));
+      tc.appendChild(theadC);
+      var tbodyC = el("tbody");
+      a.causes.forEach(function (c) {
+        var tdN = el("td", "objet");
+        tdN.appendChild(el("strong", null, c.libelle));
+        if (c.exemples && c.exemples.length) {
+          tdN.appendChild(el("span", "detail", "par exemple : " +
+            c.exemples.slice(0, 3).map(function (e) { return e.nom; }).join(", ")));
+        }
+        tbodyC.appendChild(ligneTableau([
+          tdN,
+          el("td", "num", fmt.format(c.organismes)),
+          cellulePart(c.part_pct),
+          el("td", "objet", c.explication)
+        ]));
+      });
+      tc.appendChild(tbodyC);
+    }
+
     var t = $("#table-angle-mort");
     vider(t);
     var thead = el("thead");

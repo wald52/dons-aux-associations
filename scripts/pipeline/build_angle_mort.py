@@ -82,6 +82,116 @@ RESERVES = [
 ]
 
 
+CAUSES = [
+    ("nom_et_departement",
+     "Reconnu par son nom et son département, sans identifiant commun",
+     "Le site connaît un bénéficiaire du même nom normalisé dans le même "
+     "département. C'est la règle d'identité que le site s'applique déjà à "
+     "lui-même quand une source ne donne pas de SIREN."),
+    ("financement_prive",
+     "Fonds de dotation ou fondation — vit de dons privés",
+     "Un fonds de dotation dépose ses comptes quel que soit son financement : "
+     "le seuil de 153 000 € compte les DONS autant que les subventions. Qu'il "
+     "soit absent d'un site de subventions publiques est normal, pas une lacune."),
+    ("nom_connu_ailleurs",
+     "Nom connu du site, mais dans un autre département",
+     "Le site connaît ce nom, rattaché ailleurs. Le Journal officiel donne le "
+     "département du SIÈGE, le site celui de l'adresse publiée par le "
+     "financeur : les deux divergent pour les organismes à établissements "
+     "multiples. Rapprochement possible, jamais automatique."),
+    ("territoire_sans_financeur",
+     "Aucun financeur ne publie sur ce territoire",
+     "Ni la commune, ni l'intercommunalité, ni le département, ni la région de "
+     "cet organisme ne publient de subventions exploitables. Son absence "
+     "n'apprend rien sur lui : elle redit la lacune de couverture."),
+    ("territoire_peu_couvert",
+     "Territoire dont le site connaît moins de 1 % des subventions communales",
+     "Un financeur publie quelque part dans ce département, mais pas celui qui "
+     "compte : le site y connaît moins d'un centième de ce que les communes "
+     "déclarent verser. Une association financée par sa commune y est invisible "
+     "par construction."),
+    ("inexplique",
+     "Aucune explication automatique",
+     "Ni fonds de dotation, ni homonyme ailleurs, ni territoire muet. Deux "
+     "lectures restent possibles, et AUCUNE DONNÉE PUBLIQUE NE PERMET DE "
+     "TRANCHER : l'organisme vit de dons privés — le seuil de 153 000 € les "
+     "compte — ou bien il reçoit de l'argent public que personne ne publie. "
+     "Ce n'est pas une liste de travail : c'est la mesure de ce qu'on ignore."),
+]
+
+
+def territoires_sans_financeur():
+    """Départements où AUCUN échelon ne publie de subventions exploitables.
+
+    Un organisme situé là ne peut pas être connu du site, quel que soit son
+    financement : ce n'est pas une information sur lui. La question se pose
+    par TERRITOIRE et non par commune, parce qu'un département, une
+    intercommunalité ou une région qui publie couvre les associations de tout
+    son ressort.
+    """
+    chemin = os.path.join(ROOT, "data", "canonical", "couverture.json")
+    if not os.path.exists(chemin):
+        return set()
+    cov = json.load(open(chemin, encoding="utf-8"))["niveaux"]
+    ref = C.referentiel()
+
+    couverts = set()
+    for code in cov["departement"]["detail"]:
+        couverts.add(code)
+    for code, meta in cov["region"]["detail"].items():
+        for dep, m in ref["departements"].items():
+            if m.get("reg_code") == code:
+                couverts.add(dep)
+    # Un EPCI n'a pas de département au référentiel : on le lit dans ses
+    # communes membres, qui portent son SIREN.
+    dep_de_l_epci = {}
+    for insee, m in ref["communes"].items():
+        if m.get("siren_epci"):
+            dep_de_l_epci.setdefault(m["siren_epci"], m.get("dep_code"))
+    for siren in cov["epci"]["detail"]:
+        if dep_de_l_epci.get(siren):
+            couverts.add(dep_de_l_epci[siren])
+    for insee in cov["commune"]["detail"]:
+        if ref["communes"].get(insee, {}).get("dep_code"):
+            couverts.add(ref["communes"][insee]["dep_code"])
+
+    return {d for d in ref["departements"] if d not in couverts}
+
+
+def parts_communales():
+    """Part des subventions communales que le site connaît, par département."""
+    chemin = os.path.join(ROOT, "data", "aggregates", "denominateur.json.gz")
+    if not os.path.exists(chemin):
+        return {}
+    with gzip.open(chemin, "rt", encoding="utf-8") as f:
+        d = json.load(f)
+    return {dep: v.get("part_connue_pct")
+            for dep, v in d.get("communes_par_departement", {}).items()}
+
+
+def cause_de(o, noms_site, muets, parts):
+    """Pourquoi cet organisme n'est-il pas reconnu ? Une cause, la première qui
+    s'applique — l'ordre va du plus explicatif au moins explicatif.
+
+    Aucune de ces causes n'est une devinette : chacune se lit dans une donnée
+    du site ou du dépôt. La dernière n'explique rien et le dit.
+    """
+    nom_norm = C.normalize_name(o["titre"])
+    dep = o["dep"]
+    if nom_norm and dep and dep in noms_site.get(nom_norm, ()):
+        return "nom_et_departement"
+    if o["type"] and o["type"].startswith(("Fonds de dotation", "Fondation")):
+        return "financement_prive"
+    if nom_norm in noms_site:
+        return "nom_connu_ailleurs"
+    if dep and dep in muets:
+        return "territoire_sans_financeur"
+    part = parts.get(dep)
+    if part is not None and part < 1:
+        return "territoire_peu_couvert"
+    return "inexplique"
+
+
 def normaliser_rna(v):
     """Un RNA s'écrit W suivi de 9 caractères. Les sources l'écrivent sans le W."""
     v = (v or "").strip().upper()
@@ -93,23 +203,27 @@ def normaliser_rna(v):
 
 
 def index_du_site():
-    """SIREN et RNA connus du site, avec de quoi décrire ce qu'il en sait."""
-    t = pq.read_table(INDEX, columns=["siren", "rna", "nom", "dep_code",
+    """SIREN, RNA et couples (nom, département) connus du site."""
+    t = pq.read_table(INDEX, columns=["siren", "rna", "nom", "nom_norm", "dep_code",
                                       "montant_eur", "nb_echelons"])
     sirens = {}
     rnas = {}
-    for siren, rna, nom, dep, montant, echelons in zip(
+    par_nom = collections.defaultdict(set)
+    for siren, rna, nom, nom_norm, dep, montant, echelons in zip(
             t.column("siren").to_pylist(), t.column("rna").to_pylist(),
-            t.column("nom").to_pylist(), t.column("dep_code").to_pylist(),
+            t.column("nom").to_pylist(), t.column("nom_norm").to_pylist(),
+            t.column("dep_code").to_pylist(),
             t.column("montant_eur").to_pylist(), t.column("nb_echelons").to_pylist()):
         fiche = (nom, dep, montant or 0.0, echelons or 0)
+        if nom_norm:
+            par_nom[nom_norm].add(dep)
         s = (siren or "").strip()
         if len(s) == 9 and s.isdigit():
             sirens.setdefault(s, fiche)
         r = normaliser_rna(rna)
         if r:
             rnas.setdefault(r, fiche)
-    return sirens, rnas
+    return sirens, rnas, par_nom
 
 
 def main():
@@ -121,8 +235,12 @@ def main():
         print("  index absent : lancer d'abord build_search_index.py")
         return 1
 
-    sirens_site, rnas_site = index_du_site()
-    print(f"  index du site : {len(sirens_site)} SIREN, {len(rnas_site)} RNA")
+    sirens_site, rnas_site, noms_site = index_du_site()
+    muets = territoires_sans_financeur()
+    parts = parts_communales()
+    print(f"  index du site : {len(sirens_site)} SIREN, {len(rnas_site)} RNA, "
+          f"{len(noms_site)} noms distincts")
+    print(f"  départements où aucun échelon ne publie : {len(muets)}")
 
     # Un organisme, pas un dépôt : une association qui dépose dix exercices ne
     # compte qu'une fois. La clé est le SIREN, seul identifiant présent sur
@@ -163,6 +281,11 @@ def main():
     par_type = collections.defaultdict(lambda: [0, 0])
     par_dernier_depot = collections.defaultdict(lambda: [0, 0])
     manquants_notables = []
+    # La ventilation par CAUSE est le vrai produit de ce croisement. Une liste
+    # de 12 938 noms n'est traitable par personne ; dire pourquoi chacun est
+    # absent l'est, et se calcule sans le moindre arbitrage humain.
+    par_cause = collections.Counter()
+    exemples_cause = collections.defaultdict(list)
     for siren, o in organismes.items():
         fiche = sirens_site.get(siren)
         if fiche is not None:
@@ -179,11 +302,18 @@ def main():
         par_type[o["type"] or "?"][1] += vu
         par_dernier_depot[o["dernier"] or "?"][0] += 1
         par_dernier_depot[o["dernier"] or "?"][1] += vu
+        if not vu:
+            o["cause"] = cause_de(o, noms_site, muets, parts)
+            par_cause[o["cause"]] += 1
+            if len(exemples_cause[o["cause"]]) < 12 and o["depots"] >= 8:
+                exemples_cause[o["cause"]].append(
+                    {"nom": o["titre"], "departement": o["dep"],
+                     "depots": o["depots"], "type": o["type"]})
         if not vu and o["depots"] >= 8:
             manquants_notables.append(
                 {"siren": siren, "nom": o["titre"], "departement": o["dep"],
                  "depots": o["depots"], "exercices": [o["premier"], o["dernier"]],
-                 "type": o["type"]})
+                 "type": o["type"], "cause": o["cause"]})
 
     vus = vus_par_siren + vus_par_rna
     manque = len(organismes) - vus
@@ -219,6 +349,13 @@ def main():
                             for d, v in sorted(par_departement.items())},
         "par_type": {t: {"organismes": v[0], "reconnus": v[1]}
                      for t, v in sorted(par_type.items(), key=lambda kv: -kv[1][0])},
+        "causes": [
+            {"cle": cle, "libelle": libelle, "explication": explication,
+             "organismes": par_cause.get(cle, 0),
+             "part_pct": round(par_cause.get(cle, 0) / manque * 100, 1) if manque else 0.0,
+             "exemples": exemples_cause.get(cle, [])}
+            for cle, libelle, explication in CAUSES],
+        "departements_sans_financeur": len(muets),
         "par_dernier_exercice_depose": {a: {"organismes": v[0], "reconnus": v[1]}
                                         for a, v in sorted(par_dernier_depot.items())},
     }

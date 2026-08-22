@@ -94,7 +94,7 @@ de ces chiffres n'entre jamais dans ses totaux :
 | D751 INSEE — versé par les APU aux ISBLSM en 2023 | **45,60 Md€** |
 | Ce que le site retrouve sur le même exercice | **24,0 Md€** (52,6 %) |
 
-**48 contrôles sur 49 dans `verify.py`** — le seul échec, « conservation des
+**49 contrôles sur 50 dans `verify.py`** — le seul échec, « conservation des
 lignes », demande `data/canonical/parts/`, qui n'est pas versionné.
 
 **Ce qui reste à faire est dans `RESTE-A-FAIRE.md`**, chiffré et priorisé.
@@ -736,6 +736,31 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   glisser dans la table canonique. Et une part « connue » peut dépasser 100 %
   sans que rien ne soit faux — le déclaré est un montant MANDATÉ, les totaux
   du site des montants VOTÉS (les Régions sont à 91 %, Rennes à 123 %).
+
+- **Un chantier qui se formule « vérifier N éléments à la main » est mal posé.**
+  `RESTE-A-FAIRE.md` §5c demandait d'éplucher 3 220 déposants non reconnus :
+  personne ne le fera. Le livrable n'était pas la liste mais la CAUSE de chaque
+  absence — six causes, toutes lues dans une donnée existante, qui expliquent
+  **68,3 %** des 12 938 organismes. Le reste est une mesure de ce qu'on ignore,
+  pas un arriéré de travail.
+
+- **L'angle mort n'est pas un artefact d'appariement — mesuré.** On pouvait
+  croire les 12 938 non-reconnus gonflés par des organismes connus du site sans
+  identifiant. Apparier sur NOM + DÉPARTEMENT, la règle que le site s'applique
+  déjà, n'en récupère que **157, soit 1,2 %**. Ne pas relancer cette piste.
+
+- **Les jeux `osop-*` du portail DILA ne servent à rien ici.**
+  `osop-comptes-de-resultats` (68 477 lignes) ne couvre que les SYNDICATS de
+  salariés et d'employeurs, et son champ `ressources` est une tranche (1 à 4),
+  pas une origine de financement. Aucune source ne dit, organisme par
+  organisme, s'il vit d'argent public ou de dons privés.
+
+- **Un financeur qui publie dans un département n'est pas celui qui finance
+  l'association.** Classer une absence en « le site devrait le connaître » sur
+  ce seul motif sur-affirme : la Région publie, mais c'est la commune qui verse,
+  et elle ne publie pas. D'où le palier intermédiaire « territoire dont le site
+  connaît moins de 1 % du 6574 communal », qui à lui seul explique 3 430
+  absences de plus.
 
 - **Deux géographies opposées ne partagent jamais un écran.** Les fragments
   `data/aggregates/departements/` décrivent les associations SITUÉES dans un

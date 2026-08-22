@@ -358,6 +358,13 @@ def main():
         somme_types = sum(v["organismes"] for v in am["par_type"].values())
         check("angle mort : ventilation par nature complète",
               somme_types == am["organismes"], f"{somme_types:,}")
+        # Le classement par cause doit couvrir TOUS les non reconnus : une
+        # cause oubliée ferait disparaître des organismes de la page sans que
+        # rien ne le signale.
+        somme_causes = sum(c["organismes"] for c in am.get("causes", []))
+        check("angle mort : chaque non reconnu a une cause et une seule",
+              somme_causes == am["non_reconnus"],
+              f"{somme_causes:,} classés sur {am['non_reconnus']:,}")
 
     tc_json = os.path.join(ROOT, "data", "canonical", "totaux-controle.json")
     if os.path.exists(tc_json):
