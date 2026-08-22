@@ -83,6 +83,51 @@ Conséquence à assumer : **le plafond de couverture est celui d'aujourd'hui, à
 peu de chose près.** Ce qui reste (§1d) apporte de la profondeur — des exercices
 en plus sur des collectivités déjà présentes — pas un changement d'échelle.
 
+### 1b bis. Chercher hors des deux canaux — *fait le 21/08/2026, ET ÇA A DONNÉ*
+
+La phase 7 concluait que les deux canaux étaient épuisés. C'était vrai **de la
+manière dont on cherchait** : en partant des portails connus. En partant des
+collectivités ABSENTES, on trouve autre chose.
+
+Méthode : prendre les 30 plus grosses communes sans aucune donnée (Nice,
+Montpellier, Strasbourg, Bordeaux, Lille, Toulon, Reims…), fabriquer les
+adresses plausibles de leur portail, et interroger l'API Explore. 185 domaines
+sondés.
+
+**Six portails Opendatasoft inconnus du fédérateur ET du site :**
+
+| Portail | Qui | Jeux « subvention » |
+|---|---|---|
+| `opendata.bordeaux-metropole.fr` | Bordeaux Métropole, Ville de Bordeaux, Pessac, Le Haillan | 4 |
+| `opendata.hauts-de-seine.fr` | **Département des Hauts-de-Seine** | 6 |
+| `opendata.aude.fr` | **Département de l'Aude** | 1 |
+| `data.seineouest.fr` | Grand Paris Seine Ouest | 4 |
+| `data.issy.com` | Ville d'Issy-les-Moulineaux | 9 |
+| `data.bourgesplus.fr` | Bourges Plus | 5 |
+
+Les quatre jeux de Bordeaux ont été vérifiés colonne à colonne : tous seraient
+retenus. Bordeaux est la 9ᵉ ville de France.
+
+**Et une découverte plus grosse encore : un filtre d'adresse perdait 333 jeux.**
+`ressources_csv` exigeait qu'une adresse FINISSE par « .csv ». Les points
+d'export d'API — `.../datasets/<jeu>/exports/csv`, `.../resource/493/download/` —
+ne finissent pas ainsi et servent pourtant de vrais fichiers. Mesuré sur les six
+angles de découverte : **333 jeux de 63 organisations** étaient écartés en
+silence, sans aucune trace dans le manifeste. Huit ont été testés en
+téléchargeant l'adresse réelle : **cinq servent un SCDL valide** (Bourges,
+l'Aude, Grand Paris Seine Ouest, les Hauts-de-Seine, Boulogne-Billancourt).
+
+Les deux correctifs sont dans le code. **Ils ne produisent rien tant que le
+moissonnage n'est pas rejoué** — c'est le prochain geste, et il demande de
+re-télécharger l'amont (`data/raw/` n'est pas versionné).
+
+**Ce que Nice, Montpellier, Strasbourg, Lille et Toulon ne publient pas.**
+Vérifié des deux côtés : ni portail (Strasbourg et Angers ont un portail ouvert
+avec ZÉRO jeu de subventions), ni data.gouv.fr. Seule Lille publie — et son
+adresse d'export répond du HTML. Leur absence du site n'est donc pas un défaut
+de moissonnage : **c'est une absence de publication**, et c'est à ce titre
+qu'elle doit être dite.
+
 ### 1c. Ce qui manquera toujours
 
 ### 1c. Ce qui manquera toujours

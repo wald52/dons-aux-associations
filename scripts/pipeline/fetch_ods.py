@@ -42,7 +42,9 @@ RAW = os.path.join(ROOT, "data", "raw", "ods")
 MANIFEST = os.path.join(ROOT, "data", "sources-manifest", "ods.json")
 
 # Portails vérifiés joignables. `data.opendatasoft.com` est le fédérateur : il
-# rassemble les jeux de nombreux portails qui n'exposent pas leur propre API.
+# rassemble les jeux de nombreux portails qui n'exposent pas leur propre API —
+# mais il est LOIN de tout republier : six portails ajoutés en dernier lieu ne
+# lui étaient pas connus.
 PORTAILS = [
     ("opendata.paris.fr", "Ville de Paris"),
     ("data.iledefrance.fr", "Région Île-de-France"),
@@ -91,6 +93,17 @@ PORTAILS = [
     ("lisses-grandparissud.opendatasoft.com", "Ville de Lisses"),
     ("nandy-grandparissud.opendatasoft.com", "Ville de Nandy"),
     ("saintgermainlescorbeil-grandparissud.opendatasoft.com", "Ville de Saint-Germain-lès-Corbeil"),
+    # Repérés le 21/08/2026 en partant des collectivités ABSENTES du site plutôt
+    # que des portails connus : on prend les plus grosses communes sans donnée
+    # (Nice, Montpellier, Bordeaux, Lille…) et on teste leur portail. Aucun ne
+    # figurait dans le fédérateur ni dans data.gouv.fr sous une forme lisible.
+    # Résultat : six portails, dont DEUX DÉPARTEMENTS entiers.
+    ("opendata.bordeaux-metropole.fr", "Bordeaux Métropole"),
+    ("opendata.hauts-de-seine.fr", "Département des Hauts-de-Seine"),
+    ("opendata.aude.fr", "Département de l'Aude"),
+    ("data.seineouest.fr", "Grand Paris Seine Ouest"),
+    ("data.issy.com", "Ville d'Issy-les-Moulineaux"),
+    ("data.bourgesplus.fr", "Bourges Plus"),
 ]
 
 RECHERCHES = ['search(title,"subvention")', 'search(title,"subventions")',
