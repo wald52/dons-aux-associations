@@ -446,9 +446,9 @@ n'en connaît rien » est une absence, pas le bas d'une échelle de bleus.
 Le tableau bascule avec la carte — sans cela, la nouvelle échelle n'aurait pas
 son équivalent écrit, et une couleur porterait seule l'information.
 
-### 5b. La fiche d'une commune — *détaillé le 22/08/2026, non commencé*
+### 5b. La fiche d'une commune — **FAITE le 22/08/2026**
 
-**Ce que ça change.** Aujourd'hui, un visiteur qui cherche sa commune n'obtient
+**Ce que ça a changé.** Jusqu'ici, un visiteur qui cherchait sa commune n'obtenait
 rien : ou bien elle fait partie des 90 couvertes, ou bien le site est muet. Avec
 le dénominateur, il n'y a plus AUCUNE commune sur laquelle le site n'ait rien à
 dire — 34 829 des 34 936 déclarent un compte 6574. La fiche répond enfin, pour
@@ -556,11 +556,30 @@ comme raffinement ultérieur, pas comme point de départ.
 - chaque commune est dans le fichier de SON département ;
 - aucune commune servie n'est absente du référentiel INSEE.
 
-#### Coût
+#### Ce qui a été livré, et ce que la mise en œuvre a appris
 
-Un script de découpage sur le modèle de `build_aggregates.py`, une centaine de
-lignes de JavaScript pour le sélecteur et la fiche, trois contrôles. **Une
-demi-journée**, sans aucun moissonnage ni recalcul de la table canonique.
+`build_fiches_communes.py` écrit les 101 fichiers (médiane **21,8 Ko** gzippés,
+maximum 53,1 Ko, **2,26 Mo** au total), `couverture.html` porte le sélecteur en
+deux temps et la fiche, et `verify.py` gagne **quatre** contrôles — aucune
+commune perdue au découpage, chacune dans son département, toutes au
+référentiel, et la somme des fichiers servis égale le détail canonique.
+**48 contrôles sur 49.**
+
+Deux choses que la spécification n'avait pas vues :
+
+- **Arrondir en millions affichait « 0 M€ » sur une fiche communale.** Rennes
+  2016 vaut 10 k€ de subventions connues, 2017 en vaut 125 k€ : le site les
+  montrait comme « 0 M€ », c'est-à-dire comme rien. Le formatage descend
+  désormais au millier puis à l'euro — un village déclare 1 680 €, pas
+  « 0 M€ ».
+- **Une année absente n'est pas une fusion.** La rédaction prévue disait
+  « la série commence en 2019, le plus souvent parce que la commune est née
+  d'une fusion » : c'est une devinette, et le plus souvent fausse. La balance
+  ne porte une ligne que si le compte a servi — la commune peut n'avoir rien
+  versé, avoir imputé ailleurs, ou ne pas encore exister. La fiche énonce les
+  trois causes au lieu d'en choisir une.
+
+La fiche est partageable par son adresse : `couverture.html#commune=35238`.
 
 ### 5c. Les 3 220 gros déposants que le site ne reconnaît pas
 
@@ -590,26 +609,28 @@ assumer la borne de 2019.
    disait aussi vite : la Bretagne et l'Ille-et-Vilaine bien couvertes, tout
    un quart nord-est à zéro, et 59 départements sur 101 dont le site ne
    connaît rien des subventions communales.
-2. **La fiche d'une commune sans données nominatives (5b).** La suite naturelle :
-   la carte dit maintenant qu'un département est à zéro, mais on ne peut
-   toujours rien dire d'une commune en particulier. Le détail par commune et
-   par exercice est déjà calculé, il n'est pas servi.
-3. **Décider ce que devient le site sans changement d'échelle.** Le plafond de
+2. ~~La fiche d'une commune (5b)~~ — **faite le 22/08/2026.** Il n'existe plus
+   une seule commune sur laquelle le site n'ait rien à dire.
+3. **Les 3 220 gros déposants non reconnus (5c).** Le dernier des trois
+   chantiers ouverts par la phase 10, et le seul qui demande un œil humain
+   plutôt qu'un script : chaque nom qui devrait être là et n'y est pas désigne
+   une source manquante ou un identifiant perdu.
+4. **Décider ce que devient le site sans changement d'échelle.** Le plafond de
    couverture est atteint, et la valeur du site se déplace vers ce qu'il FAIT de
    ce qu'il a — croisements, séries, exports, lisibilité — plutôt que vers un
    corpus plus gros. La phase 10 en est un exemple : elle n'a pas ajouté une
    subvention, elle a rendu mesurable ce qui manque.
-4. **Les jeux écartés à rouvrir (1d)** — le seul gisement qui ne dépende de
+5. **Les jeux écartés à rouvrir (1d)** — le seul gisement qui ne dépende de
    personne. Trois correctifs de reconnaissance (en-tête mal détecté, `beneficiare`,
    `organismes`) rouvrent ~91 jeux, mais 69 sont la Ville de Rennes : gain en
    profondeur, pas en couverture. Demande un re-moissonnage complet.
-5. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
+6. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
    l'histoire du site en dépendent.
-6. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
+7. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
    séparateurs n'a PAS été appliqué (8 lignes, 850 k€, toutes à perte). À sa
    place, deux changements de doctrine tranchés par l'utilisateur : voté et payé
    s'affichent côte à côte, et seuls les DONS entrent dans les totaux.
-7. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
+8. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
    mesurés épuisés (1a). Y revenir sans une source nouvelle serait du travail
    jetable.
 
@@ -639,7 +660,7 @@ node scripts/bench/measure.js --label <phase>
 repartent dans l'historique.
 
 **`verify.py` vient EN DERNIER** (plusieurs contrôles comparent l'index de
-recherche à la table canonique) et **doit rester vert** : 44/45 aujourd'hui,
+recherche à la table canonique) et **doit rester vert** : 48/49 aujourd'hui,
 le seul échec étant « conservation des lignes », qui compare la table aux
 parties d'assemblage — non versionnées, donc absentes tant que les
 normaliseurs n'ont pas été rejoués.

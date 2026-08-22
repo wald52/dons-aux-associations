@@ -94,7 +94,7 @@ de ces chiffres n'entre jamais dans ses totaux :
 | D751 INSEE — versé par les APU aux ISBLSM en 2023 | **45,60 Md€** |
 | Ce que le site retrouve sur le même exercice | **24,0 Md€** (52,6 %) |
 
-**44 contrôles sur 45 dans `verify.py`** — le seul échec, « conservation des
+**48 contrôles sur 49 dans `verify.py`** — le seul échec, « conservation des
 lignes », demande `data/canonical/parts/`, qui n'est pas versionné.
 
 **Ce qui reste à faire est dans `RESTE-A-FAIRE.md`**, chiffré et priorisé.
@@ -143,7 +143,8 @@ du volume.
 ├── data/
 │   ├── aggregates/             # CE QUE LE SITE CHARGE : 103 Ko au premier écran
 │   │   ├── meta / cube / top / map-departements  (.json.gz)
-│   │   └── departements/<code>.json.gz           # détail au clic, ~2,5 Ko
+│   │   ├── departements/<code>.json.gz           # détail au clic, ~2,5 Ko
+│   │   └── denominateur-communes/<dep>.json.gz   # fiches communales, ~22 Ko
 │   ├── canonical/
 │   │   ├── subventions/year=AAAA/*.parquet       # table canonique, 28 partitions
 │   │   ├── quality-report.json                   # FAIT FOI
@@ -736,6 +737,27 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   sans que rien ne soit faux — le déclaré est un montant MANDATÉ, les totaux
   du site des montants VOTÉS (les Régions sont à 91 %, Rennes à 123 %).
 
+- **Deux géographies opposées ne partagent jamais un écran.** Les fragments
+  `data/aggregates/departements/` décrivent les associations SITUÉES dans un
+  département — des BÉNÉFICIAIRES. Les fiches `denominateur-communes/`
+  décrivent la commune qui PAIE. Afficher « Rennes : 594 M€ » à côté des
+  bénéficiaires rennais ferait lire de l'argent versé comme de l'argent reçu.
+  C'est la raison pour laquelle la fiche communale est sur `couverture.html`
+  et non sur la carte d'accueil.
+
+- **Arrondir en millions efface les petites communes.** Un village déclare
+  1 680 € au compte 6574, Rennes 2016 ne compte que 10 k€ de subventions
+  connues : affichés « 0 M€ », ils se lisent comme « rien ». Le formatage des
+  montants descend donc au millier puis à l'euro. Sur une page qui va du
+  milliard au millier, une seule unité ment quelque part.
+
+- **Une année absente d'une balance n'est pas un zéro, et encore moins une
+  fusion.** La balance ne porte une ligne que si le compte a servi : la
+  commune peut n'avoir rien versé, avoir imputé ailleurs, ou ne pas encore
+  exister. 159 communes ne déclarent qu'à partir de 2019 — écrire « née d'une
+  fusion » serait une devinette, fausse la plupart du temps. On énonce les
+  trois causes.
+
 - **Une échelle continue sur une distribution en L écrase tout.** La part
   connue par département va de 0 à 84 %, mais **59 départements sur 101 sont à
   ZÉRO** et trois seulement dépassent 50 % : un dégradé linéaire aurait rendu
@@ -879,7 +901,9 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       Aucun de ces montants n'entre dans les totaux du site. Corrige au passage
       un faux positif de la couverture : 6 régions, pas 7. **44/45 contrôles.**
       Depuis le 22/08/2026, la carte de couverture porte ce dénominateur : deux
-      vues sous une bascule, « ce qui est publié » et « ce qui nous échappe ».
+      vues sous une bascule, « ce qui est publié » et « ce qui nous échappe »,
+      et **chacune des 34 829 communes déclarantes a sa fiche** (48/49
+      contrôles).
 
 Détail de chaque phase dans `ROADMAP.md`.
 
@@ -907,6 +931,7 @@ python3 scripts/pipeline/normalize_ods.py        # famille portail
 # Ce que le site NE VOIT PAS — hors table canonique, jamais sommé avec elle
 python3 scripts/pipeline/fetch_balances.py       # compte 6574 des balances DGFiP
 python3 scripts/pipeline/build_denominateur.py   # « le site connaît Y € sur X € »
+python3 scripts/pipeline/build_fiches_communes.py # découpe le dénominateur par département
 python3 scripts/pipeline/fetch_jo_comptes.py     # comptes annuels déposés au JO
 python3 scripts/pipeline/build_angle_mort.py     # croisement avec l'index (après lui)
 python3 scripts/pipeline/fetch_totaux_controle.py  # D751 des comptes nationaux

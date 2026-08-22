@@ -26,6 +26,7 @@ python3 scripts/pipeline/build_couverture.py  | tail -7
 # l'index de recherche, il vient donc après lui. `build_methode.py` les lit tous
 # les deux et passe en dernier des constructions.
 python3 scripts/pipeline/build_denominateur.py | tail -6
+python3 scripts/pipeline/build_fiches_communes.py | tail -4
 python3 scripts/pipeline/build_angle_mort.py   | tail -5
 python3 scripts/pipeline/build_methode.py     | tail -2
 

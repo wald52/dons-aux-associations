@@ -740,6 +740,43 @@ Ce que la carte montre et qu'aucun tableau ne disait aussi vite : la Bretagne
 et l'Ille-et-Vilaine bien couvertes, Paris et les Bouches-du-Rhône au-dessus de
 45 %, et tout un quart nord-est à zéro.
 
+### 10g. Une fiche pour chaque commune de France (22/08/2026)
+
+Le dénominateur disait « ce département est à 3 % » ; il ne disait rien d'une
+commune en particulier. Les 34 829 communes déclarantes sont désormais
+consultables une par une, sur `couverture.html`.
+
+**Il n'existe plus une seule commune sur laquelle le site n'ait rien à dire.**
+34 829 sur 34 936 déclarent un compte 6574 ; 82 seulement sont connues
+nommément. Pour les 34 751 autres, la fiche dit ce que personne ne disait :
+« cette commune a mandaté X € à des associations, et nous n'en connaissons
+aucune ligne — la lacune est du côté de la publication, pas du versement ».
+
+101 fichiers, médiane 21,8 Ko gzippés, chargés à la demande : le premier écran
+n'en porte rien. Sélection en deux temps (département puis commune) plutôt
+qu'une recherche par nom, dont l'index pèserait 274 Ko mesurés.
+
+**Le piège que ce chantier existe pour éviter.** Les fragments
+`data/aggregates/departements/` décrivent les associations SITUÉES dans un
+département — des bénéficiaires. La fiche communale décrit la commune qui
+PAIE. Afficher les deux au même endroit ferait lire de l'argent versé comme de
+l'argent reçu ; c'est pourquoi la fiche n'est pas sur la carte d'accueil.
+
+Deux corrections que la spécification n'avait pas prévues :
+
+- **« 0 M€ » là où il y avait une subvention.** Le formatage arrondissait tout
+  en millions : Rennes 2016 (10 k€ connus) et 2017 (125 k€) s'affichaient
+  comme rien. Il descend maintenant au millier puis à l'euro.
+- **Une année absente n'est pas une fusion.** Il était prévu d'écrire « la
+  série commence en 2019, le plus souvent parce que la commune est née d'une
+  fusion » — une devinette, et le plus souvent fausse. La balance ne porte une
+  ligne que si le compte a servi. La fiche énonce les trois causes possibles
+  au lieu d'en choisir une.
+
+Quatre contrôles de plus : aucune commune perdue au découpage, chacune dans son
+département, toutes au référentiel, et la somme des fichiers servis égale le
+détail canonique. **48/49.**
+
 ---
 
 ## Phase 6 — Le gisement, tel que mesuré le 19/08/2026

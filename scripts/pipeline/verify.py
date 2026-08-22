@@ -312,6 +312,37 @@ def main():
               connu_total <= somme_can + 1,
               f"{connu_total:,} € rapprochés sur {somme_can:,.0f} €")
 
+    # Les fiches communales servies au navigateur : le découpage ne doit ni
+    # perdre une commune, ni la ranger dans le mauvais département, ni en
+    # inventer une que le référentiel ne connaît pas.
+    fiches_dir = os.path.join(ROOT, "data", "aggregates", "denominateur-communes")
+    if os.path.isdir(fiches_dir) and os.path.exists(denom_json):
+        import gzip as _gzip
+        servies = {}
+        mal_rangees = 0
+        for chemin in sorted(glob.glob(os.path.join(fiches_dir, "*.json.gz"))):
+            dep_fichier = os.path.basename(chemin).split(".")[0]
+            with _gzip.open(chemin, "rt", encoding="utf-8") as f:
+                charge = json.load(f)
+            for code, fiche in charge["communes"].items():
+                servies[code] = fiche
+                if ref["communes"].get(code, {}).get("dep_code") != dep_fichier:
+                    mal_rangees += 1
+        detail = dn["niveaux"]["commune"]
+        check("fiches communales : aucune commune perdue au découpage",
+              len(servies) == len(detail),
+              f"{len(servies):,} servies sur {len(detail):,}")
+        check("fiches communales : chacune dans son département", mal_rangees == 0,
+              f"{mal_rangees} mal rangées")
+        inconnues = [c for c in servies if c not in ref["communes"]]
+        check("fiches communales : toutes au référentiel INSEE", not inconnues,
+              f"{len(inconnues)} hors référentiel")
+        somme_servie = sum(sum(f["d"].values()) for f in servies.values())
+        somme_detail = sum(e["declare_eur"] for e in detail.values())
+        check("fiches communales : montants = détail canonique",
+              abs(somme_servie - somme_detail) <= 1,
+              f"{somme_servie:,} €")
+
     am_json = os.path.join(ROOT, "data", "canonical", "angle-mort.json")
     if os.path.exists(am_json):
         am = json.load(open(am_json, encoding="utf-8"))
