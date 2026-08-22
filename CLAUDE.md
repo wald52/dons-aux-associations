@@ -72,11 +72,30 @@ désormais continue de 2010 à 2023, sauf l'exercice 2022 (fichier vide à la
 source).
 
 Couverture face au référentiel INSEE, et c'est un MINIMUM : **90 communes**
-sur 34 936, **31 EPCI** sur 1 335, **34 départements** sur 101, **7 régions**
+sur 34 936, **31 EPCI** sur 1 335, **34 départements** sur 101, **6 régions**
 sur 18 — 10,9 % de la population. Bordeaux, Bourges, les départements des
 Hauts-de-Seine et de l'Aude sont entrés en phase 9.
 
-**33 contrôles sur 33 dans `verify.py`.**
+(**Six régions, pas sept** : la phase 10 a retiré un faux positif. La
+Nouvelle-Aquitaine était comptée couverte à cause du SIREN de la Région
+Île-de-France, bâti sur son chef-lieu — cf. les pièges.)
+
+**Et depuis la phase 10, le site sait dire ce qui lui manque** — sans qu'aucun
+de ces chiffres n'entre jamais dans ses totaux :
+
+| Repère | Valeur |
+|---|---|
+| Communes déclarant un compte 6574 à la DGFiP (2010-2025) | **34 829** sur 34 936 |
+| Ce qu'elles déclarent | **51,10 Md€** |
+| Ce que le site en connaît | **7,60 Md€**, soit 14,9 %, par 82 communes |
+| Idem EPCI / départements / régions (2019-2025) | 11,4 % / 36,6 % / 91,1 % |
+| Organismes déposant leurs comptes au Journal officiel | **31 683** |
+| Reconnus dans l'index du site | **18 745** (59,2 %) |
+| D751 INSEE — versé par les APU aux ISBLSM en 2023 | **45,60 Md€** |
+| Ce que le site retrouve sur le même exercice | **24,0 Md€** (52,6 %) |
+
+**44 contrôles sur 45 dans `verify.py`** — le seul échec, « conservation des
+lignes », demande `data/canonical/parts/`, qui n'est pas versionné.
 
 **Ce qui reste à faire est dans `RESTE-A-FAIRE.md`**, chiffré et priorisé.
 
@@ -128,7 +147,10 @@ du volume.
 │   ├── canonical/
 │   │   ├── subventions/year=AAAA/*.parquet       # table canonique, 28 partitions
 │   │   ├── quality-report.json                   # FAIT FOI
-│   │   └── coverage.json
+│   │   ├── coverage.json
+│   │   ├── denominateur.json                     # 6574 DGFiP, JAMAIS sommé
+│   │   ├── angle-mort.json                       # comptes déposés au JO
+│   │   └── totaux-controle.json                  # D751 des comptes nationaux
 │   ├── referentiel/            # univers INSEE (communes, EPCI, dépts, régions)
 │   ├── geo/*.geojson.gz        # contours, source de la carte
 │   └── raw/                    # téléchargements bruts — NON versionné
@@ -638,6 +660,82 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   fait lire tout le PLF 2025 en latin-1, avec un en-tête illisible et 112 722
   lignes perdues.
 
+- **Le SIREN d'une RÉGION ne porte pas son code** — il est bâti sur le
+  département de son CHEF-LIEU. `237500079` est la Région Île-de-France, et
+  lire « 75 » comme un code de région en fait la Nouvelle-Aquitaine. C'est
+  exactement ce qui se passait : la carte de couverture affichait la
+  Nouvelle-Aquitaine « données présentes » avec zéro versement et zéro euro,
+  le faux positif que cette page existe pour empêcher. Les régions fusionnées
+  de 2016 commencent en plus par 20 (Normandie, 200053403). **Une région se
+  reconnaît par son nom.** La règle des départements, elle, est vraie
+  (22 + code) et n'est écrite qu'une fois, dans `code_departement_du_siren`.
+
+- **`like '6574%'` n'est PAS un préfixe dans l'ODSQL d'Opendatasoft.** Le
+  « % » n'y est pas un joker : la comparaison porte sur le jeton entier, donc
+  la requête ne ramenait que le compte 6574 exact et laissait 65741, 65742 et
+  65748 dehors — soit tout le compte associatif des départements et des
+  régions en nomenclature M57. `startswith(compte,'6574')` est la bonne
+  écriture. Symptôme trompeur : la requête ne renvoie pas d'erreur, elle
+  renvoie un résultat plausible mais amputé.
+
+- **Dans les balances DGFiP, la colonne `insee` n'est pas le code INSEE** :
+  ce sont ses trois derniers chiffres. Le préfixe est dans `ndept`, qui n'est
+  pas non plus un code INSEE et change de forme selon le millésime : « 59 »
+  jusqu'en 2015 puis « 059 », « 02A » et « 02B » pour la Corse, et **101 à 106
+  pour l'outre-mer, dans un ordre qui n'est pas celui de l'INSEE** (103 est la
+  Martinique, 972 ; 102 la Guyane, 973). Au-delà de 100, le préfixe est
+  simplement « 97 » et le troisième chiffre est déjà dans `insee`.
+  `insee_from_parts` de `common.py` ne convient pas ici : il attend de vraies
+  colonnes COG et lit « 015 » comme un département d'outre-mer.
+
+- **Un budget annexe ne nomme pas sa collectivité, mais il porte son SIREN.**
+  « ECOLE MUSIQUE-LUDRES », « FEDER REUNION », « HIPPODROME - MARCQ-EN-BAROEUL »
+  sont des budgets de communes ou de régions, avec un pseudo-rang (9xx) qui ne
+  correspond à rien au référentiel. D'où l'appariement en DEUX PASSES de
+  `build_denominateur.py` : la première note quel SIREN désigne quelle
+  collectivité, la seconde rattache le reste par ce SIREN. 12 002 lignes non
+  rattachées au lieu de 227 038 — et rien n'est deviné, c'est la même personne
+  morale qui le dit elle-même.
+
+- **Les collectivités uniques n'ont pas de SIREN en 22.** Collectivité de
+  Corse, CTU de Martinique et de Guyane, Collectivité européenne d'Alsace,
+  Mayotte : 1,03 Md€ tombaient dans les non-rattachés. Chacune est créée par
+  une loi qui dit son territoire, d'où la table `COLLECTIVITES_UNIQUES`. Les
+  deux qui couvrent DEUX départements (Corse, Alsace) gardent un code
+  composite — « 2A+2B », « 67+68 » — plutôt qu'une répartition inventée.
+
+- **La présentation croisée nature-fonction ne peut pas prolonger le
+  dénominateur avant 2019.** Tentant, puisque les jeux par nature ne
+  remontent qu'à 2019 pour les départements, les régions et les EPCI. Vérifié
+  sur 2020, où les deux présentations coexistent : les régions concordent au
+  million près, mais les communes n'y pèsent que 2 438 M€ contre 3 044, et les
+  groupements 1 413 contre 2 255 — seules les collectivités au-dessus du seuil
+  produisent une présentation fonctionnelle. Résultat négatif à retenir.
+
+- **Le seuil de 153 000 € du dépôt de comptes mélange dons privés et
+  subventions publiques.** L'angle mort mesuré (12 938 organismes non reconnus)
+  est donc un MAJORANT, jamais « le nombre d'associations subventionnées que
+  le site rate ». La donnée le prouve elle-même : 3,5 % des fonds de dotation
+  sont reconnus contre 67,9 % des associations loi 1901, et les plus gros
+  déposants non reconnus sont des comités de la Ligue contre le cancer et des
+  associations diocésaines — financés par des dons.
+
+- **Un même code apparaît deux fois dans les tableaux des comptes nationaux**,
+  une fois en « Ressources » et une fois en « Emplois ». Prendre la première
+  occurrence venue, c'est lire ce que les associations REÇOIVENT là où on
+  croyait lire ce que l'État VERSE (63,8 contre 45,6 Md€ en 2023). D'où la
+  lecture qui suit la section en descendant les lignes. Le contrôle
+  correspondant dans `verify.py` est l'invariant : le versé par les APU reste
+  sous le reçu par les ISBLSM, toutes années confondues.
+
+- **Les montants du dénominateur ne sont JAMAIS sommés avec ceux du site.**
+  Le compte 6574 ne nomme aucun bénéficiaire ; l'ajouter aux versements
+  nominatifs compterait deux fois le même argent. `verify.py` ne vérifie pas
+  ici une somme mais une SÉPARATION : qu'aucune source `balances` n'ait pu se
+  glisser dans la table canonique. Et une part « connue » peut dépasser 100 %
+  sans que rien ne soit faux — le déclaré est un montant MANDATÉ, les totaux
+  du site des montants VOTÉS (les Régions sont à 91 %, Rennes à 123 %).
+
 - **Les CSV bruts sont désindexés** (`data/*.csv` dans `.gitignore`). Ils sont
   re-téléchargeables, URLs dans `SOURCES.md`, et leurs données sont déjà dans
   `data/sources/`. Ne pas les recommiter.
@@ -756,6 +854,16 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       **2 809 711 lignes, 658 sources, 149,68 Md€ votés**, 90 communes,
       34 départements, 7 régions. **33/33 contrôles.**
 
+- [x] **Phase 10** — le dénominateur, l'angle mort et l'échelle. Le site
+      savait « qui a reçu quoi » ; il sait maintenant dire ce qui lui manque.
+      Compte 6574 des balances comptables DGFiP (565 916 lignes, 19 jeux) :
+      **34 829 communes déclarent 51,10 Md€**, le site en connaît 7,60 Md€.
+      Comptes annuels déposés au Journal officiel (227 586 dépôts) :
+      **31 683 organismes**, dont 18 745 reconnus. D751 des comptes nationaux :
+      **45,60 Md€ versés aux ISBLSM en 2023**, dont le site retrouve 24,0 Md€.
+      Aucun de ces montants n'entre dans les totaux du site. Corrige au passage
+      un faux positif de la couverture : 6 régions, pas 7. **44/45 contrôles.**
+
 Détail de chaque phase dans `ROADMAP.md`.
 
 ---
@@ -778,6 +886,13 @@ python3 scripts/pipeline/build_couverture.py     # carte de couverture
 python3 scripts/pipeline/build_methode.py        # page sources & méthode
 python3 scripts/pipeline/fetch_ods.py            # moissonneur des portails Opendatasoft
 python3 scripts/pipeline/normalize_ods.py        # famille portail
+
+# Ce que le site NE VOIT PAS — hors table canonique, jamais sommé avec elle
+python3 scripts/pipeline/fetch_balances.py       # compte 6574 des balances DGFiP
+python3 scripts/pipeline/build_denominateur.py   # « le site connaît Y € sur X € »
+python3 scripts/pipeline/fetch_jo_comptes.py     # comptes annuels déposés au JO
+python3 scripts/pipeline/build_angle_mort.py     # croisement avec l'index (après lui)
+python3 scripts/pipeline/fetch_totaux_controle.py  # D751 des comptes nationaux
 ```
 
 En pratique on ne les lance plus un par un : `bash

@@ -1,6 +1,6 @@
 # Ce qui reste à faire
 
-État arrêté au **22/08/2026**, après la phase 9. Chiffres mesurés, pas estimés :
+État arrêté au **22/08/2026**, après la phase 10. Chiffres mesurés, pas estimés :
 ils viennent de `data/canonical/quality-report.json`, `couverture.json`, des
 manifestes de moissonnage et du banc `bench/phase7.json`.
 
@@ -34,7 +34,10 @@ montré qu'elle ne s'ouvrira plus par moissonnage.**
 | Sources | 658 |
 | Bénéficiaires résolus | 439 803 |
 | Dont cumulant 3 échelons ou plus | 9 800 |
-| Contrôles `verify.py` | **33 / 33** |
+| Contrôles `verify.py` | **44 / 45** (le 45ᵉ demande `data/canonical/parts/`, non versionné) |
+| **Ce que déclarent les communes à la DGFiP (6574, 2010-2025)** | **51,10 Md€**, dont le site connaît **14,9 %** |
+| **Organismes déposant leurs comptes au JO** | **31 683**, dont **18 745 reconnus** |
+| **D751 INSEE — versé aux ISBLSM en 2023** | **45,60 Md€**, dont le site retrouve **24,0 Md€** |
 
 Le total baisse en gagnant 107 sources : la déduplication passe de 580 321 à
 1 064 346 lignes retirées. Les jeux rouverts republient largement ce que le site
@@ -53,13 +56,26 @@ sous-estimation (cf. `CLAUDE.md`).
 | Communes | **90** | 34 936 | 86 |
 | EPCI | **31** | 1 335 | 29 |
 | Départements | **34** | 101 | 31 |
-| Régions | **7** | 18 | 5 |
+| Régions | **6** | 18 | 5 |
 
 10,9 % de la population française. (« Repérées » ajoute les collectivités qui
 publient mais dont rien n'est encore exploité.)
 
-> **Une autre façon de poser la question, instruite le 22/08/2026 :
-> `SOURCES-RECEPTION.md`.** Au lieu de moissonner ce que les collectivités
+**Six régions et non sept** : la phase 10 a retiré un faux positif. La
+Nouvelle-Aquitaine était comptée couverte à cause du SIREN de la Région
+Île-de-France, bâti sur son chef-lieu et non sur le code de la région.
+
+**Et depuis la phase 10, cette lacune est CHIFFRÉE** : 34 829 communes
+déclarent 51,10 Md€ au compte 6574 des balances DGFiP entre 2010 et 2025, le
+site en connaît 7,60 Md€. Le détail par échelon, par exercice et par
+département est sur la page « Ce qu'on ne sait pas ».
+
+> **Une autre façon de poser la question, instruite le 22/08/2026 puis
+> ENGAGÉE le même jour : `SOURCES-RECEPTION.md`.** Ses trois options sont
+> faites (dénominateur DGFiP, angle mort du JO, totaux de contrôle INSEE) ;
+> l'impasse des PDF scannés reste une impasse.
+>
+> Pour mémoire, l'inventaire d'origine : Au lieu de moissonner ce que les collectivités
 > publient, regarder ce que les associations DÉCLARENT recevoir. Inventaire
 > vérifié des sources, avec leurs volumes mesurés — dont les 227 586 comptes
 > annuels déposés au Journal officiel (montants dans des PDF scannés : impasse),
@@ -409,26 +425,74 @@ pour les homonymes, et du mauvais côté.
 
 ---
 
+## 5. Ce que la phase 10 ouvre, et qui n'est pas fait
+
+Le dénominateur et l'angle mort sont construits ; le site n'en montre encore
+qu'une partie. Ces quatre chantiers n'ont besoin d'aucune source nouvelle —
+les données sont déjà dans le dépôt.
+
+### 5a. La carte de couverture reste binaire — *le plus visible*
+
+`data/aggregates/denominateur.json.gz` porte déjà, pour chaque département, ce
+que déclarent ses communes et ce que le site en connaît. La carte, elle,
+continue de peindre trois états. La colorer par la PART CONNUE la ferait passer
+de « publie / ne publie pas » à « le site connaît 3 % du Nord, 84 % de Paris ».
+Demande une échelle continue et sa légende, avec le même soin d'accessibilité
+que les trois états actuels (une couleur ne doit jamais porter seule
+l'information).
+
+### 5b. La fiche d'une commune sans données nominatives
+
+`data/canonical/denominateur.json` porte le détail **par commune et par
+exercice** — 34 829 communes, 13,9 Mo. Il n'est pas servi au navigateur. Une
+commune que le site ne couvre pas pourrait pourtant afficher « cette commune a
+mandaté X € à des associations en 2023, le site n'en connaît aucune ligne » :
+c'est la première fois qu'on aurait quelque chose à dire sur une commune
+absente. Demande un découpage par département, comme `data/aggregates/departements/`.
+
+### 5c. Les 3 220 gros déposants que le site ne reconnaît pas
+
+`data/canonical/angle-mort.json` liste les organismes non reconnus ayant déposé
+au moins huit exercices. Cinquante seulement sont servis. C'est une liste de
+travail : chaque nom qui devrait être là et n'y est pas désigne soit une source
+manquante, soit un identifiant perdu. **Ne pas la publier comme « associations
+oubliées »** — le seuil de 153 000 € mélange dons privés et argent public.
+
+### 5d. Le dénominateur avant 2019, hors communes — *bloqué, mesuré*
+
+Les jeux par nature ne remontent qu'à 2019 pour les départements, les régions
+et les EPCI. La présentation croisée nature-fonction couvre 2012-2021 mais
+**ne peut pas servir de substitut** : vérifié sur 2020, elle ne contient que
+les collectivités au-dessus du seuil de la présentation fonctionnelle (communes
+2 438 M€ contre 3 044, groupements 1 413 contre 2 255). Chercher ailleurs, ou
+assumer la borne de 2019.
+
+---
+
 ## Ordre recommandé
 
-*Révisé le 21/08/2026, `datasubvention` étant abandonné (1b).*
+*Révisé le 22/08/2026, après la phase 10.*
 
-1. **Décider ce que devient le site sans changement d'échelle.** C'est la
-   question à trancher avant de coder quoi que ce soit : le plafond de
+1. **Colorer la carte de couverture par la part connue (5a).** Le meilleur
+   rapport valeur / effort de la liste : la donnée est là, il ne manque que
+   l'échelle et sa légende. C'est aussi ce qui rend visible, d'un coup d'œil,
+   tout le travail de la phase 10.
+2. **Décider ce que devient le site sans changement d'échelle.** Le plafond de
    couverture est atteint, et la valeur du site se déplace vers ce qu'il FAIT de
    ce qu'il a — croisements, séries, exports, lisibilité — plutôt que vers un
-   corpus plus gros.
-2. **Les jeux écartés à rouvrir (1d)** — le seul gisement qui ne dépende de
+   corpus plus gros. La phase 10 en est un exemple : elle n'a pas ajouté une
+   subvention, elle a rendu mesurable ce qui manque.
+3. **Les jeux écartés à rouvrir (1d)** — le seul gisement qui ne dépende de
    personne. Trois correctifs de reconnaissance (en-tête mal détecté, `beneficiare`,
    `organismes`) rouvrent ~91 jeux, mais 69 sont la Ville de Rennes : gain en
    profondeur, pas en couverture. Demande un re-moissonnage complet.
-3. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
+4. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
    l'histoire du site en dépendent.
-4. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
+5. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
    séparateurs n'a PAS été appliqué (8 lignes, 850 k€, toutes à perte). À sa
    place, deux changements de doctrine tranchés par l'utilisateur : voté et payé
    s'affichent côte à côte, et seuls les DONS entrent dans les totaux.
-5. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
+6. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
    mesurés épuisés (1a). Y revenir sans une source nouvelle serait du travail
    jetable.
 
@@ -444,6 +508,9 @@ bash scripts/pipeline/tout_reconstruire.sh
 python3 scripts/pipeline/fetch_scdl.py     # data.gouv.fr
 python3 scripts/pipeline/fetch_ods.py      # 41 portails Opendatasoft
 python3 scripts/pipeline/fetch_plf_jaune.py
+python3 scripts/pipeline/fetch_balances.py        # compte 6574 DGFiP (phase 10)
+python3 scripts/pipeline/fetch_jo_comptes.py      # comptes déposés au JO
+python3 scripts/pipeline/fetch_totaux_controle.py # D751 des comptes nationaux
 
 # Le banc de mesure (CHROMIUM_PATH si Playwright cherche une révision absente) :
 node scripts/bench/measure.js --label <phase>
@@ -455,6 +522,9 @@ node scripts/bench/measure.js --label <phase>
 repartent dans l'historique.
 
 **`verify.py` vient EN DERNIER** (plusieurs contrôles comparent l'index de
-recherche à la table canonique) et **doit rester vert** : 30/30 aujourd'hui.
+recherche à la table canonique) et **doit rester vert** : 44/45 aujourd'hui,
+le seul échec étant « conservation des lignes », qui compare la table aux
+parties d'assemblage — non versionnées, donc absentes tant que les
+normaliseurs n'ont pas été rejoués.
 
 Travailler sur `main`, et seulement `main`.
