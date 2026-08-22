@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T13:47:04Z",
+  "generated_at": "2026-08-22T14:39:21Z",
   "parts": [
     "data/canonical/parts/legacy-agglo-grand-chambery.parquet",
     "data/canonical/parts/legacy-agglo-lorient.parquet",
@@ -559,8 +559,11 @@
     "data/canonical/parts/plf-jaune-2016.parquet",
     "data/canonical/parts/plf-jaune-2017.parquet",
     "data/canonical/parts/plf-jaune-2018.parquet",
+    "data/canonical/parts/plf-jaune-2019.parquet",
     "data/canonical/parts/plf-jaune-2020.parquet",
+    "data/canonical/parts/plf-jaune-2021.parquet",
     "data/canonical/parts/plf-jaune-2022.parquet",
+    "data/canonical/parts/plf-jaune-2023.parquet",
     "data/canonical/parts/plf-jaune-2025.parquet",
     "data/canonical/parts/scdl-53698e5e-6e3f129c.parquet",
     "data/canonical/parts/scdl-53698eb0-a6e5d7c5.parquet",
@@ -1059,27 +1062,27 @@
     "data/canonical/parts/scdl-6a39cee0-00682e12.parquet",
     "data/canonical/parts/scdl-6a4dbdae-42f4754e.parquet"
   ],
-  "rows_total": 2540282,
-  "amount_individual_eur": 127803651274.39,
+  "rows_total": 2809711,
+  "amount_individual_eur": 149676605084.73,
   "amount_aggregate_eur": 2081517295.54,
-  "amount_not_summed_eur": 25250127744.4,
-  "rows_not_summed": 286939,
+  "amount_not_summed_eur": 26977459098.96,
+  "rows_not_summed": 340364,
   "by_concours": {
     "don": {
-      "rows": 2459704,
-      "amount_eur": 153562395680.24
+      "rows": 2677766,
+      "amount_eur": 176467231234.16
     },
     "prestation": {
-      "rows": 71037,
-      "amount_eur": 1188886798.38
+      "rows": 121643,
+      "amount_eur": 1865193200.27
     },
     "remboursement": {
-      "rows": 1901,
-      "amount_eur": 72111806.74
+      "rows": 2644,
+      "amount_eur": 90065626.35
     },
     "nature": {
-      "rows": 7640,
-      "amount_eur": 311902028.96
+      "rows": 7658,
+      "amount_eur": 313091418.46
     }
   },
   "amount_rejected_eur": 1.750311120003872e+28,
@@ -1120,23 +1123,23 @@
     2036
   ],
   "fill_rates_percent": {
-    "beneficiary_siret": 61.4,
-    "beneficiary_siren": 69.4,
-    "beneficiary_rna": 4.5,
-    "beneficiary_commune_insee": 12.0,
-    "beneficiary_dep_code": 41.1,
-    "year": 98.1,
-    "purpose_raw": 74.2,
-    "donor_program": 46.8
+    "beneficiary_siret": 65.1,
+    "beneficiary_siren": 72.3,
+    "beneficiary_rna": 10.0,
+    "beneficiary_commune_insee": 19.0,
+    "beneficiary_dep_code": 45.7,
+    "year": 98.3,
+    "purpose_raw": 76.7,
+    "donor_program": 51.9
   },
   "departments_present": 101,
   "quality_flags": {
-    "no_rna": 2426083,
-    "no_siret": 979653,
+    "no_rna": 2528061,
+    "no_siret": 981356,
     "no_source_url": 773837,
-    "dep_unknown": 268691,
-    "beneficiary_not_association": 216250,
-    "dep_only": 154245,
+    "dep_unknown": 298590,
+    "beneficiary_not_association": 216287,
+    "dep_only": 164626,
     "year_from_label": 130193,
     "dep_from_name": 128036,
     "amount_zero": 77817,
@@ -1144,7 +1147,7 @@
     "year_missing": 48610,
     "amount_unit_suspect": 30250,
     "siret_scientific_notation": 29159,
-    "amount_negative": 11043,
+    "amount_negative": 11057,
     "texte_illisible": 4194,
     "siret_invalid": 4143,
     "aide_en_nature": 3871,
@@ -1153,9 +1156,9 @@
     "amount_implausible": 123
   },
   "deduplication": {
-    "groups_total": 2477841,
-    "collisions_same_source": 36524,
-    "rows_same_source": 98039,
+    "groups_total": 2743899,
+    "collisions_same_source": 38708,
+    "rows_same_source": 103594,
     "collisions_cross_source": 538849,
     "rows_dropped": 1064346,
     "amount_dropped": 85857908765.57,
@@ -8270,6 +8273,29 @@
         "public_body": 67
       }
     },
+    "plf-jaune-2019": {
+      "rows": 70064,
+      "amount_individual_eur": 5047862338.02,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 274495282.22,
+      "rows_not_summed": 600,
+      "years": [
+        2017
+      ],
+      "flags": {
+        "no_rna": 70064,
+        "dep_only": 10381,
+        "dep_unknown": 492,
+        "no_siret": 411,
+        "beneficiary_not_association": 6,
+        "amount_negative": 1
+      },
+      "beneficiary_kinds": {
+        "association": 69585,
+        "inconnu": 473,
+        "company": 6
+      }
+    },
     "plf-jaune-2020": {
       "rows": 92114,
       "amount_individual_eur": 6696075811.64,
@@ -8295,6 +8321,28 @@
         "public_body": 4
       }
     },
+    "plf-jaune-2021": {
+      "rows": 96746,
+      "amount_individual_eur": 7048637322.93,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 685900080.89,
+      "rows_not_summed": 29717,
+      "years": [
+        2019
+      ],
+      "flags": {
+        "no_rna": 20229,
+        "dep_unknown": 14675,
+        "no_siret": 608,
+        "beneficiary_not_association": 13,
+        "amount_negative": 9
+      },
+      "beneficiary_kinds": {
+        "association": 95094,
+        "inconnu": 1639,
+        "company": 13
+      }
+    },
     "plf-jaune-2022": {
       "rows": 95820,
       "amount_individual_eur": 8298482850.97,
@@ -8316,6 +8364,28 @@
         "association": 94301,
         "inconnu": 1504,
         "company": 15
+      }
+    },
+    "plf-jaune-2023": {
+      "rows": 102619,
+      "amount_individual_eur": 9776454149.39,
+      "amount_aggregate_eur": 0.0,
+      "amount_not_summed_eur": 766935991.45,
+      "rows_not_summed": 23108,
+      "years": [
+        2021
+      ],
+      "flags": {
+        "dep_unknown": 14732,
+        "no_rna": 11685,
+        "no_siret": 684,
+        "beneficiary_not_association": 18,
+        "amount_negative": 4
+      },
+      "beneficiary_kinds": {
+        "association": 101304,
+        "inconnu": 1297,
+        "company": 18
       }
     },
     "plf-jaune-2025": {
@@ -15194,8 +15264,8 @@
     },
     {
       "type": "doublons_internes_conserves",
-      "rows": 98039,
-      "groupes": 36524,
+      "rows": 103594,
+      "groupes": 38708,
       "commentaire": "Lignes de clé métier identique au sein d'une même source. Conservées volontairement : l'inspection montre qu'il s'agit majoritairement d'organismes homonymes distincts (23 « Maison des jeunes et de la culture » recevant la même subvention type), et non de doublons."
     },
     {

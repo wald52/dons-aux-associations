@@ -27,13 +27,13 @@ montré qu'elle ne s'ouvrira plus par moissonnage.**
 
 | | valeur |
 |---|---|
-| Lignes servies | 2 540 282 |
-| **Dons votés** | **127,80 Md€** |
+| Lignes servies | 2 809 711 |
+| **Dons votés** | **149,68 Md€** |
 | **Dons payés** (à côté, jamais additionnés) | **10,02 Md€** |
 | Ingéré mais pas un don (prestations, remboursements, nature) | 1,57 Md€ |
-| Sources | 655 |
-| Bénéficiaires résolus | 420 514 |
-| Dont cumulant 3 échelons ou plus | 9 613 |
+| Sources | 658 |
+| Bénéficiaires résolus | 439 803 |
+| Dont cumulant 3 échelons ou plus | 9 800 |
 | Contrôles `verify.py` | **33 / 33** |
 
 Le total baisse en gagnant 107 sources : la déduplication passe de 580 321 à
@@ -204,17 +204,39 @@ Même doctrine dans les deux cas : montants dans `amount_rejected_eur`, lignes
 conservées et consultables, drapeau `amount_unit_suspect`. La collectivité
 montre son activité, aucun montant douteux n'entre dans un total.
 
-**`plf-jaune-2013` (exercice 2011) — 12,30 Md€, 21 167 lignes.** Élucidé en
-phase 7 : la source publie avec la virgule décalée d'un rang. 100,0 % de ses
-montants sont multiples de 10 (75,9 % au millésime suivant) ; le rapport
-2011/2012 par SIREN pique exactement à 10,0 ; l'Orchestre de Paris passe de
-9 278 494 € en 2010 à 92 784 940 € en 2011 puis revient à 9 278 494 € en 2012 ;
-un poste Fonjep (~7 107 €) y figure à 71 070 €. L'API amont stocke bien la
-valeur gonflée : l'erreur est du publieur.
-**Levée possible** — sans habilitation ni démarche : il suffit que le publieur
-corrige son millésime, ou qu'une source tierce (les rapports annuels des
-associations concernées) confirme le facteur dix association par association.
-C'est la quarantaine la plus proche d'être levée.
+**`plf-jaune-2013` (exercice 2011) — 12,30 Md€, 21 167 lignes. LE DOSSIER EST
+COMPLET, LA DÉCISION APPARTIENT À L'UTILISATEUR.**
+
+Preuve rejouable : `python3 scripts/analyse/verifier_unite_2011.py`. Cinq
+faisceaux, tous mesurés sur la table canonique, agrégats exclus :
+
+| Comparaison, association par association | associations | médiane | quartiles |
+|---|---|---|---|
+| **2011 / 2012** | 11 382 | **10,00** | 7,38 – 11,94 |
+| **2011 / 2010** | 9 479 | **10,00** | 7,50 – 12,00 |
+| 2010 / 2012 *(témoin)* | 10 614 | 1,00 | 0,72 – 1,26 |
+| 2012 / 2013 *(témoin)* | 15 026 | 1,00 | 0,85 – 1,25 |
+| 2013 / 2014 *(témoin)* | 14 741 | 1,00 | 0,88 – 1,33 |
+| 2014 / 2015 *(témoin)* | 15 180 | 1,00 | 0,72 – 1,13 |
+
+Deux comparaisons **indépendantes** rendent exactement 10,00 ; les quatre
+témoins rendent exactement 1,00, ce qui prouve que la méthode lit 1 quand rien
+ne cloche. S'ajoutent : **100,0 % des montants de 2011 sont multiples de 10**
+(70 à 84 % les autres années — un décalage de virgule fabrique un zéro final sur
+chaque ligne) ; le montant **moyen par ligne divisé par dix vaut 58 212 €, contre
+58 251 € en 2012** — 0,07 % d'écart ; et le total divisé par dix (1,23 Md€) se
+range entre 2010 (1,48) et 2012 (1,86), alors que tel qu'il est publié il pèse
+plus que les six exercices suivants réunis.
+
+Vérifié aussi : **le publieur n'a pas corrigé**. L'API `data.economie.gouv.fr`
+sert toujours 71 070 € pour le poste Fonjep de CRESCENDO, dont l'unité est
+d'environ 7 107 €.
+
+**Ce que cela n'établit pas : notre droit de diviser.** « Pas de correction de
+montant » est la doctrine du projet. Diviser par dix 21 167 lignes sur la foi de
+notre propre analyse, c'est prendre sur nous de réécrire ce qu'un ministère a
+publié. La quarantaine tient donc tant que l'utilisateur n'a pas tranché — et
+le dossier est désormais complet pour qu'il puisse le faire.
 
 **`metropole-lyon` — 48 Md€, 9 081 lignes.** Médiane à 1 584 200 €, minimum
 100, 85 % de valeurs multiples de 100 : tout indique des centimes lus comme des

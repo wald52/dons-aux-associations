@@ -585,7 +585,21 @@ la déduplication passe de 580 321 à 1 064 346 lignes retirées (85,86 Md€). 
 jeux rouverts republient en grande partie ce que le site avait déjà ; la clé
 métier les rapproche au lieu de les compter deux fois.
 
-### 9c. Ce qui n'est pas un défaut de moissonnage
+### 9c. Trois millésimes du Jaune récupérés
+
+`openpyxl` manquant coûtait aussi trois millésimes de l'annexe Jaune : PLF 2019,
+2021 et 2023, soit les exercices **2017, 2019 et 2021** — 23,6 Md€ de
+subventions d'État absentes du site. Installé puis remoissonné, le Jaune passe
+de 10 à **13 millésimes sur 14**, et sa série devient continue de 2010 à 2023
+(2 110 M€ en 2014, 5 322 en 2017, 7 735 en 2019, 10 543 en 2021, 11 766 en
+2023). Seul l'exercice 2022 manque : le fichier du PLF 2024 est vide à la
+source.
+
+C'est ce qui explique que le total remonte à **149,68 Md€** après être descendu
+à 127,80 : la déduplication retire d'un côté ce que les millésimes retrouvés
+ajoutent de l'autre.
+
+### 9d. Ce qui n'est pas un défaut de moissonnage
 
 Nice, Montpellier, Strasbourg et Toulon ne publient pas leurs subventions —
 vérifié sur leur portail ET sur data.gouv.fr. Strasbourg et Angers ont un

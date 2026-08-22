@@ -50,24 +50,26 @@ Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 | Données exploitables | 57,75 s | **0,58 s** |
 | Mémoire JS | 1 965 Mo | **3 Mo** |
 | Balises `<script>` | 170 | **1** |
-| Lignes dans la table | 1 595 805 | **2 540 282** |
+| Lignes dans la table | 1 595 805 | **2 809 711** |
 
 (Premier écran : 113 Ko gzippés. Banc de vitesse `bench/phase7.json`, inchangé
 par la phase 9 — le volume servi n'a pas bougé.)
 
-Données : **655 sources**, **127,80 Md€ de dons VOTÉS** et **10,02 Md€ de dons
+Données : **658 sources**, **149,68 Md€ de dons VOTÉS** et **10,02 Md€ de dons
 PAYÉS** affichés côte à côte et jamais additionnés ; 1,57 Md€ ingérés mais hors
 des totaux parce que ce ne sont pas des dons (prestations facturées,
 remboursements, aides en nature), 2,08 Md€ de lignes agrégées, et la quarantaine
-d'unité. 420 514 bénéficiaires résolus, dont **9 613 cumulent au moins trois
+d'unité. 439 803 bénéficiaires résolus, dont **9 800 cumulent au moins trois
 échelons**.
 
-**Le total a BAISSÉ de 142,59 à 127,80 Md€ en gagnant 107 sources, et c'est
-normal** : la déduplication est passée de 580 321 à **1 064 346 lignes retirées**
-(85,86 Md€). Les jeux rouverts par la phase 9 sont en grande partie des
-republications de ce que le site avait déjà, et la clé métier les rapproche. Plus
-de sources, plus de couverture, moins de double compte, total plus bas et plus
-juste.
+**Deux mouvements opposés, tous deux normaux.** La déduplication est passée de
+580 321 à plus d'un million de lignes retirées : les jeux rouverts par la phase 9
+republient en grande partie ce que le site avait déjà, et la clé métier les
+rapproche au lieu de les compter deux fois. En sens inverse, trois millésimes du
+Jaune récupérés grâce à `openpyxl` (PLF 2019, 2021, 2023 — exercices 2017, 2019
+et 2021) ajoutent 23,6 Md€ d'État qui manquaient. La série du Jaune est
+désormais continue de 2010 à 2023, sauf l'exercice 2022 (fichier vide à la
+source).
 
 Couverture face au référentiel INSEE, et c'est un MINIMUM : **90 communes**
 sur 34 936, **31 EPCI** sur 1 335, **34 départements** sur 101, **7 régions**
@@ -570,6 +572,24 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   plié**, jamais par position : un millésime à venir réutilisant les mêmes
   intitulés passera sans modification.
 
+- **L'exercice 2011 du Jaune : le dossier est complet, la décision ne l'est
+  pas.** `scripts/analyse/verifier_unite_2011.py` établit le facteur dix par
+  cinq faisceaux indépendants — 2011/2012 et 2011/2010 rendent une médiane de
+  **exactement 10,00** par association, quand les quatre années témoins rendent
+  **exactement 1,00** ; 100,0 % des montants sont multiples de 10 ; la moyenne
+  par ligne divisée par dix vaut 58 212 € contre 58 251 € en 2012. Le publieur,
+  lui, n'a pas corrigé (l'API sert toujours 71 070 € pour un poste Fonjep à
+  7 107 €). **Cela ne nous donne pas le droit de diviser** : « pas de correction
+  de montant » est la doctrine, et réécrire 21 167 lignes publiées par un
+  ministère est un arbitrage qui revient à l'utilisateur. La quarantaine tient.
+
+- **Mesurer le PLF Jaune SANS exclure les agrégats donne des résultats faux.**
+  Le fichier du PLF 2012 publie le total par association ET son détail, pour le
+  même montant exactement (2 967 990 048 € des deux côtés). Le pipeline le sait
+  et marque les totaux en `aggregate` ; une requête d'analyse qui l'oublie
+  double l'exercice 2010 et fait conclure à une seconde anomalie qui n'existe
+  pas. Toute mesure sur cette famille doit porter `granularity <> 'aggregate'`.
+
 - **Ne pas se fier au numéro de PLF pour dater les données.** Le PLF 2016
   contient les subventions **2014**, pas 2015. L'année se lit dans le libellé
   de colonne (« Objet 2020 ») ou la colonne MILLESIME, et seulement à défaut
@@ -732,9 +752,9 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       qui perdait **333 jeux de 63 organisations sans laisser de trace**. Plus
       `openpyxl` absent de la machine, qui coûtait 110 fichiers XLSX.
       data.gouv.fr passe de 148 à **377 jeux retenus** (504 fichiers),
-      Opendatasoft de 371 à **407**. **2 540 282 lignes, 655 sources,
-      127,80 Md€ votés**, 90 communes, 34 départements, 7 régions.
-      **33/33 contrôles.**
+      Opendatasoft de 371 à **407**, et le Jaune de 10 à **13 millésimes sur 14**.
+      **2 809 711 lignes, 658 sources, 149,68 Md€ votés**, 90 communes,
+      34 départements, 7 régions. **33/33 contrôles.**
 
 Détail de chaque phase dans `ROADMAP.md`.
 
