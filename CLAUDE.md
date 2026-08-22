@@ -505,11 +505,36 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   `("ca",)` seul attraperait n'importe quoi. Il sert aux colonnes qui datent
   leur propre montant : `bp_2012`, `ca_2013` chez la Ville de Rennes.
 
-- **Le gisement Opendatasoft est épuisé — mesuré.** Passer le moissonneur de 11
-  à 41 portails a retenu 98 jeux de plus et n'a apporté **aucune collectivité
-  nouvelle** : le fédérateur republiait déjà tout. Les communes de Grand Paris
-  Sud, par exemple, ont bien leur portail, mais le donateur y est
-  l'agglomération. Ne pas relancer ce chantier en espérant de la couverture.
+- **Le gisement Opendatasoft n'était PAS épuisé — la phase 7 cherchait mal.**
+  Elle partait des portails connus et concluait à l'épuisement (passer de 11 à
+  41 portails n'avait apporté aucune collectivité). En partant des
+  collectivités ABSENTES — les 30 plus grosses communes sans donnée, dont on
+  fabrique les adresses de portail plausibles — on trouve **six portails
+  inconnus du fédérateur** : Bordeaux Métropole, les départements des
+  Hauts-de-Seine et de l'Aude, Grand Paris Seine Ouest, Issy-les-Moulineaux,
+  Bourges Plus. Mesuré en bac à sable : 18 jeux, 12 870 lignes, une dizaine de
+  collectivités nouvelles. **Le fédérateur est loin de tout republier.**
+  Leçon de méthode : chercher à partir de ce qui MANQUE, pas de ce qu'on a.
+
+- **Un filtre d'adresse perdait 333 jeux de 63 organisations, sans trace.**
+  `ressources_csv` exigeait qu'une adresse finisse par « .csv ». Les points
+  d'export d'API (`.../datasets/<jeu>/exports/csv`, `.../resource/493/download/`)
+  n'y répondent pas et servent pourtant de vrais fichiers. Ces jeux
+  n'apparaissaient NI dans `datasets` NI dans `ecartes` : invisibles. Corrigé en
+  faisant confiance au format déclaré quand l'adresse ressemble à un
+  téléchargement ; ce qui répond du HTML est écarté en le disant.
+  À retenir : **un rejet qui ne laisse pas de trace est pire qu'un mauvais
+  rejet** — on ne peut même pas le mesurer.
+
+- **`fetch_ods.py --portail` écrasait le manifeste** avec le seul portail
+  demandé : les 46 autres disparaissaient du manifeste, donc de la
+  normalisation, donc du site, sans une erreur. Il fusionne désormais.
+
+- **Nice, Montpellier, Strasbourg et Toulon ne publient pas leurs subventions.**
+  Vérifié des deux côtés le 21/08/2026 : ni sur leur portail (Strasbourg et
+  Angers ont un portail ouvert avec ZÉRO jeu de subventions), ni sur
+  data.gouv.fr. Leur absence n'est pas un défaut de moissonnage, c'est une
+  absence de publication — et c'est à ce titre qu'elle doit être dite.
 
 - **`metropole-lyon` est en QUARANTAINE d'unité.** Ses 9 081 lignes totalisent
   48 Md€ quand le budget annuel de la Métropole avoisine 3,8 Md€. La médiane y

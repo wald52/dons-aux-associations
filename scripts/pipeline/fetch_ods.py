@@ -296,13 +296,29 @@ def main():
     for hote, editeur in portails:
         toutes.extend(traiter_portail(hote, editeur, args.force, args.limite))
 
+    # UN MOISSONNAGE PARTIEL NE DOIT PAS EFFACER LE RESTE. `--portail` écrivait
+    # un manifeste ne contenant que le portail demandé : les 46 autres
+    # disparaissaient du manifeste, donc de la normalisation, donc du site —
+    # sans erreur ni avertissement. On fusionne désormais avec l'existant, en
+    # remplaçant seulement ce qui vient des portails effectivement visités.
+    ancien = {}
+    if args.portail and os.path.exists(MANIFEST):
+        ancien = json.load(open(MANIFEST, encoding="utf-8"))
+    visites = {h for h, _ in portails}
+    garde = lambda x: (x.get("portail") not in visites)
+    toutes = ([x for x in ancien.get("datasets", []) if garde(x)]
+              + [x for x in ancien.get("ecartes", []) if garde(x)]
+              + toutes)
+    portails_manifeste = ({(p["hote"], p["editeur"]) for p in ancien.get("portails", [])}
+                          | set(portails)) if ancien else set(portails)
+
     retenus = [f for f in toutes if f.get("retenu")]
     os.makedirs(os.path.dirname(MANIFEST), exist_ok=True)
     with open(MANIFEST, "w", encoding="utf-8") as f:
         json.dump({
             "family": "ods",
             "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            "portails": [{"hote": h, "editeur": e} for h, e in portails],
+            "portails": [{"hote": h, "editeur": e} for h, e in sorted(portails_manifeste)],
             "jeux_examines": len(toutes),
             "jeux_retenus": len(retenus),
             "lignes_annoncees": sum(f.get("lignes") or 0 for f in retenus),

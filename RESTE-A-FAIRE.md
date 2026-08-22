@@ -117,9 +117,24 @@ silence, sans aucune trace dans le manifeste. Huit ont été testés en
 téléchargeant l'adresse réelle : **cinq servent un SCDL valide** (Bourges,
 l'Aude, Grand Paris Seine Ouest, les Hauts-de-Seine, Boulogne-Billancourt).
 
-Les deux correctifs sont dans le code. **Ils ne produisent rien tant que le
-moissonnage n'est pas rejoué** — c'est le prochain geste, et il demande de
-re-télécharger l'amont (`data/raw/` n'est pas versionné).
+**Le gain a été mesuré pour de bon**, en moissonnant les six portails dans un
+bac à sable (sans toucher au dépôt) : **29 jeux examinés, 18 retenus,
+12 870 lignes**. Ville de Bordeaux (4 160 lignes), Bourges et Bourges Plus
+(4 705), Hauts-de-Seine (2 256), Aude (123), Issy (152), Grand Paris Seine Ouest
+(116), Le Haillan et Pessac. Soit **une dizaine de collectivités nouvelles, dont
+deux départements** — le premier vrai gain de couverture depuis la phase 4.
+
+Les correctifs sont dans le code, mais **ils ne produisent rien tant que le
+pipeline n'est pas rejoué** : `data/raw/` n'est pas versionné, et
+`build_canonical.py` a besoin de TOUTES les parties, sources héritées comprises
+(`git checkout 0b14348 -- data/sources`). C'est le prochain geste, et il se
+compte en heures, pas en minutes. L'espace disque n'est pas un obstacle
+(29 Go libres mesurés).
+
+Un garde-fou a été posé pour ce jour-là : `fetch_ods.py --portail` ÉCRASAIT le
+manifeste avec le seul portail demandé, faisant disparaître les 46 autres sans
+erreur. Il fusionne désormais avec l'existant — vérifié : un moissonnage du seul
+Aude fait passer le manifeste de 371 à 372 jeux retenus, sans rien perdre.
 
 **Ce que Nice, Montpellier, Strasbourg, Lille et Toulon ne publient pas.**
 Vérifié des deux côtés : ni portail (Strasbourg et Angers ont un portail ouvert
