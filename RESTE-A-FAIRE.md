@@ -34,7 +34,7 @@ montré qu'elle ne s'ouvrira plus par moissonnage.**
 | Sources | 658 |
 | Bénéficiaires résolus | 439 803 |
 | Dont cumulant 3 échelons ou plus | 9 800 |
-| Contrôles `verify.py` | **44 / 45** (le 45ᵉ demande `data/canonical/parts/`, non versionné) |
+| Contrôles `verify.py` | **49 / 50** (le 50ᵉ demande `data/canonical/parts/`, non versionné) |
 | **Ce que déclarent les communes à la DGFiP (6574, 2010-2025)** | **51,10 Md€**, dont le site connaît **14,9 %** |
 | **Organismes déposant leurs comptes au JO** | **31 683**, dont **18 745 reconnus** |
 | **D751 INSEE — versé aux ISBLSM en 2023** | **45,60 Md€**, dont le site retrouve **24,0 Md€** |
@@ -156,12 +156,17 @@ trois familles, normalisation, assemblage, agrégats, index, contrôles. Résult
 | Sources dans la table | 548 | **655** |
 | Communes couvertes | 86 | **90** |
 | Départements | 31 | **34** |
-| Régions | 5 | **7** |
+| Régions | 5 | **7**, ramenées à **6** par la phase 10 (voir ci-dessous) |
 | Associations à 3 échelons ou plus | 6 783 | **9 613** |
 | Contrôles `verify.py` | 32/33 | **33/33** |
 
 Bordeaux (469,0 M€), Bourges (117,7 M€), les Hauts-de-Seine (318,4 M€), l'Aude,
 Issy-les-Moulineaux, Grand Paris Seine Ouest et Blois sont entrés.
+
+*Le chiffre des régions est celui du jour, et il était faux d'une unité* : la
+phase 10 a retiré la Nouvelle-Aquitaine, comptée couverte à cause du SIREN de la
+Région Île-de-France, bâti sur son chef-lieu. **Six régions, pas sept** — c'est le
+chiffre du §1 qui fait foi.
 
 Un troisième blocage a été trouvé en route : **`openpyxl` n'était pas installé**,
 ce qui écartait 110 fichiers XLSX sous un motif noyé dans la liste des raisons.
@@ -173,8 +178,6 @@ avec ZÉRO jeu de subventions), ni data.gouv.fr. Seule Lille publie — et son
 adresse d'export répond du HTML. Leur absence du site n'est donc pas un défaut
 de moissonnage : **c'est une absence de publication**, et c'est à ce titre
 qu'elle doit être dite.
-
-### 1c. Ce qui manquera toujours
 
 ### 1c. Ce qui manquera toujours
 
