@@ -446,14 +446,121 @@ n'en connaît rien » est une absence, pas le bas d'une échelle de bleus.
 Le tableau bascule avec la carte — sans cela, la nouvelle échelle n'aurait pas
 son équivalent écrit, et une couleur porterait seule l'information.
 
-### 5b. La fiche d'une commune sans données nominatives
+### 5b. La fiche d'une commune — *détaillé le 22/08/2026, non commencé*
 
-`data/canonical/denominateur.json` porte le détail **par commune et par
-exercice** — 34 829 communes, 13,9 Mo. Il n'est pas servi au navigateur. Une
-commune que le site ne couvre pas pourrait pourtant afficher « cette commune a
-mandaté X € à des associations en 2023, le site n'en connaît aucune ligne » :
-c'est la première fois qu'on aurait quelque chose à dire sur une commune
-absente. Demande un découpage par département, comme `data/aggregates/departements/`.
+**Ce que ça change.** Aujourd'hui, un visiteur qui cherche sa commune n'obtient
+rien : ou bien elle fait partie des 90 couvertes, ou bien le site est muet. Avec
+le dénominateur, il n'y a plus AUCUNE commune sur laquelle le site n'ait rien à
+dire — 34 829 des 34 936 déclarent un compte 6574. La fiche répond enfin, pour
+n'importe laquelle : « votre commune a mandaté X € à des associations en 2023,
+et le site n'en connaît aucune ligne » ou « … et le site en connaît Y € ».
+
+C'est aussi la seule pièce de la phase 10 qui parle à quelqu'un qui ne s'occupe
+pas de statistiques : un habitant, un élu, un journaliste local.
+
+#### Les chiffres, mesurés le 22/08/2026
+
+| | |
+|---|---|
+| Communes déclarantes dans `denominateur.json` | **34 829** |
+| Dont le site connaît au moins un versement nominatif | **82** — 78 en voté, 10 en payé, 6 dans les deux |
+| **Communes qui déclarent sans que le site en connaisse rien** | **34 751** |
+| Exercices déclarés par commune | médiane **16** (2010-2025), minimum 1 |
+| Communes dont le total déclaré est nul | **0** |
+
+#### Le format à produire
+
+Un fichier par département, comme `data/aggregates/departements/` déjà servi
+au clic sur la carte d'accueil :
+
+```
+data/aggregates/denominateur-communes/<dep>.json.gz
+  { "departement": "35",
+    "communes": { "35238": { "n": "Rennes",
+                             "d": {"2010": 32982947, "2011": 33977340, …},
+                             "v": {"2011": 47915270, "2012": 74562260, …},
+                             "p": {} } } }
+```
+
+`d` est le déclaré au compte 6574, `v` ce que le site connaît de voté, `p` de
+payé. Les valeurs ci-dessus sont les vraies : Rennes déclare 594,1 M€ sur
+2010-2025 et le site en connaît 728,5 M€ de voté, soit **122,6 %** — le cas
+type qui oblige à expliquer un dépassement plutôt qu'à le cacher.
+
+**Poids mesuré en simulant le découpage : 101 fichiers, médiane 21 Ko
+gzippés, maximum 52 Ko (Pas-de-Calais, 886 communes), 2,15 Mo au total.**
+Chargé à la demande, jamais au premier écran — le budget du premier écran
+(113 Ko) n'est pas touché.
+
+*Résultat négatif à ne pas refaire* : omettre les clés `v` et `p` quand elles
+sont vides ne gagne que 27 Ko sur 2,15 Mo. Gzip compresse déjà ces répétitions ;
+ça ne vaut pas la complication.
+
+#### Où la mettre, et pourquoi pas ailleurs
+
+Sur **`couverture.html`**, sous la carte. C'est là qu'on se demande « et ma
+commune ? », et cela n'ajoute ni page ni entrée de menu.
+
+**Pas sur la carte d'accueil, et c'est la vraie raison de ce paragraphe.**
+`data/aggregates/departements/<dep>.json.gz` existe déjà, mais il décrit les
+associations SITUÉES dans le département — des bénéficiaires. Le dénominateur,
+lui, décrit la commune qui PAIE. Les afficher dans le même panneau ferait lire
+« Rennes : 594 M€ » comme de l'argent reçu par des associations rennaises alors
+que c'est de l'argent versé par la ville. **Ce sont deux géographies opposées
+et elles ne doivent jamais partager un écran sans le dire.**
+
+**Sélection en deux temps plutôt qu'une recherche par nom** : un choix de
+département, puis la liste de ses communes, tirée du fichier qu'on vient de
+charger. Un index nom → code des 34 936 communes pèserait **274 Ko gzippés**
+(785 Ko bruts) : mesuré, et trop cher pour le confort qu'il apporte. À garder
+comme raffinement ultérieur, pas comme point de départ.
+
+#### Ce que la fiche doit dire, et taire
+
+- Le **déclaré par exercice**, en toutes lettres, avec la mention du compte
+  6574 et de ce qu'il recouvre (« et autres personnes de droit privé »).
+- Ce que le site en connaît, **voté et payé séparés**, jamais additionnés.
+- Quand le site ne connaît rien : le dire comme une lacune du site, pas comme
+  une absence de subventions. La formule doit distinguer « cette commune ne
+  verse rien » (faux, elle déclare) de « nous n'avons pas la donnée » (vrai).
+- Les budgets annexes sont INCLUS dans le déclaré : « ECOLE MUSIQUE-LUDRES »
+  est un budget de la commune de Ludres, rattaché par son SIREN. Une fiche qui
+  n'en dirait rien laisserait croire à une erreur quand le montant dépasse le
+  budget principal.
+- Une part **au-dessus de 100 %** est normale et doit être expliquée sur place :
+  Rennes est à 122,6 % parce que le site connaît des montants VOTÉS quand la
+  balance porte des montants MANDATÉS.
+
+#### Les pièges connus qui attendent ce chantier
+
+1. **Les communes fusionnées.** 12 002 lignes de balance (232,6 M€) ne sont
+   rattachées à aucune commune du référentiel actuel : codes INSEE historiques
+   de communes absorbées depuis, et quelques budgets annexes dont le SIREN
+   n'apparaît sur aucun budget principal. Une fiche de commune nouvelle ne
+   montrera donc pas l'historique de ses composantes. **Ne pas le reconstituer
+   au jugé** — dire que la série commence à la fusion.
+2. **Le rattachement d'un versement à une commune passe par le libellé du
+   donateur**, avec l'appariement de `build_couverture.py`, pas par une clé.
+   Une commune peut donc déclarer et avoir des versements dans le site sans
+   que les deux se rejoignent, si son libellé est inhabituel. La fiche montre
+   alors « rien de connu » à tort — dans le sens de la sous-estimation, comme
+   toujours, mais il faut le dire dans la page.
+3. **Paris est à la fois commune et département.** Sa fiche communale
+   (3,96 Md€ déclarés) ne doit pas être présentée à côté de la ligne
+   départementale sans préciser qu'avant 2019 il y avait deux collectivités.
+
+#### Contrôles à ajouter à `verify.py`
+
+- la somme des fichiers servis = le détail de `denominateur.json` (aucune
+  commune perdue au découpage) ;
+- chaque commune est dans le fichier de SON département ;
+- aucune commune servie n'est absente du référentiel INSEE.
+
+#### Coût
+
+Un script de découpage sur le modèle de `build_aggregates.py`, une centaine de
+lignes de JavaScript pour le sélecteur et la fiche, trois contrôles. **Une
+demi-journée**, sans aucun moissonnage ni recalcul de la table canonique.
 
 ### 5c. Les 3 220 gros déposants que le site ne reconnaît pas
 
