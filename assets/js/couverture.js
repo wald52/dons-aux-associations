@@ -23,7 +23,27 @@
     departement: "Départements", region: "Régions"
   };
 
+  // Classes de la vue « part connue ». Six paliers plutôt qu'un dégradé
+  // continu : sur 101 départements, 59 sont à ZÉRO et trois dépassent 50 % —
+  // un dégradé linéaire écraserait tout le reste dans la même teinte pâle.
+  // Les bornes suivent la distribution réelle, elles ne sont pas rondes par
+  // esthétique.
+  //
+  // Le zéro a sa propre couleur, grise et récessive : « le site n'en connaît
+  // rien » n'est pas le bas d'une échelle de bleus, c'est une absence. C'est
+  // la même distinction que dans l'autre vue entre « aucune donnée » et le
+  // reste.
+  var CLASSES_PART = [
+    { seuil: 0, couleur: "var(--seq-vide)", libelle: "Rien de connu" },
+    { seuil: 1, couleur: "var(--seq-1)", libelle: "moins de 1 %" },
+    { seuil: 5, couleur: "var(--seq-2)", libelle: "1 à 5 %" },
+    { seuil: 25, couleur: "var(--seq-3)", libelle: "5 à 25 %" },
+    { seuil: 50, couleur: "var(--seq-4)", libelle: "25 à 50 %" },
+    { seuil: Infinity, couleur: "var(--seq-5)", libelle: "50 % et plus" }
+  ];
+
   var etat = {};
+  var vueCarte = "etats";
 
   async function chargerGz(url) {
     var r = await fetch(url);
@@ -106,17 +126,128 @@
       hote.appendChild(bloc);
     });
 
+    dessinerLegende();
+  }
+
+  /* ------------------------------------------------------------------------
+   * Les deux vues de la carte.
+   *
+   * « états » répond à « cette collectivité publie-t-elle ? », « part connue »
+   * à « et combien nous en échappe-t-il ? ». Ce sont deux questions
+   * différentes et deux échelles de nature différente — l'une nominale, l'autre
+   * ordonnée — donc jamais la même légende ni le même dégradé.
+   * --------------------------------------------------------------------- */
+
+  function classePart(p) {
+    if (p == null) return null;
+    for (var i = 0; i < CLASSES_PART.length; i++) {
+      if (p <= 0 ? i === 0 : p < CLASSES_PART[i].seuil) return CLASSES_PART[i];
+    }
+    return CLASSES_PART[CLASSES_PART.length - 1];
+  }
+
+  function partDuDepartement(code) {
+    var d = etat.denominateur && etat.denominateur.communes_par_departement;
+    return d ? d[code] : null;
+  }
+
+  /** Peinture et description d'un département, selon la vue courante.
+   *  Retourne toujours un libellé écrit : la couleur ne porte jamais seule
+   *  l'information, ni dans l'infobulle ni pour un lecteur d'écran. */
+  function peinture(code) {
+    if (vueCarte === "part") {
+      var v = partDuDepartement(code);
+      var c = classePart(v ? v.part_connue_pct : null);
+      if (!c) {
+        return { couleur: "var(--seq-vide)", hachure: false,
+                 libelle: "aucune commune déclarante", detail: "" };
+      }
+      return {
+        couleur: c.couleur, hachure: false,
+        libelle: (v.part_connue_pct === 0 ? "rien de connu"
+                  : pourcent(v.part_connue_pct) + " de connu"),
+        detail: "les communes déclarent " + montant(v.declare_eur) +
+                ", le site en connaît " + montant(v.site_vote_eur) +
+                " · " + fmt.format(v.connus) + " commune" +
+                (v.connus > 1 ? "s" : "") + " sur " + fmt.format(v.declarants) +
+                " déclarante" + (v.declarants > 1 ? "s" : "")
+      };
+    }
+    var d = etat.couverture.departements[code];
+    var e = d ? d[0] : "sans_donnees";
+    return {
+      couleur: ETATS[e].couleur, hachure: ETATS[e].hachure,
+      libelle: ETATS[e].libelle,
+      detail: d && d[1] ? fmt.format(d[1]) + " versements" : ""
+    };
+  }
+
+  function dessinerBascule() {
+    var hote = $("#bascule-carte");
+    if (!hote) return;
+    vider(hote);
+    // Sans dénominateur, pas de seconde vue : la page reste entière et la
+    // bascule disparaît plutôt que d'offrir un bouton qui ne ferait rien.
+    if (!etat.denominateur) { hote.hidden = true; return; }
+    [["etats", "Ce qui est publié"],
+     ["part", "Ce qui nous échappe"]].forEach(function (paire) {
+      var b = el("button", null, paire[1]);
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(vueCarte === paire[0]));
+      b.addEventListener("click", function () {
+        if (vueCarte === paire[0]) return;
+        vueCarte = paire[0];
+        dessinerBascule();
+        dessinerCarte();
+        dessinerLegende();
+        dessinerTable();
+      });
+      hote.appendChild(b);
+    });
+  }
+
+  function dessinerLegende() {
     var leg = $("#legende-couverture");
+    var titre = $("#titre-carte");
+    var note = $("#note-carte");
+    if (!leg) return;
     vider(leg);
-    Object.keys(ETATS).forEach(function (k) {
+    if (titre) vider(titre);
+    if (note) vider(note);
+
+    var entrees = vueCarte === "part"
+      ? CLASSES_PART.map(function (c) {
+          return { couleur: c.couleur, hachure: false, libelle: c.libelle };
+        })
+      : Object.keys(ETATS).map(function (k) { return ETATS[k]; });
+
+    entrees.forEach(function (e) {
       var s = el("span", "puce");
       var p = el("i");
-      p.style.backgroundColor = ETATS[k].couleur;
-      if (ETATS[k].hachure) p.classList.add("hachure");
+      p.style.backgroundColor = e.couleur;
+      if (e.hachure) p.classList.add("hachure");
       s.appendChild(p);
-      s.appendChild(document.createTextNode(" " + ETATS[k].libelle));
+      s.appendChild(document.createTextNode(" " + e.libelle));
       leg.appendChild(s);
     });
+
+    if (titre) {
+      titre.textContent = vueCarte === "part"
+        ? "Part des subventions communales que le site connaît : ce que déclarent "
+          + "toutes les communes du département au compte 6574 de la DGFiP, face à "
+          + "ce que le site en connaît nommément, sur 2010-2025."
+        : "Trois états, jamais confondus : la donnée est là, elle est publiée sans "
+          + "être exploitée, ou rien n'a été trouvé.";
+    }
+    if (note) {
+      note.textContent = vueCarte === "part"
+        ? "Ni le département lui-même, ni ses intercommunalités, ni la région ne "
+          + "sont dans cette part : leurs balances ne remontent qu'à 2019 et "
+          + "mélanger deux périodes fausserait le rapport. Une part n'est pas une "
+          + "note — le déclaré est un montant mandaté, le connu un montant voté."
+        : "Un département coloré n'est pas un département complet : il l'est dès "
+          + "qu'une collectivité y publie. La seconde vue dit combien il en manque.";
+    }
   }
 
   function dessinerCarte() {
@@ -160,17 +291,17 @@
     Object.keys(etat.carte.traces).sort().forEach(function (code) {
       var p = document.createElementNS("http://www.w3.org/2000/svg", "path");
       p.setAttribute("d", etat.carte.traces[code]);
-      var d = deps[code];
-      var e = d ? d[0] : "sans_donnees";
-      p.style.fill = ETATS[e].hachure ? "url(#hachures)" : ETATS[e].couleur;
-      if (ETATS[e].hachure) p.classList.add("partiel");
+      var pt = peinture(code);
+      p.style.fill = pt.hachure ? "url(#hachures)" : pt.couleur;
+      if (pt.hachure) p.classList.add("partiel");
       var nom = noms[code] ? noms[code][0] : code;
-      p.setAttribute("aria-label", nom + " : " + ETATS[e].libelle);
+      p.setAttribute("aria-label", nom + " : " + pt.libelle
+        + (pt.detail ? " — " + pt.detail : ""));
       p.addEventListener("mousemove", function (ev) {
         vider(infobulle);
         infobulle.appendChild(el("b", null, nom + " (" + code + ")"));
         infobulle.appendChild(document.createTextNode(
-          ETATS[e].libelle + (d && d[1] ? " · " + fmt.format(d[1]) + " versements" : "")));
+          pt.libelle + (pt.detail ? " · " + pt.detail : "")));
         infobulle.classList.add("visible");
         infobulle.style.left = Math.min(ev.clientX + 14, window.innerWidth - 270) + "px";
         infobulle.style.top = (ev.clientY + 14) + "px";
@@ -182,39 +313,56 @@
 
   /** Le tableau EST le relief exigé : une couleur sous 3:1 ne peut pas porter
    *  seule l'information, et un lecteur au clavier ou en lecture d'écran doit
-   *  obtenir la même chose que la carte. */
+   *  obtenir la même chose que la carte. Il suit donc la vue : basculer la
+   *  carte sans basculer le tableau laisserait la nouvelle échelle sans son
+   *  équivalent écrit. */
   function dessinerTable() {
     var t = $("#table-departements");
     if (!t) return;
     vider(t);
     var noms = etat.meta.departements.valeurs;
     var deps = etat.couverture.departements;
+    var part = vueCarte === "part";
     var thead = el("thead");
     var trh = el("tr");
-    ["Département", "État", "Versements", "Montant"].forEach(function (h) {
+    (part
+      ? ["Département", "Part connue", "Communes déclarantes", "Dont connues",
+         "Déclaré (6574)", "Connu du site"]
+      : ["Département", "État", "Versements", "Montant"]).forEach(function (h) {
       trh.appendChild(el("th", null, h));
     });
     thead.appendChild(trh);
     t.appendChild(thead);
     var tbody = el("tbody");
     Object.keys(noms).sort().forEach(function (code) {
-      var d = deps[code];
-      var e = d ? d[0] : "sans_donnees";
       var tr = el("tr");
       tr.appendChild(el("td", null, (noms[code] ? noms[code][0] : code) + " (" + code + ")"));
+
+      var pt = peinture(code);
       var tdE = el("td");
       var puce = el("span", "puce");
       var i = el("i");
-      i.style.backgroundColor = ETATS[e].couleur;
-      if (ETATS[e].hachure) i.classList.add("hachure");
+      i.style.backgroundColor = pt.couleur;
+      if (pt.hachure) i.classList.add("hachure");
       puce.appendChild(i);
-      puce.appendChild(document.createTextNode(" " + ETATS[e].libelle));
+      puce.appendChild(document.createTextNode(" " + pt.libelle));
       tdE.appendChild(puce);
       tr.appendChild(tdE);
-      tr.appendChild(el("td", "num", d && d[1] ? fmt.format(d[1]) : "—"));
-      var m = el("td", "num montant");
-      m.textContent = d && d[2] ? fmt.format(Math.round(d[2] / 1e6)) + " M€" : "—";
-      tr.appendChild(m);
+
+      if (part) {
+        var v = partDuDepartement(code);
+        tr.appendChild(el("td", "num", v ? fmt.format(v.declarants) + " / " +
+                                           fmt.format(v.communes) : "—"));
+        tr.appendChild(el("td", "num", v ? fmt.format(v.connus) : "—"));
+        tr.appendChild(el("td", "num montant", v ? montant(v.declare_eur) : "—"));
+        tr.appendChild(el("td", "num montant", v ? montant(v.site_vote_eur) : "—"));
+      } else {
+        var d = deps[code];
+        tr.appendChild(el("td", "num", d && d[1] ? fmt.format(d[1]) : "—"));
+        var m = el("td", "num montant");
+        m.textContent = d && d[2] ? fmt.format(Math.round(d[2] / 1e6)) + " M€" : "—";
+        tr.appendChild(m);
+      }
       tbody.appendChild(tr);
     });
     t.appendChild(tbody);
@@ -350,6 +498,12 @@
     t.appendChild(tbody);
   }
 
+  /** Les quinze départements où les communes déclarent le plus.
+   *
+   *  La liste complète des 101 est déjà dans le tableau qui suit la carte,
+   *  dès qu'on bascule celle-ci sur « ce qui nous échappe ». La répéter ici
+   *  n'apprendrait rien : ce classement-ci répond à une autre question — où
+   *  l'argent communal se trouve, et non comment il se répartit. */
   function dessinerDenominateurDepartements() {
     var d = etat.denominateur;
     var t = $("#table-denominateur-departements");
@@ -364,7 +518,7 @@
     var tbody = el("tbody");
     var codes = Object.keys(d.communes_par_departement).sort(function (a, b) {
       return d.communes_par_departement[b].declare_eur - d.communes_par_departement[a].declare_eur;
-    });
+    }).slice(0, 15);
     codes.forEach(function (code) {
       var v = d.communes_par_departement[code];
       tbody.appendChild(ligneTableau([
@@ -484,6 +638,7 @@
       $("#application").hidden = false;
       dessinerResume();
       dessinerNiveaux();
+      dessinerBascule();
       dessinerCarte();
       dessinerTable();
       dessinerDenominateur();

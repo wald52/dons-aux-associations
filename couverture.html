@@ -46,11 +46,15 @@
     <div id="niveaux"></div>
 
     <h2 class="titre-section">Départements</h2>
+    <div class="bascule" id="bascule-carte" role="group"
+         aria-label="Ce que la carte montre"></div>
+    <p class="sous-titre" id="titre-carte"></p>
     <p class="sous-titre" id="legende-couverture"></p>
     <div class="bloc-carte">
       <svg id="carte" viewBox="0 0 800 620" role="img"
            aria-label="Couverture des données par département"></svg>
     </div>
+    <p class="note-carte" id="note-carte"></p>
 
     <h2 class="titre-section">Départements, un par un</h2>
     <p class="sous-titre">Le tableau dit la même chose que la carte, en toutes lettres —
@@ -76,10 +80,12 @@
        le voté et le payé sont deux mesures que le site affiche déjà côte à côte.</p>
     <div class="table-enveloppe"><table id="table-exercices"></table></div>
 
-    <h3 class="titre-section">Département par département — ce que déclarent les communes</h3>
+    <h3 class="titre-section">Les quinze départements où les communes déclarent le plus</h3>
     <p class="sous-titre">Somme du compte 6574 de toutes les communes du département, face à
        ce que le site connaît d'elles. Les subventions du département lui-même, de ses
-       intercommunalités et de la région ne sont pas dans ces colonnes.</p>
+       intercommunalités et de la région ne sont pas dans ces colonnes.
+       <strong>Les 101 départements</strong> figurent dans le tableau qui suit la carte,
+       en haut de page, dès qu'on bascule celle-ci sur «&nbsp;ce qui nous échappe&nbsp;».</p>
     <div class="table-enveloppe"><table id="table-denominateur-departements"></table></div>
 
     <h2 class="titre-section">Les associations que le site ne voit pas</h2>

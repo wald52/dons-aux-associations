@@ -319,6 +319,23 @@ td.ecarte { color: var(--ardoise); font-weight: 400; }
 .jauge i { display: block; height: 100%; }
 .detail-couverture { margin: 5px 0 0; font-size: var(--t-sm); color: var(--ardoise); }
 
+/* Bascule de la carte. Deux boutons plutôt qu'un menu : il n'y a que deux
+   vues, et le choix courant doit rester lisible sans cliquer. `aria-pressed`
+   porte l'état — la couleur seule ne le dirait pas à un lecteur d'écran. */
+.bascule { display: inline-flex; gap: 1px; background: var(--filet); border: 1px solid var(--filet);
+  border-radius: var(--rayon-sm); overflow: hidden; margin: 2px 0 10px; }
+.bascule button {
+  font: inherit; font-size: var(--t-sm); font-weight: 600; border: 0; cursor: pointer;
+  padding: 7px 14px; background: var(--surface); color: var(--ardoise);
+}
+.bascule button:hover { color: var(--encre); }
+/* Le texte actif prend la couleur de la SURFACE, pas un blanc en dur :
+   en thème sombre, l'accent devient un bleu clair et un blanc fixe y
+   tomberait sous le seuil de contraste. */
+.bascule button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+.bascule button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.note-carte { margin: 8px 0 0; font-size: var(--t-sm); color: var(--ardoise); max-width: 82ch; }
+
 /* Part connue en cellule de tableau : la barre n'est qu'un appui visuel, la
    valeur reste écrite à côté — une part qui dépasse 100 % est réelle et la
    barre, elle, sature à 100 %. */

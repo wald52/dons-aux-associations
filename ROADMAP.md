@@ -713,6 +713,32 @@ l'outre-mer et Mayotte : 15 départements rattachés par SIREN au lieu de 3.
 - L'accueil : une phrase, chargée après le premier écran pour ne rien coûter
   au chemin critique.
 - `verify.py` : 11 contrôles de plus, **44/45**.
+- Et la carte elle-même (10f).
+
+### 10f. La carte cesse d'être binaire (22/08/2026)
+
+Le dénominateur était calculé et tabulé, mais la carte continuait de peindre
+trois états. Elle a désormais deux vues sous une bascule : « ce qui est
+publié » et « ce qui nous échappe ».
+
+**Six paliers, pas un dégradé continu** — et la raison est dans la donnée : sur
+101 départements, **59 sont à zéro**, 13 sous 1 %, trois au-dessus de 50 %. Une
+échelle linéaire aurait rendu 85 départements de la même teinte pâle. Les
+bornes suivent la distribution mesurée, elles ne sont pas rondes par esthétique.
+
+**Le zéro n'est pas le bas de l'échelle** : il garde un gris récessif, comme
+« aucune donnée » dans l'autre vue. Dire « le site n'en connaît rien » avec le
+bleu le plus clair l'aurait fait passer pour un petit quelque chose.
+
+**Le tableau bascule avec la carte.** La règle d'accessibilité de la page —
+une couleur ne porte jamais seule l'information — vaut aussi pour la vue
+nouvelle : sans cela, l'échelle continue n'aurait pas eu d'équivalent écrit.
+L'infobulle et l'`aria-label` portent le montant déclaré, le montant connu et
+le nombre de communes.
+
+Ce que la carte montre et qu'aucun tableau ne disait aussi vite : la Bretagne
+et l'Ille-et-Vilaine bien couvertes, Paris et les Bouches-du-Rhône au-dessus de
+45 %, et tout un quart nord-est à zéro.
 
 ---
 

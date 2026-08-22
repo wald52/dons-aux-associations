@@ -736,6 +736,21 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   sans que rien ne soit faux — le déclaré est un montant MANDATÉ, les totaux
   du site des montants VOTÉS (les Régions sont à 91 %, Rennes à 123 %).
 
+- **Une échelle continue sur une distribution en L écrase tout.** La part
+  connue par département va de 0 à 84 %, mais **59 départements sur 101 sont à
+  ZÉRO** et trois seulement dépassent 50 % : un dégradé linéaire aurait rendu
+  85 départements dans la même teinte pâle. D'où six paliers dont les bornes
+  suivent la distribution mesurée. Et le zéro garde un gris à lui, récessif :
+  « le site n'en connaît rien » est une absence, pas le bas d'une échelle de
+  bleus — le peindre du bleu le plus clair le ferait passer pour un petit
+  quelque chose.
+
+- **Quand la carte bascule, le tableau bascule avec elle.** La règle de la page
+  — une couleur ne porte jamais seule l'information — ne vaut pas que pour la
+  vue d'origine. Ajouter une échelle sans donner son équivalent écrit
+  reviendrait à la perdre pour qui ne distingue pas les teintes, lit au clavier
+  ou imprime.
+
 - **Les CSV bruts sont désindexés** (`data/*.csv` dans `.gitignore`). Ils sont
   re-téléchargeables, URLs dans `SOURCES.md`, et leurs données sont déjà dans
   `data/sources/`. Ne pas les recommiter.
@@ -863,6 +878,8 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       **45,60 Md€ versés aux ISBLSM en 2023**, dont le site retrouve 24,0 Md€.
       Aucun de ces montants n'entre dans les totaux du site. Corrige au passage
       un faux positif de la couverture : 6 régions, pas 7. **44/45 contrôles.**
+      Depuis le 22/08/2026, la carte de couverture porte ce dénominateur : deux
+      vues sous une bascule, « ce qui est publié » et « ce qui nous échappe ».
 
 Détail de chaque phase dans `ROADMAP.md`.
 

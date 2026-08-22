@@ -431,15 +431,20 @@ Le dénominateur et l'angle mort sont construits ; le site n'en montre encore
 qu'une partie. Ces quatre chantiers n'ont besoin d'aucune source nouvelle —
 les données sont déjà dans le dépôt.
 
-### 5a. La carte de couverture reste binaire — *le plus visible*
+### 5a. La carte de couverture — **FAIT le 22/08/2026**
 
-`data/aggregates/denominateur.json.gz` porte déjà, pour chaque département, ce
-que déclarent ses communes et ce que le site en connaît. La carte, elle,
-continue de peindre trois états. La colorer par la PART CONNUE la ferait passer
-de « publie / ne publie pas » à « le site connaît 3 % du Nord, 84 % de Paris ».
-Demande une échelle continue et sa légende, avec le même soin d'accessibilité
-que les trois états actuels (une couleur ne doit jamais porter seule
-l'information).
+La carte a désormais deux vues, sous une bascule : « ce qui est publié » (les
+trois états, inchangés) et « ce qui nous échappe » (la part connue des
+subventions communales, par département).
+
+Six paliers plutôt qu'un dégradé continu, parce que la distribution l'impose :
+sur 101 départements, **59 sont à zéro**, 13 sous 1 %, et trois seulement
+dépassent 50 %. Un dégradé linéaire aurait écrasé tout le reste dans la même
+teinte pâle. Le zéro garde une couleur à lui, grise et récessive : « le site
+n'en connaît rien » est une absence, pas le bas d'une échelle de bleus.
+
+Le tableau bascule avec la carte — sans cela, la nouvelle échelle n'aurait pas
+son équivalent écrit, et une couleur porterait seule l'information.
 
 ### 5b. La fiche d'une commune sans données nominatives
 
@@ -473,26 +478,31 @@ assumer la borne de 2019.
 
 *Révisé le 22/08/2026, après la phase 10.*
 
-1. **Colorer la carte de couverture par la part connue (5a).** Le meilleur
-   rapport valeur / effort de la liste : la donnée est là, il ne manque que
-   l'échelle et sa légende. C'est aussi ce qui rend visible, d'un coup d'œil,
-   tout le travail de la phase 10.
-2. **Décider ce que devient le site sans changement d'échelle.** Le plafond de
+1. ~~Colorer la carte de couverture par la part connue (5a)~~ — **fait le
+   22/08/2026.** Ce que la carte montre maintenant, et qu'aucun tableau ne
+   disait aussi vite : la Bretagne et l'Ille-et-Vilaine bien couvertes, tout
+   un quart nord-est à zéro, et 59 départements sur 101 dont le site ne
+   connaît rien des subventions communales.
+2. **La fiche d'une commune sans données nominatives (5b).** La suite naturelle :
+   la carte dit maintenant qu'un département est à zéro, mais on ne peut
+   toujours rien dire d'une commune en particulier. Le détail par commune et
+   par exercice est déjà calculé, il n'est pas servi.
+3. **Décider ce que devient le site sans changement d'échelle.** Le plafond de
    couverture est atteint, et la valeur du site se déplace vers ce qu'il FAIT de
    ce qu'il a — croisements, séries, exports, lisibilité — plutôt que vers un
    corpus plus gros. La phase 10 en est un exemple : elle n'a pas ajouté une
    subvention, elle a rendu mesurable ce qui manque.
-3. **Les jeux écartés à rouvrir (1d)** — le seul gisement qui ne dépende de
+4. **Les jeux écartés à rouvrir (1d)** — le seul gisement qui ne dépende de
    personne. Trois correctifs de reconnaissance (en-tête mal détecté, `beneficiare`,
    `organismes`) rouvrent ~91 jeux, mais 69 sont la Ville de Rennes : gain en
    profondeur, pas en couverture. Demande un re-moissonnage complet.
-4. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
+5. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
    l'histoire du site en dépendent.
-5. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
+6. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
    séparateurs n'a PAS été appliqué (8 lignes, 850 k€, toutes à perte). À sa
    place, deux changements de doctrine tranchés par l'utilisateur : voté et payé
    s'affichent côte à côte, et seuls les DONS entrent dans les totaux.
-6. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
+7. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
    mesurés épuisés (1a). Y revenir sans une source nouvelle serait du travail
    jetable.
 
