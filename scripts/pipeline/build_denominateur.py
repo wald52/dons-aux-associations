@@ -144,14 +144,14 @@ COLLECTIVITES_UNIQUES = {
 
 
 def _code_departement(siren):
-    """Code d'un département. Le SIREN le dit par construction : 22 + code."""
+    """Code d'un département : la loi d'abord, sinon la règle du SIREN.
+
+    La règle « 22 + code » est écrite une seule fois, dans `common.py` — elle
+    sert aussi à la carte de couverture.
+    """
     if siren in COLLECTIVITES_UNIQUES:
         return COLLECTIVITES_UNIQUES[siren][0]
-    if len(siren) == 9 and siren.startswith("22"):
-        code = siren[2:5] if siren[2:5].startswith("97") else siren[2:4]
-        # 985 est le rang DGFiP de Mayotte, dont le code INSEE est 976.
-        return "976" if code == "985" else code
-    return None
+    return C.code_departement_du_siren(siren)
 
 
 def lire_balances():
@@ -303,10 +303,12 @@ def connu_du_site():
         if siren and len(siren) == 9:
             if niveau == "epci" and siren in ref["epci"]:
                 return siren
-            if niveau == "departement" and siren.startswith("22") and siren[2:4] in ref["departements"]:
-                return siren[2:4]
-            if niveau == "region" and siren.startswith("23") and siren[2:4] in ref["regions"]:
-                return siren[2:4]
+            if niveau == "departement":
+                code = C.code_departement_du_siren(siren)
+                if code in ref["departements"]:
+                    return code
+            # Rien pour les régions : leur SIREN porte le département du
+            # chef-lieu, pas le code de la région (cf. common.py).
         cle = (niveau, libelle)
         if cle not in cache:
             cache[cle] = BC.meilleure_collectivite(libelle, index[niveau])

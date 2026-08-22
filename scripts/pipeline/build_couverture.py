@@ -185,29 +185,27 @@ def main():
     publiants, publiants_non_lus = publications_reperees()
 
     # Rattachement par SIREN, bien plus sûr que par nom quand il est possible.
-    # Le référentiel indexe les EPCI par SIREN ; pour les départements et les
-    # régions, la construction du SIREN donne le code (22 + code département,
-    # 23 + code région), vérifiée sur le corpus.
+    # Le référentiel indexe les EPCI par SIREN ; pour les départements, la
+    # construction du SIREN donne le code (22 + code), et `common.py` porte
+    # cette règle une seule fois.
+    #
+    # LES RÉGIONS N'EN ONT PAS, et l'avoir cru coûtait un faux positif : le
+    # SIREN d'une région est bâti sur son CHEF-LIEU (Île-de-France 237500079),
+    # si bien que lire « 75 » comme un code de région faisait afficher la
+    # Nouvelle-Aquitaine « données présentes » avec zéro versement et zéro
+    # euro. Exactement ce que cette page existe pour empêcher. Une région se
+    # reconnaît donc par son nom, comme les communes.
     def sirens_du_niveau(niveau):
         return par_niveau[niveau]["siren"]
-
-    def code_depuis_siren(siren, prefixe):
-        if not siren or len(siren) != 9 or not siren.startswith(prefixe):
-            return None
-        return siren[2:4]
 
     couverts_par_siren = {"epci": set(), "departement": set(), "region": set()}
     for s_ in sirens_du_niveau("epci"):
         if s_ in ref["epci"]:
             couverts_par_siren["epci"].add(s_)
     for s_ in sirens_du_niveau("departement"):
-        c = code_depuis_siren(s_, "22")
+        c = C.code_departement_du_siren(s_)
         if c and c in ref["departements"]:
             couverts_par_siren["departement"].add(c)
-    for s_ in sirens_du_niveau("region"):
-        c = code_depuis_siren(s_, "23")
-        if c and c in ref["regions"]:
-            couverts_par_siren["region"].add(c)
 
     resultat = {}
     resume = {}

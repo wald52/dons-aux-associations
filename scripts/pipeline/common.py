@@ -550,6 +550,27 @@ def donor_level_from_siren(siren):
     return None
 
 
+def code_departement_du_siren(siren):
+    """Code INSEE du département derrière un SIREN de département, ou None.
+
+    Le SIREN d'un département vaut 22 + son code, par construction INSEE :
+    222400012 est la Dordogne. Deux exceptions vérifiées sur le corpus :
+    l'outre-mer porte un code sur trois chiffres (229710015 → 971), et Mayotte
+    garde son rang DGFiP 985 alors que son code INSEE est 976.
+
+    IL N'EXISTE PAS D'ÉQUIVALENT POUR LES RÉGIONS, et c'est le piège : le
+    SIREN d'une région est bâti sur le département de son CHEF-LIEU, pas sur
+    son code. La Région Île-de-France est 237500079 — lire « 75 » comme un
+    code de région en fait la Nouvelle-Aquitaine. Les régions fusionnées de
+    2016 commencent d'ailleurs par 20 (Normandie : 200053403). Une région se
+    reconnaît donc par son nom, jamais par son SIREN.
+    """
+    if not siren or len(siren) != 9 or not siren.startswith("22"):
+        return None
+    code = siren[2:5] if siren[2:5].startswith("97") else siren[2:4]
+    return "976" if code == "985" else code
+
+
 def donor_level_of(raw_type, donor_name, donor_siren=None):
     """(niveau, non_attribué) — niveau canonique du donateur.
 
