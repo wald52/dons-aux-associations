@@ -270,12 +270,22 @@ def detect_delimiter(sample):
     return max(counts, key=counts.get) if max(counts.values()) else ";"
 
 
-def read_rows(path, max_header_scan=12):
+def read_rows(path, max_header_scan=12, valide=None):
     """Itère les lignes d'un CSV en dictionnaires.
 
     Détecte l'encodage, le séparateur et la ligne d'en-tête réelle (certains
     fichiers commencent par deux ou trois lignes de titre).
     Retourne (en-têtes, générateur de dict).
+
+    `valide` est un prédicat facultatif — en pratique `porte_des_subventions` —
+    qui dit si une ligne de cellules est déjà un en-tête utilisable. Quand la
+    PREMIÈRE ligne l'est, elle gagne sans discussion. Sans cette réserve, le
+    repérage par mots-repères peut préférer une ligne de DONNÉES : l'en-tête de
+    la Ville de Montreuil, `organisation;montant;thematique;type`, ne porte
+    qu'un seul mot-repère, tandis que chacune de ses lignes en porte deux
+    (« ASSOCIATION … » et « Subventions de fonctionnement … »). Le fichier
+    entrait alors avec un nom d'association pour en-tête, et ses 270 lignes
+    étaient toutes écartées pour « montant illisible ».
     """
     enc = detect_encoding(path)
     with open(path, "r", encoding=enc, errors="replace", newline="") as f:
@@ -289,6 +299,9 @@ def read_rows(path, max_header_scan=12):
     for row in reader:
         skipped += 1
         cells = [clean_text(c) for c in row]
+        if skipped == 1 and valide is not None and valide(cells)[0]:
+            header = cells
+            break
         score = sum(1 for c in cells if any(h in fold(c) for h in HEADER_HINTS))
         if score >= 2 and sum(1 for c in cells if c) >= 3:
             header = cells
@@ -1113,7 +1126,11 @@ ROLES_COLONNES = {
     "attribuant": (
         [("nom", "attribuant"), ("nom", "ets", "attribuant"), ("attribuant",),
          ("collectivite",), ("financeur",)],
-        ("beneficiaire", "siret", "siren", "id", "numero"),
+        # « code » disqualifie : GrandSoissons Agglomération publie une colonne
+        # `Code Collectivité` qui ne contient que « 1 ». Sans ce mot, le motif
+        # `collectivite` y lisait le donateur, et 172 subventions entraient au
+        # nom d'un donateur appelé « 1 » — l'intercommunalité restait invisible.
+        ("beneficiaire", "siret", "siren", "id", "numero", "code"),
     ),
     "siret_beneficiaire": (
         [("id", "beneficiaire"), ("siret", "beneficiaire"), ("numero", "siret"),
@@ -1197,7 +1214,13 @@ def measure_of(*libelles):
     Mesuré le 23/08/2026 : la colonne ne fait basculer **aucun** des jeux déjà
     retenus, elle ne tranche que pour ceux que la phase 11 rouvre.
     """
-    t = " ".join(fold(x or "") for x in libelles)
+    # Les séparateurs sont ramenés à l'espace ICI, et seulement ici. Le même
+    # fichier lu par le portail s'appelle `subventions_versees` et lu par
+    # data.gouv.fr « Subventions versées » : sans cela, Fleury-sur-Orne était
+    # « voté » d'un côté et « payé » de l'autre, pour la même donnée. Le
+    # résultat négatif du §4a ne portait pas là-dessus : il disait de ne pas
+    # toucher à `fold` lui-même, dont dépend toute la reconnaissance.
+    t = " ".join(fold(x or "").replace("_", " ").replace("-", " ") for x in libelles)
     return "verse" if any(m in t for m in _MOTS_VERSE) else "attribue"
 
 

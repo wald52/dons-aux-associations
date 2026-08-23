@@ -65,7 +65,7 @@ ROLES = {
 def normaliser(fiche, ingested_at):
     chemin = os.path.join(ROOT, fiche["fichier"])
     source_id = "ods-" + os.path.basename(chemin)[:-4]
-    entete, lignes, infos = C.read_rows(chemin)
+    entete, lignes, infos = C.read_rows(chemin, valide=C.porte_des_subventions)
     col = {k: C.trouver_colonne(entete, r) for k, r in ROLES.items()}
 
     # Voté ou versé : le titre du jeu le dit — et à défaut, le libellé de la
@@ -75,6 +75,25 @@ def normaliser(fiche, ingested_at):
     # Subventions ordinaires aux associations ». Le titre est alors le seul
     # endroit où l'exercice soit écrit.
     annee_repli = C.annee_du_libelle(fiche.get("titre"))
+
+    # Le repli du donateur : le publieur du jeu, PUIS l'éditeur du portail.
+    # Un publieur est parfois un service et non une personne morale — la Ville
+    # de Saint-Maur-des-Fossés publie ses subventions sportives sous
+    # « Direction des sports », qui ne se rattache à aucune collectivité et
+    # laissait 3,7 M€ chez un donateur « inconnu ». L'éditeur du portail, lui,
+    # dit la collectivité. Le portail n'est jamais utilisé : « Fédérateur
+    # Opendatasoft » n'a versé aucune subvention.
+    repli_donateur = ""
+    for candidat in (fiche.get("publieur"), fiche.get("editeur")):
+        candidat = C.clean_text(candidat or "")
+        if not candidat or candidat.startswith("Fédérateur"):
+            continue
+        if not repli_donateur:
+            repli_donateur = candidat
+        niveau_repli, non_attribue_repli = C.donor_level_of(None, candidat)
+        if not non_attribue_repli and niveau_repli != "inconnu":
+            repli_donateur = candidat
+            break
 
     out = {f: [] for f in C.CANONICAL_FIELDS}
     st = {"source_id": source_id, "portail": fiche.get("portail"), "mesure": mesure,
@@ -108,7 +127,7 @@ def normaliser(fiche, ingested_at):
         # publieur du jeu. Le portail n'est jamais utilisé — « Fédérateur
         # Opendatasoft » n'a versé aucune subvention.
         attrib = C.clean_text(r.get(col["attrib_nom"])) if col["attrib_nom"] else ""
-        repli = C.clean_text(fiche.get("publieur") or "")
+        repli = repli_donateur
         if C.normalize_name(attrib) in ATTRIBUANT_GENERIQUE:
             # « Ville » chez un publieur « Ville de Paris » désigne bien Paris.
             attrib = repli or attrib

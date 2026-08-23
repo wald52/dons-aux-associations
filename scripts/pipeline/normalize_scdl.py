@@ -71,7 +71,7 @@ def niveau_par_siren(siren, nom):
 def normaliser_fichier(fiche, fichier, ingested_at):
     chemin = os.path.join(ROOT, fichier["fichier"])
     source_id = "scdl-" + os.path.basename(chemin)[:-4]
-    entete, lignes, meta = C.read_rows(chemin)
+    entete, lignes, meta = C.read_rows(chemin, valide=C.porte_des_subventions)
     col = {k: C.trouver_colonne(entete, r) for k, r in ROLES.items()}
     col["attrib_id"] = C.pick(entete, "idAttribuant", "siret attribuant", "id attribuant")
     col["reference"] = C.pick(entete, "referenceDecision", "reference decision")

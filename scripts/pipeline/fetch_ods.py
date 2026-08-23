@@ -246,7 +246,7 @@ def traiter_portail(hote, editeur, force=False, limite=None):
 
         # Second contrôle sur l'en-tête réel : le catalogue peut mentir.
         try:
-            entete, _, infos = C.read_rows(chemin)
+            entete, _, infos = C.read_rows(chemin, valide=C.porte_des_subventions)
         except Exception as e:
             fiches.append({"portail": hote, "editeur": editeur, "dataset_id": jeu_id,
                            "titre": meta.get("title"), "retenu": False,

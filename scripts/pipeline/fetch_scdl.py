@@ -282,7 +282,7 @@ def traiter_dataset(ds, force=False):
             os.remove(chemin)
             continue
         try:
-            entete, _, meta = C.read_rows(chemin)
+            entete, _, meta = C.read_rows(chemin, valide=C.porte_des_subventions)
         except Exception as e:
             fiche["ecartes"].append({"titre": res["titre"], "raison": "illisible : " + str(e)[:60]})
             continue
