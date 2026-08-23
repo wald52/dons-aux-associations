@@ -50,17 +50,18 @@ Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 | Données exploitables | 57,75 s | **0,58 s** |
 | Mémoire JS | 1 965 Mo | **3 Mo** |
 | Balises `<script>` | 170 | **1** |
-| Lignes dans la table | 1 595 805 | **2 809 711** |
+| Lignes dans la table | 1 595 805 | **2 817 042** |
 
 (Premier écran : 113 Ko gzippés. Banc de vitesse `bench/phase7.json`, inchangé
 par la phase 9 — le volume servi n'a pas bougé.)
 
-Données : **658 sources**, **149,68 Md€ de dons VOTÉS** et **10,02 Md€ de dons
+Données : **681 sources**, **148,34 Md€ de dons VOTÉS** et **10,04 Md€ de dons
 PAYÉS** affichés côte à côte et jamais additionnés ; 1,57 Md€ ingérés mais hors
 des totaux parce que ce ne sont pas des dons (prestations facturées,
 remboursements, aides en nature), 2,08 Md€ de lignes agrégées, et la quarantaine
-d'unité. 439 803 bénéficiaires résolus, dont **9 800 cumulent au moins trois
-échelons**.
+d'unité. 417 639 bénéficiaires résolus, dont **10 128 cumulent au moins trois
+échelons**. (La phase 10 en annonçait 439 803 : chiffre jamais mesuré,
+`index-stats.json` en portait 415 207.)
 
 **Deux mouvements opposés, tous deux normaux.** La déduplication est passée de
 580 321 à plus d'un million de lignes retirées : les jeux rouverts par la phase 9
@@ -71,10 +72,11 @@ et 2021) ajoutent 23,6 Md€ d'État qui manquaient. La série du Jaune est
 désormais continue de 2010 à 2023, sauf l'exercice 2022 (fichier vide à la
 source).
 
-Couverture face au référentiel INSEE, et c'est un MINIMUM : **90 communes**
-sur 34 936, **31 EPCI** sur 1 335, **34 départements** sur 101, **6 régions**
-sur 18 — 10,9 % de la population. Bordeaux, Bourges, les départements des
-Hauts-de-Seine et de l'Aude sont entrés en phase 9.
+Couverture face au référentiel INSEE, et c'est un MINIMUM : **94 communes**
+sur 34 936, **32 EPCI** sur 1 335, **35 départements** sur 101, **6 régions**
+sur 18. Bordeaux, Bourges, les Hauts-de-Seine et l'Aude sont entrés en phase 9 ;
+Aix-en-Provence, Saint-Maur-des-Fossés, Fleury-sur-Orne, Moissy-Cramayel,
+GrandSoissons Agglomération et la Seine-Maritime en phase 11.
 
 (**Six régions, pas sept** : la phase 10 a retiré un faux positif. La
 Nouvelle-Aquitaine était comptée couverte à cause du SIREN de la Région
@@ -94,8 +96,10 @@ de ces chiffres n'entre jamais dans ses totaux :
 | D751 INSEE — versé par les APU aux ISBLSM en 2023 | **45,60 Md€** |
 | Ce que le site retrouve sur le même exercice | **24,0 Md€** (52,6 %) |
 
-**49 contrôles sur 50 dans `verify.py`** — le seul échec, « conservation des
-lignes », demande `data/canonical/parts/`, qui n'est pas versionné.
+**50 contrôles sur 50 dans `verify.py`** au dernier assemblage complet. Hors
+d'un assemblage, « conservation des lignes » échoue faute de
+`data/canonical/parts/`, qui n'est pas versionné : 49/50 est donc le score
+normal quand on n'a pas rejoué les normaliseurs.
 
 **Ce qui reste à faire est dans `RESTE-A-FAIRE.md`**, chiffré et priorisé.
 
@@ -798,6 +802,74 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   reviendrait à la perdre pour qui ne distingue pas les teintes, lit au clavier
   ou imprime.
 
+- **Une même colonne ne peut pas être à la fois le bénéficiaire ET le montant.**
+  Quand elle l'est, ce n'est pas un en-tête : c'est le titre du rapport lu comme
+  une ligne de colonnes. Six fichiers entraient ainsi, dont la Chambre de
+  Commerce Seine Mer Normandie, qui publiait un bénéficiaire « 911671485 » pour
+  911 671 485 € et « W761003097 » pour 761 003 097 € — un SIREN et un RNA lus
+  comme des euros, **1,67 Md€ de faux dans le total voté**. C'était l'origine du
+  `nom_de_beneficiaire_numerique` que le rapport signalait sans en connaître la
+  cause. `porte_des_subventions` refuse maintenant ce cas, avec un motif explicite
+  au manifeste.
+
+- **Un motif de colonne très général ne vaut que si la colonne ne s'appelle QUE
+  comme lui.** `associations` désigne bien la colonne des associations — mais
+  dans « Subv.d'équipement - provision pour associations sportives », le mot
+  n'est qu'un mot d'une phrase, et cette phrase est une LIGNE DE DONNÉES prise
+  pour un en-tête. D'où `MOTIFS_STRICTS` : `associations`, `organisation`,
+  `destinataire(s)`, `liborgabenef`. Sans cette réserve, le correctif qui rouvre
+  Fleury-sur-Orne fait entrer deux fichiers dont les colonnes n'en sont pas.
+
+- **La PREMIÈRE ligne, quand elle est déjà un en-tête valide, gagne.** Le
+  repérage par mots-repères de `read_rows` peut préférer une ligne de données :
+  l'en-tête de Montreuil, `organisation;montant;thematique;type`, ne porte qu'un
+  mot-repère quand chacune de ses lignes en porte deux. Ses 270 lignes étaient
+  toutes écartées pour « montant illisible ». `read_rows` prend donc un prédicat
+  facultatif, et **les quatre lecteurs de subventions lui passent tous
+  `porte_des_subventions`** — sans quoi moissonneur et normaliseur liraient deux
+  en-têtes différents du même fichier.
+
+- **Un motif de montant qui désigne un PAIEMENT vient en dernier.** Grand Paris
+  Sud publie `MONTANT ATTRIBUE` et `MANDATE` dans le même fichier : `mandate`
+  placé en tête faisait lire le payé là où l'attribué était disponible.
+
+- **Le libellé de la colonne de montant entre dans `measure_of`.** Une colonne
+  qui s'appelle `Mandaté` porte de l'argent PAYÉ, quoi que dise le titre du jeu.
+  Les séparateurs y sont ramenés à l'espace — et **là seulement**, jamais dans
+  `fold`, dont dépend toute la reconnaissance : le même fichier de Fleury-sur-Orne
+  s'appelle `subventions_versees` côté portail et « Subventions versées » côté
+  data.gouv.fr, et se lisait « voté » d'un côté, « payé » de l'autre.
+
+- **« code » disqualifie l'attribuant.** GrandSoissons publie un `Code
+  Collectivité` qui ne contient que « 1 » : 172 subventions entraient au nom d'un
+  donateur appelé « 1 ». Même piège chez la Ville de Soissons avec `Code INSEE
+  collectivité`.
+
+- **Un publieur Opendatasoft est parfois un SERVICE, pas une personne morale.**
+  Saint-Maur-des-Fossés publie ses subventions sportives sous « Direction des
+  sports » : 3,7 M€ chez un donateur « inconnu ». Le repli remonte au publieur
+  PUIS à l'éditeur du portail, qui dit la collectivité.
+
+- **Une collectivité peut être dans la table sans être sur la carte de
+  couverture.** Montreuil y entre avec 276 lignes et 10,89 M€, mais **trois
+  communes françaises s'appellent « Montreuil »** (28267, 85148, 93048) :
+  l'appariement refuse de deviner et le libellé reste dans
+  `donateurs_non_apparies`. Ce n'est pas un bogue, c'est la doctrine — la
+  couverture est un MINIMUM, l'erreur va vers la sous-estimation.
+
+- **Le Département de Maine-et-Loire ne publie plus le nom de ses
+  bénéficiaires depuis 2017.** Son fichier de 17 756 mandatements se déduplique
+  entièrement contre la source héritée qui les portait déjà ; ses exercices
+  2017-2019 échappent pour une autre raison : 1 781 lignes, 22,1 M€, dont 96,9 %
+  ont un SIRET et aucune raison sociale. Le pipeline écarte les lignes sans nom.
+  Les récupérer sur le seul SIRET est un arbitrage de doctrine, pas un correctif.
+
+- **Un chantier daté doit être re-mesuré avant d'être OUVERT, pas seulement
+  avant d'être écrit.** Le §1d de `RESTE-A-FAIRE.md` a été écrit avec méthode le
+  21/08, puis a vieilli en une journée : la phase 9 a appliqué deux de ses trois
+  correctifs sans qu'il soit relu, et son inventaire décrivait un moissonnage
+  périmé. Ses « deux communes vraiment nouvelles » publiaient zéro ligne.
+
 - **Les CSV bruts sont désindexés** (`data/*.csv` dans `.gitignore`). Ils sont
   re-téléchargeables, URLs dans `SOURCES.md`, et leurs données sont déjà dans
   `data/sources/`. Ne pas les recommiter.
@@ -934,6 +1006,24 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       **six causes lues dans une donnée existante**, qui en expliquent
       **68,3 %** — une liste de 3 220 noms à éplucher n'était pas un livrable.
       **49/50 contrôles**, le compte d'aujourd'hui.
+
+- [x] **Phase 11** — les jeux écartés, et ce qu'ils ont cassé en entrant. Sept
+      graphies de colonnes de plus (`liborgabenef`, `mtsubv`, `mandate`,
+      `organisation`, `destinataire(s)`, `associations`), toutes relevées dans
+      les manifestes puis **vérifiées sur la donnée téléchargée**. Quatre
+      collectivités nouvelles, un EPCI et **un département entier** —
+      Aix-en-Provence, Saint-Maur-des-Fossés, Fleury-sur-Orne, Moissy-Cramayel,
+      GrandSoissons Agglomération, la Seine-Maritime. **2 817 042 lignes,
+      681 sources, 94 communes, 32 EPCI, 35 départements, 10 128 cumuls à trois
+      échelons. 50/50 contrôles.**
+      Le total voté BAISSE de 1,34 Md€ en gagnant 23 sources, et c'est une
+      correction : **1,67 Md€ venaient d'une seule colonne servant à la fois de
+      bénéficiaire et de montant**, qui faisait lire des SIREN et des RNA comme
+      des euros. Ouvrir ces jeux a révélé trois autres défauts du même ordre —
+      un en-tête lu sur une ligne de données, un donateur lu dans une colonne de
+      code, un publieur qui est un service et non une collectivité.
+      Le §1d qui commandait ce chantier était faux sur ses trois points :
+      leçon rangée dans les pièges.
 
 Détail de chaque phase dans `ROADMAP.md`.
 

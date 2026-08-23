@@ -115,9 +115,9 @@ résultat à retenir, comme l'épuisement des deux canaux de moissonnage.
 ### 2c. Ce que la source vaut sans lire un seul montant
 
 La liste **exhaustive et datée des associations qui franchissent 153 000 €**.
-Croisée avec les 439 803 bénéficiaires résolus du site, elle mesure directement
+Croisée avec les 417 639 bénéficiaires résolus du site, elle mesure directement
 l'angle mort : combien d'associations déposent des comptes sans apparaître dans
-aucune de nos 658 sources. Ce serait la première mesure honnête de ce que le site
+aucune de nos 681 sources. Ce serait la première mesure honnête de ce que le site
 ne voit pas — et elle ne coûte que des appels d'API.
 
 **Réserve à ne pas oublier** : le seuil de 153 000 € mélange **dons privés et

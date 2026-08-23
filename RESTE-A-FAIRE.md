@@ -1,6 +1,6 @@
 # Ce qui reste à faire
 
-État arrêté au **22/08/2026**, après la phase 10. Chiffres mesurés, pas estimés :
+État arrêté au **23/08/2026**, après la phase 11. Chiffres mesurés, pas estimés :
 ils viennent de `data/canonical/quality-report.json`, `couverture.json`, des
 manifestes de moissonnage et du banc `bench/phase7.json`.
 
@@ -12,12 +12,18 @@ et pourquoi).
 > portaient respectivement 37 et deux hôtes. Un chiffre écrit ici sans avoir été
 > relu dans les manifestes envoie la session suivante sur le mauvais chantier.
 > **Vérifier avant d'écrire, et dire d'où vient le chiffre.**
+>
+> *Et cet avertissement ne suffit pas.* Le §1d a été écrit en le respectant, puis
+> a vieilli en une journée : deux de ses trois correctifs ont été appliqués par
+> la phase 9 sans qu'il soit relu, et son inventaire décrivait un moissonnage
+> périmé. **Un chantier daté doit être re-mesuré avant d'être ouvert, pas
+> seulement avant d'être écrit.**
 
 ---
 
 ## Où en est le site
 
-Les phases 0 à 7 sont faites. Sur les quatre objectifs de départ — vitesse,
+Les phases 0 à 11 sont faites. Sur les quatre objectifs de départ — vitesse,
 données justes et exhaustives, recherche croisée, lisibilité — **trois sont
 atteints**. Le site charge en 0,07 s, la recherche croisée fonctionne sur
 2,7 M de lignes sans backend, le design est unifié.
@@ -27,13 +33,13 @@ montré qu'elle ne s'ouvrira plus par moissonnage.**
 
 | | valeur |
 |---|---|
-| Lignes servies | 2 809 711 |
-| **Dons votés** | **149,68 Md€** |
-| **Dons payés** (à côté, jamais additionnés) | **10,02 Md€** |
+| Lignes servies | 2 817 042 |
+| **Dons votés** | **148,34 Md€** |
+| **Dons payés** (à côté, jamais additionnés) | **10,04 Md€** |
 | Ingéré mais pas un don (prestations, remboursements, nature) | 1,57 Md€ |
-| Sources | 658 |
-| Bénéficiaires résolus | 439 803 |
-| Dont cumulant 3 échelons ou plus | 9 800 |
+| Sources | 681 |
+| Bénéficiaires résolus | 417 639 *(la phase 10 annonçait 439 803 : chiffre jamais mesuré, l'index en portait 415 207)* |
+| Dont cumulant 3 échelons ou plus | 10 128 |
 | Contrôles `verify.py` | **49 / 50** (le 50ᵉ demande `data/canonical/parts/`, non versionné) |
 | **Ce que déclarent les communes à la DGFiP (6574, 2010-2025)** | **51,10 Md€**, dont le site connaît **14,9 %** |
 | **Organismes déposant leurs comptes au JO** | **31 683**, dont **18 745 reconnus** |
@@ -51,12 +57,12 @@ Couverture face au référentiel INSEE. **C'est un MINIMUM** : l'appariement
 échoue plutôt qu'il n'invente, donc l'erreur va toujours vers la
 sous-estimation (cf. `CLAUDE.md`).
 
-| Échelon | Avec données | Univers | phase 8 |
+| Échelon | Avec données | Univers | phase 10 |
 |---|---|---|---|
-| Communes | **90** | 34 936 | 86 |
-| EPCI | **31** | 1 335 | 29 |
-| Départements | **34** | 101 | 31 |
-| Régions | **6** | 18 | 5 |
+| Communes | **94** | 34 936 | 90 |
+| EPCI | **32** | 1 335 | 31 |
+| Départements | **35** | 101 | 34 |
+| Régions | **6** | 18 | 6 |
 
 10,9 % de la population française. (« Repérées » ajoute les collectivités qui
 publient mais dont rien n'est encore exploité.)
@@ -186,39 +192,107 @@ parmi celles qui le sont, l'obligation est peu suivie. Aucun moissonnage ne
 comblera cela : la lacune est légale. C'est ce que la page « Ce que ce site ne
 sait pas » est là pour dire.
 
-### 1d. L'inventaire de ce qui a été téléchargé PUIS écarté — *mesuré le 21/08/2026*
+### 1d. Les jeux écartés — **FAIT le 23/08/2026, et le §1d précédent était faux**
 
-Le seul gisement restant qui ne dépende de personne : les fichiers que les
-moissonneurs ont déjà vus et rejetés. Relevé dans les `ecartes` des manifestes,
-qui enregistrent les colonnes réelles de chaque fichier rejeté — la mesure se
-fait donc hors ligne, sans re-télécharger.
+Ce paragraphe annonçait « trois correctifs de reconnaissance, ~91 jeux, dont 69
+sont la Ville de Rennes ». **Deux des trois correctifs étaient déjà appliqués**
+depuis la phase 9 (`beneficiare`, `organismes`), et son inventaire datait du
+21/08, avant le re-moissonnage. Ses « deux communes de Haute-Garonne vraiment
+nouvelles », Fronton et Labarthe-sur-Lèze, publient **zéro ligne** : le jeu est
+vide à la source.
 
-**Portails Opendatasoft — 203 jeux écartés**, dont 28 sans colonnes enregistrées.
+Re-mesuré sur les manifestes du jour, puis **vérifié sur la donnée téléchargée**
+et non sur le seul libellé. Sept graphies ajoutées :
 
-| Ce qui bloque | jeux | de qui |
+| Graphie | Rôle | Ce qu'elle rouvre |
 |---|---|---|
-| En-tête mal détecté (les « colonnes » sont une ligne de données) | 51 | Ville de Rennes, BP et CA |
-| `libelle` porte le bénéficiaire, motif trop générique pour être pris | 18 | Ville de Rennes |
-| `organismes` | 12 | Agglopolys (Blois) |
-| `organisme_de_formation_libelle_et_code` | 8 | Région Île-de-France |
-| `beneficiare` — faute de frappe du publieur | 4 | Ville de Rennes, CA |
-| `attributaires`, `noms` | 4 | Ville de Blois |
-| `liborgabenef` / `mtsubv` — colonnes abrégées | 2 | une région |
-| **Reconnus en l'état — le manifeste date d'avant le correctif de phase 6a** | **4** | **communes de Fronton et Labarthe-sur-Lèze (31)** |
-| Hors champ pour de bon (statistiques, Fédération Wallonie-Bruxelles, vélos) | ~70 | — |
+| `liborgabenef` + `mtsubv` | bénéficiaire, montant | Région Île-de-France, 22 958 versements |
+| `mandate` | montant, **en dernier** | Maine-et-Loire, GrandSoissons, Grand Paris Sud |
+| `organisation` | bénéficiaire | Ville de Montreuil |
+| `destinataire`, `destinataires` | bénéficiaire | Saint-Maur-des-Fossés |
+| `associations` | bénéficiaire | Fleury-sur-Orne, Issy, Noyal-Châtillon |
 
-**data.gouv.fr — 95 fichiers écartés dans 50 jeux** : 41 en-têtes non détectés
-(dont le Département d'Ille-et-Vilaine), 19 échecs réseau sur
-`datacat.datalocale.fr`, 8 fichiers au format OpenDocument que le lecteur ne
-sait pas ouvrir, 3 liens morts chez Rennes Métropole, et une dizaine de cas
-uniques (`Libellé tiers`, `BGT_NOM`, en-tête d'Antibes lu en une seule colonne).
-**Aucun n'est récupérable sans toucher au code.**
+**Le résultat, mesuré :**
 
-Ce que cela vaut, honnêtement : **69 des 91 jeux récupérables sont la Ville de
-Rennes**, déjà présente dans le corpus par sa source héritée. Le gain est en
-PROFONDEUR (des exercices, des séries budgétaires), pas en couverture. Les
-seules collectivités vraiment nouvelles au bout du compte sont Blois/Agglopolys
-et deux communes de Haute-Garonne.
+| | phase 10 | maintenant |
+|---|---|---|
+| Communes | 90 | **94** |
+| EPCI | 31 | **32** |
+| Départements | 34 | **35** |
+| Sources | 658 | **681** |
+| Lignes | 2 809 711 | **2 817 042** |
+| Cumuls ≥ 3 échelons | 9 800 | **10 128** |
+
+Nouvelles : Aix-en-Provence (12,66 M€), Saint-Maur-des-Fossés (3,71 M€),
+Fleury-sur-Orne, Moissy-Cramayel, GrandSoissons Agglomération (2,18 M€) et le
+**département de la Seine-Maritime** (973 lignes, 33,74 M€).
+
+#### Ce que l'ouverture a cassé, et qu'il a fallu réparer
+
+Rouvrir des jeux fait entrer des fichiers que le reste de la chaîne n'avait
+jamais eu à lire. Quatre s'y sont cassés :
+
+- **La première ligne, quand elle est déjà un en-tête valide, gagne.**
+  `organisation;montant;thematique;type` (Montreuil) ne porte qu'un mot-repère,
+  quand chacune de ses lignes de données en porte deux : le détecteur prenait la
+  ligne 7 et les 270 lignes étaient écartées pour « montant illisible ».
+  `read_rows` reçoit un prédicat facultatif, que les quatre lecteurs de
+  subventions lui passent — moissonneur et normaliseur ne peuvent plus lire deux
+  en-têtes différents. Mesuré sur les 935 fichiers bruts : 4 changent, tous des
+  corrections, aucune régression.
+- **« code » disqualifie l'attribuant** : GrandSoissons publie un `Code
+  Collectivité` qui ne contient que « 1 ». Corrige au passage la Ville de
+  Soissons, déjà présente, dont le donateur se lisait dans `Code INSEE
+  collectivité`.
+- **Le repli du donateur ODS remonte au publieur PUIS à l'éditeur du portail** :
+  Saint-Maur publie sous « Direction des sports », un service qui ne se rattache
+  à aucune collectivité.
+- **Les séparateurs sont ramenés à l'espace dans `measure_of`**, et là seulement :
+  Fleury-sur-Orne était « voté » côté portail (`subventions_versees`) et « payé »
+  côté data.gouv.fr (« Subventions versées »), pour la même donnée.
+
+#### Et un faux à 1,67 Md€, trouvé en chemin
+
+**Une même colonne ne peut pas être à la fois le bénéficiaire et le montant.**
+Six fichiers déjà RETENUS l'étaient ainsi — le titre du rapport lu comme un
+en-tête. La Chambre de Commerce Seine Mer Normandie publiait un bénéficiaire
+« 911671485 » pour 911 671 485 €, « W761003097 » pour 761 003 097 € : un SIREN
+et un RNA lus comme des euros. **C'est l'origine du cas que le rapport de
+qualité signalait sans en connaître la cause** — `nom_de_beneficiaire_numerique`
+tombe de 1 798 M€ à 125 M€. Le total voté baisse donc de 1,34 Md€ **en gagnant
+23 sources** : c'est une correction, pas une perte.
+
+#### Deux correctifs écartés, avec leur raison mesurée
+
+- **`total` nu** ferait entrer Blois 2020-2022, dont la colonne de noms s'appelle
+  littéralement `empty` et dont la colonne `associations` ne porte que le code
+  « P1 ». Blois 2019 et 2023, eux, ont un vrai `denomination` / `noms`.
+- **`somme` nu** n'ouvre que des comptes administratifs de la Ville de Rennes,
+  déjà largement présente, que `measure_of` étiquetterait « voté » alors qu'un CA
+  est de l'exécution budgétaire.
+
+#### Ce qui reste écarté, et pourquoi ça n'en vaut pas la peine
+
+**172 jeux ODS et 197 fichiers data.gouv.fr.** Sur les jeux ODS dont les colonnes
+sont enregistrées, **8 passeraient les règles actuelles et tous portent ZÉRO
+ligne** : le gisement de reconnaissance est épuisé.
+
+Ce qui reste tient en trois familles, aucune récupérable sans deviner :
+la **Ville de Rennes** (une trentaine de jeux, ~20 000 lignes) dont les comptes
+administratifs nomment leur montant `total_des_mandats_emis`, `provisions_par_tiers`
+ou `bp_2013` et leur bénéficiaire `libelle` ; des **statistiques** qui ne nomment
+personne (vélos subventionnés en Île-de-France, aménagements cyclables) ; et
+19 échecs réseau chez `datacat.datalocale.fr`.
+
+#### Ce que le Département de Maine-et-Loire ne publie plus
+
+Son fichier de 17 756 mandatements se déduplique **entièrement** contre la source
+héritée qui les portait déjà : aucun gain. Ses trois exercices récents, eux,
+échappent pour une autre raison — **il a cessé de publier le nom du bénéficiaire
+à partir de 2017**. 1 781 lignes, 22,1 M€, dont **96,9 % ont un SIRET** et aucune
+raison sociale. Le pipeline écarte les lignes sans nom. Les récupérer sur le seul
+SIRET est un **arbitrage de doctrine** — un bénéficiaire identifié mais sans nom
+affichable —, pas un correctif de reconnaissance. À trancher par l'utilisateur.
 
 ---
 
@@ -286,7 +360,7 @@ Idem, plus petit : deux lignes de `ville-boulogne-billancourt` à 750 M€ et
 | Sans année | 45 107 |
 | Montant nul | 77 144 |
 | **SIRET détruits par un tableur** (`2,19301E+13`) | **29 159** |
-| Montants invraisemblables, exclus des totaux | 122 |
+| Valeurs écartées, hors des totaux (quarantaines d'unité comprises) | 30 255 |
 | Doublons internes à une source, conservés et signalés | 97 103 |
 
 Les SIRET en notation scientifique **ne sont pas réparables** : Excel n'a gardé
@@ -325,9 +399,12 @@ collectivité qu'on ne couvre pas. Les trois derniers coûtent zéro couverture
   « Commune de La Baule » ce qui est en réalité **Baule dans le Loiret**. On ne
   corrige pas le libellé : deviner qu'un « La Baule » veut dire « Baule »
   ailleurs fondrait deux communes réelles. Détail dans `CLAUDE.md`.
-- **`measure_of` et les tirets bas : MESURÉ le 21/08/2026, correctif NON
-  appliqué — voir §4.** Le défaut est réel mais minuscule, et le corriger seul
-  ferait perdre de l'argent réel plutôt que d'en dédoubler.
+- **`measure_of` et les tirets bas : appliqué le 23/08/2026 — voir §1d et §4.**
+  Non pour les 8 lignes de Chatou que mesurait le §4a, mais pour lever une
+  contradiction : le même fichier était lu « voté » d'un côté et « payé » de
+  l'autre selon le portail qui le sert. Les séparateurs sont ramenés à l'espace
+  dans `measure_of`, et là seulement — `fold`, dont dépend toute la
+  reconnaissance de colonnes, n'est pas touché.
 - **Le fichier PLF 2024 est vide à la source** (« csv: fichier vide ou non
   tabulaire ») : l'exercice 2022 manque donc au corpus PLF Jaune.
 
@@ -644,7 +721,7 @@ assumer la borne de 2019.
 
 ## Ordre recommandé
 
-*Révisé le 22/08/2026, après la phase 10.*
+*Révisé le 23/08/2026, après la phase 11.*
 
 1. ~~Colorer la carte de couverture par la part connue (5a)~~ — **fait le
    22/08/2026.** Ce que la carte montre maintenant, et qu'aucun tableau ne
@@ -665,16 +742,26 @@ assumer la borne de 2019.
    ce qu'il a — croisements, séries, exports, lisibilité — plutôt que vers un
    corpus plus gros. La phase 10 en est un exemple : elle n'a pas ajouté une
    subvention, elle a rendu mesurable ce qui manque.
-5. **Les jeux écartés à rouvrir (1d)** — le seul gisement qui ne dépende de
-   personne. Trois correctifs de reconnaissance (en-tête mal détecté, `beneficiare`,
-   `organismes`) rouvrent ~91 jeux, mais 69 sont la Ville de Rennes : gain en
-   profondeur, pas en couverture. Demande un re-moissonnage complet.
+5. ~~Les jeux écartés à rouvrir (1d)~~ — **fait le 23/08/2026, et l'énoncé
+   était faux sur les trois points.** Deux des trois correctifs étaient déjà
+   appliqués, l'inventaire datait d'avant le re-moissonnage, et les collectivités
+   nouvelles n'étaient pas celles annoncées : +4 communes, +1 EPCI et **un
+   département entier** (Seine-Maritime), pas seulement de la profondeur. Le
+   gisement de reconnaissance est maintenant épuisé — les 8 jeux écartés que les
+   règles actuelles retiendraient portent tous zéro ligne. Leçon : un inventaire
+   qui n'est pas relu dans les manifestes du jour envoie sur le mauvais chantier,
+   exactement ce que l'avertissement en tête de ce fichier dit d'éviter.
 6. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
    l'histoire du site en dépendent.
-7. ~~`measure_of` et les tirets bas~~ — **fait (§4, phase 8)**. Le correctif de
-   séparateurs n'a PAS été appliqué (8 lignes, 850 k€, toutes à perte). À sa
-   place, deux changements de doctrine tranchés par l'utilisateur : voté et payé
-   s'affichent côte à côte, et seuls les DONS entrent dans les totaux.
+7. ~~`measure_of` et les tirets bas~~ — **fait**, en deux temps. Phase 8 :
+   deux changements de doctrine tranchés par l'utilisateur — voté et payé
+   s'affichent côte à côte, et seuls les DONS entrent dans les totaux. Le
+   23/08/2026, les séparateurs ont finalement été ramenés à l'espace **dans
+   `measure_of` seulement**, non pour les 8 lignes de Chatou du §4a mais parce
+   que le même fichier de Fleury-sur-Orne était « voté » côté portail
+   (`subventions_versees`) et « payé » côté data.gouv.fr (« Subventions
+   versées »). Ce que le §4b disait coûteux ne l'est plus depuis la phase 8 :
+   « payé » s'affiche à côté du voté au lieu de disparaître.
 8. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
    mesurés épuisés (1a). Y revenir sans une source nouvelle serait du travail
    jetable.

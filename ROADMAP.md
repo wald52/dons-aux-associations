@@ -813,6 +813,95 @@ sur-affirme — la Région publie, mais c'est la commune qui verse. D'où le pal
 
 ---
 
+## Phase 11 — Les jeux écartés, et ce qu'ils ont cassé en entrant (23/08/2026)
+
+`RESTE-A-FAIRE.md` §1d désignait le dernier gisement qui ne dépende de
+personne : les fichiers que les moissonneurs ont déjà vus et rejetés. Trois
+correctifs de reconnaissance, annonçait-il, pour ~91 jeux dont 69 seraient la
+Ville de Rennes — « du gain en profondeur, pas en couverture ».
+
+**L'énoncé était faux sur ses trois points.** Deux des trois correctifs
+(`beneficiare`, `organismes`) avaient été appliqués par la phase 9 sans que le
+paragraphe soit relu. Son inventaire datait du 21/08, avant le re-moissonnage.
+Et ses « deux communes de Haute-Garonne vraiment nouvelles », Fronton et
+Labarthe-sur-Lèze, publient **zéro ligne** : le jeu est vide à la source.
+
+### Ce qui a été fait
+
+Inventaire refait sur les manifestes du jour, candidats **vérifiés sur la donnée
+téléchargée** et non sur le seul libellé de colonne, puis mesurés sur les 824
+en-têtes connus des deux manifestes. Sept graphies ajoutées : `liborgabenef` et
+`mtsubv` (Région Île-de-France), `mandate` (Maine-et-Loire, GrandSoissons, Grand
+Paris Sud), `organisation` (Montreuil), `destinataire(s)` (Saint-Maur-des-Fossés)
+et `associations` — le singulier était reconnu depuis toujours, le pluriel non.
+
+| | phase 10 | phase 11 |
+|---|---|---|
+| Lignes | 2 809 711 | **2 817 042** |
+| Sources | 658 | **681** |
+| Communes | 90 | **94** |
+| EPCI | 31 | **32** |
+| Départements | 34 | **35** |
+| Cumuls ≥ 3 échelons | 9 800 | **10 128** |
+| Contrôles | 49/50 | **50/50** |
+
+Nouvelles : Aix-en-Provence (12,66 M€), Saint-Maur-des-Fossés (3,71 M€),
+Fleury-sur-Orne, Moissy-Cramayel, GrandSoissons Agglomération (2,18 M€) et le
+**département de la Seine-Maritime** (973 lignes, 33,74 M€).
+
+### Le total voté baisse de 1,34 Md€, et c'est une correction
+
+Une même colonne ne peut pas être à la fois le bénéficiaire et le montant.
+Six fichiers déjà retenus l'étaient ainsi — le titre du rapport lu comme un
+en-tête. La Chambre de Commerce Seine Mer Normandie publiait un bénéficiaire
+« 911671485 » pour 911 671 485 € et « W761003097 » pour 761 003 097 € : un SIREN
+et un RNA lus comme des euros, **1,67 Md€ de faux**. C'était l'origine du cas que
+le rapport de qualité signalait depuis la phase 6b sans en connaître la cause ;
+`nom_de_beneficiaire_numerique` tombe de 1 798 M€ à 125 M€.
+
+### Trois autres défauts, révélés par l'ouverture
+
+Rouvrir des jeux fait entrer des fichiers que le reste de la chaîne n'avait
+jamais eu à lire.
+
+- **Un en-tête lu sur une ligne de données.** `organisation;montant;thematique;type`
+  (Montreuil) ne porte qu'un mot-repère quand chacune de ses lignes en porte deux.
+  La première ligne, quand elle est déjà un en-tête valide, gagne désormais —
+  mesuré sur les 935 fichiers bruts, 4 changent, tous des corrections.
+- **Un donateur lu dans une colonne de code.** `Code Collectivité` chez
+  GrandSoissons ne contient que « 1 ». Corrige au passage la Ville de Soissons,
+  déjà présente.
+- **Un publieur qui est un service.** Saint-Maur publie sous « Direction des
+  sports » ; le repli du donateur remonte maintenant à l'éditeur du portail.
+
+Et une contradiction levée : le même fichier de Fleury-sur-Orne était « voté »
+côté portail (`subventions_versees`) et « payé » côté data.gouv.fr
+(« Subventions versées »). Les séparateurs sont ramenés à l'espace dans
+`measure_of`, et là seulement.
+
+### Deux correctifs écartés, et un arbitrage renvoyé
+
+`total` nu ferait entrer Blois 2020-2022, dont la colonne de noms s'appelle
+littéralement `empty` et dont la colonne `associations` ne porte que le code
+« P1 ». `somme` nu n'ouvre que des comptes administratifs de Rennes, que
+`measure_of` étiquetterait « voté » alors qu'un CA est de l'exécution.
+
+Enfin, le Département de Maine-et-Loire **ne publie plus le nom de ses
+bénéficiaires depuis 2017** : 1 781 lignes, 22,1 M€, dont 96,9 % ont un SIRET et
+aucune raison sociale. Le pipeline écarte les lignes sans nom ; les récupérer sur
+le seul SIRET est un arbitrage de doctrine, laissé à l'utilisateur.
+
+### Le gisement de reconnaissance est épuisé
+
+Sur les 172 jeux ODS encore écartés, **8 passeraient les règles actuelles et
+tous portent zéro ligne**. Ce qui reste tient en trois familles, aucune
+récupérable sans deviner : les comptes administratifs de la Ville de Rennes
+(~20 000 lignes, montants nommés `total_des_mandats_emis` ou `bp_2013`,
+bénéficiaire dans un `libelle`), des statistiques qui ne nomment personne, et
+19 échecs réseau chez `datacat.datalocale.fr`.
+
+---
+
 ## Phase 6 — Le gisement, tel que mesuré le 19/08/2026
 
 Ce qui manque n'est pas une inconnue : quatre gisements ont été quantifiés,
