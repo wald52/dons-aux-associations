@@ -1,6 +1,6 @@
 {
   "family": "plf_jaune",
-  "fetched_at": "2026-08-22T14:23:50Z",
+  "fetched_at": "2026-08-23T00:26:33Z",
   "discovery_queries": [
     "jaune associations subventionnees",
     "effort financier etat faveur des associations"
@@ -20,7 +20,9 @@
           "title": "plf2012-jaune-donnees-associations-subventionnees.csv"
         }
       ],
-      "cached": true,
+      "source_url": "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/plf2012-jaune-donnees-associations-subventionnees/exports/csv?use_labels=true",
+      "source_format": "csv",
+      "cached": false,
       "file": "data/raw/plf-jaune/plf-2012.csv",
       "bytes": 3821993,
       "sha256": "6d3b49f4990cf68957ab310bcdaf4d92d3c3b33daa1cf64d52704925a5c8bfdf",
@@ -40,7 +42,9 @@
           "title": "plf2013-jaune-donnees-associations-subventionnees.csv"
         }
       ],
-      "cached": true,
+      "source_url": "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/plf2013-jaune-donnees-associations-subventionnees/exports/csv?use_labels=true",
+      "source_format": "csv",
+      "cached": false,
       "file": "data/raw/plf-jaune/plf-2013.csv",
       "bytes": 6497661,
       "sha256": "24555f675f83bf8b3d680e209f8a14c1883664ff46cc2e028ed0d5415a2fda4b",
@@ -60,7 +64,9 @@
           "title": "plf-2014-jaune-donnees-associations-subventionnees-2012.csv"
         }
       ],
-      "cached": true,
+      "source_url": "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/plf-2014-jaune-donnees-associations-subventionnees-2012/exports/csv?use_labels=true",
+      "source_format": "csv",
+      "cached": false,
       "file": "data/raw/plf-jaune/plf-2014.csv",
       "bytes": 8682621,
       "sha256": "b428565b4788c921ac33c9e5698b38d95297131e6e39217cd7a9f95ab57dbee9",
@@ -80,7 +86,9 @@
           "title": "plf-2015-jaune-effort-financier-de-letat-en-faveur-des-associations-.csv"
         }
       ],
-      "cached": true,
+      "source_url": "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/plf-2015-jaune-effort-financier-de-letat-en-faveur-des-associations-/exports/csv?use_labels=true",
+      "source_format": "csv",
+      "cached": false,
       "file": "data/raw/plf-jaune/plf-2015.csv",
       "bytes": 7832366,
       "sha256": "a487a84e33be8a2b5bd23bd9aaa262174aa090b26c81ecfb092792347e96acac",
@@ -100,7 +108,9 @@
           "title": "plf-2016-jaune-effort-financier-de-letat-en-faveur-des-associations-.csv"
         }
       ],
-      "cached": true,
+      "source_url": "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/plf-2016-jaune-effort-financier-de-letat-en-faveur-des-associations-/exports/csv?use_labels=true",
+      "source_format": "csv",
+      "cached": false,
       "file": "data/raw/plf-jaune/plf-2016.csv",
       "bytes": 8371661,
       "sha256": "17c7a85a98c9f5810ba71b0d6bded3d1e7980247f7d4674d98d8ee83b7a88c3e",
@@ -120,7 +130,9 @@
           "title": "projet-de-loi-de-finances-pour-2017-plf-2017-jaune-effort-financier-de-letat-en-.csv"
         }
       ],
-      "cached": true,
+      "source_url": "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-de-finances-pour-2017-plf-2017-jaune-effort-financier-de-letat-en-/exports/csv?use_labels=true",
+      "source_format": "csv",
+      "cached": false,
       "file": "data/raw/plf-jaune/plf-2017.csv",
       "bytes": 5881968,
       "sha256": "a255041e62f7f116a7697df4ea6db26e2ccd758ac60412ce0cac936f935ab056",
@@ -140,7 +152,9 @@
           "title": "projet-de-loi-de-finances-pour-2018-plf-2018-donnees-de-lannexe-jaune-effort-fin.csv"
         }
       ],
-      "cached": true,
+      "source_url": "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-de-finances-pour-2018-plf-2018-donnees-de-lannexe-jaune-effort-fin/exports/csv?use_labels=true",
+      "source_format": "csv",
+      "cached": false,
       "file": "data/raw/plf-jaune/plf-2018.csv",
       "bytes": 9317853,
       "sha256": "01a026e9baa105bee375b4a24d4761e3e7dbbc256a2012552e38db279cc8d01e",
@@ -201,11 +215,14 @@
           "title": "projet-de-loi-de-finances-pour-2020-plf-2020-donnees-de-lannexe-jaune-effort-fin.csv"
         }
       ],
-      "cached": true,
+      "converted_from": "xlsx",
+      "source_url": "https://data.economie.gouv.fr/api/v2/catalog/datasets/projet-de-loi-de-finances-pour-2020-plf-2020-donnees-de-lannexe-jaune-effort-fin/attachments/credits_aux_associations_2018_xlsx",
+      "source_format": "xlsx",
+      "cached": false,
       "file": "data/raw/plf-jaune/plf-2020.csv",
-      "bytes": 13058282,
-      "sha256": "ade0c16a23a4fe9f9e4812b7087f4118e4938a41831915775f445b028fd0a222",
-      "lines": 92114
+      "bytes": 12670865,
+      "sha256": "35b7388b3d56f43a0258c74749182deba05fa4ef3bb14397255c2b5c73233213",
+      "lines": 92607
     },
     {
       "plf_year": 2021,
@@ -262,7 +279,9 @@
           "title": "projet-de-loi-de-finances-pour-2022-plf-2022-donnees-de-lannexe-jaune-effort-fin.csv"
         }
       ],
-      "cached": true,
+      "source_url": "https://data.economie.gouv.fr/api/v2/catalog/datasets/projet-de-loi-de-finances-pour-2022-plf-2022-donnees-de-lannexe-jaune-effort-fin/attachments/plf_2022_jaune_associations_csv",
+      "source_format": "csv",
+      "cached": false,
       "file": "data/raw/plf-jaune/plf-2022.csv",
       "bytes": 18145683,
       "sha256": "ff7c9e0dfff331270e88c5bb8a611c9b08da46333069bbce832981c0f1c76a74",
@@ -327,7 +346,9 @@
           "title": "plf25-donnees-de-l-annexe-jaune-effort-financier-de-l-etat-en-faveur-des-associations.csv"
         }
       ],
-      "cached": true,
+      "source_url": "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/plf25-donnees-de-l-annexe-jaune-effort-financier-de-l-etat-en-faveur-des-associations/exports/csv?use_labels=true",
+      "source_format": "csv",
+      "cached": false,
       "file": "data/raw/plf-jaune/plf-2025.csv",
       "bytes": 17030499,
       "sha256": "2ba18f294bbb87f4bac22c0f0d52750d610899fef2dea569c30463fe0c7028a6",

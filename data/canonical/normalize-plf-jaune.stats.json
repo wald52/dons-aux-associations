@@ -1,6 +1,6 @@
 {
   "family": "plf_jaune",
-  "normalized_at": "2026-08-22T14:28:00Z",
+  "normalized_at": "2026-08-23T00:37:44Z",
   "files": [
     {
       "source_id": "plf-jaune-2012",
@@ -345,24 +345,24 @@
       "data_year": 2018,
       "year_provenance": "plf_minus_2",
       "file": "data/raw/plf-jaune/plf-2020.csv",
-      "encoding": "utf-8-sig",
-      "header_line": 1,
+      "encoding": "cp1252",
+      "header_line": 2,
       "granularity": "individual",
-      "rows_read": 92114,
-      "rows_kept": 92114,
+      "rows_read": 92606,
+      "rows_kept": 92606,
       "rows_dropped": 0,
       "by_granularity": {
-        "individual": 92114
+        "individual": 92606
       },
       "drop_reasons": {},
       "flags": {
-        "no_rna": 92114,
-        "dep_only": 13109,
+        "no_rna": 92606,
+        "dep_only": 13307,
         "dep_unknown": 688,
         "no_siret": 556,
-        "amount_zero": 5,
+        "amount_negative": 2,
         "beneficiary_not_association": 15,
-        "amount_negative": 2
+        "amount_zero": 5
       },
       "columns_mapped": {
         "siren": "SIREN",
@@ -380,8 +380,8 @@
         "rna"
       ],
       "parquet": "data/canonical/parts/plf-jaune-2020.parquet",
-      "parquet_bytes": 6566316,
-      "amount_total": 7240745111.98
+      "parquet_bytes": 6142284,
+      "amount_total": 7242185068.07
     },
     {
       "source_id": "plf-jaune-2021",
