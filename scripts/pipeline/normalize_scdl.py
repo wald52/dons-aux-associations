@@ -105,10 +105,15 @@ def normaliser_fichier(fiche, fichier, ingested_at):
     # la commune, et ces lignes ne se dédupliquaient pas avec les mêmes données
     # publiées sur le portail. On lit alors le titre du jeu, et on ne retient
     # que ce qui correspond EXACTEMENT à un nom du référentiel INSEE.
+    # Quand le titre ne nomme personne non plus, le donateur reste INCONNU :
+    # « CA 2013 - Subventions d'équipement aux associations » ne dit pas quelle
+    # collectivité a payé. Créditer le compte publieur serait affirmer que
+    # Rennes Métropole a versé ce que la Ville de Rennes a probablement versé —
+    # une devinette, et du mauvais côté. Un donateur non attribué se voit et se
+    # corrige ; un donateur faux se propage jusque dans la couverture.
     organisation = fiche.get("organisation") or ""
     if C.est_un_compte_de_publication(organisation):
-        organisation = (C.collectivite_du_libelle(fichier.get("titre"), fiche.get("titre"))
-                        or organisation)
+        organisation = C.collectivite_du_libelle(fichier.get("titre"), fiche.get("titre")) or ""
 
     for i, r in enumerate(lignes, start=1):
         st["lues"] += 1

@@ -540,7 +540,15 @@ _SIREN_TRANCHE = {"21": "commune", "22": "departement", "23": "region",
 # ferait disparaître 130 000 versements de la lecture par échelon.
 _SIGLES_ETAT = ("dgcl", "cget", "prefecture", "pref ", "pref-", "prefet", "prefd",
                 "sous-pref", "ddets", "ddetspp", "dreets", "deets", "ddcs", "ddcspp",
-                "drjscs", "ddjscs", "drac", "dihal", "dilcrah", "ddt ", "dreal")
+                "drjscs", "ddjscs", "drac", "dihal", "dilcrah", "ddt ", "dreal",
+                # Écrits en toutes lettres, ces services DÉCONCENTRÉS de l'État
+                # contiennent le mot « régionale » — et le repli par nom, qui
+                # cherche « region » en sous-chaîne, en faisait des RÉGIONS.
+                # « Direction régionale des affaires culturelles des Pays de la
+                # Loire » créditait ainsi une région de 363,59 M€ d'argent
+                # d'État. Une région, elle, ne s'appelle jamais « direction ».
+                "direction regionale", "direction interregionale",
+                "direction departementale", "direction interdepartementale")
 _SIGLES_OPERATEUR = ("agence de l'eau", "agence de l eau", "ademe", "ars ",
                      "agence nationale", "caisse nationale", "office francais")
 
