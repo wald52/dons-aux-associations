@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T18:09:09Z",
+  "generated_at": "2026-08-23T01:38:48Z",
   "methode": "Chaque libellé de donateur est rapproché du référentiel INSEE et désigne AU PLUS UNE collectivité — en cas d'homonymie, aucune. La couverture affichée est donc un minimum : un libellé inhabituel échoue à s'apparier alors que la donnée existe, mais aucune collectivité n'est comptée à tort.",
   "etats": {
     "donnees": "des subventions versées par cette collectivité sont présentes",
@@ -10,19 +10,19 @@
     "commune": {
       "univers": 34936,
       "par_etat": {
-        "sans_donnees": 34828,
-        "donnees": 90,
-        "publie_non_lu": 18
+        "sans_donnees": 34826,
+        "donnees": 94,
+        "publie_non_lu": 16
       },
       "population_totale": 68325284,
-      "population_couverte": 7446431,
-      "part_population_couverte": 10.9,
+      "population_couverte": 7697150,
+      "part_population_couverte": 11.3,
       "detail": {
         "02722": {
           "nom": "Soissons",
           "etat": "donnees",
-          "lignes": 1430,
-          "montant_eur": 7665253.0,
+          "lignes": 1591,
+          "montant_eur": 8507888.0,
           "population": 28046
         },
         "04112": {
@@ -62,9 +62,9 @@
         },
         "13001": {
           "nom": "Aix-en-Provence",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 141,
+          "montant_eur": 12655818.0,
           "population": 149695
         },
         "13055": {
@@ -83,9 +83,9 @@
         },
         "14271": {
           "nom": "Fleury-sur-Orne",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 22,
+          "montant_eur": 0.0,
           "population": 5941
         },
         "14366": {
@@ -210,7 +210,7 @@
         "35206": {
           "nom": "Noyal-Châtillon-sur-Seiche",
           "etat": "donnees",
-          "lignes": 53,
+          "lignes": 108,
           "montant_eur": 59731.12,
           "population": 8359
         },
@@ -231,8 +231,8 @@
         "35238": {
           "nom": "Rennes",
           "etat": "donnees",
-          "lignes": 34646,
-          "montant_eur": 728516896.28,
+          "lignes": 35047,
+          "montant_eur": 793811074.28,
           "population": 230890
         },
         "35277": {
@@ -252,8 +252,8 @@
         "35331": {
           "nom": "Talensac",
           "etat": "donnees",
-          "lignes": 220,
-          "montant_eur": 18847812.0,
+          "lignes": 330,
+          "montant_eur": 19034424.0,
           "population": 2571
         },
         "36006": {
@@ -603,7 +603,7 @@
           "nom": "Combs-la-Ville",
           "etat": "donnees",
           "lignes": 8,
-          "montant_eur": 551142.5,
+          "montant_eur": 0.0,
           "population": 23350
         },
         "77285": {
@@ -619,6 +619,13 @@
           "lignes": 83,
           "montant_eur": 0.0,
           "population": 45995
+        },
+        "77296": {
+          "nom": "Moissy-Cramayel",
+          "etat": "donnees",
+          "lignes": 1,
+          "montant_eur": 0.0,
+          "population": 18511
         },
         "77337": {
           "nom": "Noisiel",
@@ -638,7 +645,7 @@
           "nom": "Chatou",
           "etat": "donnees",
           "lignes": 8,
-          "montant_eur": 850244.0,
+          "montant_eur": 0.0,
           "population": 30598
         },
         "83119": {
@@ -700,8 +707,8 @@
         "92040": {
           "nom": "Issy-les-Moulineaux",
           "etat": "donnees",
-          "lignes": 175,
-          "montant_eur": 42561554.0,
+          "lignes": 601,
+          "montant_eur": 97643825.0,
           "population": 67669
         },
         "92048": {
@@ -746,6 +753,13 @@
           "montant_eur": 3838150.0,
           "population": 21112
         },
+        "94068": {
+          "nom": "Saint-Maur-des-Fossés",
+          "etat": "donnees",
+          "lignes": 23,
+          "montant_eur": 3709041.0,
+          "population": 76572
+        },
         "94076": {
           "nom": "Villejuif",
           "etat": "donnees",
@@ -775,13 +789,14 @@
           "population": 36568
         }
       },
-      "donateurs_dans_les_donnees": 117,
+      "donateurs_dans_les_donnees": 123,
       "donateurs_non_apparies": [
         "CCAS GRANDCHAMP DESFONTAINES",
         "CCAS VILLE DE NOUMEA",
         "COMMUNE DE SAINT CLAUDE",
         "CTRE COM ACTION SOCIALE CCAS",
         "VILLE DE CHEMERE",
+        "VILLE DE MONTREUIL",
         "VILLE DE SAINT NAZAIRE",
         "VILLE DE VINEUIL 41350",
         "VILLE DU POINCONNET"
@@ -791,8 +806,8 @@
       "univers": 1335,
       "par_etat": {
         "sans_donnees": 1292,
-        "publie_non_lu": 12,
-        "donnees": 31
+        "donnees": 32,
+        "publie_non_lu": 11
       },
       "population_totale": 0,
       "population_couverte": 0,
@@ -800,9 +815,9 @@
       "detail": {
         "240200477": {
           "nom": "Communauté d'agglomération GrandSoissons Agglomération",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 172,
+          "montant_eur": 2175353.0,
           "population": 0
         },
         "200067437": {
@@ -892,8 +907,8 @@
         "243500139": {
           "nom": "Rennes Métropole",
           "etat": "donnees",
-          "lignes": 20514,
-          "montant_eur": 439132857.81,
+          "lignes": 20187,
+          "montant_eur": 396053293.81,
           "population": 0
         },
         "243500741": {
@@ -1081,7 +1096,7 @@
         "200059228": {
           "nom": "Communauté d'agglomération Grand Paris Sud Seine Essonne Sénart",
           "etat": "donnees",
-          "lignes": 621,
+          "lignes": 794,
           "montant_eur": 35716223.83,
           "population": 0
         },
@@ -1100,7 +1115,7 @@
           "population": 0
         }
       },
-      "donateurs_dans_les_donnees": 41,
+      "donateurs_dans_les_donnees": 43,
       "donateurs_non_apparies": [
         "AGGLOMERATION MONTARGOISE",
         "AGGLOPOLYS",
@@ -1110,6 +1125,7 @@
         "COMMUNAUTE DE COMMUNES DU PAYS MORNANTAIS",
         "COMMUNAUTE DE COMMUNES DU VAL D ESSONNE",
         "PAYS DE MORMAL",
+        "SAINT NAZAIRE AGGLOMERATION",
         "SYNDICAT DES TRANSPORTS D ILE DE FRANCE"
       ]
     },
@@ -1117,8 +1133,8 @@
       "univers": 101,
       "par_etat": {
         "sans_donnees": 60,
-        "donnees": 34,
-        "publie_non_lu": 7
+        "donnees": 35,
+        "publie_non_lu": 6
       },
       "population_totale": 0,
       "population_couverte": 0,
@@ -1134,7 +1150,7 @@
         "10": {
           "nom": "Aube",
           "etat": "donnees",
-          "lignes": 44,
+          "lignes": 37,
           "montant_eur": 7562429.0,
           "population": 0
         },
@@ -1274,8 +1290,8 @@
         "49": {
           "nom": "Maine-et-Loire",
           "etat": "donnees",
-          "lignes": 15820,
-          "montant_eur": 223206965.42,
+          "lignes": 15963,
+          "montant_eur": 214307342.77,
           "population": 0
         },
         "50": {
@@ -1371,9 +1387,9 @@
         },
         "76": {
           "nom": "Seine-Maritime",
-          "etat": "publie_non_lu",
-          "lignes": 0,
-          "montant_eur": 0,
+          "etat": "donnees",
+          "lignes": 973,
+          "montant_eur": 33738834.84,
           "population": 0
         },
         "79": {
@@ -1412,7 +1428,7 @@
           "population": 0
         }
       },
-      "donateurs_dans_les_donnees": 43,
+      "donateurs_dans_les_donnees": 44,
       "donateurs_non_apparies": [
         "BUDGET PRINCIPAL",
         "CONSEIL D PARTEMENTAL DU FINIST RE",
@@ -1434,8 +1450,8 @@
         "11": {
           "nom": "Île-de-France",
           "etat": "donnees",
-          "lignes": 72846,
-          "montant_eur": 5117632800.06,
+          "lignes": 72830,
+          "montant_eur": 5116505638.61,
           "population": 0
         },
         "24": {
@@ -1469,8 +1485,8 @@
         "53": {
           "nom": "Bretagne",
           "etat": "donnees",
-          "lignes": 101144,
-          "montant_eur": 9350345988.48,
+          "lignes": 101143,
+          "montant_eur": 9350343151.41,
           "population": 0
         },
         "76": {
@@ -1494,12 +1510,12 @@
   },
   "donateurs_hors_referentiel": {
     "inconnu": [
-      62952,
-      3569719860.47
+      67060,
+      2117539569.47
     ],
     "etat": [
-      1862156,
-      99875129041.99
+      1862648,
+      99876294638.38
     ],
     "operateur": [
       64676,

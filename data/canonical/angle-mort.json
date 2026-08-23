@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-08-22T22:35:26Z",
+ "generated_at": "2026-08-23T01:39:49Z",
  "source": {
   "hote": "journal-officiel-datadila.opendatasoft.com",
   "dataset": "jo_associations",
   "url": "https://journal-officiel-datadila.opendatasoft.com/explore/dataset/jo_associations/",
   "licence": "Licence Ouverte 2.0",
-  "moissonne_le": "2026-08-22T17:41:32Z",
+  "moissonne_le": "2026-08-23T00:26:51Z",
   "seuil_legal_eur": 153000,
   "fondement": "art. L612-4 et D612-5 du code de commerce"
  },
@@ -17,13 +17,13 @@
  "depots": 227586,
  "depots_sans_siren": 561,
  "organismes": 31683,
- "reconnus": 18745,
- "reconnus_par_siren": 18597,
+ "reconnus": 18746,
+ "reconnus_par_siren": 18598,
  "reconnus_par_rna_seul": 148,
- "non_reconnus": 12938,
+ "non_reconnus": 12937,
  "part_non_reconnus_pct": 40.8,
  "index_du_site": {
-  "siren": 216042,
+  "siren": 216052,
   "rna": 69954
  },
  "par_departement": {
@@ -399,8 +399,8 @@
   },
   "75": {
    "organismes": 4696,
-   "reconnus": 2171,
-   "part_reconnus_pct": 46.2
+   "reconnus": 2172,
+   "part_reconnus_pct": 46.3
   },
   "76": {
    "organismes": 461,
@@ -556,7 +556,7 @@
  "par_type": {
   "Associations loi du 1er juillet 1901": {
    "organismes": 26843,
-   "reconnus": 18231
+   "reconnus": 18232
   },
   "Fonds de dotation": {
    "organismes": 3669,
@@ -746,7 +746,7 @@
    "cle": "nom_connu_ailleurs",
    "libelle": "Nom connu du site, mais dans un autre département",
    "explication": "Le site connaît ce nom, rattaché ailleurs. Le Journal officiel donne le département du SIÈGE, le site celui de l'adresse publiée par le financeur : les deux divergent pour les organismes à établissements multiples. Rapprochement possible, jamais automatique.",
-   "organismes": 531,
+   "organismes": 536,
    "part_pct": 4.1,
    "exemples": [
     {
@@ -908,7 +908,7 @@
    "cle": "territoire_peu_couvert",
    "libelle": "Territoire dont le site connaît moins de 1 % des subventions communales",
    "explication": "Un financeur publie quelque part dans ce département, mais pas celui qui compte : le site y connaît moins d'un centième de ce que les communes déclarent verser. Une association financée par sa commune y est invisible par construction.",
-   "organismes": 3430,
+   "organismes": 3426,
    "part_pct": 26.5,
    "exemples": [
     {
@@ -989,7 +989,7 @@
    "cle": "inexplique",
    "libelle": "Aucune explication automatique",
    "explication": "Ni fonds de dotation, ni homonyme ailleurs, ni territoire muet. Deux lectures restent possibles, et AUCUNE DONNÉE PUBLIQUE NE PERMET DE TRANCHER : l'organisme vit de dons privés — le seuil de 153 000 € les compte — ou bien il reçoit de l'argent public que personne ne publie. Ce n'est pas une liste de travail : c'est la mesure de ce qu'on ignore.",
-   "organismes": 4098,
+   "organismes": 4096,
    "part_pct": 31.7,
    "exemples": [
     {
@@ -1139,7 +1139,7 @@
   },
   "2023": {
    "organismes": 2445,
-   "reconnus": 1374
+   "reconnus": 1375
   },
   "2024": {
    "organismes": 5898,
@@ -8665,7 +8665,7 @@
     "2020"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "nom_connu_ailleurs"
   },
   {
    "siren": "441963139",

@@ -1,16 +1,16 @@
 {
   "family": "ods",
-  "normalized_at": "2026-08-22T14:34:03Z",
-  "jeux": 407,
-  "lues": 1254699,
-  "gardees": 1242107,
+  "normalized_at": "2026-08-23T01:25:53Z",
+  "jeux": 431,
+  "lues": 1338441,
+  "gardees": 1322279,
   "par_niveau": {
     "etat": 236842,
-    "commune": 487566,
-    "departement": 52814,
-    "region": 421278,
-    "inconnu": 6215,
-    "epci": 37392
+    "commune": 489621,
+    "departement": 84764,
+    "region": 467192,
+    "inconnu": 6093,
+    "epci": 37767
   },
   "sources": [
     {
@@ -120,19 +120,19 @@
       "editeur": "Région Bretagne",
       "titre": "Les subventions attribuées depuis 2014",
       "page": "https://data.bretagne.bzh/explore/dataset/subventions_attribuees_scdl0/",
-      "lues": 101128,
-      "gardees": 101127,
+      "lues": 101127,
+      "gardees": 101126,
       "ecartees": 1,
       "raisons": {
         "montant illisible": 1
       },
       "drapeaux": {
-        "no_rna": 101127,
+        "no_rna": 101126,
         "beneficiary_not_association": 6747,
-        "no_siret": 1976
+        "no_siret": 1965
       },
       "niveaux": {
-        "region": 101127
+        "region": 101126
       },
       "colonnes_mappees": {
         "benef_nom": "nombeneficiaire",
@@ -144,7 +144,7 @@
         "nature": "nature"
       },
       "parquet": "data/canonical/parts/ods-93ca6e21fca4.parquet",
-      "montant": 8062823034.73
+      "montant": 8062820197.66
     },
     {
       "source_id": "ods-f3c40cf9ec15",
@@ -153,19 +153,19 @@
       "editeur": "Fédérateur Opendatasoft",
       "titre": "Les subventions attribuées depuis 2014",
       "page": "https://data.opendatasoft.com/explore/dataset/subventions_attribuees_scdl0@breizh/",
-      "lues": 101128,
-      "gardees": 101127,
+      "lues": 101127,
+      "gardees": 101126,
       "ecartees": 1,
       "raisons": {
         "montant illisible": 1
       },
       "drapeaux": {
-        "no_rna": 101127,
+        "no_rna": 101126,
         "beneficiary_not_association": 6747,
-        "no_siret": 1976
+        "no_siret": 1965
       },
       "niveaux": {
-        "region": 101127
+        "region": 101126
       },
       "colonnes_mappees": {
         "benef_nom": "nombeneficiaire",
@@ -177,7 +177,7 @@
         "nature": "nature"
       },
       "parquet": "data/canonical/parts/ods-f3c40cf9ec15.parquet",
-      "montant": 8062823034.73
+      "montant": 8062820197.66
     },
     {
       "source_id": "ods-07f6694716bd",
@@ -410,6 +410,64 @@
       "montant": 779248423.26
     },
     {
+      "source_id": "ods-71b69eeac366",
+      "portail": "data.iledefrance.fr",
+      "mesure": "verse",
+      "editeur": "Région Île-de-France",
+      "titre": "Subventions versées par la Région aux associations",
+      "page": "https://data.iledefrance.fr/explore/dataset/subventions-versees-chaque-annee-par-la-region-aux-associations/",
+      "lues": 22958,
+      "gardees": 22958,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 22958,
+        "no_rna": 22958,
+        "beneficiary_not_association": 4,
+        "amount_zero": 13
+      },
+      "niveaux": {
+        "region": 22958
+      },
+      "colonnes_mappees": {
+        "benef_nom": "liborgabenef",
+        "attrib_nom": "nomattribuant",
+        "montant": "mtsubv",
+        "annee": "annee"
+      },
+      "parquet": "data/canonical/parts/ods-71b69eeac366.parquet",
+      "montant": 1539215045.82
+    },
+    {
+      "source_id": "ods-4322975e7b2f",
+      "portail": "data.opendatasoft.com",
+      "mesure": "verse",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions versées par la Région aux associations",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-chaque-annee-par-la-region-aux-associations@datailedefrance/",
+      "lues": 22958,
+      "gardees": 22958,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 22958,
+        "no_rna": 22958,
+        "beneficiary_not_association": 4,
+        "amount_zero": 13
+      },
+      "niveaux": {
+        "region": 22958
+      },
+      "colonnes_mappees": {
+        "benef_nom": "liborgabenef",
+        "attrib_nom": "nomattribuant",
+        "montant": "mtsubv",
+        "annee": "annee"
+      },
+      "parquet": "data/canonical/parts/ods-4322975e7b2f.parquet",
+      "montant": 1539215045.82
+    },
+    {
       "source_id": "ods-588bf40168b8",
       "portail": "data.iledefrance.fr",
       "mesure": "attribue",
@@ -466,6 +524,70 @@
       },
       "parquet": "data/canonical/parts/ods-09110005be62.parquet",
       "montant": 655124353.73
+    },
+    {
+      "source_id": "ods-d547466bad01",
+      "portail": "data.opendatasoft.com",
+      "mesure": "verse",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions aux associations du Département de Maine-et-Loire",
+      "page": "https://data.opendatasoft.com/explore/dataset/224900019_subventions-aux-associations-du-departement-de-maine-et-loire@data-maine-et-loire-fr-paysdelaloire/",
+      "lues": 17756,
+      "gardees": 15975,
+      "ecartees": 1781,
+      "raisons": {
+        "sans nom de bénéficiaire": 1781
+      },
+      "drapeaux": {
+        "no_rna": 15975,
+        "beneficiary_not_association": 23,
+        "no_siret": 834,
+        "amount_zero": 291
+      },
+      "niveaux": {
+        "departement": 15975
+      },
+      "colonnes_mappees": {
+        "benef_nom": "raison_sociale",
+        "benef_id": "siret_ou_nir",
+        "objet": "objet",
+        "montant": "mandate",
+        "annee": "annee"
+      },
+      "parquet": "data/canonical/parts/ods-d547466bad01.parquet",
+      "montant": 212674801.05
+    },
+    {
+      "source_id": "ods-1699e35c1465",
+      "portail": "data.maine-et-loire.fr",
+      "mesure": "verse",
+      "editeur": "Département de Maine-et-Loire",
+      "titre": "Subventions aux associations du Département de Maine-et-Loire",
+      "page": "https://data.maine-et-loire.fr/explore/dataset/224900019_subventions-aux-associations-du-departement-de-maine-et-loire/",
+      "lues": 17756,
+      "gardees": 15975,
+      "ecartees": 1781,
+      "raisons": {
+        "sans nom de bénéficiaire": 1781
+      },
+      "drapeaux": {
+        "no_rna": 15975,
+        "beneficiary_not_association": 23,
+        "no_siret": 834,
+        "amount_zero": 291
+      },
+      "niveaux": {
+        "departement": 15975
+      },
+      "colonnes_mappees": {
+        "benef_nom": "raison_sociale",
+        "benef_id": "siret_ou_nir",
+        "objet": "objet",
+        "montant": "mandate",
+        "annee": "annee"
+      },
+      "parquet": "data/canonical/parts/ods-1699e35c1465.parquet",
+      "montant": 212674801.05
     },
     {
       "source_id": "ods-053bca87d3e6",
@@ -3095,9 +3217,9 @@
       },
       "drapeaux": {
         "no_rna": 716,
-        "no_siret": 5,
+        "aide_en_nature": 6,
         "beneficiary_not_association": 4,
-        "aide_en_nature": 6
+        "no_siret": 5
       },
       "niveaux": {
         "epci": 716
@@ -3910,6 +4032,62 @@
       },
       "parquet": "data/canonical/parts/ods-bd9cae3eef43.parquet",
       "montant": 34449631.87
+    },
+    {
+      "source_id": "ods-d770970e390b",
+      "portail": "data.rennesmetropole.fr",
+      "mesure": "attribue",
+      "editeur": "Rennes Métropole",
+      "titre": "BP 2016 - Ville de Rennes - Subventions aux associations",
+      "page": "https://data.rennesmetropole.fr/explore/dataset/bp-2016-open-data-subventions/",
+      "lues": 401,
+      "gardees": 401,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 401,
+        "no_rna": 401,
+        "beneficiary_not_association": 5
+      },
+      "niveaux": {
+        "commune": 401
+      },
+      "colonnes_mappees": {
+        "benef_nom": "beneficiaire",
+        "attrib_nom": "collectivite",
+        "montant": "montant",
+        "annee": "exercice"
+      },
+      "parquet": "data/canonical/parts/ods-d770970e390b.parquet",
+      "montant": 65294178.0
+    },
+    {
+      "source_id": "ods-7cdf025da34e",
+      "portail": "data.opendatasoft.com",
+      "mesure": "attribue",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "BP 2016 - Ville de Rennes - Subventions aux associations",
+      "page": "https://data.opendatasoft.com/explore/dataset/bp-2016-open-data-subventions@rennes-metropole/",
+      "lues": 401,
+      "gardees": 401,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 401,
+        "no_rna": 401,
+        "beneficiary_not_association": 5
+      },
+      "niveaux": {
+        "commune": 401
+      },
+      "colonnes_mappees": {
+        "benef_nom": "beneficiaire",
+        "attrib_nom": "collectivite",
+        "montant": "montant",
+        "annee": "exercice"
+      },
+      "parquet": "data/canonical/parts/ods-7cdf025da34e.parquet",
+      "montant": 65294178.0
     },
     {
       "source_id": "ods-274966504f1e",
@@ -4936,6 +5114,62 @@
       "montant": 6862842.04
     },
     {
+      "source_id": "ods-893d779fda6e",
+      "portail": "data.opendatasoft.com",
+      "mesure": "verse",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions versées en 2018",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-aux-associations-versees-en-2018@montreuil/",
+      "lues": 276,
+      "gardees": 276,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 276,
+        "no_rna": 276,
+        "year_from_label": 276,
+        "beneficiary_not_association": 2,
+        "amount_negative": 1
+      },
+      "niveaux": {
+        "commune": 276
+      },
+      "colonnes_mappees": {
+        "benef_nom": "organisation",
+        "montant": "montant"
+      },
+      "parquet": "data/canonical/parts/ods-893d779fda6e.parquet",
+      "montant": 10886161.8
+    },
+    {
+      "source_id": "ods-cbcb66346611",
+      "portail": "data.montreuil.fr",
+      "mesure": "verse",
+      "editeur": "Ville de Montreuil",
+      "titre": "Subventions versées en 2018",
+      "page": "https://data.montreuil.fr/explore/dataset/subventions-aux-associations-versees-en-2018/",
+      "lues": 276,
+      "gardees": 276,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 276,
+        "no_rna": 276,
+        "year_from_label": 276,
+        "beneficiary_not_association": 2,
+        "amount_negative": 1
+      },
+      "niveaux": {
+        "commune": 276
+      },
+      "colonnes_mappees": {
+        "benef_nom": "organisation",
+        "montant": "montant"
+      },
+      "parquet": "data/canonical/parts/ods-cbcb66346611.parquet",
+      "montant": 10886161.8
+    },
+    {
       "source_id": "ods-530621bab064",
       "portail": "data.sicoval.fr",
       "mesure": "verse",
@@ -5440,34 +5674,6 @@
       "montant": 55729156.03
     },
     {
-      "source_id": "ods-fbe3d9485bc4",
-      "portail": "data.opendatasoft.com",
-      "mesure": "verse",
-      "editeur": "Fédérateur Opendatasoft",
-      "titre": "Subventions versées à des tiers - 2013 - Toulouse Métropole",
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-a-des-tiers-2013-toulouse-metropole@toulouse-metropole/",
-      "lues": 222,
-      "gardees": 222,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 222,
-        "no_rna": 222,
-        "year_from_label": 222,
-        "beneficiary_not_association": 14
-      },
-      "niveaux": {
-        "epci": 222
-      },
-      "colonnes_mappees": {
-        "benef_nom": "beneficiaire",
-        "montant": "montant_2013",
-        "nature": "nature_subventions"
-      },
-      "parquet": "data/canonical/parts/ods-fbe3d9485bc4.parquet",
-      "montant": 55729156.03
-    },
-    {
       "source_id": "ods-c09dbaa34565",
       "portail": "data.opendatasoft.com",
       "mesure": "verse",
@@ -5494,6 +5700,34 @@
       },
       "parquet": "data/canonical/parts/ods-c09dbaa34565.parquet",
       "montant": 55742256.03
+    },
+    {
+      "source_id": "ods-fbe3d9485bc4",
+      "portail": "data.opendatasoft.com",
+      "mesure": "verse",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions versées à des tiers - 2013 - Toulouse Métropole",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-a-des-tiers-2013-toulouse-metropole@toulouse-metropole/",
+      "lues": 222,
+      "gardees": 222,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 222,
+        "no_rna": 222,
+        "year_from_label": 222,
+        "beneficiary_not_association": 14
+      },
+      "niveaux": {
+        "epci": 222
+      },
+      "colonnes_mappees": {
+        "benef_nom": "beneficiaire",
+        "montant": "montant_2013",
+        "nature": "nature_subventions"
+      },
+      "parquet": "data/canonical/parts/ods-fbe3d9485bc4.parquet",
+      "montant": 55729156.03
     },
     {
       "source_id": "ods-bb1c83db31c5",
@@ -5718,12 +5952,13 @@
       "raisons": {},
       "drapeaux": {
         "no_rna": 204,
-        "donor_unattributed": 213,
+        "donor_unattributed": 208,
         "year_missing": 9,
         "no_siret": 12
       },
       "niveaux": {
-        "inconnu": 213
+        "inconnu": 208,
+        "epci": 5
       },
       "colonnes_mappees": {
         "benef_nom": "nombeneficiaire",
@@ -5894,40 +6129,6 @@
       "montant": 13647664.14
     },
     {
-      "source_id": "ods-71a0239e6ad8",
-      "portail": "data.toulouse-metropole.fr",
-      "mesure": "verse",
-      "editeur": "Toulouse Métropole",
-      "titre": "Subventions versées à des organismes 2015 -Toulouse Métropole",
-      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-a-des-organismes-2015-toulouse-metropole1/",
-      "lues": 200,
-      "gardees": 200,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_rna": 200,
-        "year_from_label": 200,
-        "beneficiary_not_association": 13,
-        "no_siret": 8,
-        "amount_negative": 1,
-        "amount_zero": 1
-      },
-      "niveaux": {
-        "epci": 200
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nombeneficiaire",
-        "benef_id": "idbeneficiaire",
-        "attrib_nom": "nomattribuant",
-        "objet": "objet",
-        "montant": "montant",
-        "date_conv": "dateconvention",
-        "nature": "nature"
-      },
-      "parquet": "data/canonical/parts/ods-71a0239e6ad8.parquet",
-      "montant": 65142290.43
-    },
-    {
       "source_id": "ods-336495c4185a",
       "portail": "data.toulouse-metropole.fr",
       "mesure": "verse",
@@ -5959,6 +6160,40 @@
         "nature": "nature"
       },
       "parquet": "data/canonical/parts/ods-336495c4185a.parquet",
+      "montant": 65142290.43
+    },
+    {
+      "source_id": "ods-71a0239e6ad8",
+      "portail": "data.toulouse-metropole.fr",
+      "mesure": "verse",
+      "editeur": "Toulouse Métropole",
+      "titre": "Subventions versées à des organismes 2015 -Toulouse Métropole",
+      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-a-des-organismes-2015-toulouse-metropole1/",
+      "lues": 200,
+      "gardees": 200,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 200,
+        "year_from_label": 200,
+        "beneficiary_not_association": 13,
+        "no_siret": 8,
+        "amount_negative": 1,
+        "amount_zero": 1
+      },
+      "niveaux": {
+        "epci": 200
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nombeneficiaire",
+        "benef_id": "idbeneficiaire",
+        "attrib_nom": "nomattribuant",
+        "objet": "objet",
+        "montant": "montant",
+        "date_conv": "dateconvention",
+        "nature": "nature"
+      },
+      "parquet": "data/canonical/parts/ods-71a0239e6ad8.parquet",
       "montant": 65142290.43
     },
     {
@@ -6082,6 +6317,72 @@
       },
       "parquet": "data/canonical/parts/ods-28ad07b60038.parquet",
       "montant": 56844620.43
+    },
+    {
+      "source_id": "ods-e726e7185f09",
+      "portail": "data.opendatasoft.com",
+      "mesure": "verse",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subvention 2018",
+      "page": "https://data.opendatasoft.com/explore/dataset/subvention-2018@grandparissud/",
+      "lues": 185,
+      "gardees": 185,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 185,
+        "year_from_label": 16,
+        "beneficiary_not_association": 4,
+        "no_siret": 14
+      },
+      "niveaux": {
+        "epci": 185
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nom_du_tiers",
+        "benef_id": "code_siren_siret",
+        "attrib_nom": "nom_attribuant",
+        "objet": "objet",
+        "montant": "mandate",
+        "date_conv": "decision_date",
+        "annee": "annee",
+        "nature": "nature"
+      },
+      "parquet": "data/canonical/parts/ods-e726e7185f09.parquet",
+      "montant": 9304871.68
+    },
+    {
+      "source_id": "ods-5a99d30b4852",
+      "portail": "data.grandparissud.fr",
+      "mesure": "verse",
+      "editeur": "Grand Paris Sud",
+      "titre": "Subvention 2018",
+      "page": "https://data.grandparissud.fr/explore/dataset/subvention-2018/",
+      "lues": 185,
+      "gardees": 185,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 185,
+        "year_from_label": 16,
+        "beneficiary_not_association": 4,
+        "no_siret": 14
+      },
+      "niveaux": {
+        "epci": 185
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nom_du_tiers",
+        "benef_id": "code_siren_siret",
+        "attrib_nom": "nom_attribuant",
+        "objet": "objet",
+        "montant": "mandate",
+        "date_conv": "decision_date",
+        "annee": "annee",
+        "nature": "nature"
+      },
+      "parquet": "data/canonical/parts/ods-5a99d30b4852.parquet",
+      "montant": 9304871.68
     },
     {
       "source_id": "ods-168b932c9821",
@@ -6348,6 +6649,33 @@
       "montant": 3117233.35
     },
     {
+      "source_id": "ods-437ec98b7c5c",
+      "portail": "data.issy.com",
+      "mesure": "attribue",
+      "editeur": "Ville d'Issy-les-Moulineaux",
+      "titre": "Subventions par adhérent isséen 2017",
+      "page": "https://data.issy.com/explore/dataset/subv-par-adherent-isseen-2017/",
+      "lues": 144,
+      "gardees": 144,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 144,
+        "no_rna": 144,
+        "year_from_label": 144,
+        "amount_zero": 12
+      },
+      "niveaux": {
+        "commune": 144
+      },
+      "colonnes_mappees": {
+        "benef_nom": "associations",
+        "montant": "2017_montant_total_alloue"
+      },
+      "parquet": "data/canonical/parts/ods-437ec98b7c5c.parquet",
+      "montant": 14282885.0
+    },
+    {
       "source_id": "ods-85072b5483bb",
       "portail": "data.toulouse-metropole.fr",
       "mesure": "verse",
@@ -6455,12 +6783,11 @@
       "drapeaux": {
         "no_siret": 134,
         "no_rna": 141,
-        "donor_unattributed": 141,
         "year_from_label": 4,
         "amount_zero": 2
       },
       "niveaux": {
-        "inconnu": 141
+        "commune": 141
       },
       "colonnes_mappees": {
         "benef_nom": "association",
@@ -6684,6 +7011,32 @@
       },
       "parquet": "data/canonical/parts/ods-a50a95439f66.parquet",
       "montant": 2465192.03
+    },
+    {
+      "source_id": "ods-a139c1014926",
+      "portail": "data.issy.com",
+      "mesure": "attribue",
+      "editeur": "Ville d'Issy-les-Moulineaux",
+      "titre": "Subventions par adhérent isséen 2018",
+      "page": "https://data.issy.com/explore/dataset/subv-par-adherent-isseen-2018/",
+      "lues": 132,
+      "gardees": 132,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 132,
+        "no_rna": 132,
+        "year_from_label": 132
+      },
+      "niveaux": {
+        "commune": 132
+      },
+      "colonnes_mappees": {
+        "benef_nom": "associations",
+        "montant": "2018_montant_total_alloue"
+      },
+      "parquet": "data/canonical/parts/ods-a139c1014926.parquet",
+      "montant": 14411709.0
     },
     {
       "source_id": "ods-f6180d846e9e",
@@ -7516,37 +7869,6 @@
       "montant": 841750.0
     },
     {
-      "source_id": "ods-5c4b833088d1",
-      "portail": "data.opendatasoft.com",
-      "mesure": "verse",
-      "editeur": "Fédérateur Opendatasoft",
-      "titre": "Subventions versées 2023 Blagnac",
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-2023-blagnac@toulouse-metropole/",
-      "lues": 106,
-      "gardees": 105,
-      "ecartees": 1,
-      "raisons": {
-        "sans nom de bénéficiaire": 1
-      },
-      "drapeaux": {
-        "no_rna": 105,
-        "no_siret": 9,
-        "beneficiary_not_association": 2
-      },
-      "niveaux": {
-        "commune": 105
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nom_beneficiaire",
-        "benef_id": "ndeg_siret",
-        "montant": "montant_ordonnance",
-        "annee": "exercice",
-        "nature_benef": "type_beneficiaire"
-      },
-      "parquet": "data/canonical/parts/ods-5c4b833088d1.parquet",
-      "montant": 2835919.5
-    },
-    {
       "source_id": "ods-40a3faccd001",
       "portail": "data.opendatasoft.com",
       "mesure": "verse",
@@ -7577,6 +7899,37 @@
       },
       "parquet": "data/canonical/parts/ods-40a3faccd001.parquet",
       "montant": 3002844.74
+    },
+    {
+      "source_id": "ods-5c4b833088d1",
+      "portail": "data.opendatasoft.com",
+      "mesure": "verse",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions versées 2023 Blagnac",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-2023-blagnac@toulouse-metropole/",
+      "lues": 106,
+      "gardees": 105,
+      "ecartees": 1,
+      "raisons": {
+        "sans nom de bénéficiaire": 1
+      },
+      "drapeaux": {
+        "no_rna": 105,
+        "no_siret": 9,
+        "beneficiary_not_association": 2
+      },
+      "niveaux": {
+        "commune": 105
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nom_beneficiaire",
+        "benef_id": "ndeg_siret",
+        "montant": "montant_ordonnance",
+        "annee": "exercice",
+        "nature_benef": "type_beneficiaire"
+      },
+      "parquet": "data/canonical/parts/ods-5c4b833088d1.parquet",
+      "montant": 2835919.5
     },
     {
       "source_id": "ods-1cc2a30c6ac1",
@@ -9029,33 +9382,6 @@
       "montant": 90545.0
     },
     {
-      "source_id": "ods-aaba285ad7f6",
-      "portail": "data.opendatasoft.com",
-      "mesure": "attribue",
-      "editeur": "Fédérateur Opendatasoft",
-      "titre": "Agglopolys - subventions 2023 votées au budget primitif",
-      "page": "https://data.opendatasoft.com/explore/dataset/agglopolys-subventions-2023-votees-au-budget-primitif@blois-agglopolys-centrevaldeloire/",
-      "lues": 58,
-      "gardees": 58,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 58,
-        "no_rna": 58,
-        "year_from_label": 58,
-        "beneficiary_not_association": 14
-      },
-      "niveaux": {
-        "epci": 58
-      },
-      "colonnes_mappees": {
-        "benef_nom": "organismes",
-        "montant": "bp_2023"
-      },
-      "parquet": "data/canonical/parts/ods-aaba285ad7f6.parquet",
-      "montant": 19338866.0
-    },
-    {
       "source_id": "ods-dc84249ba5c0",
       "portail": "data.opendatasoft.com",
       "mesure": "attribue",
@@ -9089,6 +9415,33 @@
       },
       "parquet": "data/canonical/parts/ods-dc84249ba5c0.parquet",
       "montant": 35751.0
+    },
+    {
+      "source_id": "ods-aaba285ad7f6",
+      "portail": "data.opendatasoft.com",
+      "mesure": "attribue",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Agglopolys - subventions 2023 votées au budget primitif",
+      "page": "https://data.opendatasoft.com/explore/dataset/agglopolys-subventions-2023-votees-au-budget-primitif@blois-agglopolys-centrevaldeloire/",
+      "lues": 58,
+      "gardees": 58,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 58,
+        "no_rna": 58,
+        "year_from_label": 58,
+        "beneficiary_not_association": 14
+      },
+      "niveaux": {
+        "epci": 58
+      },
+      "colonnes_mappees": {
+        "benef_nom": "organismes",
+        "montant": "bp_2023"
+      },
+      "parquet": "data/canonical/parts/ods-aaba285ad7f6.parquet",
+      "montant": 19338866.0
     },
     {
       "source_id": "ods-b5da50f3e708",
@@ -9207,6 +9560,122 @@
       },
       "parquet": "data/canonical/parts/ods-aa1edab88c0a.parquet",
       "montant": 17227678.0
+    },
+    {
+      "source_id": "ods-2e26a72e2d1c",
+      "portail": "data.rennesmetropole.fr",
+      "mesure": "verse",
+      "editeur": "Rennes Métropole",
+      "titre": "Subventions versées en 2017 aux associations Noyal-Châtillon-sur-Seiche",
+      "page": "https://data.rennesmetropole.fr/explore/dataset/subventions-versees-en-2017-aux-associations-noyal-chatillon-sur-seiche/",
+      "lues": 56,
+      "gardees": 54,
+      "ecartees": 2,
+      "raisons": {
+        "sans nom de bénéficiaire": 2
+      },
+      "drapeaux": {
+        "no_siret": 54,
+        "no_rna": 54,
+        "year_from_label": 54,
+        "amount_zero": 1
+      },
+      "niveaux": {
+        "commune": 54
+      },
+      "colonnes_mappees": {
+        "benef_nom": "associations",
+        "montant": "montant_2018"
+      },
+      "parquet": "data/canonical/parts/ods-2e26a72e2d1c.parquet",
+      "montant": 59731.12
+    },
+    {
+      "source_id": "ods-bb6b9cc4c03c",
+      "portail": "data.rennesmetropole.fr",
+      "mesure": "verse",
+      "editeur": "Rennes Métropole",
+      "titre": "Subventions versées en 2018 aux associations Noyal-Châtillon-sur-Seiche",
+      "page": "https://data.rennesmetropole.fr/explore/dataset/noyal-od-subvention-2017-v3/",
+      "lues": 56,
+      "gardees": 54,
+      "ecartees": 2,
+      "raisons": {
+        "sans nom de bénéficiaire": 2
+      },
+      "drapeaux": {
+        "no_siret": 54,
+        "no_rna": 54,
+        "year_from_label": 54,
+        "amount_zero": 1
+      },
+      "niveaux": {
+        "commune": 54
+      },
+      "colonnes_mappees": {
+        "benef_nom": "associations",
+        "montant": "montant_2018"
+      },
+      "parquet": "data/canonical/parts/ods-bb6b9cc4c03c.parquet",
+      "montant": 59731.12
+    },
+    {
+      "source_id": "ods-638388c5342a",
+      "portail": "data.opendatasoft.com",
+      "mesure": "verse",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions versées en 2018 aux associations Noyal-Châtillon-sur-Seiche",
+      "page": "https://data.opendatasoft.com/explore/dataset/noyal-od-subvention-2017-v3@rennes-metropole/",
+      "lues": 56,
+      "gardees": 54,
+      "ecartees": 2,
+      "raisons": {
+        "sans nom de bénéficiaire": 2
+      },
+      "drapeaux": {
+        "no_siret": 54,
+        "no_rna": 54,
+        "year_from_label": 54,
+        "amount_zero": 1
+      },
+      "niveaux": {
+        "commune": 54
+      },
+      "colonnes_mappees": {
+        "benef_nom": "associations",
+        "montant": "montant_2018"
+      },
+      "parquet": "data/canonical/parts/ods-638388c5342a.parquet",
+      "montant": 59731.12
+    },
+    {
+      "source_id": "ods-8c3331145a16",
+      "portail": "data.opendatasoft.com",
+      "mesure": "verse",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions versées en 2017 aux associations Noyal-Châtillon-sur-Seiche",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-en-2017-aux-associations-noyal-chatillon-sur-seiche@rennes-metropole/",
+      "lues": 56,
+      "gardees": 54,
+      "ecartees": 2,
+      "raisons": {
+        "sans nom de bénéficiaire": 2
+      },
+      "drapeaux": {
+        "no_siret": 54,
+        "no_rna": 54,
+        "year_from_label": 54,
+        "amount_zero": 1
+      },
+      "niveaux": {
+        "commune": 54
+      },
+      "colonnes_mappees": {
+        "benef_nom": "associations",
+        "montant": "montant_2018"
+      },
+      "parquet": "data/canonical/parts/ods-8c3331145a16.parquet",
+      "montant": 59731.12
     },
     {
       "source_id": "ods-8c42fb9651d2",
@@ -9443,38 +9912,6 @@
       "montant": 2411343.55
     },
     {
-      "source_id": "ods-e9821c18f3e5",
-      "portail": "data.opendatasoft.com",
-      "mesure": "attribue",
-      "editeur": "Fédérateur Opendatasoft",
-      "titre": "Subvention",
-      "page": "https://data.opendatasoft.com/explore/dataset/subvention@bondoufle-grandparissud/",
-      "lues": 43,
-      "gardees": 43,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 2,
-        "no_rna": 43,
-        "year_missing": 43,
-        "beneficiary_not_association": 1
-      },
-      "niveaux": {
-        "epci": 43
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nom_du_tiers",
-        "benef_id": "code_siren_siret",
-        "attrib_nom": "nom_attribuant",
-        "objet": "objet",
-        "montant": "montant_attribue",
-        "date_conv": "decision_date",
-        "nature": "nature"
-      },
-      "parquet": "data/canonical/parts/ods-e9821c18f3e5.parquet",
-      "montant": 8223994.0
-    },
-    {
       "source_id": "ods-bdd1db5df4ba",
       "portail": "data.opendatasoft.com",
       "mesure": "attribue",
@@ -9507,12 +9944,12 @@
       "montant": 8223994.0
     },
     {
-      "source_id": "ods-75e6dd1e7826",
+      "source_id": "ods-e9821c18f3e5",
       "portail": "data.opendatasoft.com",
       "mesure": "attribue",
       "editeur": "Fédérateur Opendatasoft",
       "titre": "Subvention",
-      "page": "https://data.opendatasoft.com/explore/dataset/subvention@saintgermainlescorbeil-grandparissud/",
+      "page": "https://data.opendatasoft.com/explore/dataset/subvention@bondoufle-grandparissud/",
       "lues": 43,
       "gardees": 43,
       "ecartees": 0,
@@ -9535,39 +9972,7 @@
         "date_conv": "decision_date",
         "nature": "nature"
       },
-      "parquet": "data/canonical/parts/ods-75e6dd1e7826.parquet",
-      "montant": 8223994.0
-    },
-    {
-      "source_id": "ods-0f5b324f4d27",
-      "portail": "data.opendatasoft.com",
-      "mesure": "attribue",
-      "editeur": "Fédérateur Opendatasoft",
-      "titre": "Subvention",
-      "page": "https://data.opendatasoft.com/explore/dataset/subvention@moissycramayel-grandparissud/",
-      "lues": 43,
-      "gardees": 43,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 2,
-        "no_rna": 43,
-        "year_missing": 43,
-        "beneficiary_not_association": 1
-      },
-      "niveaux": {
-        "epci": 43
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nom_du_tiers",
-        "benef_id": "code_siren_siret",
-        "attrib_nom": "nom_attribuant",
-        "objet": "objet",
-        "montant": "montant_attribue",
-        "date_conv": "decision_date",
-        "nature": "nature"
-      },
-      "parquet": "data/canonical/parts/ods-0f5b324f4d27.parquet",
+      "parquet": "data/canonical/parts/ods-e9821c18f3e5.parquet",
       "montant": 8223994.0
     },
     {
@@ -9603,6 +10008,38 @@
       "montant": 8223994.0
     },
     {
+      "source_id": "ods-0f5b324f4d27",
+      "portail": "data.opendatasoft.com",
+      "mesure": "attribue",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subvention",
+      "page": "https://data.opendatasoft.com/explore/dataset/subvention@moissycramayel-grandparissud/",
+      "lues": 43,
+      "gardees": 43,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 2,
+        "no_rna": 43,
+        "year_missing": 43,
+        "beneficiary_not_association": 1
+      },
+      "niveaux": {
+        "epci": 43
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nom_du_tiers",
+        "benef_id": "code_siren_siret",
+        "attrib_nom": "nom_attribuant",
+        "objet": "objet",
+        "montant": "montant_attribue",
+        "date_conv": "decision_date",
+        "nature": "nature"
+      },
+      "parquet": "data/canonical/parts/ods-0f5b324f4d27.parquet",
+      "montant": 8223994.0
+    },
+    {
       "source_id": "ods-056479ab74b1",
       "portail": "data.opendatasoft.com",
       "mesure": "attribue",
@@ -9632,6 +10069,38 @@
         "nature": "nature"
       },
       "parquet": "data/canonical/parts/ods-056479ab74b1.parquet",
+      "montant": 8223994.0
+    },
+    {
+      "source_id": "ods-75e6dd1e7826",
+      "portail": "data.opendatasoft.com",
+      "mesure": "attribue",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subvention",
+      "page": "https://data.opendatasoft.com/explore/dataset/subvention@saintgermainlescorbeil-grandparissud/",
+      "lues": 43,
+      "gardees": 43,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 2,
+        "no_rna": 43,
+        "year_missing": 43,
+        "beneficiary_not_association": 1
+      },
+      "niveaux": {
+        "epci": 43
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nom_du_tiers",
+        "benef_id": "code_siren_siret",
+        "attrib_nom": "nom_attribuant",
+        "objet": "objet",
+        "montant": "montant_attribue",
+        "date_conv": "decision_date",
+        "nature": "nature"
+      },
+      "parquet": "data/canonical/parts/ods-75e6dd1e7826.parquet",
       "montant": 8223994.0
     },
     {
@@ -10327,33 +10796,6 @@
       "montant": 128195.0
     },
     {
-      "source_id": "ods-0ca4b1c0e841",
-      "portail": "data.opendatasoft.com",
-      "mesure": "attribue",
-      "editeur": "Fédérateur Opendatasoft",
-      "titre": "Subventions attribuées dans le cadre du dispositif des clubs formateurs (2011)",
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions_attribuees_dans_le_cadre_du_dispositif_des_clubs_formateurs_2011@datailedefrance/",
-      "lues": 30,
-      "gardees": 30,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 30,
-        "no_rna": 30,
-        "year_from_label": 30
-      },
-      "niveaux": {
-        "region": 30
-      },
-      "colonnes_mappees": {
-        "benef_nom": "tiers_beneficiaire",
-        "objet": "objet_activite_de_l_organisme",
-        "montant": "montant_vote"
-      },
-      "parquet": "data/canonical/parts/ods-0ca4b1c0e841.parquet",
-      "montant": 235000.0
-    },
-    {
       "source_id": "ods-9b8c28fc514b",
       "portail": "data.opendatasoft.com",
       "mesure": "attribue",
@@ -10380,6 +10822,33 @@
       },
       "parquet": "data/canonical/parts/ods-9b8c28fc514b.parquet",
       "montant": 67500.0
+    },
+    {
+      "source_id": "ods-0ca4b1c0e841",
+      "portail": "data.opendatasoft.com",
+      "mesure": "attribue",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions attribuées dans le cadre du dispositif des clubs formateurs (2011)",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions_attribuees_dans_le_cadre_du_dispositif_des_clubs_formateurs_2011@datailedefrance/",
+      "lues": 30,
+      "gardees": 30,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 30,
+        "no_rna": 30,
+        "year_from_label": 30
+      },
+      "niveaux": {
+        "region": 30
+      },
+      "colonnes_mappees": {
+        "benef_nom": "tiers_beneficiaire",
+        "objet": "objet_activite_de_l_organisme",
+        "montant": "montant_vote"
+      },
+      "parquet": "data/canonical/parts/ods-0ca4b1c0e841.parquet",
+      "montant": 235000.0
     },
     {
       "source_id": "ods-5523f2174317",
@@ -10500,6 +10969,32 @@
       "montant": 14083276.0
     },
     {
+      "source_id": "ods-57f45a10b187",
+      "portail": "data.opendatasoft.com",
+      "mesure": "verse",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions aux associations",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-aux-associations@fleurysurorne/",
+      "lues": 22,
+      "gardees": 22,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 22,
+        "no_rna": 22
+      },
+      "niveaux": {
+        "commune": 22
+      },
+      "colonnes_mappees": {
+        "benef_nom": "associations",
+        "montant": "subventions_versees",
+        "annee": "annee"
+      },
+      "parquet": "data/canonical/parts/ods-57f45a10b187.parquet",
+      "montant": 746372.72
+    },
+    {
       "source_id": "ods-c1fbcb239890",
       "portail": "data.opendatasoft.com",
       "mesure": "attribue",
@@ -10564,9 +11059,35 @@
       "montant": 1851450.39
     },
     {
+      "source_id": "ods-f49063158467",
+      "portail": "data.fleurysurorne.fr",
+      "mesure": "verse",
+      "editeur": "Ville de Fleury-sur-Orne",
+      "titre": "Subventions aux associations",
+      "page": "https://data.fleurysurorne.fr/explore/dataset/subventions-aux-associations/",
+      "lues": 22,
+      "gardees": 22,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 22,
+        "no_rna": 22
+      },
+      "niveaux": {
+        "commune": 22
+      },
+      "colonnes_mappees": {
+        "benef_nom": "associations",
+        "montant": "subventions_versees",
+        "annee": "annee"
+      },
+      "parquet": "data/canonical/parts/ods-f49063158467.parquet",
+      "montant": 746372.72
+    },
+    {
       "source_id": "ods-ff5665ac25f3",
       "portail": "data.opendatasoft.com",
-      "mesure": "attribue",
+      "mesure": "verse",
       "editeur": "Fédérateur Opendatasoft",
       "titre": "Subventions supérieures à 23k € attribuées depuis 2017",
       "page": "https://data.opendatasoft.com/explore/dataset/subventions-superieures-a-23k-eur-attribuees-depuis-2017-v2@combslaville-grandparissud/",
@@ -10592,7 +11113,7 @@
     {
       "source_id": "ods-563ed8542c6d",
       "portail": "data.combs-la-ville.fr",
-      "mesure": "attribue",
+      "mesure": "verse",
       "editeur": "Ville de Combs-la-Ville",
       "titre": "Subventions supérieures à 23k € attribuées depuis 2017",
       "page": "https://data.combs-la-ville.fr/explore/dataset/subventions-superieures-a-23k-eur-attribuees-depuis-2017-v2/",
@@ -10647,38 +11168,6 @@
       "montant": 684363.0
     },
     {
-      "source_id": "ods-f2adffb51fa4",
-      "portail": "data.opendatasoft.com",
-      "mesure": "attribue",
-      "editeur": "Fédérateur Opendatasoft",
-      "titre": "Subventions - Mairie de Tarbes",
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-mairie-de-tarbes@hautes-pyrenees-occitanie/",
-      "lues": 16,
-      "gardees": 15,
-      "ecartees": 1,
-      "raisons": {
-        "montant illisible": 1
-      },
-      "drapeaux": {
-        "no_siret": 15,
-        "no_rna": 15,
-        "year_missing": 3
-      },
-      "niveaux": {
-        "commune": 15
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nombeneficiaire",
-        "benef_id": "idbeneficiaire",
-        "objet": "objet",
-        "montant": "montant",
-        "date_conv": "dateconvention",
-        "nature": "nature"
-      },
-      "parquet": "data/canonical/parts/ods-f2adffb51fa4.parquet",
-      "montant": 2193249.0
-    },
-    {
       "source_id": "ods-d79dd83e292a",
       "portail": "data.opendatasoft.com",
       "mesure": "attribue",
@@ -10709,6 +11198,38 @@
       },
       "parquet": "data/canonical/parts/ods-d79dd83e292a.parquet",
       "montant": 607026.0
+    },
+    {
+      "source_id": "ods-f2adffb51fa4",
+      "portail": "data.opendatasoft.com",
+      "mesure": "attribue",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions - Mairie de Tarbes",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-mairie-de-tarbes@hautes-pyrenees-occitanie/",
+      "lues": 16,
+      "gardees": 15,
+      "ecartees": 1,
+      "raisons": {
+        "montant illisible": 1
+      },
+      "drapeaux": {
+        "no_siret": 15,
+        "no_rna": 15,
+        "year_missing": 3
+      },
+      "niveaux": {
+        "commune": 15
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nombeneficiaire",
+        "benef_id": "idbeneficiaire",
+        "objet": "objet",
+        "montant": "montant",
+        "date_conv": "dateconvention",
+        "nature": "nature"
+      },
+      "parquet": "data/canonical/parts/ods-f2adffb51fa4.parquet",
+      "montant": 2193249.0
     },
     {
       "source_id": "ods-b37eeac78108",
@@ -10868,36 +11389,6 @@
       "montant": 609686.0
     },
     {
-      "source_id": "ods-7d9e0fc6b7e3",
-      "portail": "data.agglo-montargoise.fr",
-      "mesure": "attribue",
-      "editeur": "Agglomération Montargoise",
-      "titre": "Subventions 2024",
-      "page": "https://data.agglo-montargoise.fr/explore/dataset/ame-subventions-2024/",
-      "lues": 15,
-      "gardees": 15,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_rna": 15
-      },
-      "niveaux": {
-        "epci": 15
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nombeneficiaire",
-        "benef_id": "idbeneficiaire",
-        "benef_rna": "rnabeneficiaire",
-        "attrib_nom": "nomattribuant",
-        "objet": "objet",
-        "montant": "montant",
-        "date_conv": "dateconvention",
-        "nature": "nature"
-      },
-      "parquet": "data/canonical/parts/ods-7d9e0fc6b7e3.parquet",
-      "montant": 944318.18
-    },
-    {
       "source_id": "ods-def1821aa712",
       "portail": "data.agglo-montargoise.fr",
       "mesure": "attribue",
@@ -10928,6 +11419,36 @@
       },
       "parquet": "data/canonical/parts/ods-def1821aa712.parquet",
       "montant": 609686.0
+    },
+    {
+      "source_id": "ods-7d9e0fc6b7e3",
+      "portail": "data.agglo-montargoise.fr",
+      "mesure": "attribue",
+      "editeur": "Agglomération Montargoise",
+      "titre": "Subventions 2024",
+      "page": "https://data.agglo-montargoise.fr/explore/dataset/ame-subventions-2024/",
+      "lues": 15,
+      "gardees": 15,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 15
+      },
+      "niveaux": {
+        "epci": 15
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nombeneficiaire",
+        "benef_id": "idbeneficiaire",
+        "benef_rna": "rnabeneficiaire",
+        "attrib_nom": "nomattribuant",
+        "objet": "objet",
+        "montant": "montant",
+        "date_conv": "dateconvention",
+        "nature": "nature"
+      },
+      "parquet": "data/canonical/parts/ods-7d9e0fc6b7e3.parquet",
+      "montant": 944318.18
     },
     {
       "source_id": "ods-ef0fafd60682",
@@ -11352,12 +11873,12 @@
       "montant": 256375.0
     },
     {
-      "source_id": "ods-17decf04cf59",
+      "source_id": "ods-e5b51e5535b5",
       "portail": "data.toulouse-metropole.fr",
       "mesure": "verse",
       "editeur": "Toulouse Métropole",
-      "titre": "Subventions Versées 2016 - Aéroscopia Blagnac",
-      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-2016-aeroscopia-blagnac/",
+      "titre": "Subventions Versées 2018 - Aéroscopia Blagnac",
+      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-2018-aeroscopia-blagnac/",
       "lues": 10,
       "gardees": 9,
       "ecartees": 1,
@@ -11378,8 +11899,8 @@
         "annee": "exercice",
         "nature_benef": "type_beneficiaire"
       },
-      "parquet": "data/canonical/parts/ods-17decf04cf59.parquet",
-      "montant": 77846.0
+      "parquet": "data/canonical/parts/ods-e5b51e5535b5.parquet",
+      "montant": 78543.0
     },
     {
       "source_id": "ods-f81077b4e12b",
@@ -11412,12 +11933,12 @@
       "montant": 76682.0
     },
     {
-      "source_id": "ods-e5b51e5535b5",
+      "source_id": "ods-17decf04cf59",
       "portail": "data.toulouse-metropole.fr",
       "mesure": "verse",
       "editeur": "Toulouse Métropole",
-      "titre": "Subventions Versées 2018 - Aéroscopia Blagnac",
-      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-2018-aeroscopia-blagnac/",
+      "titre": "Subventions Versées 2016 - Aéroscopia Blagnac",
+      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-2016-aeroscopia-blagnac/",
       "lues": 10,
       "gardees": 9,
       "ecartees": 1,
@@ -11438,8 +11959,8 @@
         "annee": "exercice",
         "nature_benef": "type_beneficiaire"
       },
-      "parquet": "data/canonical/parts/ods-e5b51e5535b5.parquet",
-      "montant": 78543.0
+      "parquet": "data/canonical/parts/ods-17decf04cf59.parquet",
+      "montant": 77846.0
     },
     {
       "source_id": "ods-432f59b0406c",
@@ -11894,6 +12415,33 @@
       "montant": 535800.0
     },
     {
+      "source_id": "ods-abe8bc0857b0",
+      "portail": "data.opendatasoft.com",
+      "mesure": "attribue",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions Associations Sportives 2022 - Répartition",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-associations-sportives-2022-repartition@saint-maur/",
+      "lues": 8,
+      "gardees": 8,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 8,
+        "no_rna": 8,
+        "donor_unattributed": 8,
+        "year_from_label": 8
+      },
+      "niveaux": {
+        "inconnu": 8
+      },
+      "colonnes_mappees": {
+        "benef_nom": "destinataire",
+        "montant": "subvention"
+      },
+      "parquet": "data/canonical/parts/ods-abe8bc0857b0.parquet",
+      "montant": 1208611.0
+    },
+    {
       "source_id": "ods-594183b89c42",
       "portail": "data.opendatasoft.com",
       "mesure": "attribue",
@@ -11923,6 +12471,85 @@
       "montant": 393000.0
     },
     {
+      "source_id": "ods-64cd28786fbd",
+      "portail": "data.opendatasoft.com",
+      "mesure": "attribue",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions associations sportives 2021 - répartition",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-associations-sportives-2021-repartition@saint-maur/",
+      "lues": 8,
+      "gardees": 8,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 8,
+        "no_rna": 8,
+        "donor_unattributed": 8,
+        "year_from_label": 8
+      },
+      "niveaux": {
+        "inconnu": 8
+      },
+      "colonnes_mappees": {
+        "benef_nom": "destinataire",
+        "montant": "subvention"
+      },
+      "parquet": "data/canonical/parts/ods-64cd28786fbd.parquet",
+      "montant": 1240605.0
+    },
+    {
+      "source_id": "ods-98834c046514",
+      "portail": "data.saint-maur.com",
+      "mesure": "attribue",
+      "editeur": "Ville de Saint-Maur-des-Fossés",
+      "titre": "Subventions associations sportives 2021 - répartition",
+      "page": "https://data.saint-maur.com/explore/dataset/subventions-associations-sportives-2021-repartition/",
+      "lues": 8,
+      "gardees": 8,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 8,
+        "no_rna": 8,
+        "year_from_label": 8
+      },
+      "niveaux": {
+        "commune": 8
+      },
+      "colonnes_mappees": {
+        "benef_nom": "destinataire",
+        "montant": "subvention"
+      },
+      "parquet": "data/canonical/parts/ods-98834c046514.parquet",
+      "montant": 1240605.0
+    },
+    {
+      "source_id": "ods-171f843b6852",
+      "portail": "data.saint-maur.com",
+      "mesure": "attribue",
+      "editeur": "Ville de Saint-Maur-des-Fossés",
+      "titre": "Subventions Associations Sportives 2022 - Répartition",
+      "page": "https://data.saint-maur.com/explore/dataset/subventions-associations-sportives-2022-repartition/",
+      "lues": 8,
+      "gardees": 8,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 8,
+        "no_rna": 8,
+        "year_from_label": 8
+      },
+      "niveaux": {
+        "commune": 8
+      },
+      "colonnes_mappees": {
+        "benef_nom": "destinataire",
+        "montant": "subvention"
+      },
+      "parquet": "data/canonical/parts/ods-171f843b6852.parquet",
+      "montant": 1208611.0
+    },
+    {
       "source_id": "ods-af597642e877",
       "portail": "opendata.ha-py.fr",
       "mesure": "attribue",
@@ -11950,6 +12577,59 @@
       },
       "parquet": "data/canonical/parts/ods-af597642e877.parquet",
       "montant": 393000.0
+    },
+    {
+      "source_id": "ods-46db62ca07cf",
+      "portail": "data.opendatasoft.com",
+      "mesure": "attribue",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions associations sportives 2020 - répartition",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-sportives-2020-repartition@saint-maur/",
+      "lues": 7,
+      "gardees": 7,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 7,
+        "no_rna": 7,
+        "donor_unattributed": 7,
+        "year_from_label": 7
+      },
+      "niveaux": {
+        "inconnu": 7
+      },
+      "colonnes_mappees": {
+        "benef_nom": "destinataires",
+        "montant": "subventions"
+      },
+      "parquet": "data/canonical/parts/ods-46db62ca07cf.parquet",
+      "montant": 1259825.0
+    },
+    {
+      "source_id": "ods-2ac825a87fc0",
+      "portail": "data.saint-maur.com",
+      "mesure": "attribue",
+      "editeur": "Ville de Saint-Maur-des-Fossés",
+      "titre": "Subventions associations sportives 2020 - répartition",
+      "page": "https://data.saint-maur.com/explore/dataset/subventions-sportives-2020-repartition/",
+      "lues": 7,
+      "gardees": 7,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 7,
+        "no_rna": 7,
+        "year_from_label": 7
+      },
+      "niveaux": {
+        "commune": 7
+      },
+      "colonnes_mappees": {
+        "benef_nom": "destinataires",
+        "montant": "subventions"
+      },
+      "parquet": "data/canonical/parts/ods-2ac825a87fc0.parquet",
+      "montant": 1259825.0
     },
     {
       "source_id": "ods-330af2157eb4",
@@ -12033,36 +12713,6 @@
       "montant": 380000.0
     },
     {
-      "source_id": "ods-0c237ca51d64",
-      "portail": "data.opendatasoft.com",
-      "mesure": "attribue",
-      "editeur": "Fédérateur Opendatasoft",
-      "titre": "Subventions 2020 - CCHB - de plus de 23k€",
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-2020-cchb-de-plus-de-23keur@hautes-pyrenees-occitanie/",
-      "lues": 3,
-      "gardees": 3,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 3,
-        "no_rna": 3
-      },
-      "niveaux": {
-        "epci": 3
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nombeneficiaire",
-        "benef_id": "idbeneficiaire",
-        "attrib_nom": "nomattribuant",
-        "objet": "objet",
-        "montant": "montant",
-        "date_conv": "dateconvention",
-        "nature": "nature"
-      },
-      "parquet": "data/canonical/parts/ods-0c237ca51d64.parquet",
-      "montant": 572360.0
-    },
-    {
       "source_id": "ods-9d496d4ff9ba",
       "portail": "data.opendatasoft.com",
       "mesure": "attribue",
@@ -12091,6 +12741,36 @@
       },
       "parquet": "data/canonical/parts/ods-9d496d4ff9ba.parquet",
       "montant": 141775.0
+    },
+    {
+      "source_id": "ods-0c237ca51d64",
+      "portail": "data.opendatasoft.com",
+      "mesure": "attribue",
+      "editeur": "Fédérateur Opendatasoft",
+      "titre": "Subventions 2020 - CCHB - de plus de 23k€",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-2020-cchb-de-plus-de-23keur@hautes-pyrenees-occitanie/",
+      "lues": 3,
+      "gardees": 3,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 3,
+        "no_rna": 3
+      },
+      "niveaux": {
+        "epci": 3
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nombeneficiaire",
+        "benef_id": "idbeneficiaire",
+        "attrib_nom": "nomattribuant",
+        "objet": "objet",
+        "montant": "montant",
+        "date_conv": "dateconvention",
+        "nature": "nature"
+      },
+      "parquet": "data/canonical/parts/ods-0c237ca51d64.parquet",
+      "montant": 572360.0
     },
     {
       "source_id": "ods-751c0f8d59f4",
@@ -12219,16 +12899,25 @@
       "editeur": "Fédérateur Opendatasoft",
       "titre": "Subventions versées aux associations",
       "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-aux-associations@moissycramayel-grandparissud/",
-      "lues": 0,
-      "gardees": 0,
+      "lues": 1,
+      "gardees": 1,
       "ecartees": 0,
       "raisons": {},
-      "drapeaux": {},
-      "niveaux": {},
+      "drapeaux": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "donor_unattributed": 1,
+        "year_missing": 1
+      },
+      "niveaux": {
+        "inconnu": 1
+      },
       "colonnes_mappees": {
-        "benef_nom": "Association \"SÉNART MOISSY\"",
-        "montant": "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/subventions-versees-aux-associations@moissycramayel-grandparissud/files/782615cb56c4b17b7bc1d8eeabc2fd74"
-      }
+        "benef_nom": "beneficiaires",
+        "montant": "montant"
+      },
+      "parquet": "data/canonical/parts/ods-7ff16e5a875e.parquet",
+      "montant": 68650.0
     },
     {
       "source_id": "ods-03c71a6e7b40",
@@ -12297,16 +12986,24 @@
       "editeur": "Ville de Moissy-Cramayel",
       "titre": "Subventions versées aux associations",
       "page": "https://data.moissy-cramayel.fr/explore/dataset/subventions-versees-aux-associations/",
-      "lues": 0,
-      "gardees": 0,
+      "lues": 1,
+      "gardees": 1,
       "ecartees": 0,
       "raisons": {},
-      "drapeaux": {},
-      "niveaux": {},
+      "drapeaux": {
+        "no_siret": 1,
+        "no_rna": 1,
+        "year_missing": 1
+      },
+      "niveaux": {
+        "commune": 1
+      },
       "colonnes_mappees": {
-        "benef_nom": "Association \"SÉNART MOISSY\"",
-        "montant": "https://data.moissy-cramayel.fr/api/explore/v2.1/catalog/datasets/subventions-versees-aux-associations/files/782615cb56c4b17b7bc1d8eeabc2fd74"
-      }
+        "benef_nom": "beneficiaires",
+        "montant": "montant"
+      },
+      "parquet": "data/canonical/parts/ods-ee28e5050d8e.parquet",
+      "montant": 68650.0
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "family": "ods",
-  "fetched_at": "2026-08-23T00:37:51Z",
+  "fetched_at": "2026-08-23T01:23:13Z",
   "portails": [
     {
       "hote": "aix-en-provence.opendatasoft.com",
@@ -192,8 +192,8 @@
     }
   ],
   "jeux_examines": 603,
-  "jeux_retenus": 429,
-  "lignes_annoncees": 1340269,
+  "jeux_retenus": 431,
+  "lignes_annoncees": 1341071,
   "datasets": [
     {
       "portail": "data.opendatasoft.com",
@@ -4587,6 +4587,82 @@
       ]
     },
     {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "bp-2016-open-data-subventions",
+      "publieur": "Ville de Rennes",
+      "titre": "BP 2016 - Ville de Rennes - Subventions aux associations",
+      "retenu": true,
+      "page": "https://data.rennesmetropole.fr/explore/dataset/bp-2016-open-data-subventions/",
+      "licence": "Open Database License (ODbL)",
+      "modifie": "2016-03-29T10:04:27+00:00",
+      "fichier": "data/raw/ods/d770970e390b.csv",
+      "octets": 102726,
+      "sha256": "99de3a1a108fe1524fa5ca54ffa9ad32a5df977ebb3ae4a17f6fbc7413e73426",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 401,
+      "colonnes": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "etape",
+        "nomenclature",
+        "budget_principal",
+        "section",
+        "sens",
+        "code_chapitre",
+        "libelle_chapitre",
+        "code_fonction",
+        "libelle_fonction",
+        "code_ss_fonction",
+        "libelle_ss_fonction",
+        "code_article",
+        "libelle_article",
+        "beneficiaire",
+        "montant"
+      ]
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "bp-2016-open-data-subventions@rennes-metropole",
+      "publieur": "Ville de Rennes",
+      "titre": "BP 2016 - Ville de Rennes - Subventions aux associations",
+      "retenu": true,
+      "page": "https://data.opendatasoft.com/explore/dataset/bp-2016-open-data-subventions@rennes-metropole/",
+      "licence": "Open Database License (ODbL)",
+      "modifie": "2016-03-29T10:04:27+00:00",
+      "fichier": "data/raw/ods/7cdf025da34e.csv",
+      "octets": 102726,
+      "sha256": "76d23df16fea2e8cfb56d1bac9bafe7cf4b884d1123776403d22a50a7a7de41d",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 401,
+      "colonnes": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "etape",
+        "nomenclature",
+        "budget_principal",
+        "section",
+        "sens",
+        "code_chapitre",
+        "libelle_chapitre",
+        "code_fonction",
+        "libelle_fonction",
+        "code_ss_fonction",
+        "libelle_ss_fonction",
+        "code_article",
+        "libelle_article",
+        "beneficiaire",
+        "montant"
+      ]
+    },
+    {
       "portail": "data.toulouse-metropole.fr",
       "editeur": "Toulouse Métropole",
       "dataset_id": "subv-versees-a-des-organismes-2022-tm",
@@ -4701,28 +4777,6 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "bp-2012-subventions-aux-associations1",
-      "publieur": "Ville de Rennes",
-      "titre": "BP 2012 - Ville de Rennes - Subventions ordinaires aux associations",
-      "retenu": true,
-      "page": "https://data.rennesmetropole.fr/explore/dataset/bp-2012-subventions-aux-associations1/",
-      "licence": "Open Database License (ODbL)",
-      "modifie": "2012-02-28T14:59:21+00:00",
-      "fichier": "data/raw/ods/018ec7c9f645.csv",
-      "octets": 33548,
-      "sha256": "9365dadf6ad272792ccd2dd95d26022a9a53bb542caacc60b6c53eacddfef9ea",
-      "encodage": "utf-8-sig",
-      "separateur": ";",
-      "lignes": 389,
-      "colonnes": [
-        "sous_fonction",
-        "beneficiaires",
-        "bp_2012"
-      ]
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
       "dataset_id": "ca-2013-subventions-aux-associations0",
       "publieur": "Ville de Rennes",
       "titre": "CA 2013 - Ville de Rennes - Subventions ordinaires aux associations",
@@ -4741,6 +4795,28 @@
         "libelle_sous_fonction",
         "libelle_complet_tiers",
         "ca_2013"
+      ]
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "bp-2012-subventions-aux-associations1",
+      "publieur": "Ville de Rennes",
+      "titre": "BP 2012 - Ville de Rennes - Subventions ordinaires aux associations",
+      "retenu": true,
+      "page": "https://data.rennesmetropole.fr/explore/dataset/bp-2012-subventions-aux-associations1/",
+      "licence": "Open Database License (ODbL)",
+      "modifie": "2012-02-28T14:59:21+00:00",
+      "fichier": "data/raw/ods/018ec7c9f645.csv",
+      "octets": 33548,
+      "sha256": "9365dadf6ad272792ccd2dd95d26022a9a53bb542caacc60b6c53eacddfef9ea",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 389,
+      "colonnes": [
+        "sous_fonction",
+        "beneficiaires",
+        "bp_2012"
       ]
     },
     {
@@ -5538,10 +5614,10 @@
       "separateur": ";",
       "lignes": 276,
       "colonnes": [
-        "ASSOCIATION CŒUR DE MONTREUIL",
-        "2000.0",
-        "Commerces et animations",
-        "Subventions de fonctionnement aux associations et autres personnes de droit privé"
+        "organisation",
+        "montant",
+        "thematique",
+        "type"
       ]
     },
     {
@@ -5561,10 +5637,10 @@
       "separateur": ";",
       "lignes": 276,
       "colonnes": [
-        "ASSOCIATION CŒUR DE MONTREUIL",
-        "2000.0",
-        "Commerces et animations",
-        "Subventions de fonctionnement aux associations et autres personnes de droit privé"
+        "organisation",
+        "montant",
+        "thematique",
+        "type"
       ]
     },
     {
@@ -6078,28 +6154,6 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-versees-a-des-tiers-2013-toulouse-metropole@toulouse-metropole",
-      "publieur": "Toulouse Métropole",
-      "titre": "Subventions versées à des tiers - 2013 - Toulouse Métropole",
-      "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-a-des-tiers-2013-toulouse-metropole@toulouse-metropole/",
-      "licence": "Licence Ouverte v2.0 (Etalab)",
-      "modifie": "2016-04-22T07:30:18+00:00",
-      "fichier": "data/raw/ods/fbe3d9485bc4.csv",
-      "octets": 10587,
-      "sha256": "8308b78086b19204e4b3892e12842e860d13348b840e9a03740d3046c2315ebf",
-      "encodage": "utf-8-sig",
-      "separateur": ";",
-      "lignes": 223,
-      "colonnes": [
-        "beneficiaire",
-        "nature_subventions",
-        "montant_2013"
-      ]
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "subventions-versees-a-des-tiers-2014-toulouse-metropole@toulouse-metropole",
       "publieur": "Toulouse Métropole",
       "titre": "Subventions versées à des tiers - 2014 - Toulouse Métropole",
@@ -6117,6 +6171,28 @@
         "beneficiaire",
         "nature_subventions",
         "montant_2014"
+      ]
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subventions-versees-a-des-tiers-2013-toulouse-metropole@toulouse-metropole",
+      "publieur": "Toulouse Métropole",
+      "titre": "Subventions versées à des tiers - 2013 - Toulouse Métropole",
+      "retenu": true,
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-a-des-tiers-2013-toulouse-metropole@toulouse-metropole/",
+      "licence": "Licence Ouverte v2.0 (Etalab)",
+      "modifie": "2016-04-22T07:30:18+00:00",
+      "fichier": "data/raw/ods/fbe3d9485bc4.csv",
+      "octets": 10587,
+      "sha256": "8308b78086b19204e4b3892e12842e860d13348b840e9a03740d3046c2315ebf",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 223,
+      "colonnes": [
+        "beneficiaire",
+        "nature_subventions",
+        "montant_2013"
       ]
     },
     {
@@ -6524,16 +6600,16 @@
     {
       "portail": "data.toulouse-metropole.fr",
       "editeur": "Toulouse Métropole",
-      "dataset_id": "subventions-versees-a-des-organismes-2015-toulouse-metropole1",
+      "dataset_id": "subventions-versees-a-des-organismes-2015-toulouse-metropole",
       "publieur": "Toulouse Métropole",
       "titre": "Subventions versées à des organismes 2015 -Toulouse Métropole",
       "retenu": true,
-      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-a-des-organismes-2015-toulouse-metropole1/",
+      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-a-des-organismes-2015-toulouse-metropole/",
       "licence": "Licence Ouverte v2.0 (Etalab)",
-      "modifie": "2019-01-08T14:58:33+00:00",
-      "fichier": "data/raw/ods/71a0239e6ad8.csv",
+      "modifie": "2019-01-08T15:12:46+00:00",
+      "fichier": "data/raw/ods/336495c4185a.csv",
       "octets": 32743,
-      "sha256": "38c698c1410f09184fa84c382ed155d851785a53102c3cf1cc8a45252d928193",
+      "sha256": "a034a90e8185ac95e234d0b4128f0970034c7b7a201abb693d80605bd2e703e8",
       "encodage": "utf-8-sig",
       "separateur": ";",
       "lignes": 200,
@@ -6557,16 +6633,16 @@
     {
       "portail": "data.toulouse-metropole.fr",
       "editeur": "Toulouse Métropole",
-      "dataset_id": "subventions-versees-a-des-organismes-2015-toulouse-metropole",
+      "dataset_id": "subventions-versees-a-des-organismes-2015-toulouse-metropole1",
       "publieur": "Toulouse Métropole",
       "titre": "Subventions versées à des organismes 2015 -Toulouse Métropole",
       "retenu": true,
-      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-a-des-organismes-2015-toulouse-metropole/",
+      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-a-des-organismes-2015-toulouse-metropole1/",
       "licence": "Licence Ouverte v2.0 (Etalab)",
-      "modifie": "2019-01-08T15:12:46+00:00",
-      "fichier": "data/raw/ods/336495c4185a.csv",
+      "modifie": "2019-01-08T14:58:33+00:00",
+      "fichier": "data/raw/ods/71a0239e6ad8.csv",
       "octets": 32743,
-      "sha256": "a034a90e8185ac95e234d0b4128f0970034c7b7a201abb693d80605bd2e703e8",
+      "sha256": "38c698c1410f09184fa84c382ed155d851785a53102c3cf1cc8a45252d928193",
       "encodage": "utf-8-sig",
       "separateur": ";",
       "lignes": 200,
@@ -8178,16 +8254,16 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-versees-2023-blagnac@toulouse-metropole",
+      "dataset_id": "subventions-versees-2019-blagnac@toulouse-metropole",
       "publieur": "Ville de Blagnac",
-      "titre": "Subventions versées 2023 Blagnac",
+      "titre": "Subventions versées 2019 - Blagnac",
       "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-2023-blagnac@toulouse-metropole/",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-2019-blagnac@toulouse-metropole/",
       "licence": "Open Database License (ODbL)",
-      "modifie": "2025-07-29T08:28:31+00:00",
-      "fichier": "data/raw/ods/5c4b833088d1.csv",
-      "octets": 10996,
-      "sha256": "85e91884b9fd9c038d5b8a33e6cf56411d2cb23439c04ff61fd2e024803e8e76",
+      "modifie": "2025-07-29T08:17:05+00:00",
+      "fichier": "data/raw/ods/40a3faccd001.csv",
+      "octets": 11088,
+      "sha256": "e970a676269a0dc57fb179608c862ec6b32f0bf3cb9605bfd6123651568cf266",
       "encodage": "utf-8-sig",
       "separateur": ";",
       "lignes": 106,
@@ -8203,16 +8279,16 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-versees-2019-blagnac@toulouse-metropole",
+      "dataset_id": "subventions-versees-2023-blagnac@toulouse-metropole",
       "publieur": "Ville de Blagnac",
-      "titre": "Subventions versées 2019 - Blagnac",
+      "titre": "Subventions versées 2023 Blagnac",
       "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-2019-blagnac@toulouse-metropole/",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-2023-blagnac@toulouse-metropole/",
       "licence": "Open Database License (ODbL)",
-      "modifie": "2025-07-29T08:17:05+00:00",
-      "fichier": "data/raw/ods/40a3faccd001.csv",
-      "octets": 11088,
-      "sha256": "e970a676269a0dc57fb179608c862ec6b32f0bf3cb9605bfd6123651568cf266",
+      "modifie": "2025-07-29T08:28:31+00:00",
+      "fichier": "data/raw/ods/5c4b833088d1.csv",
+      "octets": 10996,
+      "sha256": "85e91884b9fd9c038d5b8a33e6cf56411d2cb23439c04ff61fd2e024803e8e76",
       "encodage": "utf-8-sig",
       "separateur": ";",
       "lignes": 106,
@@ -9601,28 +9677,6 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "agglopolys-subventions-2023-votees-au-budget-primitif@blois-agglopolys-centrevaldeloire",
-      "publieur": "Agglopolys",
-      "titre": "Agglopolys - subventions 2023 votées au budget primitif",
-      "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/agglopolys-subventions-2023-votees-au-budget-primitif@blois-agglopolys-centrevaldeloire/",
-      "licence": "licence ouverte / open licence",
-      "modifie": "2024-01-23T08:47:57+00:00",
-      "fichier": "data/raw/ods/aaba285ad7f6.csv",
-      "octets": 3518,
-      "sha256": "81f5f295e92e90b344235bf536d81ca55761ddddbb617f4753bbead3ce679381",
-      "encodage": "utf-8-sig",
-      "separateur": ";",
-      "lignes": 58,
-      "colonnes": [
-        "organismes",
-        "article",
-        "bp_2023"
-      ]
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "subventions-2023-ville-de-grandchamp_des_fontaines@cceg-loireatlantique",
       "publieur": "Ville de Grandchamp des Fontaines",
       "titre": "Subventions ville de Grandchamp_des_Fontaines",
@@ -9646,6 +9700,28 @@
         "objet",
         "montant",
         "nature"
+      ]
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "agglopolys-subventions-2023-votees-au-budget-primitif@blois-agglopolys-centrevaldeloire",
+      "publieur": "Agglopolys",
+      "titre": "Agglopolys - subventions 2023 votées au budget primitif",
+      "retenu": true,
+      "page": "https://data.opendatasoft.com/explore/dataset/agglopolys-subventions-2023-votees-au-budget-primitif@blois-agglopolys-centrevaldeloire/",
+      "licence": "licence ouverte / open licence",
+      "modifie": "2024-01-23T08:47:57+00:00",
+      "fichier": "data/raw/ods/aaba285ad7f6.csv",
+      "octets": 3518,
+      "sha256": "81f5f295e92e90b344235bf536d81ca55761ddddbb617f4753bbead3ce679381",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 58,
+      "colonnes": [
+        "organismes",
+        "article",
+        "bp_2023"
       ]
     },
     {
@@ -9745,16 +9821,16 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "noyal-od-subvention-2017-v3",
+      "dataset_id": "subventions-versees-en-2017-aux-associations-noyal-chatillon-sur-seiche",
       "publieur": "Ville de Noyal-Châtillon-sur-Seiche",
-      "titre": "Subventions versées en 2018 aux associations Noyal-Châtillon-sur-Seiche",
+      "titre": "Subventions versées en 2017 aux associations Noyal-Châtillon-sur-Seiche",
       "retenu": true,
-      "page": "https://data.rennesmetropole.fr/explore/dataset/noyal-od-subvention-2017-v3/",
+      "page": "https://data.rennesmetropole.fr/explore/dataset/subventions-versees-en-2017-aux-associations-noyal-chatillon-sur-seiche/",
       "licence": "Open Database License (ODbL)",
       "modifie": "2018-01-16T14:33:44+00:00",
-      "fichier": "data/raw/ods/bb6b9cc4c03c.csv",
+      "fichier": "data/raw/ods/2e26a72e2d1c.csv",
       "octets": 4638,
-      "sha256": "8d59c69213ed786533954ec46864ffaad5f4afe90d4a62918bbc50b772392ab8",
+      "sha256": "7fc1efb079bdb09279cec77f6cda995e902478580339186f00cfee602268f763",
       "encodage": "utf-8-sig",
       "separateur": ";",
       "lignes": 56,
@@ -9772,16 +9848,16 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "subventions-versees-en-2017-aux-associations-noyal-chatillon-sur-seiche",
+      "dataset_id": "noyal-od-subvention-2017-v3",
       "publieur": "Ville de Noyal-Châtillon-sur-Seiche",
-      "titre": "Subventions versées en 2017 aux associations Noyal-Châtillon-sur-Seiche",
+      "titre": "Subventions versées en 2018 aux associations Noyal-Châtillon-sur-Seiche",
       "retenu": true,
-      "page": "https://data.rennesmetropole.fr/explore/dataset/subventions-versees-en-2017-aux-associations-noyal-chatillon-sur-seiche/",
+      "page": "https://data.rennesmetropole.fr/explore/dataset/noyal-od-subvention-2017-v3/",
       "licence": "Open Database License (ODbL)",
       "modifie": "2018-01-16T14:33:44+00:00",
-      "fichier": "data/raw/ods/2e26a72e2d1c.csv",
+      "fichier": "data/raw/ods/bb6b9cc4c03c.csv",
       "octets": 4638,
-      "sha256": "7fc1efb079bdb09279cec77f6cda995e902478580339186f00cfee602268f763",
+      "sha256": "8d59c69213ed786533954ec46864ffaad5f4afe90d4a62918bbc50b772392ab8",
       "encodage": "utf-8-sig",
       "separateur": ";",
       "lignes": 56,
@@ -10067,36 +10143,6 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subvention@bondoufle-grandparissud",
-      "publieur": "Grand Paris Sud",
-      "titre": "Subvention",
-      "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subvention@bondoufle-grandparissud/",
-      "licence": "Licence Ouverte (Etalab)",
-      "modifie": "2018-10-06T11:50:06+00:00",
-      "fichier": "data/raw/ods/e9821c18f3e5.csv",
-      "octets": 8823,
-      "sha256": "ce336d6c304886c452e33572dcd250e1ad190dc98c469e9f2402017fc11c5df8",
-      "encodage": "utf-8-sig",
-      "separateur": ";",
-      "lignes": 43,
-      "colonnes": [
-        "nom_attribuant",
-        "identifiant_attribuant",
-        "ndeg_sub",
-        "code_siren_siret",
-        "nom_du_tiers",
-        "decision_date",
-        "date_decision",
-        "montant_attribue",
-        "conditions_versement",
-        "objet",
-        "nature"
-      ]
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "subvention@nandy-grandparissud",
       "publieur": "Grand Paris Sud",
       "titre": "Subvention",
@@ -10127,14 +10173,14 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subvention@cesson-grandparissud",
+      "dataset_id": "subvention@bondoufle-grandparissud",
       "publieur": "Grand Paris Sud",
       "titre": "Subvention",
       "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subvention@cesson-grandparissud/",
+      "page": "https://data.opendatasoft.com/explore/dataset/subvention@bondoufle-grandparissud/",
       "licence": "Licence Ouverte (Etalab)",
       "modifie": "2018-10-06T11:50:06+00:00",
-      "fichier": "data/raw/ods/056479ab74b1.csv",
+      "fichier": "data/raw/ods/e9821c18f3e5.csv",
       "octets": 8823,
       "sha256": "ce336d6c304886c452e33572dcd250e1ad190dc98c469e9f2402017fc11c5df8",
       "encodage": "utf-8-sig",
@@ -10195,6 +10241,36 @@
       "licence": "Licence Ouverte (Etalab)",
       "modifie": "2018-10-06T11:50:06+00:00",
       "fichier": "data/raw/ods/0f5b324f4d27.csv",
+      "octets": 8823,
+      "sha256": "ce336d6c304886c452e33572dcd250e1ad190dc98c469e9f2402017fc11c5df8",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 43,
+      "colonnes": [
+        "nom_attribuant",
+        "identifiant_attribuant",
+        "ndeg_sub",
+        "code_siren_siret",
+        "nom_du_tiers",
+        "decision_date",
+        "date_decision",
+        "montant_attribue",
+        "conditions_versement",
+        "objet",
+        "nature"
+      ]
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subvention@cesson-grandparissud",
+      "publieur": "Grand Paris Sud",
+      "titre": "Subvention",
+      "retenu": true,
+      "page": "https://data.opendatasoft.com/explore/dataset/subvention@cesson-grandparissud/",
+      "licence": "Licence Ouverte (Etalab)",
+      "modifie": "2018-10-06T11:50:06+00:00",
+      "fichier": "data/raw/ods/056479ab74b1.csv",
       "octets": 8823,
       "sha256": "ce336d6c304886c452e33572dcd250e1ad190dc98c469e9f2402017fc11c5df8",
       "encodage": "utf-8-sig",
@@ -10858,34 +10934,6 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions_attribuees_dans_le_cadre_du_dispositif_des_clubs_formateurs_2011@datailedefrance",
-      "publieur": "Région Île-de-France",
-      "titre": "Subventions attribuées dans le cadre du dispositif des clubs formateurs (2011)",
-      "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions_attribuees_dans_le_cadre_du_dispositif_des_clubs_formateurs_2011@datailedefrance/",
-      "licence": "Licence Ouverte v2.0 (Etalab)",
-      "modifie": "2013-06-03T21:50:20+00:00",
-      "fichier": "data/raw/ods/0ca4b1c0e841.csv",
-      "octets": 14928,
-      "sha256": "2c1d9b43de4a3f88bb389122357b4a4ad4f85eec13109b13fdd407e1635f6b8a",
-      "encodage": "utf-8-sig",
-      "separateur": ";",
-      "lignes": 30,
-      "colonnes": [
-        "tiers_beneficiaire",
-        "tiers_mandataire",
-        "dossier_code",
-        "procedure_du_dossier",
-        "objet_activite_de_l_organisme",
-        "dossier",
-        "note_demarrage_anticipe",
-        "localisation_siege_social_de_l_organisme",
-        "montant_vote"
-      ]
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "subventions-accordees-au-titre-dreseau-des-sites-et-musees-de-territoire-remu-20@data-herault-occitanie",
       "publieur": "Conseil Départemental de l'Hérault",
       "titre": "Liste des aides accordées au titre des sites et musées du territoires - REMU (2016- 2020)",
@@ -10953,6 +11001,34 @@
         "montant_2020",
         "geo_shape",
         "geo_point_2d"
+      ]
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subventions_attribuees_dans_le_cadre_du_dispositif_des_clubs_formateurs_2011@datailedefrance",
+      "publieur": "Région Île-de-France",
+      "titre": "Subventions attribuées dans le cadre du dispositif des clubs formateurs (2011)",
+      "retenu": true,
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions_attribuees_dans_le_cadre_du_dispositif_des_clubs_formateurs_2011@datailedefrance/",
+      "licence": "Licence Ouverte v2.0 (Etalab)",
+      "modifie": "2013-06-03T21:50:20+00:00",
+      "fichier": "data/raw/ods/0ca4b1c0e841.csv",
+      "octets": 14928,
+      "sha256": "2c1d9b43de4a3f88bb389122357b4a4ad4f85eec13109b13fdd407e1635f6b8a",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 30,
+      "colonnes": [
+        "tiers_beneficiaire",
+        "tiers_mandataire",
+        "dossier_code",
+        "procedure_du_dossier",
+        "objet_activite_de_l_organisme",
+        "dossier",
+        "note_demarrage_anticipe",
+        "localisation_siege_social_de_l_organisme",
+        "montant_vote"
       ]
     },
     {
@@ -11280,37 +11356,6 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-versees-mairie-de-tarbes@hautes-pyrenees-occitanie",
-      "publieur": "Commune de Tarbes",
-      "titre": "Subventions - Mairie de Tarbes",
-      "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-mairie-de-tarbes@hautes-pyrenees-occitanie/",
-      "licence": null,
-      "modifie": "2020-10-05T07:53:25+00:00",
-      "fichier": "data/raw/ods/f2adffb51fa4.csv",
-      "octets": 2972,
-      "sha256": "1d7e438d6d9e7802bbf6f9faa9219d0ecad2123619fcea46e510d641cd993c3f",
-      "encodage": "utf-8-sig",
-      "separateur": ";",
-      "lignes": 16,
-      "colonnes": [
-        "dateconvention",
-        "referencedecision",
-        "nombeneficiaire",
-        "idbeneficiaire",
-        "objet",
-        "montant",
-        "nature",
-        "conditionsversement",
-        "datesperiodeversement",
-        "idrae",
-        "notificationue",
-        "pourcentagesubvention"
-      ]
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "ame_subvention_2020@agglo-montargoise-centrevaldeloire",
       "publieur": "Agglomération Montargoise",
       "titre": "Subventions - 2020",
@@ -11341,6 +11386,37 @@
         "notificationue",
         "pourcentagesubvention",
         "dispositifaide"
+      ]
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subventions-versees-mairie-de-tarbes@hautes-pyrenees-occitanie",
+      "publieur": "Commune de Tarbes",
+      "titre": "Subventions - Mairie de Tarbes",
+      "retenu": true,
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-versees-mairie-de-tarbes@hautes-pyrenees-occitanie/",
+      "licence": null,
+      "modifie": "2020-10-05T07:53:25+00:00",
+      "fichier": "data/raw/ods/f2adffb51fa4.csv",
+      "octets": 2972,
+      "sha256": "1d7e438d6d9e7802bbf6f9faa9219d0ecad2123619fcea46e510d641cd993c3f",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 16,
+      "colonnes": [
+        "dateconvention",
+        "referencedecision",
+        "nombeneficiaire",
+        "idbeneficiaire",
+        "objet",
+        "montant",
+        "nature",
+        "conditionsversement",
+        "datesperiodeversement",
+        "idrae",
+        "notificationue",
+        "pourcentagesubvention"
       ]
     },
     {
@@ -11785,6 +11861,39 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subventions-2022@saint-jean-de-luz-opendatapaysbasque",
+      "publieur": null,
+      "titre": "SUBVENTIONS 2022",
+      "retenu": true,
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-2022@saint-jean-de-luz-opendatapaysbasque/",
+      "licence": null,
+      "modifie": "2023-06-13T09:39:27+00:00",
+      "fichier": "data/raw/ods/b2d75e048289.csv",
+      "octets": 2525,
+      "sha256": "bc4b4b17b6123ba0c23d7fa93d33ec8c0cc62c73c1f740a2bd60acddbce5c8d0",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 12,
+      "colonnes": [
+        "nomattribuant",
+        "idattribuant",
+        "dateconvention",
+        "referencedecision",
+        "nombeneficiaire",
+        "idbeneficiaire",
+        "objet",
+        "montant",
+        "nature",
+        "conditionsversement",
+        "datesperiodeversement",
+        "idrae",
+        "notificationue",
+        "pourcentagesubvention"
+      ]
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "ame_subventions_2018@agglo-montargoise-centrevaldeloire",
       "publieur": "Agglomération Montargoise",
       "titre": "Subventions - 2018",
@@ -11815,39 +11924,6 @@
         "notificationue",
         "pourcentagesubvention",
         "dispositifaide"
-      ]
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-2022@saint-jean-de-luz-opendatapaysbasque",
-      "publieur": null,
-      "titre": "SUBVENTIONS 2022",
-      "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-2022@saint-jean-de-luz-opendatapaysbasque/",
-      "licence": null,
-      "modifie": "2023-06-13T09:39:27+00:00",
-      "fichier": "data/raw/ods/b2d75e048289.csv",
-      "octets": 2525,
-      "sha256": "bc4b4b17b6123ba0c23d7fa93d33ec8c0cc62c73c1f740a2bd60acddbce5c8d0",
-      "encodage": "utf-8-sig",
-      "separateur": ";",
-      "lignes": 12,
-      "colonnes": [
-        "nomattribuant",
-        "idattribuant",
-        "dateconvention",
-        "referencedecision",
-        "nombeneficiaire",
-        "idbeneficiaire",
-        "objet",
-        "montant",
-        "nature",
-        "conditionsversement",
-        "datesperiodeversement",
-        "idrae",
-        "notificationue",
-        "pourcentagesubvention"
       ]
     },
     {
@@ -12033,32 +12109,6 @@
     {
       "portail": "data.toulouse-metropole.fr",
       "editeur": "Toulouse Métropole",
-      "dataset_id": "subventions-versees-2016-aeroscopia-blagnac",
-      "publieur": "Ville de Blagnac",
-      "titre": "Subventions Versées 2016 - Aéroscopia Blagnac",
-      "retenu": true,
-      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-2016-aeroscopia-blagnac/",
-      "licence": "Open Database License (ODbL)",
-      "modifie": "2019-04-12T08:23:45+00:00",
-      "fichier": "data/raw/ods/17decf04cf59.csv",
-      "octets": 1054,
-      "sha256": "6821d426fa5577cd4edd8577526d89ad24df32e2cae44d27b0a2ffea7bc139b2",
-      "encodage": "utf-8-sig",
-      "separateur": ";",
-      "lignes": 10,
-      "colonnes": [
-        "code_article",
-        "exercice",
-        "section",
-        "nom_beneficiaire",
-        "ndeg_siret",
-        "type_beneficiaire",
-        "montant_ordonnance"
-      ]
-    },
-    {
-      "portail": "data.toulouse-metropole.fr",
-      "editeur": "Toulouse Métropole",
       "dataset_id": "subventions-versees-2018-aeroscopia-blagnac",
       "publieur": "Ville de Blagnac",
       "titre": "Subventions Versées 2018 - Aéroscopia Blagnac",
@@ -12109,6 +12159,32 @@
       ]
     },
     {
+      "portail": "data.toulouse-metropole.fr",
+      "editeur": "Toulouse Métropole",
+      "dataset_id": "subventions-versees-2016-aeroscopia-blagnac",
+      "publieur": "Ville de Blagnac",
+      "titre": "Subventions Versées 2016 - Aéroscopia Blagnac",
+      "retenu": true,
+      "page": "https://data.toulouse-metropole.fr/explore/dataset/subventions-versees-2016-aeroscopia-blagnac/",
+      "licence": "Open Database License (ODbL)",
+      "modifie": "2019-04-12T08:23:45+00:00",
+      "fichier": "data/raw/ods/17decf04cf59.csv",
+      "octets": 1054,
+      "sha256": "6821d426fa5577cd4edd8577526d89ad24df32e2cae44d27b0a2ffea7bc139b2",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 10,
+      "colonnes": [
+        "code_article",
+        "exercice",
+        "section",
+        "nom_beneficiaire",
+        "ndeg_siret",
+        "type_beneficiaire",
+        "montant_ordonnance"
+      ]
+    },
+    {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "ca-2013-subventions-aux-associations1@rennes-metropole",
@@ -12129,6 +12205,29 @@
         "libelle_sous_fonction",
         "libelle_complet_tiers",
         "ca_2013"
+      ]
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "ca-2011-subventions-aux-associations1@rennes-metropole",
+      "publieur": "Ville de Rennes",
+      "titre": "CA 2011 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": true,
+      "page": "https://data.opendatasoft.com/explore/dataset/ca-2011-subventions-aux-associations1@rennes-metropole/",
+      "licence": "Open Database License (ODbL)",
+      "modifie": "2012-06-19T09:26:37+00:00",
+      "fichier": "data/raw/ods/15d483587a95.csv",
+      "octets": 778,
+      "sha256": "62e95ac4f67f2b5966c96a2b9c6ac201377de56fccf5692bb414aea5366e305c",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 10,
+      "colonnes": [
+        "sous_fonction",
+        "libelle",
+        "beneficiaire",
+        "ca_2011"
       ]
     },
     {
@@ -12164,29 +12263,6 @@
         "notificationue",
         "pourcentagesubvention",
         "dispositifaide"
-      ]
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2011-subventions-aux-associations1@rennes-metropole",
-      "publieur": "Ville de Rennes",
-      "titre": "CA 2011 - Ville de Rennes - Subventions exceptionnelles aux associations",
-      "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/ca-2011-subventions-aux-associations1@rennes-metropole/",
-      "licence": "Open Database License (ODbL)",
-      "modifie": "2012-06-19T09:26:37+00:00",
-      "fichier": "data/raw/ods/15d483587a95.csv",
-      "octets": 778,
-      "sha256": "62e95ac4f67f2b5966c96a2b9c6ac201377de56fccf5692bb414aea5366e305c",
-      "encodage": "utf-8-sig",
-      "separateur": ";",
-      "lignes": 10,
-      "colonnes": [
-        "sous_fonction",
-        "libelle",
-        "beneficiaire",
-        "ca_2011"
       ]
     },
     {
@@ -12541,31 +12617,6 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-associations-sportives-2021-repartition@saint-maur",
-      "publieur": "Direction des sports",
-      "titre": "Subventions associations sportives 2021 - répartition",
-      "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-associations-sportives-2021-repartition@saint-maur/",
-      "licence": "Licence ouverte (Etalab)",
-      "modifie": "2025-12-04T08:25:16+00:00",
-      "fichier": "data/raw/ods/64cd28786fbd.csv",
-      "octets": 474,
-      "sha256": "cdac0ba090b6d3d1dbf76ba76ed9f3ca6b1379198799f3f88f5336c61d598c02",
-      "encodage": "utf-8-sig",
-      "separateur": ";",
-      "lignes": 8,
-      "colonnes": [
-        "destinataire",
-        "subvention",
-        "manifestations",
-        "promotion",
-        "contrat_de_performance",
-        "fonctionnement"
-      ]
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "subventions-associations-sportives-2022-repartition@saint-maur",
       "publieur": "Direction des sports",
       "titre": "Subventions Associations Sportives 2022 - Répartition",
@@ -12614,6 +12665,31 @@
         "date_decision",
         "montant_attribue",
         "conditions_de_versement"
+      ]
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subventions-associations-sportives-2021-repartition@saint-maur",
+      "publieur": "Direction des sports",
+      "titre": "Subventions associations sportives 2021 - répartition",
+      "retenu": true,
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-associations-sportives-2021-repartition@saint-maur/",
+      "licence": "Licence ouverte (Etalab)",
+      "modifie": "2025-12-04T08:25:16+00:00",
+      "fichier": "data/raw/ods/64cd28786fbd.csv",
+      "octets": 474,
+      "sha256": "cdac0ba090b6d3d1dbf76ba76ed9f3ca6b1379198799f3f88f5336c61d598c02",
+      "encodage": "utf-8-sig",
+      "separateur": ";",
+      "lignes": 8,
+      "colonnes": [
+        "destinataire",
+        "subvention",
+        "manifestations",
+        "promotion",
+        "contrat_de_performance",
+        "fonctionnement"
       ]
     },
     {
@@ -12818,16 +12894,16 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-2020-cchb-de-plus-de-23keur@hautes-pyrenees-occitanie",
-      "publieur": "Communauté de communes Haute Bigorre",
-      "titre": "Subventions 2020 - CCHB - de plus de 23k€",
+      "dataset_id": "subventions-2020-ville-de-bagneres-de-bigorre-de-plus-de-23keur@hautes-pyrenees-occitanie",
+      "publieur": "Commune de Bagnères de Bigorre",
+      "titre": "Subventions 2020 - Ville de Bagnères de Bigorre - de plus de 23k€",
       "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-2020-cchb-de-plus-de-23keur@hautes-pyrenees-occitanie/",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-2020-ville-de-bagneres-de-bigorre-de-plus-de-23keur@hautes-pyrenees-occitanie/",
       "licence": "Licence Ouverte v2.0 (Etalab)",
-      "modifie": "2021-06-04T13:57:23+00:00",
-      "fichier": "data/raw/ods/0c237ca51d64.csv",
-      "octets": 845,
-      "sha256": "36ae757e4b68cedbab88f694f0ead77009c269af62e77aa85d158cb46a32c6a2",
+      "modifie": "2021-06-04T13:50:30+00:00",
+      "fichier": "data/raw/ods/9d496d4ff9ba.csv",
+      "octets": 727,
+      "sha256": "cf617065c848b71a8277cbee04c2dd7c5d3eea349a1bd80fda7e7c5dbd379bc9",
       "encodage": "utf-8-sig",
       "separateur": ";",
       "lignes": 3,
@@ -12851,16 +12927,16 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-2020-ville-de-bagneres-de-bigorre-de-plus-de-23keur@hautes-pyrenees-occitanie",
-      "publieur": "Commune de Bagnères de Bigorre",
-      "titre": "Subventions 2020 - Ville de Bagnères de Bigorre - de plus de 23k€",
+      "dataset_id": "subventions-2020-cchb-de-plus-de-23keur@hautes-pyrenees-occitanie",
+      "publieur": "Communauté de communes Haute Bigorre",
+      "titre": "Subventions 2020 - CCHB - de plus de 23k€",
       "retenu": true,
-      "page": "https://data.opendatasoft.com/explore/dataset/subventions-2020-ville-de-bagneres-de-bigorre-de-plus-de-23keur@hautes-pyrenees-occitanie/",
+      "page": "https://data.opendatasoft.com/explore/dataset/subventions-2020-cchb-de-plus-de-23keur@hautes-pyrenees-occitanie/",
       "licence": "Licence Ouverte v2.0 (Etalab)",
-      "modifie": "2021-06-04T13:50:30+00:00",
-      "fichier": "data/raw/ods/9d496d4ff9ba.csv",
-      "octets": 727,
-      "sha256": "cf617065c848b71a8277cbee04c2dd7c5d3eea349a1bd80fda7e7c5dbd379bc9",
+      "modifie": "2021-06-04T13:57:23+00:00",
+      "fichier": "data/raw/ods/0c237ca51d64.csv",
+      "octets": 845,
+      "sha256": "36ae757e4b68cedbab88f694f0ead77009c269af62e77aa85d158cb46a32c6a2",
       "encodage": "utf-8-sig",
       "separateur": ";",
       "lignes": 3,
@@ -13034,12 +13110,12 @@
       "separateur": ";",
       "lignes": 1,
       "colonnes": [
-        "2018",
-        "Association \"SÉNART MOISSY\"",
-        "68 650 €",
-        "Délibération 18-047",
-        "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/subventions-versees-aux-associations@moissycramayel-grandparissud/files/782615cb56c4b17b7bc1d8eeabc2fd74",
-        "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/subventions-versees-aux-associations@moissycramayel-grandparissud/files/c83eda3d84924bf129cb8d815d372f00"
+        "annees",
+        "beneficiaires",
+        "montant",
+        "convention",
+        "deliberation",
+        "convention0"
       ]
     },
     {
@@ -13125,12 +13201,12 @@
       "separateur": ";",
       "lignes": 1,
       "colonnes": [
-        "2018",
-        "Association \"SÉNART MOISSY\"",
-        "68 650 €",
-        "Délibération 18-047",
-        "https://data.moissy-cramayel.fr/api/explore/v2.1/catalog/datasets/subventions-versees-aux-associations/files/782615cb56c4b17b7bc1d8eeabc2fd74",
-        "https://data.moissy-cramayel.fr/api/explore/v2.1/catalog/datasets/subventions-versees-aux-associations/files/c83eda3d84924bf129cb8d815d372f00"
+        "annees",
+        "beneficiaires",
+        "montant",
+        "convention",
+        "deliberation",
+        "convention0"
       ]
     }
   ],
@@ -13287,106 +13363,6 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2016-ville-de-rennes-subventions-aux-associations",
-      "titre": "CA 2016 - Ville de Rennes - Subventions aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "entite_financiere_programme",
-        "nom_du_budget",
-        "section",
-        "libelle_d_r",
-        "chapitre",
-        "libelle_chapitre",
-        "fonction",
-        "libelle_fonction",
-        "code_sous_fonction",
-        "libelle_sous_fonction",
-        "code_article",
-        "libelle_article"
-      ],
-      "lignes": 109
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2009-subventions-aux-associations0",
-      "titre": "CA 2009 - Ville de Rennes - Subventions exceptionnelles aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "provisions_par_tiers",
-        "total_des_mandats_emis"
-      ],
-      "lignes": 37
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2008-subventions-aux-associations0",
-      "titre": "CA 2008 - Ville de Rennes - Subventions exceptionnelles aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "compte_nfa",
-        "compte_detaille",
-        "sous_fonction_nfa",
-        "sous_fonction_detaillee",
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "provisions_par_tiers",
-        "total_des_mandats_emis"
-      ],
-      "lignes": 45
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2010-subventions-aux-associations1",
-      "titre": "CA 2010 - Ville de Rennes - Subventions exceptionnelles aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "total_des_mandats_emis"
-      ],
-      "lignes": 31
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2018-subvention-aux-associations-ville-de-thorigne-fouillard",
-      "titre": "CA 2018 - Subvention aux associations - Ville de Thorigné-Fouillard",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "etape",
-        "budget",
-        "section",
-        "sens",
-        "chapitre",
-        "libelle_structure_de_gestion",
-        "realise_de_l_annee"
-      ],
-      "lignes": 52
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
       "dataset_id": "bp-2013-subventions-aux-associations",
       "titre": "BP 2013 - Ville de Rennes - Subventions ordinaires aux associations",
       "retenu": false,
@@ -13397,33 +13373,6 @@
         "bp_2013"
       ],
       "lignes": 385
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2019-ville-de-rennes-subventions-aux-associations",
-      "titre": "CA 2019 - Ville de Rennes - Subventions aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "entite_financiere_programme",
-        "nom_du_budget",
-        "section",
-        "libelle_d_r",
-        "chapitre",
-        "libelle_du_chapitre",
-        "fonction",
-        "libelle_fonction",
-        "code_sous_fonction",
-        "libelle_sous_fonction",
-        "code_article",
-        "libelle_article"
-      ],
-      "lignes": 369
     },
     {
       "portail": "data.rennesmetropole.fr",
@@ -13440,33 +13389,6 @@
         "total_des_mandats_emis"
       ],
       "lignes": 161
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "bp-2019-ville-de-rennes-subventions-aux-associations",
-      "titre": "BP 2019 - Ville de Rennes - Subventions aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "entite_financiere_programme",
-        "type_nomenclature",
-        "budget_principal_budgets_annexes",
-        "section",
-        "depenses_recettes",
-        "chapitre",
-        "libelle_chapitre",
-        "fonction",
-        "libelle_fonction",
-        "sous_fonction",
-        "libelle_sous_fonction",
-        "article"
-      ],
-      "lignes": 362
     },
     {
       "portail": "data.rennesmetropole.fr",
@@ -13498,6 +13420,33 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
+      "dataset_id": "ca-2016-ville-de-rennes-subventions-aux-associations",
+      "titre": "CA 2016 - Ville de Rennes - Subventions aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "entite_financiere_programme",
+        "nom_du_budget",
+        "section",
+        "libelle_d_r",
+        "chapitre",
+        "libelle_chapitre",
+        "fonction",
+        "libelle_fonction",
+        "code_sous_fonction",
+        "libelle_sous_fonction",
+        "code_article",
+        "libelle_article"
+      ],
+      "lignes": 109
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
       "dataset_id": "ca-2020-subvention-aux-associations-ville-de-vezinlecoquet",
       "titre": "CA-2020-Subvention-aux-associations- Ville de Vezin Le Coquet",
       "retenu": false,
@@ -13520,66 +13469,8 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "bp-2013-subventions-aux-associations0",
-      "titre": "BP 2013 - Ville de Rennes - Subventions exceptionnelles aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2013"
-      ],
-      "lignes": 6
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2009-subventions-aux-associations",
-      "titre": "CA 2009 - Ville de Rennes - Subventions ordinaires aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "provisions_par_tiers",
-        "total_des_mandats_emis"
-      ],
-      "lignes": 1956
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "bp-2015-subventions-aux-associations0",
-      "titre": "BP 2015 - Ville de Rennes - Subventions exceptionnelles aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2015"
-      ],
-      "lignes": 2
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "bp-2015-subventions-aux-associations1",
-      "titre": "BP 2015 - Ville de Rennes - Subventions ordinaires aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2015"
-      ],
-      "lignes": 360
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "bp-2018-ville-de-rennes-subventions-aux-associations",
-      "titre": "BP 2018 - Ville de Rennes - Subventions aux associations",
+      "dataset_id": "bp-2019-ville-de-rennes-subventions-aux-associations",
+      "titre": "BP 2019 - Ville de Rennes - Subventions aux associations",
       "retenu": false,
       "raison": "aucune colonne de montant",
       "champs": [
@@ -13601,6 +13492,150 @@
         "article"
       ],
       "lignes": 362
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "ca-2008-subventions-aux-associations0",
+      "titre": "CA 2008 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "compte_nfa",
+        "compte_detaille",
+        "sous_fonction_nfa",
+        "sous_fonction_detaillee",
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "provisions_par_tiers",
+        "total_des_mandats_emis"
+      ],
+      "lignes": 45
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "ca-2018-subvention-aux-associations-ville-de-thorigne-fouillard",
+      "titre": "CA 2018 - Subvention aux associations - Ville de Thorigné-Fouillard",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "etape",
+        "budget",
+        "section",
+        "sens",
+        "chapitre",
+        "libelle_structure_de_gestion",
+        "realise_de_l_annee"
+      ],
+      "lignes": 52
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "bp-2013-subventions-aux-associations0",
+      "titre": "BP 2013 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "sous_fonction",
+        "libelle",
+        "bp_2013"
+      ],
+      "lignes": 6
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "ca-2009-subventions-aux-associations0",
+      "titre": "CA 2009 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "provisions_par_tiers",
+        "total_des_mandats_emis"
+      ],
+      "lignes": 37
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "bp-2015-subventions-aux-associations0",
+      "titre": "BP 2015 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "sous_fonction",
+        "libelle",
+        "bp_2015"
+      ],
+      "lignes": 2
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "ca-2019-ville-de-rennes-subventions-aux-associations",
+      "titre": "CA 2019 - Ville de Rennes - Subventions aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "entite_financiere_programme",
+        "nom_du_budget",
+        "section",
+        "libelle_d_r",
+        "chapitre",
+        "libelle_du_chapitre",
+        "fonction",
+        "libelle_fonction",
+        "code_sous_fonction",
+        "libelle_sous_fonction",
+        "code_article",
+        "libelle_article"
+      ],
+      "lignes": 369
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "ca-2009-subventions-aux-associations",
+      "titre": "CA 2009 - Ville de Rennes - Subventions ordinaires aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "provisions_par_tiers",
+        "total_des_mandats_emis"
+      ],
+      "lignes": 1956
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "ca-2010-subventions-aux-associations1",
+      "titre": "CA 2010 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "total_des_mandats_emis"
+      ],
+      "lignes": 31
     },
     {
       "portail": "data.rennesmetropole.fr",
@@ -13635,45 +13670,24 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "bp-2015-subventions-aux-associations",
-      "titre": "BP 2015 - Ville de Rennes - Subventions d'équipement aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2015"
-      ],
-      "lignes": 38
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2013-subventions-aux-associations",
-      "titre": "CA 2013 - Subventions d'équipement aux associations",
+      "dataset_id": "ca-2017-ville-de-st-jacques-de-la-lande-subvention-aux-associations",
+      "titre": "CA 2017 - Ville de St-Jacques de la Lande - Subvention aux associations",
       "retenu": false,
       "raison": "aucune colonne de montant",
       "champs": [
-        "sous_fonction",
-        "libelle_sous_fonction",
-        "libelle_complet_tiers",
-        "somme"
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "etape",
+        "budget",
+        "section",
+        "sens",
+        "chapitre",
+        "libelle_structure_de_gestion",
+        "realise_de_l_annee"
       ],
-      "lignes": 37
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "bp-2014-subventions-aux-associations0",
-      "titre": "BP 2014 - Ville de Rennes - Subventions exceptionnelles aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2014"
-      ],
-      "lignes": 4
+      "lignes": 50
     },
     {
       "portail": "data.rennesmetropole.fr",
@@ -13692,29 +13706,67 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "bp-2016-open-data-subventions",
-      "titre": "BP 2016 - Ville de Rennes - Subventions aux associations",
+      "dataset_id": "ca-2017-ville-de-rennes-subventions-aux-associations",
+      "titre": "CA 2017 - Ville de Rennes - Subventions aux associations",
       "retenu": false,
-      "raison": "en-tête réel : aucune colonne de bénéficiaire",
+      "raison": "aucune colonne de montant",
       "champs": [
-        "2016",
-        "Commune",
-        "Ville de Rennes",
-        "35238",
-        "BP 2016",
-        "M14",
-        "Budget principal",
-        "Investissement",
-        "Dépenses",
-        "204",
-        "Subventions d'équipements versées",
-        "4",
-        "Sports et jeunesse",
-        "40.250",
-        "Animation sportive",
-        "20421.07"
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "entite_financiere_programme",
+        "nom_du_budget",
+        "section",
+        "libelle_d_r",
+        "chapitre",
+        "libelle_du_chapitre",
+        "fonction",
+        "libelle_fonction",
+        "code_sous_fonction",
+        "libelle_sous_fonction",
+        "code_article",
+        "libelle_article"
       ],
-      "lignes": 401
+      "lignes": 410
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "ca-2010-subventions-aux-associations0",
+      "titre": "CA 2010 - Ville de Rennes - Subventions ordinaires aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "detail_provision",
+        "total_des_mandats_emis"
+      ],
+      "lignes": 1920
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "ca-2023-subvention-aux-associations-ville-de-vezin-le-coquet-copie",
+      "titre": "CA-2022- Subvention-aux-associations - Ville de Vezin Le Coquet",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "etape",
+        "budget",
+        "section",
+        "sens",
+        "chapitre",
+        "libelle_structure_de_gestion",
+        "realise_de_l_annee"
+      ],
+      "lignes": 16
     },
     {
       "portail": "data.rennesmetropole.fr",
@@ -13741,6 +13793,33 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
+      "dataset_id": "bp-2018-ville-de-rennes-subventions-aux-associations",
+      "titre": "BP 2018 - Ville de Rennes - Subventions aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "entite_financiere_programme",
+        "type_nomenclature",
+        "budget_principal_budgets_annexes",
+        "section",
+        "depenses_recettes",
+        "chapitre",
+        "libelle_chapitre",
+        "fonction",
+        "libelle_fonction",
+        "sous_fonction",
+        "libelle_sous_fonction",
+        "article"
+      ],
+      "lignes": 362
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
       "dataset_id": "ca-2021-subvention-aux-associations-ville-de-vezinlecoquet",
       "titre": "CA-2021- Subvention-aux-associations-Ville de Vezin Le Coquet",
       "retenu": false,
@@ -13759,22 +13838,6 @@
         "realise_de_l_annee"
       ],
       "lignes": 24
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2010-subventions-aux-associations0",
-      "titre": "CA 2010 - Ville de Rennes - Subventions ordinaires aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "detail_provision",
-        "total_des_mandats_emis"
-      ],
-      "lignes": 1920
     },
     {
       "portail": "data.rennesmetropole.fr",
@@ -13806,44 +13869,45 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2023-subvention-aux-associations-ville-de-vezin-le-coquet-copie",
-      "titre": "CA-2022- Subvention-aux-associations - Ville de Vezin Le Coquet",
+      "dataset_id": "ca-2013-subventions-aux-associations",
+      "titre": "CA 2013 - Subventions d'équipement aux associations",
       "retenu": false,
       "raison": "aucune colonne de montant",
       "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "etape",
-        "budget",
-        "section",
-        "sens",
-        "chapitre",
-        "libelle_structure_de_gestion",
-        "realise_de_l_annee"
+        "sous_fonction",
+        "libelle_sous_fonction",
+        "libelle_complet_tiers",
+        "somme"
       ],
-      "lignes": 16
+      "lignes": 37
     },
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2008-subventions-aux-associations",
-      "titre": "CA 2008 - Ville de Rennes - Subventions ordinaires aux associations",
+      "dataset_id": "bp-2015-subventions-aux-associations",
+      "titre": "BP 2015 - Ville de Rennes - Subventions d'équipement aux associations",
       "retenu": false,
-      "raison": "aucune colonne de montant",
+      "raison": "aucune colonne de bénéficiaire",
       "champs": [
-        "cpte_nfa",
-        "s_f_nfa",
-        "s_f_detaillee",
-        "tiers",
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "column_8",
-        "column_9"
+        "sous_fonction",
+        "libelle",
+        "bp_2015"
       ],
-      "lignes": 2059
+      "lignes": 38
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "bp-2014-subventions-aux-associations0",
+      "titre": "BP 2014 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "sous_fonction",
+        "libelle",
+        "bp_2014"
+      ],
+      "lignes": 4
     },
     {
       "portail": "data.rennesmetropole.fr",
@@ -13875,20 +13939,6 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "bp-2014-subventions-aux-associations",
-      "titre": "BP 2014 - Ville de Rennes - Subventions d'équipement aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2014"
-      ],
-      "lignes": 43
-    },
-    {
-      "portail": "data.rennesmetropole.fr",
-      "editeur": "Rennes Métropole",
       "dataset_id": "ca-2008-subventions-aux-associations1",
       "titre": "CA 2008 - Ville de Rennes - Subventions d'équipement aux associations",
       "retenu": false,
@@ -13909,51 +13959,50 @@
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2017-ville-de-st-jacques-de-la-lande-subvention-aux-associations",
-      "titre": "CA 2017 - Ville de St-Jacques de la Lande - Subvention aux associations",
+      "dataset_id": "ca-2008-subventions-aux-associations",
+      "titre": "CA 2008 - Ville de Rennes - Subventions ordinaires aux associations",
       "retenu": false,
       "raison": "aucune colonne de montant",
       "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "etape",
-        "budget",
-        "section",
-        "sens",
-        "chapitre",
-        "libelle_structure_de_gestion",
-        "realise_de_l_annee"
+        "cpte_nfa",
+        "s_f_nfa",
+        "s_f_detaillee",
+        "tiers",
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "column_8",
+        "column_9"
       ],
-      "lignes": 50
+      "lignes": 2059
     },
     {
       "portail": "data.rennesmetropole.fr",
       "editeur": "Rennes Métropole",
-      "dataset_id": "ca-2017-ville-de-rennes-subventions-aux-associations",
-      "titre": "CA 2017 - Ville de Rennes - Subventions aux associations",
+      "dataset_id": "bp-2014-subventions-aux-associations",
+      "titre": "BP 2014 - Ville de Rennes - Subventions d'équipement aux associations",
       "retenu": false,
-      "raison": "aucune colonne de montant",
+      "raison": "aucune colonne de bénéficiaire",
       "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "entite_financiere_programme",
-        "nom_du_budget",
-        "section",
-        "libelle_d_r",
-        "chapitre",
-        "libelle_du_chapitre",
-        "fonction",
-        "libelle_fonction",
-        "code_sous_fonction",
-        "libelle_sous_fonction",
-        "code_article",
-        "libelle_article"
+        "sous_fonction",
+        "libelle",
+        "bp_2014"
       ],
-      "lignes": 410
+      "lignes": 43
+    },
+    {
+      "portail": "data.rennesmetropole.fr",
+      "editeur": "Rennes Métropole",
+      "dataset_id": "bp-2015-subventions-aux-associations1",
+      "titre": "BP 2015 - Ville de Rennes - Subventions ordinaires aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "sous_fonction",
+        "libelle",
+        "bp_2015"
+      ],
+      "lignes": 360
     },
     {
       "portail": "opendata.clermontmetropole.eu",
@@ -14019,7 +14068,7 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bpm6-a-n-fr-w1-s1-s1-t-c-d3-_z-_z-_z-eur-_t-_x-n-all@banquedefrance",
+      "dataset_id": "bpm6-m-n-fr-w1-s1-s1-t-c-d3-_z-_z-_z-eur-_t-_x-n-all@banquedefrance",
       "titre": "Transactions courantes - Subventions - Ensemble de l'économie - Recettes - France vis-à-vis Reste du monde - Brut",
       "retenu": false,
       "raison": "aucune colonne de bénéficiaire",
@@ -14029,8 +14078,8 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bpm6-m-n-fr-w1-s1-s1-t-b-d3-_z-_z-_z-eur-_t-_x-n-all@banquedefrance",
-      "titre": "Transactions courantes - Subventions - Ensemble de l'économie - Solde - France vis-à-vis Reste du monde - Brut",
+      "dataset_id": "bpm6-a-n-fr-w1-s1-s1-t-c-d3-_z-_z-_z-eur-_t-_x-n-all@banquedefrance",
+      "titre": "Transactions courantes - Subventions - Ensemble de l'économie - Recettes - France vis-à-vis Reste du monde - Brut",
       "retenu": false,
       "raison": "aucune colonne de bénéficiaire",
       "champs": [],
@@ -14049,8 +14098,8 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bpm6-m-n-fr-w1-s1-s1-t-c-d3-_z-_z-_z-eur-_t-_x-n-all@banquedefrance",
-      "titre": "Transactions courantes - Subventions - Ensemble de l'économie - Recettes - France vis-à-vis Reste du monde - Brut",
+      "dataset_id": "bpm6-m-n-fr-w1-s1-s1-t-b-d3-_z-_z-_z-eur-_t-_x-n-all@banquedefrance",
+      "titre": "Transactions courantes - Subventions - Ensemble de l'économie - Solde - France vis-à-vis Reste du monde - Brut",
       "retenu": false,
       "raison": "aucune colonne de bénéficiaire",
       "champs": [],
@@ -14156,95 +14205,38 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2008-subventions-aux-associations0@rennes-metropole",
-      "titre": "CA 2008 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "dataset_id": "ca-2009-subventions-aux-associations1@rennes-metropole",
+      "titre": "CA 2009 - Ville de Rennes - Subventions d'équipement aux associations",
       "retenu": false,
       "raison": "aucune colonne de montant",
       "champs": [
-        "compte_nfa",
-        "compte_detaille",
-        "sous_fonction_nfa",
-        "sous_fonction_detaillee",
         "s_fonction",
         "compte",
         "beneficiaire_ou_objet",
         "provisions_par_tiers",
         "total_des_mandats_emis"
       ],
-      "lignes": 45
+      "lignes": 161
     },
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-commune-de-labarthe-sur-leze@haute-garonne",
-      "titre": "Subventions Commune de Labarthe-sur-Lèze",
+      "dataset_id": "bp-2013-subventions-aux-associations@rennes-metropole",
+      "titre": "BP 2013 - Ville de Rennes - Subventions ordinaires aux associations",
       "retenu": false,
-      "raison": "jeu vide",
+      "raison": "aucune colonne de bénéficiaire",
       "champs": [
-        "nomattribuant",
-        "idattribuant",
-        "dateconvention",
-        "referencedecision",
-        "nombeneficiaire",
-        "idbeneficiaire",
-        "objet",
-        "montant",
-        "nature",
-        "conditionsversement",
-        "datesperiodeversement",
-        "idrae",
-        "notificationue",
-        "pourcentagesubvention"
+        "sous_fonction",
+        "libelle",
+        "bp_2013"
       ],
-      "lignes": 0
+      "lignes": 385
     },
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2010-subventions-aux-associations1@rennes-metropole",
-      "titre": "CA 2010 - Ville de Rennes - Subventions exceptionnelles aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "total_des_mandats_emis"
-      ],
-      "lignes": 31
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bp-2016-open-data-subventions@rennes-metropole",
-      "titre": "BP 2016 - Ville de Rennes - Subventions aux associations",
-      "retenu": false,
-      "raison": "en-tête réel : aucune colonne de bénéficiaire",
-      "champs": [
-        "2016",
-        "Commune",
-        "Ville de Rennes",
-        "35238",
-        "BP 2016",
-        "M14",
-        "Budget principal",
-        "Investissement",
-        "Dépenses",
-        "204",
-        "Subventions d'équipements versées",
-        "4",
-        "Sports et jeunesse",
-        "40.250",
-        "Animation sportive",
-        "20421.07"
-      ],
-      "lignes": 401
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "8212000@digitalwallonia",
-      "titre": "Centres culturels subventionnés par la FWB de WalStat",
+      "dataset_id": "821400@digitalwallonia",
+      "titre": "ETP chez des opérateurs du secteur non-marchand reconnus/subventionnés/agréés par la FWB par âge et sexe de WalStat",
       "retenu": false,
       "raison": "aucune colonne de bénéficiaire",
       "champs": [
@@ -14252,14 +14244,44 @@
         "type_entite",
         "entite",
         "periode",
-        "presence_de_centre_s_culturel_s_subventionne_s_par_la_fwb",
+        "nombre_total_d_etp_sice_et_aaj",
+        "nombre_total_d_etp_aaj",
+        "nombre_total_d_etp_sice",
+        "nombre_d_etp_aaj_de_femmes_de_moins_de_25_ans",
+        "nombre_d_etp_aaj_de_femmes_de_25_a_49_ans",
+        "nombre_d_etp_aaj_de_femmes_de_50_ans_et_plus",
+        "nombre_total_d_etp_aaj_de_femmes",
+        "nombre_d_etp_aaj_d_hommes_de_moins_de_25_ans",
+        "nombre_d_etp_aaj_d_hommes_de_25_a_49_ans",
+        "nombre_d_etp_aaj_d_hommes_de_50_ans_et_plus",
+        "nombre_total_d_etp_aaj_d_hommes",
+        "nombre_d_etp_sice_de_femmes_de_moins_de_25_ans"
+      ],
+      "lignes": 289
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "8212050@digitalwallonia",
+      "titre": "Maison(s) et/ou centre(s) de jeunes subventionné(s) par la FWB de WalStat",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "ins",
+        "type_entite",
+        "entite",
+        "periode",
+        "nombre_de_maisons_et_ou_de_centre_s_pour_jeunes_subventionne_s_par_la_fwb",
+        "nombre_de_centre_s_de_rencontres_et_d_hebergement_subventionne_s_par_la_fwb",
+        "nombre_de_centre_s_d_information_subventionne_s_par_la_fwb",
+        "nombre_de_maison_s_des_jeunes_subventionne_s_par_la_fwb",
         "type_et_entite",
         "geo_shape",
         "geo_point_2d",
         "arrondissement",
         "province"
       ],
-      "lignes": 261
+      "lignes": 289
     },
     {
       "portail": "data.opendatasoft.com",
@@ -14308,43 +14330,22 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "blois-subventions-votees-au-budget-primitif-2021@blois-agglopolys-centrevaldeloire",
-      "titre": "Blois - subventions 2021 votées au budget primitif",
+      "dataset_id": "ca-2008-subventions-aux-associations0@rennes-metropole",
+      "titre": "CA 2008 - Ville de Rennes - Subventions exceptionnelles aux associations",
       "retenu": false,
       "raison": "aucune colonne de montant",
       "champs": [
-        "associations",
-        "empty",
-        "fonctionnement",
-        "investissement",
-        "total"
+        "compte_nfa",
+        "compte_detaille",
+        "sous_fonction_nfa",
+        "sous_fonction_detaillee",
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "provisions_par_tiers",
+        "total_des_mandats_emis"
       ],
-      "lignes": 155
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-commune-de-fronton@haute-garonne",
-      "titre": "Subventions Commune de Fronton",
-      "retenu": false,
-      "raison": "jeu vide",
-      "champs": [
-        "nomattribuant",
-        "idattribuant",
-        "dateconvention",
-        "referencedecision",
-        "nombeneficiaire",
-        "idbeneficiaire",
-        "objet",
-        "montant",
-        "nature",
-        "conditionsversement",
-        "datesperiodeversement",
-        "idrae",
-        "notificationue",
-        "pourcentagesubvention"
-      ],
-      "lignes": 0
+      "lignes": 45
     },
     {
       "portail": "data.opendatasoft.com",
@@ -14365,25 +14366,11 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bp-2013-subventions-aux-associations@rennes-metropole",
-      "titre": "BP 2013 - Ville de Rennes - Subventions ordinaires aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2013"
-      ],
-      "lignes": 385
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "fwb-cadastre-des-subventions-2023@digitalwallonia",
-      "titre": "FWB Cadastre des subventions 2023",
+      "dataset_id": "fwb-cadastre-des-subventions-2024@digitalwallonia",
+      "titre": "FWB Cadastre des subventions 2024",
       "retenu": false,
       "raison": "hors de France",
-      "lignes": 90311
+      "lignes": 75369
     },
     {
       "portail": "data.opendatasoft.com",
@@ -14415,6 +14402,42 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "ca-2017-ville-de-rennes-subventions-aux-associations@rennes-metropole",
+      "titre": "CA 2017 - Ville de Rennes - Subventions aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "entite_financiere_programme",
+        "nom_du_budget",
+        "section",
+        "libelle_d_r",
+        "chapitre",
+        "libelle_du_chapitre",
+        "fonction",
+        "libelle_fonction",
+        "code_sous_fonction",
+        "libelle_sous_fonction",
+        "code_article",
+        "libelle_article"
+      ],
+      "lignes": 410
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "fwb-cadastre-des-subventions-2023@digitalwallonia",
+      "titre": "FWB Cadastre des subventions 2023",
+      "retenu": false,
+      "raison": "hors de France",
+      "lignes": 90311
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "ca-2019-ville-de-rennes-subventions-aux-associations@rennes-metropole",
       "titre": "CA 2019 - Ville de Rennes - Subventions aux associations",
       "retenu": false,
@@ -14442,8 +14465,23 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "8212010@digitalwallonia",
-      "titre": "Participation à un réseau de lecture publique subventionné par la FWB de WalStat",
+      "dataset_id": "ca-2010-subventions-aux-associations1@rennes-metropole",
+      "titre": "CA 2010 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "total_des_mandats_emis"
+      ],
+      "lignes": 31
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "8212000@digitalwallonia",
+      "titre": "Centres culturels subventionnés par la FWB de WalStat",
       "retenu": false,
       "raison": "aucune colonne de bénéficiaire",
       "champs": [
@@ -14451,7 +14489,7 @@
         "type_entite",
         "entite",
         "periode",
-        "participation_a_un_reseau_de_lecture_publique_subventionne_par_la_fwb",
+        "presence_de_centre_s_culturel_s_subventionne_s_par_la_fwb",
         "type_et_entite",
         "geo_shape",
         "geo_point_2d",
@@ -14459,56 +14497,6 @@
         "province"
       ],
       "lignes": 261
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2009-subventions-aux-associations1@rennes-metropole",
-      "titre": "CA 2009 - Ville de Rennes - Subventions d'équipement aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "provisions_par_tiers",
-        "total_des_mandats_emis"
-      ],
-      "lignes": 161
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2008-subventions-aux-associations@rennes-metropole",
-      "titre": "CA 2008 - Ville de Rennes - Subventions ordinaires aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "cpte_nfa",
-        "s_f_nfa",
-        "s_f_detaillee",
-        "tiers",
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "column_8",
-        "column_9"
-      ],
-      "lignes": 2059
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bp-2014-subventions-aux-associations@rennes-metropole",
-      "titre": "BP 2014 - Ville de Rennes - Subventions d'équipement aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2014"
-      ],
-      "lignes": 43
     },
     {
       "portail": "data.opendatasoft.com",
@@ -14535,46 +14523,27 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "8212050@digitalwallonia",
-      "titre": "Maison(s) et/ou centre(s) de jeunes subventionné(s) par la FWB de WalStat",
+      "dataset_id": "subventions-commune-de-fronton@haute-garonne",
+      "titre": "Subventions Commune de Fronton",
       "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
+      "raison": "jeu vide",
       "champs": [
-        "ins",
-        "type_entite",
-        "entite",
-        "periode",
-        "nombre_de_maisons_et_ou_de_centre_s_pour_jeunes_subventionne_s_par_la_fwb",
-        "nombre_de_centre_s_de_rencontres_et_d_hebergement_subventionne_s_par_la_fwb",
-        "nombre_de_centre_s_d_information_subventionne_s_par_la_fwb",
-        "nombre_de_maison_s_des_jeunes_subventionne_s_par_la_fwb",
-        "type_et_entite",
-        "geo_shape",
-        "geo_point_2d",
-        "arrondissement",
-        "province"
+        "nomattribuant",
+        "idattribuant",
+        "dateconvention",
+        "referencedecision",
+        "nombeneficiaire",
+        "idbeneficiaire",
+        "objet",
+        "montant",
+        "nature",
+        "conditionsversement",
+        "datesperiodeversement",
+        "idrae",
+        "notificationue",
+        "pourcentagesubvention"
       ],
-      "lignes": 289
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2008-subventions-aux-associations1@rennes-metropole",
-      "titre": "CA 2008 - Ville de Rennes - Subventions d'équipement aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "compte_nfa",
-        "compte_detaille",
-        "sous_fonction_nfa",
-        "sous_fonction_detaillee",
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "provisions_par_tiers",
-        "total_des_mandats_emis"
-      ],
-      "lignes": 212
+      "lignes": 0
     },
     {
       "portail": "data.opendatasoft.com",
@@ -14601,8 +14570,103 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "821400@digitalwallonia",
-      "titre": "ETP chez des opérateurs du secteur non-marchand reconnus/subventionnés/agréés par la FWB par âge et sexe de WalStat",
+      "dataset_id": "ca-2008-subventions-aux-associations@rennes-metropole",
+      "titre": "CA 2008 - Ville de Rennes - Subventions ordinaires aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "cpte_nfa",
+        "s_f_nfa",
+        "s_f_detaillee",
+        "tiers",
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "column_8",
+        "column_9"
+      ],
+      "lignes": 2059
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subventions-commune-de-labarthe-sur-leze@haute-garonne",
+      "titre": "Subventions Commune de Labarthe-sur-Lèze",
+      "retenu": false,
+      "raison": "jeu vide",
+      "champs": [
+        "nomattribuant",
+        "idattribuant",
+        "dateconvention",
+        "referencedecision",
+        "nombeneficiaire",
+        "idbeneficiaire",
+        "objet",
+        "montant",
+        "nature",
+        "conditionsversement",
+        "datesperiodeversement",
+        "idrae",
+        "notificationue",
+        "pourcentagesubvention"
+      ],
+      "lignes": 0
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "ca-2008-subventions-aux-associations1@rennes-metropole",
+      "titre": "CA 2008 - Ville de Rennes - Subventions d'équipement aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "compte_nfa",
+        "compte_detaille",
+        "sous_fonction_nfa",
+        "sous_fonction_detaillee",
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "provisions_par_tiers",
+        "total_des_mandats_emis"
+      ],
+      "lignes": 212
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "bp-2014-subventions-aux-associations@rennes-metropole",
+      "titre": "BP 2014 - Ville de Rennes - Subventions d'équipement aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "sous_fonction",
+        "libelle",
+        "bp_2014"
+      ],
+      "lignes": 43
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "blois-subventions-votees-au-budget-primitif-2021@blois-agglopolys-centrevaldeloire",
+      "titre": "Blois - subventions 2021 votées au budget primitif",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "associations",
+        "empty",
+        "fonctionnement",
+        "investissement",
+        "total"
+      ],
+      "lignes": 155
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "8212010@digitalwallonia",
+      "titre": "Participation à un réseau de lecture publique subventionné par la FWB de WalStat",
       "retenu": false,
       "raison": "aucune colonne de bénéficiaire",
       "champs": [
@@ -14610,56 +14674,14 @@
         "type_entite",
         "entite",
         "periode",
-        "nombre_total_d_etp_sice_et_aaj",
-        "nombre_total_d_etp_aaj",
-        "nombre_total_d_etp_sice",
-        "nombre_d_etp_aaj_de_femmes_de_moins_de_25_ans",
-        "nombre_d_etp_aaj_de_femmes_de_25_a_49_ans",
-        "nombre_d_etp_aaj_de_femmes_de_50_ans_et_plus",
-        "nombre_total_d_etp_aaj_de_femmes",
-        "nombre_d_etp_aaj_d_hommes_de_moins_de_25_ans",
-        "nombre_d_etp_aaj_d_hommes_de_25_a_49_ans",
-        "nombre_d_etp_aaj_d_hommes_de_50_ans_et_plus",
-        "nombre_total_d_etp_aaj_d_hommes",
-        "nombre_d_etp_sice_de_femmes_de_moins_de_25_ans"
+        "participation_a_un_reseau_de_lecture_publique_subventionne_par_la_fwb",
+        "type_et_entite",
+        "geo_shape",
+        "geo_point_2d",
+        "arrondissement",
+        "province"
       ],
-      "lignes": 289
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "fwb-cadastre-des-subventions-2024@digitalwallonia",
-      "titre": "FWB Cadastre des subventions 2024",
-      "retenu": false,
-      "raison": "hors de France",
-      "lignes": 75369
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2017-ville-de-rennes-subventions-aux-associations@rennes-metropole",
-      "titre": "CA 2017 - Ville de Rennes - Subventions aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "entite_financiere_programme",
-        "nom_du_budget",
-        "section",
-        "libelle_d_r",
-        "chapitre",
-        "libelle_du_chapitre",
-        "fonction",
-        "libelle_fonction",
-        "code_sous_fonction",
-        "libelle_sous_fonction",
-        "code_article",
-        "libelle_article"
-      ],
-      "lignes": 410
+      "lignes": 261
     },
     {
       "portail": "data.opendatasoft.com",
@@ -14774,36 +14796,6 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bp-2015-subventions-aux-associations1@rennes-metropole",
-      "titre": "BP 2015 - Ville de Rennes - Subventions ordinaires aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2015"
-      ],
-      "lignes": 360
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "blois-subventions-2023-votees-au-budget-primitif@blois-agglopolys-centrevaldeloire",
-      "titre": "Blois - subventions 2023 votées au budget primitif",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "associations",
-        "noms",
-        "fonctionnement",
-        "investissement",
-        "total"
-      ],
-      "lignes": 148
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "liste-subventions-associations-2020@aix-en-provence",
       "titre": "Liste subventions associations 2020",
       "retenu": false,
@@ -14812,119 +14804,6 @@
         "file"
       ],
       "lignes": 1
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2016-ville-de-rennes-subventions-aux-associations@rennes-metropole",
-      "titre": "CA 2016 - Ville de Rennes - Subventions aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "entite_financiere_programme",
-        "nom_du_budget",
-        "section",
-        "libelle_d_r",
-        "chapitre",
-        "libelle_chapitre",
-        "fonction",
-        "libelle_fonction",
-        "code_sous_fonction",
-        "libelle_sous_fonction",
-        "code_article",
-        "libelle_article"
-      ],
-      "lignes": 109
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2009-subventions-aux-associations0@rennes-metropole",
-      "titre": "CA 2009 - Ville de Rennes - Subventions exceptionnelles aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "provisions_par_tiers",
-        "total_des_mandats_emis"
-      ],
-      "lignes": 37
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bp-2018-ville-de-rennes-subventions-aux-associations@rennes-metropole",
-      "titre": "BP 2018 - Ville de Rennes - Subventions aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "entite_financiere_programme",
-        "type_nomenclature",
-        "budget_principal_budgets_annexes",
-        "section",
-        "depenses_recettes",
-        "chapitre",
-        "libelle_chapitre",
-        "fonction",
-        "libelle_fonction",
-        "sous_fonction",
-        "libelle_sous_fonction",
-        "article"
-      ],
-      "lignes": 362
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2013-subventions-aux-associations@rennes-metropole",
-      "titre": "CA 2013 - Subventions d'équipement aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "sous_fonction",
-        "libelle_sous_fonction",
-        "libelle_complet_tiers",
-        "somme"
-      ],
-      "lignes": 37
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bp-2014-subventions-aux-associations0@rennes-metropole",
-      "titre": "BP 2014 - Ville de Rennes - Subventions exceptionnelles aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2014"
-      ],
-      "lignes": 4
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bp-2015-subventions-aux-associations@rennes-metropole",
-      "titre": "BP 2015 - Ville de Rennes - Subventions d'équipement aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2015"
-      ],
-      "lignes": 38
     },
     {
       "portail": "data.opendatasoft.com",
@@ -14945,72 +14824,6 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "8212040@digitalwallonia",
-      "titre": "Centre(s) d'expression créative subventionné(s) par la FWB de WalStat",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "ins",
-        "type_entite",
-        "entite",
-        "periode",
-        "presence_de_centre_s_d_expression_creative_subventionne_s_par_la_fwb",
-        "type_et_entite",
-        "geo_shape",
-        "geo_point_2d",
-        "arrondissement",
-        "province"
-      ],
-      "lignes": 261
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bp-2013-subventions-aux-associations1@rennes-metropole",
-      "titre": "BP 2013 - Ville de Rennes - Subventions d'équipement aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2013"
-      ],
-      "lignes": 40
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "fwb-cadastre-des-subventions-2025@digitalwallonia",
-      "titre": "FWB Cadastre des subventions 2025",
-      "retenu": false,
-      "raison": "hors de France",
-      "lignes": 116376
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2018-subvention-aux-associations-ville-de-thorigne-fouillard@rennes-metropole",
-      "titre": "CA 2018 - Subvention aux associations - Ville de Thorigné-Fouillard",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "etape",
-        "budget",
-        "section",
-        "sens",
-        "chapitre",
-        "libelle_structure_de_gestion",
-        "realise_de_l_annee"
-      ],
-      "lignes": 52
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "tableau_subvention@cachan",
       "titre": "SUBVENTION DES INVESTISSEMENTS",
       "retenu": false,
@@ -15025,33 +14838,6 @@
         "url"
       ],
       "lignes": 10
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2018-ville-de-rennes-subventions-aux-associations@rennes-metropole",
-      "titre": "CA 2018 - Ville de Rennes - Subventions aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "entite_financiere_programme",
-        "nom_du_budget",
-        "section",
-        "libelle_d_r",
-        "chapitre",
-        "libelle_du_chapitre",
-        "fonction",
-        "libelle_fonction",
-        "code_sous_fonction",
-        "libelle_sous_fonction",
-        "code_article",
-        "libelle_article"
-      ],
-      "lignes": 407
     },
     {
       "portail": "data.opendatasoft.com",
@@ -15077,33 +14863,6 @@
         "url"
       ],
       "lignes": 94
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bp-2019-ville-de-rennes-subventions-aux-associations@rennes-metropole",
-      "titre": "BP 2019 - Ville de Rennes - Subventions aux associations",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "exercice",
-        "collectivite",
-        "nom_collectivite",
-        "code_insee",
-        "entite_financiere_programme",
-        "type_nomenclature",
-        "budget_principal_budgets_annexes",
-        "section",
-        "depenses_recettes",
-        "chapitre",
-        "libelle_chapitre",
-        "fonction",
-        "libelle_fonction",
-        "sous_fonction",
-        "libelle_sous_fonction",
-        "article"
-      ],
-      "lignes": 362
     },
     {
       "portail": "data.opendatasoft.com",
@@ -15157,25 +14916,19 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "bp-2013-subventions-aux-associations0@rennes-metropole",
-      "titre": "BP 2013 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "dataset_id": "244400552_subvention_compa_2020@loireatlantique",
+      "titre": "Subventions accordées en 2020 par la COMPA",
       "retenu": false,
       "raison": "aucune colonne de bénéficiaire",
       "champs": [
-        "sous_fonction",
-        "libelle",
-        "bp_2013"
+        "date",
+        "cotation",
+        "theme",
+        "objet",
+        "montant",
+        "commentaire"
       ],
-      "lignes": 6
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "fwb-cadastre-des-subventions-2019@digitalwallonia",
-      "titre": "FWB - Cadastre des subventions 2019",
-      "retenu": false,
-      "raison": "hors de France",
-      "lignes": 61761
+      "lignes": 111
     },
     {
       "portail": "data.opendatasoft.com",
@@ -15207,44 +14960,90 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "244400552_subvention_compa_2020@loireatlantique",
-      "titre": "Subventions accordées en 2020 par la COMPA",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "date",
-        "cotation",
-        "theme",
-        "objet",
-        "montant",
-        "commentaire"
-      ],
-      "lignes": 111
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "fwb-cadastre-des-subventions-2021@digitalwallonia",
-      "titre": "FWB - Cadastre des subventions 2021",
-      "retenu": false,
-      "raison": "hors de France",
-      "lignes": 76510
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "ca-2009-subventions-aux-associations@rennes-metropole",
-      "titre": "CA 2009 - Ville de Rennes - Subventions ordinaires aux associations",
+      "dataset_id": "blois-subventions-2023-votees-au-budget-primitif@blois-agglopolys-centrevaldeloire",
+      "titre": "Blois - subventions 2023 votées au budget primitif",
       "retenu": false,
       "raison": "aucune colonne de montant",
       "champs": [
-        "s_fonction",
-        "compte",
-        "beneficiaire_ou_objet",
-        "provisions_par_tiers",
-        "total_des_mandats_emis"
+        "associations",
+        "noms",
+        "fonctionnement",
+        "investissement",
+        "total"
       ],
-      "lignes": 1956
+      "lignes": 148
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "bp-2018-ville-de-rennes-subventions-aux-associations@rennes-metropole",
+      "titre": "BP 2018 - Ville de Rennes - Subventions aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "entite_financiere_programme",
+        "type_nomenclature",
+        "budget_principal_budgets_annexes",
+        "section",
+        "depenses_recettes",
+        "chapitre",
+        "libelle_chapitre",
+        "fonction",
+        "libelle_fonction",
+        "sous_fonction",
+        "libelle_sous_fonction",
+        "article"
+      ],
+      "lignes": 362
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "ca-2018-subvention-aux-associations-ville-de-thorigne-fouillard@rennes-metropole",
+      "titre": "CA 2018 - Subvention aux associations - Ville de Thorigné-Fouillard",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "etape",
+        "budget",
+        "section",
+        "sens",
+        "chapitre",
+        "libelle_structure_de_gestion",
+        "realise_de_l_annee"
+      ],
+      "lignes": 52
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "bp-2015-subventions-aux-associations@rennes-metropole",
+      "titre": "BP 2015 - Ville de Rennes - Subventions d'équipement aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "sous_fonction",
+        "libelle",
+        "bp_2015"
+      ],
+      "lignes": 38
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "fwb-cadastre-des-subventions-2019@digitalwallonia",
+      "titre": "FWB - Cadastre des subventions 2019",
+      "retenu": false,
+      "raison": "hors de France",
+      "lignes": 61761
     },
     {
       "portail": "data.opendatasoft.com",
@@ -15272,11 +15071,234 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "ca-2018-ville-de-rennes-subventions-aux-associations@rennes-metropole",
+      "titre": "CA 2018 - Ville de Rennes - Subventions aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "entite_financiere_programme",
+        "nom_du_budget",
+        "section",
+        "libelle_d_r",
+        "chapitre",
+        "libelle_du_chapitre",
+        "fonction",
+        "libelle_fonction",
+        "code_sous_fonction",
+        "libelle_sous_fonction",
+        "code_article",
+        "libelle_article"
+      ],
+      "lignes": 407
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "ca-2013-subventions-aux-associations@rennes-metropole",
+      "titre": "CA 2013 - Subventions d'équipement aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "sous_fonction",
+        "libelle_sous_fonction",
+        "libelle_complet_tiers",
+        "somme"
+      ],
+      "lignes": 37
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "bp-2014-subventions-aux-associations0@rennes-metropole",
+      "titre": "BP 2014 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "sous_fonction",
+        "libelle",
+        "bp_2014"
+      ],
+      "lignes": 4
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "ca-2009-subventions-aux-associations@rennes-metropole",
+      "titre": "CA 2009 - Ville de Rennes - Subventions ordinaires aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "provisions_par_tiers",
+        "total_des_mandats_emis"
+      ],
+      "lignes": 1956
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "fwb-cadastre-des-subventions-2025@digitalwallonia",
+      "titre": "FWB Cadastre des subventions 2025",
+      "retenu": false,
+      "raison": "hors de France",
+      "lignes": 116376
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "bp-2015-subventions-aux-associations1@rennes-metropole",
+      "titre": "BP 2015 - Ville de Rennes - Subventions ordinaires aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "sous_fonction",
+        "libelle",
+        "bp_2015"
+      ],
+      "lignes": 360
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "fwb-cadastre-des-subventions-2020@digitalwallonia",
       "titre": "FWB - Cadastre des subventions 2020",
       "retenu": false,
       "raison": "hors de France",
       "lignes": 74957
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "bp-2013-subventions-aux-associations0@rennes-metropole",
+      "titre": "BP 2013 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "sous_fonction",
+        "libelle",
+        "bp_2013"
+      ],
+      "lignes": 6
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "ca-2016-ville-de-rennes-subventions-aux-associations@rennes-metropole",
+      "titre": "CA 2016 - Ville de Rennes - Subventions aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "entite_financiere_programme",
+        "nom_du_budget",
+        "section",
+        "libelle_d_r",
+        "chapitre",
+        "libelle_chapitre",
+        "fonction",
+        "libelle_fonction",
+        "code_sous_fonction",
+        "libelle_sous_fonction",
+        "code_article",
+        "libelle_article"
+      ],
+      "lignes": 109
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "bp-2019-ville-de-rennes-subventions-aux-associations@rennes-metropole",
+      "titre": "BP 2019 - Ville de Rennes - Subventions aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "exercice",
+        "collectivite",
+        "nom_collectivite",
+        "code_insee",
+        "entite_financiere_programme",
+        "type_nomenclature",
+        "budget_principal_budgets_annexes",
+        "section",
+        "depenses_recettes",
+        "chapitre",
+        "libelle_chapitre",
+        "fonction",
+        "libelle_fonction",
+        "sous_fonction",
+        "libelle_sous_fonction",
+        "article"
+      ],
+      "lignes": 362
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "8212040@digitalwallonia",
+      "titre": "Centre(s) d'expression créative subventionné(s) par la FWB de WalStat",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "ins",
+        "type_entite",
+        "entite",
+        "periode",
+        "presence_de_centre_s_d_expression_creative_subventionne_s_par_la_fwb",
+        "type_et_entite",
+        "geo_shape",
+        "geo_point_2d",
+        "arrondissement",
+        "province"
+      ],
+      "lignes": 261
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "ca-2009-subventions-aux-associations0@rennes-metropole",
+      "titre": "CA 2009 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "s_fonction",
+        "compte",
+        "beneficiaire_ou_objet",
+        "provisions_par_tiers",
+        "total_des_mandats_emis"
+      ],
+      "lignes": 37
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "fwb-cadastre-des-subventions-2021@digitalwallonia",
+      "titre": "FWB - Cadastre des subventions 2021",
+      "retenu": false,
+      "raison": "hors de France",
+      "lignes": 76510
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "bp-2013-subventions-aux-associations1@rennes-metropole",
+      "titre": "BP 2013 - Ville de Rennes - Subventions d'équipement aux associations",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "sous_fonction",
+        "libelle",
+        "bp_2013"
+      ],
+      "lignes": 40
     },
     {
       "portail": "data.opendatasoft.com",
@@ -15324,22 +15346,6 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-associations-sportives-2022@saint-maur",
-      "titre": "Subventions Associations Sportives 2022",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "total_ventilation_des_depenses",
-        "manifestations",
-        "promotion",
-        "contrat_de_performance",
-        "fonctionnement"
-      ],
-      "lignes": 113
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "subventions-associations-sportives-2021@saint-maur",
       "titre": "Subventions Associations Sportives 2021",
       "retenu": false,
@@ -15368,6 +15374,39 @@
         "fonctionnement"
       ],
       "lignes": 8
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subventions-attribuees-aux-organismes-de-formations-sanitaire-et-sociale-2013@datailedefrance",
+      "titre": "Subventions attribuées aux organismes de formations sanitaire et sociale (2013)",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "organisme_de_formation_libelle_et_code",
+        "procedure_du_dossier",
+        "dossier_code",
+        "objet_du_dossier",
+        "localisation",
+        "montant_vote"
+      ],
+      "lignes": 226
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subventions-associations-sportives-2022@saint-maur",
+      "titre": "Subventions Associations Sportives 2022",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "total_ventilation_des_depenses",
+        "manifestations",
+        "promotion",
+        "contrat_de_performance",
+        "fonctionnement"
+      ],
+      "lignes": 113
     },
     {
       "portail": "data.opendatasoft.com",
@@ -15408,23 +15447,6 @@
         "column_14"
       ],
       "lignes": 4
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-attribuees-aux-organismes-de-formations-sanitaire-et-sociale-2013@datailedefrance",
-      "titre": "Subventions attribuées aux organismes de formations sanitaire et sociale (2013)",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "organisme_de_formation_libelle_et_code",
-        "procedure_du_dossier",
-        "dossier_code",
-        "objet_du_dossier",
-        "localisation",
-        "montant_vote"
-      ],
-      "lignes": 226
     },
     {
       "portail": "data.opendatasoft.com",
@@ -15514,6 +15536,23 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subventions_attribuees_aux_organismes_de_formations_sanitaire_et_sociale_2010@datailedefrance",
+      "titre": "Subventions attribuées aux organismes de formations sanitaire et sociale (2010)",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "organisme_de_formation_libelle_et_code",
+        "procedure_du_dossier",
+        "dossier_code",
+        "libelle_dossier",
+        "localisation",
+        "montant_vote"
+      ],
+      "lignes": 282
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "subventions_attribuees_aux_organismes_de_formations_sanitaire_et_sociale_2011@datailedefrance",
       "titre": "Subventions attribuées aux organismes de formations sanitaire et sociale (2011)",
       "retenu": false,
@@ -15528,23 +15567,6 @@
         "montant_vote"
       ],
       "lignes": 227
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions_attribuees_aux_organismes_de_formations_sanitaire_et_sociale_2010@datailedefrance",
-      "titre": "Subventions attribuées aux organismes de formations sanitaire et sociale (2010)",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "organisme_de_formation_libelle_et_code",
-        "procedure_du_dossier",
-        "dossier_code",
-        "libelle_dossier",
-        "localisation",
-        "montant_vote"
-      ],
-      "lignes": 282
     },
     {
       "portail": "data.opendatasoft.com",
@@ -15610,25 +15632,6 @@
     {
       "portail": "data.opendatasoft.com",
       "editeur": "Fédérateur Opendatasoft",
-      "dataset_id": "subventions-investissements-2017-cso@datasncf",
-      "titre": "Subventions investissements CSO de SNCF Réseau depuis 2015",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "id",
-        "totaux",
-        "annee",
-        "date",
-        "poste",
-        "subventions_mises_en_service",
-        "subventions_en_cours",
-        "total"
-      ],
-      "lignes": 30
-    },
-    {
-      "portail": "data.opendatasoft.com",
-      "editeur": "Fédérateur Opendatasoft",
       "dataset_id": "subventions-investissements-2017-cco@datasncf",
       "titre": "Subventions investissements CCO du groupe SNCF Réseau depuis 2015",
       "retenu": false,
@@ -15645,6 +15648,25 @@
         "31_12_2020"
       ],
       "lignes": 5
+    },
+    {
+      "portail": "data.opendatasoft.com",
+      "editeur": "Fédérateur Opendatasoft",
+      "dataset_id": "subventions-investissements-2017-cso@datasncf",
+      "titre": "Subventions investissements CSO de SNCF Réseau depuis 2015",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "id",
+        "totaux",
+        "annee",
+        "date",
+        "poste",
+        "subventions_mises_en_service",
+        "subventions_en_cours",
+        "total"
+      ],
+      "lignes": 30
     },
     {
       "portail": "data.blois.agglopolys.fr",
@@ -15681,22 +15703,6 @@
     {
       "portail": "data.blois.agglopolys.fr",
       "editeur": "Agglopolys — Blois",
-      "dataset_id": "blois-subventions-2023-votees-au-budget-primitif",
-      "titre": "Blois - subventions 2023 votées au budget primitif",
-      "retenu": false,
-      "raison": "aucune colonne de montant",
-      "champs": [
-        "associations",
-        "noms",
-        "fonctionnement",
-        "investissement",
-        "total"
-      ],
-      "lignes": 148
-    },
-    {
-      "portail": "data.blois.agglopolys.fr",
-      "editeur": "Agglopolys — Blois",
       "dataset_id": "blois-subventions-2022-votees-au-budget-primitif",
       "titre": "Blois - subventions 2022 votées au budget primitif",
       "retenu": false,
@@ -15725,6 +15731,22 @@
         "total"
       ],
       "lignes": 155
+    },
+    {
+      "portail": "data.blois.agglopolys.fr",
+      "editeur": "Agglopolys — Blois",
+      "dataset_id": "blois-subventions-2023-votees-au-budget-primitif",
+      "titre": "Blois - subventions 2023 votées au budget primitif",
+      "retenu": false,
+      "raison": "aucune colonne de montant",
+      "champs": [
+        "associations",
+        "noms",
+        "fonctionnement",
+        "investissement",
+        "total"
+      ],
+      "lignes": 148
     },
     {
       "portail": "data.loire-atlantique.fr",
@@ -15759,23 +15781,6 @@
         "commentaire"
       ],
       "lignes": 68
-    },
-    {
-      "portail": "data.loire-atlantique.fr",
-      "editeur": "Département de Loire-Atlantique",
-      "dataset_id": "244400552_subvention_compa_2022",
-      "titre": "Subventions accordées en 2022 par la COMPA",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "date",
-        "cotation",
-        "theme",
-        "titre",
-        "montant",
-        "commentaire"
-      ],
-      "lignes": 69
     },
     {
       "portail": "data.loire-atlantique.fr",
@@ -15827,6 +15832,23 @@
         "commentaire"
       ],
       "lignes": 111
+    },
+    {
+      "portail": "data.loire-atlantique.fr",
+      "editeur": "Département de Loire-Atlantique",
+      "dataset_id": "244400552_subvention_compa_2022",
+      "titre": "Subventions accordées en 2022 par la COMPA",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "date",
+        "cotation",
+        "theme",
+        "titre",
+        "montant",
+        "commentaire"
+      ],
+      "lignes": 69
     },
     {
       "portail": "data.saint-maur.com",
@@ -15898,22 +15920,6 @@
     {
       "portail": "data.saint-maur.com",
       "editeur": "Ville de Saint-Maur-des-Fossés",
-      "dataset_id": "subventions-associations-sportives-2022",
-      "titre": "Subventions Associations Sportives 2022",
-      "retenu": false,
-      "raison": "aucune colonne de bénéficiaire",
-      "champs": [
-        "total_ventilation_des_depenses",
-        "manifestations",
-        "promotion",
-        "contrat_de_performance",
-        "fonctionnement"
-      ],
-      "lignes": 113
-    },
-    {
-      "portail": "data.saint-maur.com",
-      "editeur": "Ville de Saint-Maur-des-Fossés",
       "dataset_id": "subventions-associations-sportives-2021",
       "titre": "Subventions Associations Sportives 2021",
       "retenu": false,
@@ -15944,6 +15950,22 @@
       "lignes": 8
     },
     {
+      "portail": "data.saint-maur.com",
+      "editeur": "Ville de Saint-Maur-des-Fossés",
+      "dataset_id": "subventions-associations-sportives-2022",
+      "titre": "Subventions Associations Sportives 2022",
+      "retenu": false,
+      "raison": "aucune colonne de bénéficiaire",
+      "champs": [
+        "total_ventilation_des_depenses",
+        "manifestations",
+        "promotion",
+        "contrat_de_performance",
+        "fonctionnement"
+      ],
+      "lignes": 113
+    },
+    {
       "portail": "data.saintnazaireagglo.fr",
       "editeur": "Saint-Nazaire Agglomération",
       "dataset_id": "244400644_aides_attribuees",
@@ -15967,8 +15989,8 @@
     {
       "portail": "data.haute-garonne.fr",
       "editeur": "Département de la Haute-Garonne",
-      "dataset_id": "subventions-commune-de-labarthe-sur-leze",
-      "titre": "Subventions Commune de Labarthe-sur-Lèze",
+      "dataset_id": "subventions-commune-de-fronton",
+      "titre": "Subventions Commune de Fronton",
       "retenu": false,
       "raison": "jeu vide",
       "champs": [
@@ -15992,8 +16014,8 @@
     {
       "portail": "data.haute-garonne.fr",
       "editeur": "Département de la Haute-Garonne",
-      "dataset_id": "subventions-commune-de-fronton",
-      "titre": "Subventions Commune de Fronton",
+      "dataset_id": "subventions-commune-de-labarthe-sur-leze",
+      "titre": "Subventions Commune de Labarthe-sur-Lèze",
       "retenu": false,
       "raison": "jeu vide",
       "champs": [
@@ -16136,24 +16158,6 @@
     {
       "portail": "data.issy.com",
       "editeur": "Ville d'Issy-les-Moulineaux",
-      "dataset_id": "subventions-par-adherent-isseen-2020",
-      "titre": "Subventions par adhérent isséen 2020",
-      "retenu": false,
-      "raison": "jeu vide",
-      "champs": [
-        "delegations",
-        "associations",
-        "type_d_association",
-        "2020_montant_total_alloue",
-        "nb_adherents_isseens",
-        "nb_adherents_totaux",
-        "subvention_par_adherent_isseen_2020"
-      ],
-      "lignes": 0
-    },
-    {
-      "portail": "data.issy.com",
-      "editeur": "Ville d'Issy-les-Moulineaux",
       "dataset_id": "subventions-par-adherent-isseen-2019",
       "titre": "Subventions par adhérent isséen 2019",
       "retenu": false,
@@ -16166,6 +16170,24 @@
         "nb_adherents_isseens",
         "nb_adherents_totaux",
         "subvention_par_adherent_isseen_2019"
+      ],
+      "lignes": 0
+    },
+    {
+      "portail": "data.issy.com",
+      "editeur": "Ville d'Issy-les-Moulineaux",
+      "dataset_id": "subventions-par-adherent-isseen-2020",
+      "titre": "Subventions par adhérent isséen 2020",
+      "retenu": false,
+      "raison": "jeu vide",
+      "champs": [
+        "delegations",
+        "associations",
+        "type_d_association",
+        "2020_montant_total_alloue",
+        "nb_adherents_isseens",
+        "nb_adherents_totaux",
+        "subvention_par_adherent_isseen_2020"
       ],
       "lignes": 0
     },
