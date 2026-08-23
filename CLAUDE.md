@@ -41,19 +41,24 @@ lecture pour s'en servir : c'est un dépôt public.
 
 Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 
-### Aujourd'hui (phase 9, 22/08/2026)
+### Aujourd'hui (phase 13, 23/08/2026)
 
 | Mesure | v0 | aujourd'hui |
 |---|---|---|
-| Octets transférés | ~73,6 Mo | **0,14 Mo** |
-| Premier affichage | 12,96 s | **0,07 s** |
-| Données exploitables | 57,75 s | **0,58 s** |
-| Mémoire JS | 1 965 Mo | **3 Mo** |
+| Octets transférés (accueil) | ~73,6 Mo | **0,22 Mo** |
+| Premier affichage | 12,96 s | **0,06 s** |
+| Données exploitables | 57,75 s | **0,59 s** |
+| Mémoire JS (accueil) | 1 965 Mo | **3 Mo** |
 | Balises `<script>` | 170 | **1** |
 | Lignes dans la table | 1 595 805 | **2 811 070** |
 
-(Premier écran : 113 Ko gzippés. Banc de vitesse `bench/phase7.json`, inchangé
-par la phase 9 — le volume servi n'a pas bougé.)
+**La page de recherche a cessé de faire attendre.** Elle téléchargeait 34,2 Mo
+de DuckDB-WASM puis 17,7 Mo de Parquet AVANT d'afficher un champ de saisie :
+4,5 s en local, sans latence, derrière une phrase grise immobile. Elle sert
+maintenant un index précalculé : **6,06 Mo au total, champ utilisable en
+~0,3 s, recherche en 14–51 ms, fiche en 16–20 ms**, et un lien partagé vers une
+association s'ouvre avec **une seule requête de ~120 Ko**, sans charger l'index.
+Détail et méthode dans `MESURE-PERF.md`.
 
 Données : **698 sources**, **148,40 Md€ de dons VOTÉS** et **10,43 Md€ de dons
 PAYÉS** affichés côte à côte et jamais additionnés ; 1,57 Md€ ingérés mais hors
@@ -142,15 +147,27 @@ du volume.
 
 ```
 .
-├── index.html                  # une seule balise <script> (contre 170 en v0)
+├── index.html                  # champ unique + carte ; une seule balise <script>
+├── commune.html                # « ma commune » — page à part entière
 ├── sw.js                       # service worker — bumper CACHE à chaque publication
 ├── assets/css/style.css
-├── assets/js/app.js            # application, ~400 lignes
+├── assets/js/
+│   ├── commun.js               # utilitaires, état d'URL, états de page
+│   ├── lexique.js              # les mots du site, définis là où ils s'affichent
+│   ├── index-recherche.js      # l'index côté navigateur (remplace DuckDB)
+│   ├── suggest.js              # le champ unique, partagé accueil / commune
+│   └── app.js / recherche.js / commune.js / couverture.js
 ├── data/
 │   ├── aggregates/             # CE QUE LE SITE CHARGE : 103 Ko au premier écran
 │   │   ├── meta / cube / top / map-departements  (.json.gz)
+│   │   ├── suggest.json.gz                       # rang 1 de l'autocomplétion
 │   │   ├── departements/<code>.json.gz           # détail au clic, ~2,5 Ko
 │   │   └── denominateur-communes/<dep>.json.gz   # fiches communales, ~22 Ko
+│   ├── recherche/              # L'INDEX DU NAVIGATEUR (phase 13)
+│   │   ├── noms.json.gz                          # 427 451 bénéficiaires, 5,1 Mo
+│   │   ├── rna.json.gz                           # creux — lu par build_angle_mort
+│   │   ├── ids/BBB.json.gz                       # 512 blocs d'identifiants
+│   │   └── fiches/NNN.json.gz                    # 512 shards, ~120 Ko pièce
 │   ├── canonical/
 │   │   ├── subventions/year=AAAA/*.parquet       # table canonique, 28 partitions
 │   │   ├── quality-report.json                   # FAIT FOI
@@ -256,19 +273,90 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   (une association sans identifiant comptée deux fois) est une lacune, pas un
   mensonge : c'est le bon côté où se tromper. Cf. `build_search_index.py`.
 
-- **La couche HTTP de DuckDB-WASM se replie sur le téléchargement complet.**
-  Malgré `registerFileURL(..., directIO=true)` et un serveur répondant
-  correctement aux requêtes Range, la première fiche rapatriait les 25 Mo du
-  fichier de versements. D'où le sharding en 64 fichiers par hachage du
-  bénéficiaire (~400 Ko chacun), qui marche sur n'importe quel hébergeur
-  statique. La fonction de répartition existe en double (Python
-  `shard_of`, JS `shardDe`) et DOIT rester identique.
+- **DuckDB-WASM a été RETIRÉ (phase 13), et il ne faut pas le reproposer.**
+  Il coûtait 34,2 Mo de moteur plus 17,7 Mo de Parquet AVANT que le champ de
+  saisie n'existe — 4,5 s en local, sans latence, derrière une phrase grise
+  immobile ; des dizaines de secondes sur un téléphone. Un moteur SQL
+  généraliste est un prix très élevé pour deux questions : « quelles
+  associations portent ce nom ? » et « qui finance celle-ci ? ». Un index
+  précalculé y répond en 14–51 ms pour 6 Mo. Les problèmes que l'ancienne
+  architecture traînait (repli sur le téléchargement complet malgré les
+  requêtes Range, bundle esbuild à maintenir, extension Parquet à versionner
+  parce que la CSP interdit le CDN duckdb.org) ont disparu avec elle. Ne pas y
+  revenir sans un besoin de VRAI SQL arbitraire, qu'aucune page n'a aujourd'hui.
 
-- **`duckdb-browser.mjs` n'est pas autonome** : il importe « apache-arrow » par
-  son nom nu, insoluble pour un navigateur. `assets/vendor/duckdb/duckdb.mjs`
-  est un bundle esbuild autosuffisant. L'extension Parquet est elle aussi
-  versionnée (`assets/vendor/duckdb/extensions/…`) et chargée via
-  `SET custom_extension_repository` — la CSP interdit le CDN duckdb.org.
+- **Le hachage de répartition doit être un VRAI hachage.** L'ancien
+  (`sum(octets) % 64`) était trivial à reproduire en JavaScript, et mal
+  distribué : la somme des codes d'un identifiant comme `S853318459` tient dans
+  une bande d'environ 80 valeurs. Mesuré sur les fichiers en place : des shards
+  de 233 Ko face à des shards de 1,66 Mo, un facteur 7. Modulo 512, il se
+  serait effondré sur un dixième des fichiers. FNV-1a 32 bits tient en huit
+  lignes des deux côtés — en JavaScript, **`Math.imul`, pas `*`** : au-delà de
+  2^53 la multiplication passe par un double et perd des bits. La règle « la
+  fonction de répartition existe en double, Python et JS, et DOIT rester
+  identique » vaut toujours : `shard_of` dans `build_index_navigateur.py`,
+  `shardDe` dans `assets/js/index-recherche.js`, et `verify.py` le vérifie.
+
+- **Ne pas découper 427 451 chaînes quand on n'en affiche que cinquante.**
+  L'index de noms gardé en tableaux de chaînes JavaScript faisait un tas de
+  156 Mo. La même donnée en UNE grande chaîne plus un `Int32Array` de bornes,
+  découpée à la demande, tient en 70 Mo après ramassage — et la recherche est
+  un `indexOf` natif sur la grande chaîne, quelques millisecondes sur 427 451
+  noms. Même règle pour les colonnes numériques : `Float64Array`/`Uint8Array`
+  plutôt que des tableaux JavaScript.
+  **Corollaire de mesure** : `usedJSHeapSize` relevé juste après `JSON.parse`
+  est dominé par des déchets non ramassés — 163 Mo contre 70 réels. Forcer
+  deux passes de `HeapProfiler.collectGarbage` avant de conclure.
+
+- **Un préchargement « en tâche de fond » se paie quand même.** L'index de
+  suggestion (0,85 Mo) chargé à l'inactivité de la page faisait passer
+  l'accueil de 0,22 à **1,05 Mo** — pour un fichier dont la plupart des
+  visiteurs n'ont pas l'usage. Il se charge maintenant à l'INTENTION : le
+  pointeur qui entre dans le champ, un doigt qui s'y pose, ou le focus. Ces
+  signaux précèdent la première lettre de quelques centaines de millisecondes,
+  ce qui suffit — mesuré : première suggestion 502 ms après le survol, frappe
+  de trois lettres comprise.
+
+- **Un balayage partiel trie ce qu'il a trouvé, pas ce qu'il fallait trouver.**
+  L'autocomplétion s'arrêtait aux douze premières communes appariées avant de
+  les classer par population : comme le référentiel est ordonné par code INSEE,
+  taper « bes » proposait Bessay-sur-Allier, Besson et Besny-et-Loizy, et
+  **pas Besançon**. Balayer les 34 936 noms coûte deux millisecondes. Trier
+  d'abord, couper ensuite — jamais l'inverse.
+
+- **Le pliage de recherche s'applique au nom AFFICHÉ, pas à la clé du
+  pipeline.** `normalize_name` retire les formes juridiques : comparer la
+  saisie à `beneficiary_name_norm` faisait échouer « association des amis
+  de X » sur une association qui s'affiche exactement sous ce nom. Le
+  navigateur plie ce que le lecteur voit. Et **les ligatures ne se décomposent
+  pas en NFD** : « cœur » se pliait en « c ur », si bien que « restos du
+  coeur » — l'exemple donné par le champ lui-même — ne trouvait rien. On
+  développe œ, æ et ß avant de plier. Cela ne touche que l'appariement, jamais
+  la donnée stockée.
+
+- **`white-space: nowrap` s'hérite.** `td.num` l'impose pour que les montants
+  ne se coupent pas ; la phrase explicative placée dans la même cellule en
+  héritait et poussait la page à 821 px de large sur un écran de 375. Une
+  règle de mise en forme posée sur une cellule vaut pour tout ce qu'on y met
+  ensuite.
+
+- **Un sélecteur écrit pour `li` ne suit pas quand la ligne devient un `a`.**
+  Les classements de l'accueil sont devenus des liens (ils étaient inertes,
+  c'était le cul-de-sac le plus visible du site) et la grille CSS, écrite
+  `.classement li`, les a laissés retomber en texte courant. Rien n'avait
+  d'erreur : la page était simplement illisible.
+
+- **Une explication dans un attribut `title` n'existe pas.** Quels échelons
+  derrière un badge, pourquoi un montant est grisé : ces informations
+  portaient la moitié du sens de la fiche et étaient inatteignables au doigt,
+  au clavier et à l'impression. Elles sont écrites.
+
+- **Deux géographies opposées ne partagent jamais un écran — la page commune
+  aussi.** `commune.html` dit ce que la commune PAIE ; la carte de l'accueil
+  dit ce que les associations DOMICILIÉES dans un territoire ont REÇU. Le lien
+  de l'une vers l'autre existe, étiqueté « l'autre bout de la question », avec
+  la phrase qui dit que ces montants ne s'additionnent jamais. Retirer cette
+  phrase ferait lire de l'argent versé comme de l'argent reçu.
 
 - **Un module de pipeline ne doit re-emballer `sys.stdout` que sous
   `if __name__ == "__main__"`** : au chargement du module (import depuis
@@ -937,10 +1025,18 @@ l'historique : `git checkout 0b14348 -- data/sources`.
 ## 5. Décisions d'architecture et leurs raisons
 
 - **Le site doit servir un index, pas une base.** Agrégats précalculés en
-  `.json.gz` pour le premier écran ; détail en **Parquet interrogé par
-  DuckDB-WASM en requêtes HTTP Range**, pour ne télécharger que les octets
-  utiles. C'est ce qui donne du vrai SQL sur 1,6 M de lignes sans backend,
-  donc des croisements arbitraires plutôt qu'une liste figée de filtres.
+  `.json.gz` pour le premier écran ; détail en fragments **shardés, calculés
+  d'avance**, pour ne télécharger que les octets utiles. Le principe n'a pas
+  changé depuis la phase 2 ; sa mise en œuvre, si.
+  La phase 3 l'avait confiée à **DuckDB-WASM sur du Parquet en requêtes HTTP
+  Range**, pour avoir du vrai SQL sans backend. C'était payer 52 Mo — dont
+  34,2 de moteur — avant d'afficher un champ de saisie, et la couche HTTP se
+  repliait de toute façon sur le téléchargement complet. **La phase 13 l'a
+  retiré** : les deux questions que le site pose réellement (« quelles
+  associations portent ce nom ? », « qui finance celle-ci ? ») se répondent en
+  14–51 ms sur un index de 6 Mo. Le SQL arbitraire était une capacité, pas un
+  besoin ; il n'a jamais servi. Ne le réintroduire que le jour où une page en
+  aura vraiment l'usage.
 
 - **On répare la donnée avant la vitesse.** Contre-intuitif quand le site rame,
   mais optimiser le chargement de données fausses oblige à tout refaire une
@@ -1105,6 +1201,28 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       363,66 M€). Les comptes administratifs 2008-2010 de Rennes restent dehors,
       mesure à l'appui.
 
+- [x] **Phase 13** — l'interface. Le site savait des choses qu'aucun autre ne
+      sait, et les rendait difficiles à atteindre. **DuckDB-WASM est retiré** :
+      la recherche téléchargeait 34,2 Mo de moteur puis 17,7 Mo de Parquet
+      avant d'afficher un champ de saisie. Un index précalculé le remplace —
+      **6,06 Mo, champ utilisable en ~0,3 s, recherche en 14–51 ms, fiche en
+      16–20 ms**, et un lien partagé vers une association s'ouvre avec **une
+      requête de 120 Ko**. Le dépôt suivi passe de 342 à 309 Mo.
+      L'accueil s'ouvre sur **un champ unique** — association, commune,
+      département, région — et la carte porte enfin son sens : un titre qui dit
+      qu'elle situe les BÉNÉFICIAIRES, une légende avec ses bornes et son gris,
+      une bascule total / par habitant, et le tactile. **`commune.html`** devient
+      une page à part entière, avec autocomplétion sur les 34 936 communes et
+      adresse partageable. **Tout est partageable** : `#dep`, `#annee`,
+      `#niveau`, `#vue`, `#q`, `#a`, `#insee`, et le bouton Retour fonctionne.
+      Un **lexique** définit « échelon », « voté », « payé », « mandaté »,
+      « compte 6574 » là où ces mots s'affichent ; les raisons pour lesquelles
+      un montant sort des totaux quittent les attributs `title` ; les sources,
+      sélectionnées par la requête et jamais affichées, entrent dans le tableau.
+      Trois bogues de `build_methode.py` corrigés, dont un total de
+      « 80 002 255 770,2 Md€ ». Aucun chiffre n'est plus écrit en dur dans le
+      HTML. **49/50 contrôles**, le compte normal hors assemblage complet.
+
 Détail de chaque phase dans `ROADMAP.md`.
 
 ---
@@ -1120,7 +1238,7 @@ python3 scripts/pipeline/build_canonical.py      # assemblage + dédup + rapport
 python3 scripts/pipeline/verify.py               # 21 contrôles, doit rester vert
 python3 scripts/pipeline/build_carte.py          # carte depuis le GeoJSON
 python3 scripts/pipeline/build_aggregates.py     # agrégats servis au navigateur
-python3 scripts/pipeline/build_search_index.py   # index de recherche croisée
+python3 scripts/pipeline/build_index_navigateur.py # index servi au navigateur
 python3 scripts/pipeline/fetch_scdl.py           # moissonneur générique data.gouv.fr
 python3 scripts/pipeline/normalize_scdl.py       # famille scdl
 python3 scripts/pipeline/build_couverture.py     # carte de couverture

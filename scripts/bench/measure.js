@@ -36,6 +36,9 @@ const LABEL = arg('label', 'run');
 const TIMEOUT_S = parseInt(arg('timeout', '300'), 10);
 const PORT = parseInt(arg('port', '8099'), 10);
 const HEADFUL = argv.includes('--headful');
+// La page à mesurer. Le banc ne connaissait que l'accueil ; depuis que la
+// recherche a son propre coût d'entrée, c'est elle qu'il faut pouvoir mesurer.
+const PAGE = arg('page', 'index.html');
 
 // Marqueur « données prêtes » : la première expression vraie gagne. On en liste
 // plusieurs pour que le banc survive au changement d'architecture.
@@ -129,7 +132,7 @@ function waitForServer(port, tries = 60) {
   const result = {
     label: LABEL,
     date: new Date().toISOString(),
-    url: `http://127.0.0.1:${PORT}/index.html`,
+    url: `http://127.0.0.1:${PORT}/${PAGE}`,
     timeoutSeconds: TIMEOUT_S,
   };
 

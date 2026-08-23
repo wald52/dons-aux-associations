@@ -1,184 +1,88 @@
-# Cartographie des Dons Publics aux Associations
+# Dons publics aux associations
 
-Application web statique qui cartographie les subventions publiques versées aux associations en France par l'État, les régions, les départements, les communes et les EPCI.
+Qui finance les associations en France, et combien. Site statique qui rassemble
+**2 811 070 subventions** publiées par l'État, ses opérateurs, les régions, les
+départements, les intercommunalités et les communes — **698 sources**, aucun
+serveur applicatif.
 
-## 🚀 Caractéristiques
+→ **[Voir le site](https://wald52.github.io/dons-aux-associations/)**
 
-- **Architecture modulaire** : Code organisé en modules ES6 pour une meilleure maintenabilité
-- **Gestion d'état centralisée** : Pattern Redux-like pour la gestion de l'état de l'application
-- **Performance** : Système de lazy loading des données et cache localStorage
-- **Sécurité** : Validation des données, protection XSS et Content Security Policy
-- **Accessibilité** : Support du mode sombre, navigation clavier, contraste amélioré
-- **Fonctionnalités** :
-  - Carte interactive de France (départements/régions)
-  - Filtres dynamiques (type d'entité, année, montant, recherche)
-  - Export CSV et JSON
-  - Partage d'URL avec filtres
-  - Pagination configurable
-  - Graphiques de visualisation (Chart.js)
+## Ce qu'on peut y faire
 
-## 📋 Prérequis
+| | |
+|---|---|
+| **Chercher une association** | Tous ses financeurs, tous échelons confondus, avec la trajectoire année par année et chaque versement ligne à ligne, sa source et son lien. C'est la question qu'aucun guichet ne sait poser : chaque administration ne connaît que ses propres versements. |
+| **Regarder sa commune** | Ce qu'elle a mandaté aux associations depuis 2010, pour **34 829 communes sur 34 936** — y compris celles qui ne publient rien, parce que toutes déclarent leur compte 6574 à la DGFiP. |
+| **Parcourir la carte** | Ce que les associations domiciliées dans chaque département ont reçu, en total ou par habitant. |
+| **Savoir ce qui manque** | Combien d'argent échappe au site, département par département, et pourquoi. **51,10 Md€** déclarés par les communes, **7,95** que le site connaît nommément. |
 
-- Un navigateur web moderne (Chrome, Firefox, Safari, Edge)
-- Un serveur HTTP local (pour charger les modules ES6)
+Tout a une adresse partageable : un département, une année, une recherche, une
+association, une commune.
 
-## 🛠️ Installation
+## La règle qui gouverne tout : fidélité à la source
 
-### Option 1: Serveur HTTP Python
+Aucun montant n'est corrigé, aucun bénéficiaire n'est deviné. Quand une donnée
+paraît fausse, elle est **signalée et mise de côté**, jamais redressée — savoir
+qu'un chiffre est faux ne dit pas quel est le vrai. Tout enrichissement (un
+département déduit d'un SIRET, une année lue dans un libellé) est marqué comme
+tel.
+
+Trois conséquences visibles :
+
+- **Voté et payé s'affichent côte à côte et ne s'additionnent jamais.** Quand
+  une collectivité publie les deux, c'est le même argent.
+- **Tout argent versé à une association n'est pas un don.** Une prestation
+  facturée a une contrepartie : elle reste consultable, hors des totaux.
+- **La couverture affichée est un minimum.** L'erreur d'appariement va toujours
+  vers la sous-estimation, jamais vers l'inverse.
+
+`methode.html` est **engendrée depuis les données** à chaque publication : ses
+chiffres ne peuvent pas diverger de ceux du site.
+
+## Architecture
+
+Vanilla HTML/CSS/JS, aucun framework, aucun bundler, aucune police distante.
+Le site sert un **index précalculé, pas une base** : l'accueil transfère
+0,22 Mo et s'affiche en 0,06 s, quelle que soit la taille de la table derrière.
+
+```
+index.html  commune.html  recherche.html  couverture.html  methode.html
+assets/js/  commun · lexique · index-recherche · suggest · app · commune · recherche · couverture
+data/aggregates/    ce que le premier écran charge (~110 Ko)
+data/recherche/     l'index de recherche : noms (5,1 Mo) + 512 shards de fiches (~120 Ko pièce)
+data/canonical/     la table canonique en Parquet, source de vérité
+scripts/pipeline/   le pipeline Python : moissonnage, normalisation, agrégats, contrôles
+```
+
+Faire tourner le site en local :
 
 ```bash
-# Python 3
-python -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
+python3 -m http.server 8000     # puis http://localhost:8000/
 ```
 
-### Option 2: Serveur HTTP Node.js
+Reconstruire toute la chaîne (moissonnages exceptés, ils ont leur cache) :
 
 ```bash
-# Installation globale de http-server
-npm install -g http-server
-
-# Lancement
-http-server -p 8000
+bash scripts/pipeline/tout_reconstruire.sh
 ```
 
-### Option 3: Extension VS Code
+`scripts/pipeline/verify.py` porte **50 contrôles de bout en bout** et doit
+rester vert : c'est le garde-fou contre les régressions silencieuses. Hors d'un
+assemblage complet, 49/50 est le score normal — un contrôle exige
+`data/canonical/parts/`, qui n'est pas versionné.
 
-1. Installer l'extension "Live Server"
-2. Ouvrir `index.html`
-3. Clic droit → "Open with Live Server"
+## Documentation
 
-## 📁 Structure du projet
+| Fichier | Contenu |
+|---|---|
+| `CLAUDE.md` | Le handover : tout le contexte pour reprendre à froid, et **les pièges connus avec leur raison**. À lire en entier avant de toucher au code. |
+| `ROADMAP.md` | Ce que chaque phase a fait, et pourquoi. |
+| `RESTE-A-FAIRE.md` | Ce qui reste, chiffré et priorisé. |
+| `SCHEMA.md` | Le schéma canonique et la clé métier. |
+| `SOURCES.md` | Les sources, une par une. |
+| `MESURE-PERF.md` | Le banc de mesure et tous les relevés. |
 
-```
-.
-├── index.html                 # Page principale
-├── src/
-│   ├── app.js                # Point d'entrée de l'application
-│   ├── state.js              # Gestion d'état centralisée
-│   ├── styles.css            # Styles CSS
-│   └── modules/
-│       ├── filters.js        # Logique de filtrage
-│       ├── sorting.js        # Logique de tri
-│       ├── map.js            # Gestion de la carte
-│       ├── charts.js         # Graphiques Chart.js
-│       ├── ui.js             # Interactions UI
-│       ├── export.js         # Export CSV/JSON
-│       ├── search.js         # Recherche
-│       ├── theme.js          # Thème sombre/clair
-│       ├── data-loader.js    # Lazy loading des données
-│       ├── cache-manager.js  # Cache localStorage
-│       ├── validation.js     # Validation des données
-│       ├── error-handler.js  # Gestion d'erreurs
-│       └── url-manager.js    # Gestion d'URL pour partage
-├── data/
-│   ├── departments.js        # Données des départements
-│   ├── loader.js             # Loader de données
-│   ├── sources-index.js      # Index des sources de données
-│   ├── sample-data.js        # Jeu de données de démonstration
-│   ├── svg/                  # Cartes SVG
-│   └── sources/              # Fichiers de données par source
-└── README.md                 # Ce fichier
-```
+## Licence
 
-## 🎯 Utilisation
-
-### Filtres
-
-- **Type d'entité** : Filtrer par type de donateur (État, Région, Département, Commune, EPCI)
-- **Plage de montants** : Filtrer par montant de subvention
-- **Année** : Filtrer par année de subvention
-- **Recherche** : Rechercher par nom d'association ou d'entité
-
-### Carte interactive
-
-- Cliquez sur un département ou une région pour filtrer les résultats
-- Utilisez le sélecteur pour basculer entre vue département/région
-- Les couleurs indiquent le montant total des subventions reçues
-
-### Export
-
-- **Export CSV** : Exporter les résultats filtrés au format CSV
-- **Export JSON** : Exporter les résultats filtrés au format JSON avec métadonnées
-- **Copier le lien** : Partager la vue actuelle via URL
-
-### Thème
-
-- Utilisez le bouton 🌙/☀️ pour basculer entre mode clair et mode sombre
-- La préférence est sauvegardée dans localStorage
-
-## 🔧 Développement
-
-### Architecture modulaire
-
-L'application utilise une architecture modulaire avec ES6 modules :
-
-- **State** (`src/state.js`) : Gestion centralisée de l'état
-- **Modules** (`src/modules/`) : Fonctionnalités séparées en modules indépendants
-- **App** (`src/app.js`) : Orchestrateur qui initialise tous les modules
-
-### Ajouter une nouvelle source de données
-
-1. Ajouter le fichier de données dans `data/sources/`
-2. Mettre à jour `data/sources-index.js` avec les métadonnées
-3. Ajouter le script dans `index.html` si nécessaire
-
-### Personnalisation
-
-- **Styles** : Modifier `src/styles.css`
-- **Couleurs** : Modifier les variables CSS dans `:root` et `[data-theme="dark"]`
-- **Filtres** : Modifier `src/modules/filters.js`
-
-## 🔒 Sécurité
-
-- **Content Security Policy** : Protection contre XSS et injections
-- **Validation des données** : Validation stricte des entrées utilisateur
-- **Sanitization** : Échappement automatique des données affichées
-- **HTTPS** : Utilisation recommandée pour la production
-
-## ♿ Accessibilité
-
-- **Navigation clavier** : Support complet de la navigation au clavier
-- **ARIA labels** : Labels ARIA pour les éléments interactifs
-- **Contraste** : Contraste amélioré en mode sombre
-- **Skip link** : Lien pour sauter au contenu principal
-- **Focus visible** : Indicateur de focus visible
-- **Reduced motion** : Support des animations réduites
-
-## 📊 Sources de données
-
-Les données proviennent de sources officielles d'open data français :
-
-- **PLF Jaune** : data.economie.gouv.fr
-- **Ville de Paris** : opendata.paris.fr
-- **Départements** : data.gouv.fr et portails open data régionaux
-- **Régions** : Portails open data régionaux
-- **EPCI** : Portails open data des métropoles
-
-Voir `SOURCES.md` pour la liste complète des sources intégrées.
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! Pour contribuer :
-
-1. Fork le projet
-2. Créez une branche pour votre fonctionnalité
-3. Commit vos changements
-4. Push vers la branche
-5. Ouvrez une Pull Request
-
-## 📝 Licence
-
-Ce projet est open source. Voir le fichier LICENSE pour plus de détails.
-
-## 📞 Contact
-
-Pour toute question ou suggestion, n'hésitez pas à ouvrir une issue sur le dépôt du projet.
-
-## 🙏 Remerciements
-
-- À toutes les collectivités françaises pour leurs données ouvertes
-- À la communauté open data française
-- Aux contributeurs du projet
+Données publiques sous [Licence Ouverte 2.0](https://www.etalab.gouv.fr/licence-ouverte-open-licence/).
+Les montants sont ceux publiés par les administrations, sans correction.

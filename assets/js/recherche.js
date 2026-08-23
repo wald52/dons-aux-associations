@@ -1,168 +1,29 @@
 /* ============================================================================
- * Recherche croisée — moteur SQL dans le navigateur
+ * Recherche croisée — « qui finance cette association ? »
  * ----------------------------------------------------------------------------
- * DuckDB-WASM interroge deux fichiers Parquet servis statiquement :
+ * Le champ de saisie est actif IMMÉDIATEMENT. L'index arrive derrière et
+ * complète les résultats en place. La version précédente faisait l'inverse :
+ * elle cachait toute la page derrière une phrase grise le temps de télécharger
+ * 34,2 Mo de moteur SQL puis 17,7 Mo d'index — 4,5 s en local, sans latence.
  *
- *   beneficiaires.parquet  261 444 bénéficiaires résolus, triés par nom —
- *                          la recherche et le classement des cumuls ;
- *   versements/NN.parquet   2,69 M de versements triés par bénéficiaire,
- *                          en petits row groups : la fiche d'une association
- *                          ne télécharge que les blocs qui la concernent,
- *                          par requêtes HTTP Range.
- *
- * Le moteur (~10 Mo transférés) n'est chargé que sur cette page : le premier
- * écran du site n'en paie jamais le poids. Tout s'exécute dans le navigateur,
- * aucune requête n'est envoyée à un serveur applicatif.
+ * Tout s'exécute dans le navigateur, aucune requête n'est envoyée à un serveur
+ * applicatif : ce qu'on cherche ici ne regarde personne.
  * ========================================================================= */
-
-import * as duckdb from "../vendor/duckdb/duckdb.mjs";
 
 "use strict";
 
-var conn = null;
+import {
+  $, el, vider, euros, fmtNombre, pluriel, plier, chargerGz, NIVEAUX,
+  lireEtat, ecrireEtat, messageEtat, messageErreur, jauge, enregistrerServiceWorker
+} from "./commun.js";
+import * as Index from "./index-recherche.js";
+import * as Lexique from "./lexique.js";
+
 var meta = null;
-var baseDeDonnees = null;
-var shardsCharges = {};
-
-// Les versements sont répartis en 64 shards par bénéficiaire. La fiche d'une
-// association télécharge le sien (~400 Ko), une seule fois, puis requête en
-// local. Même fonction de répartition que `shard_of` côté pipeline.
-var NB_SHARDS = 64;
-
-function shardDe(bid) {
-  var somme = 0;
-  for (var i = 0; i < bid.length; i++) somme += bid.charCodeAt(i);
-  return somme % NB_SHARDS;
-}
-
-async function assurerShard(bid) {
-  var num = shardDe(bid);
-  var nom = ("0" + num).slice(-2);
-  if (!shardsCharges[nom]) {
-    shardsCharges[nom] = fetch("data/canonical/recherche/versements/" + nom + ".parquet")
-      .then(function (r) {
-        if (!r.ok) throw new Error("shard " + nom + " : " + r.status);
-        return r.arrayBuffer();
-      })
-      .then(function (buf) {
-        return baseDeDonnees.registerFileBuffer("versements-" + nom + ".parquet",
-          new Uint8Array(buf));
-      });
-  }
-  await shardsCharges[nom];
-  return "versements-" + nom + ".parquet";
-}
-
-var NIVEAUX = {
-  etat: "État", operateur: "Opérateur de l'État", region: "Région",
-  departement: "Département", epci: "Intercommunalité", commune: "Commune",
-  inconnu: "Donateur non identifié"
-};
-
-// --- utilitaires ------------------------------------------------------------
-
-function $(sel) { return document.querySelector(sel); }
-function vider(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-function el(tag, cls, texte) {
-  var e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (texte != null) e.textContent = texte;
-  return e;
-}
-
-var fmtNombre = new Intl.NumberFormat("fr-FR");
-
-function euros(v) {
-  if (v == null) return "—";
-  v = Number(v);
-  var a = Math.abs(v);
-  if (a >= 1e9) return (v / 1e9).toFixed(2).replace(".", ",") + " Md€";
-  if (a >= 1e6) return (v / 1e6).toFixed(1).replace(".", ",") + " M€";
-  if (a >= 1e4) return fmtNombre.format(Math.round(v / 1e3)) + " k€";
-  return fmtNombre.format(Math.round(v)) + " €";
-}
-
-/** Même pliage que `normalize_name` côté pipeline : la recherche doit voir
- *  les noms exactement comme l'index les stocke. */
-function plier(q) {
-  return q.normalize("NFD").replace(/[̀-ͯ]/g, "")
-    .replace(/[^a-zA-Z0-9]+/g, " ").trim().replace(/\s+/g, " ").toUpperCase();
-}
-
-async function chargerGz(url) {
-  var r = await fetch(url);
-  if (!r.ok) throw new Error(url + " : " + r.status);
-  var buf = await r.arrayBuffer();
-  var o = new Uint8Array(buf);
-  if (o[0] === 0x1f && o[1] === 0x8b) {
-    var flux = new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));
-    return JSON.parse(await new Response(flux).text());
-  }
-  return JSON.parse(new TextDecoder().decode(buf));
-}
-
-function lignes(resultat) {
-  return resultat.toArray().map(function (r) { return r.toJSON(); });
-}
-
-async function requete(sql, params) {
-  if (!params || !params.length) return lignes(await conn.query(sql));
-  var stmt = await conn.prepare(sql);
-  try {
-    return lignes(await stmt.query.apply(stmt, params));
-  } finally {
-    await stmt.close();
-  }
-}
-
-// --- démarrage du moteur ----------------------------------------------------
-
-function etatMoteur(msg) {
-  var e = $("#moteur-etat");
-  if (e) e.textContent = msg;
-}
-
-async function demarrerMoteur() {
-  etatMoteur("Chargement du moteur SQL (une dizaine de Mo, une seule fois)…");
-
-  // URL absolues : le worker résout les chemins relatifs contre SA propre
-  // position, pas celle de la page — un chemin relatif part donc en 404.
-  var bundle = {
-    mainModule: new URL("assets/vendor/duckdb/duckdb-eh.wasm", location.href).href,
-    mainWorker: new URL("assets/vendor/duckdb/duckdb-browser-eh.worker.js", location.href).href
-  };
-  var worker = new Worker(bundle.mainWorker);
-  var db = new duckdb.AsyncDuckDB(new duckdb.ConsoleLogger(duckdb.LogLevel.WARNING), worker);
-  await db.instantiate(bundle.mainModule);
-
-  // Deux régimes de lecture, choisis d'après ce que les requêtes font :
-  //  - beneficiaires.parquet (11 Mo) : chaque recherche par nom balaie de
-  //    toute façon toute la colonne des noms. Le télécharger UNE fois en
-  //    mémoire rend toutes les recherches locales et instantanées.
-  //  - versements.parquet (25 Mo) : la fiche d'une association n'a besoin
-  //    que de quelques blocs — lecture distante par plages d'octets (Range),
-  //    guidée par le tri par bénéficiaire et les petits row groups.
-  etatMoteur("Téléchargement de l'index des associations (11 Mo, une seule fois)…");
-  var rep = await fetch("data/canonical/recherche/beneficiaires.parquet");
-  if (!rep.ok) throw new Error("index bénéficiaires : " + rep.status);
-  await db.registerFileBuffer("beneficiaires.parquet",
-    new Uint8Array(await rep.arrayBuffer()));
-  baseDeDonnees = db;
-
-  conn = await db.connect();
-
-  // L'extension Parquet est chargée depuis NOTRE origine, jamais depuis le
-  // CDN duckdb.org : la CSP l'interdit (connect-src 'self'), et un site
-  // d'intérêt public ne dépend pas de la disponibilité d'un tiers.
-  var repo = new URL("assets/vendor/duckdb/extensions", location.href).href;
-  await conn.query("SET custom_extension_repository='" + repo + "'");
-  await conn.query("SET autoinstall_extension_repository='" + repo + "'");
-  await conn.query("INSTALL parquet; LOAD parquet;");
-
-  meta = await chargerGz("data/aggregates/meta.json.gz");
-}
-
-// --- recherche --------------------------------------------------------------
+var stats = null;
+var couverture = null;
+var etat = { q: "", dep: "", cumul: "", dependance: "", a: null };
+var dernierResultat = null;
 
 // Ce que le site refuse d'appeler un don, et pourquoi — dit à l'utilisateur,
 // pas seulement au code.
@@ -175,149 +36,239 @@ var RAISONS_HORS_DON = {
     "mais jamais décaissée. Comptée à part pour ne pas gonfler les montants."
 };
 
-var SELECTION = "benef_id, nom, siren, rna, dep_code, kind, nb_versements, montant_eur, " +
-  "montant_ecarte_eur, annee_min, annee_max, nb_echelons, echelons, nb_donateurs, " +
-  "donateur_principal, part_principal_pct, financeurs_publient_jusqu_a";
+var RAISON_AGREGAT = "Ligne agrégée : un total publié par la source, jamais sommé " +
+  "avec les versements individuels — ce serait compter deux fois.";
+var RAISON_PAYE = "Montant déclaré PAYÉ (exécution budgétaire). Affiché à part du " +
+  "voté, jamais additionné avec lui : c'est souvent le même argent.";
+var RAISON_QUARANTAINE = "Montant publié par la source, exclu des totaux : son " +
+  "unité ou sa vraisemblance est douteuse.";
 
-async function chercher() {
-  var q = plier($("#q").value);
-  var dep = $("#filtre-dep").value;
-  var cumul = $("#filtre-cumul").value;
-  var dependance = $("#filtre-dependance").value;
-  var hote = $("#resultats");
-  $("#fiche").hidden = true;
-  hote.hidden = false;
-
-  if (q.length < 3 && !cumul && !dependance) {
-    vider(hote);
-    if (q.length > 0) hote.appendChild(el("p", "chargement", "Au moins trois caractères…"));
-    else await montrerCumuls();  // vue par défaut : les cumuls remarquables
-    return;
-  }
-
-  var sql = "SELECT " + SELECTION + " FROM 'beneficiaires.parquet' WHERE 1=1";
-  var params = [];
-  if (q.length >= 3) { sql += " AND nom_norm LIKE '%' || ? || '%'"; params.push(q); }
-  if (dep) { sql += " AND dep_code = ?"; params.push(dep); }
-  if (cumul) { sql += " AND nb_echelons >= " + parseInt(cumul, 10); }
-  // La dépendance ne veut rien dire sur une association qui a touché 300 € une
-  // fois : on la réserve à celles dont le financement est mesurable.
-  if (dependance) {
-    sql += " AND part_principal_pct >= " + parseInt(dependance, 10) +
-           " AND montant_eur >= 10000";
-  }
-  sql += " ORDER BY montant_eur DESC LIMIT 40";
-
-  vider(hote);
-  hote.appendChild(el("p", "chargement", "Recherche…"));
-  var rows;
-  try { rows = await requete(sql, params); }
-  catch (e) { vider(hote); hote.appendChild(el("p", "chargement", "Échec de la requête : " + e.message)); return; }
-
-  vider(hote);
-  if (!rows.length) {
-    hote.appendChild(el("p", "chargement", "Aucune association trouvée pour ces critères."));
-    return;
-  }
-  hote.appendChild(tableResultats(rows,
-    rows.length === 40 ? "40 premiers résultats, par montant décroissant — précisez la recherche pour affiner." : null));
+function nomDep(code) {
+  if (!code) return null;
+  var d = meta && meta.departements.valeurs[code];
+  return d ? d[0] + " (" + code + ")" : code;
 }
 
-/** Vue d'accueil : les cumuls d'échelons les plus marquants. */
-async function montrerCumuls() {
-  var hote = $("#resultats");
-  vider(hote);
-  hote.appendChild(el("p", "chargement", "Chargement des cumuls remarquables…"));
-  var dep = $("#filtre-dep").value;
-  var sql = "SELECT " + SELECTION + " FROM 'beneficiaires.parquet' WHERE nb_echelons >= 3";
-  var params = [];
-  if (dep) { sql += " AND dep_code = ?"; params.push(dep); }
-  sql += " ORDER BY montant_eur DESC LIMIT 30";
-  var rows = await requete(sql, params);
-  vider(hote);
-  var intro = el("div", "intro-cumuls");
-  intro.appendChild(el("h2", null, "Les cumuls d'échelons les plus importants"));
-  intro.appendChild(el("p", "sous-titre",
-    "4 400 associations sont financées par au moins trois échelons publics différents. " +
-    "En voici les premières par montant total — ou cherchez une association par son nom."));
-  hote.appendChild(intro);
-  hote.appendChild(tableResultats(rows, null));
+// --- liste de résultats -----------------------------------------------------
+
+function badgeEchelons(f) {
+  if (!f.ech || f.ech < 2) return null;
+  var b = el("span", "badge" + (f.ech >= 3 ? " fort" : ""));
+  b.appendChild(el("b", null, f.ech + " échelons"));
+  // Les libellés sont ÉCRITS, pas cachés dans un `title` : au doigt comme au
+  // clavier, un `title` n'existe pas.
+  b.appendChild(el("span", "badge-detail",
+    (f.echelons || []).map(function (e) { return NIVEAUX[e] || e; }).join(" · ")));
+  return b;
 }
 
-function tableResultats(rows, note) {
-  var bloc = el("div", "bloc-resultats");
-  var ul = el("ul", "classement");
-  rows.forEach(function (r) {
-    var li = el("li", "resultat");
-    li.tabIndex = 0;
-    li.setAttribute("role", "button");
+function ligneResultat(f) {
+  var li = el("li", "resultat");
+  li.tabIndex = 0;
+  li.setAttribute("role", "button");
+  li.appendChild(el("span", "nom", f.nom));
+  li.appendChild(el("span", "montant", euros(f.montant)));
+  var d = el("span", "detail");
+  var bouts = [nomDep(f.dep) || "département inconnu"];
+  if (f.nbv) bouts.push(pluriel(f.nbv, "versement"));
+  if (f.a0) bouts.push(f.a0 === f.a1 ? String(f.a0) : f.a0 + "–" + f.a1);
+  d.appendChild(document.createTextNode(bouts.join(" · ") + " "));
+  var b = badgeEchelons(f);
+  if (b) d.appendChild(b);
+  li.appendChild(d);
 
-    var nom = el("span", "nom", r.nom);
-    var m = el("span", "montant", euros(r.montant_eur));
-    var d = el("span", "detail");
-    var deps = meta.departements.valeurs;
-    var nomDep = r.dep_code && deps[r.dep_code] ? deps[r.dep_code][0] + " (" + r.dep_code + ")" : "département inconnu";
-    var badges = el("span", "badges");
-    var nEch = Number(r.nb_echelons);
-    if (nEch >= 2) {
-      var b = el("b", "badge" + (nEch >= 3 ? " fort" : ""), nEch + " échelons");
-      b.title = String(r.echelons).split(",").map(function (x) { return NIVEAUX[x] || x; }).join(" + ");
-      badges.appendChild(b);
-    }
-    d.appendChild(document.createTextNode(
-      nomDep + " · " + fmtNombre.format(Number(r.nb_versements)) + " versement" +
-      (Number(r.nb_versements) > 1 ? "s" : "") + " · " +
-      (r.annee_min === r.annee_max ? r.annee_min : r.annee_min + "-" + r.annee_max) + " "));
-    d.appendChild(badges);
-
-    li.appendChild(nom); li.appendChild(m); li.appendChild(d);
-    function ouvrir() { montrerFiche(r); }
-    li.addEventListener("click", ouvrir);
-    li.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); ouvrir(); }
-    });
-    ul.appendChild(li);
+  function ouvrir() { allerVersFiche(f); }
+  li.addEventListener("click", ouvrir);
+  li.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); ouvrir(); }
   });
-  bloc.appendChild(ul);
-  if (note) bloc.appendChild(el("p", "sous-titre", note));
-  return bloc;
+  return li;
 }
+
+async function allerVersFiche(f) {
+  var bid = f.bid || await Index.identifiantDuRang(f.rang);
+  etat.a = bid;
+  ecrireEtat(etat, true);
+  await montrerFiche(bid);
+}
+
+function filtresActifs() {
+  var actifs = [];
+  if (etat.dep) actifs.push(["dep", "Département : " + nomDep(etat.dep)]);
+  if (etat.cumul) actifs.push(["cumul", etat.cumul + " échelons ou plus"]);
+  if (etat.dependance) actifs.push(["dependance", etat.dependance + " % d'un seul financeur"]);
+  return actifs;
+}
+
+function barreFiltres(hote) {
+  var actifs = filtresActifs();
+  if (!actifs.length) return;
+  var bloc = el("div", "puces-filtres");
+  bloc.appendChild(el("span", "puces-titre", "Filtres actifs :"));
+  actifs.forEach(function (a) {
+    var p = el("button", "puce-filtre", a[1] + " ✕");
+    p.type = "button";
+    p.setAttribute("aria-label", "Retirer le filtre « " + a[1] + " »");
+    p.addEventListener("click", function () {
+      etat[a[0]] = "";
+      $("#filtre-" + (a[0] === "dep" ? "dep" : a[0])).value = "";
+      rafraichir(true);
+    });
+    bloc.appendChild(p);
+  });
+  hote.appendChild(bloc);
+}
+
+function chercher() {
+  var hote = $("#resultats");
+  var q = plier(etat.q);
+  vider(hote);
+  barreFiltres(hote);
+
+  if (q.length > 0 && q.length < 3 && !etat.cumul && !etat.dependance) {
+    hote.appendChild(messageEtat("Encore une lettre ou deux — la recherche part de trois caractères.", "conseil"));
+    return;
+  }
+  if (!q && !etat.cumul && !etat.dependance && !etat.dep) { montrerCumuls(hote); return; }
+
+  var res = Index.chercherAssociations(q, {
+    dep: etat.dep,
+    cumul: etat.cumul ? Number(etat.cumul) : 0,
+    dependance: etat.dependance ? Number(etat.dependance) : 0
+  }, 50);
+  dernierResultat = res;
+
+  if (!res.total) {
+    var vide = el("div", "etat-vide");
+    vide.appendChild(el("p", null,
+      etat.q ? "Aucune association ne porte ce nom dans les données du site."
+             : "Aucune association ne répond à ces filtres."));
+    var conseils = el("ul", "conseils");
+    if (etat.q) {
+      conseils.appendChild(el("li", null,
+        "Essayez un mot seul : les noms publiés sont souvent abrégés " +
+        "(« RESTOS DU COEUR », pas « Les Restaurants du Cœur »)."));
+    }
+    if (filtresActifs().length) {
+      var li = el("li");
+      li.appendChild(document.createTextNode("Ou "));
+      var b = el("button", "bouton-lien", "retirez les filtres");
+      b.type = "button";
+      b.addEventListener("click", reinitialiser);
+      li.appendChild(b);
+      li.appendChild(document.createTextNode("."));
+      conseils.appendChild(li);
+    }
+    var c = couverture && couverture.resume && couverture.resume.commune;
+    conseils.appendChild(el("li", null,
+      "Une association absente n'est pas une association sans subvention : " +
+      (c ? "seules " + fmtNombre.format(c.avec_donnees) + " communes sur " +
+           fmtNombre.format(c.univers) + " publient les leurs."
+         : "la plupart des communes ne publient pas les leurs.")));
+    vide.appendChild(conseils);
+    hote.appendChild(vide);
+    return;
+  }
+
+  var entete = el("p", "compte-resultats");
+  entete.appendChild(el("b", null, fmtNombre.format(res.total) +
+    (res.total > 1 ? " associations trouvées" : " association trouvée")));
+  if (res.total > res.resultats.length) {
+    entete.appendChild(document.createTextNode(
+      " — les " + res.resultats.length + " premières par montant reçu."));
+  }
+  if (res.source === "partiel") {
+    entete.appendChild(el("span", "note-partielle",
+      " Recherche sur les plus gros bénéficiaires seulement ; l'index complet" +
+      (stats ? " (" + fmtNombre.format(stats.beneficiaires) + ")" : "") +
+      " finit de charger, et les résultats se compléteront seuls."));
+  }
+  hote.appendChild(entete);
+
+  var ul = el("ul", "classement");
+  res.resultats.forEach(function (f) { ul.appendChild(ligneResultat(f)); });
+  hote.appendChild(ul);
+  Lexique.poser(hote);
+}
+
+function montrerCumuls(hote) {
+  var res = Index.chercherAssociations("", { cumul: 3 }, 30);
+  var intro = el("div", "intro-cumuls");
+  intro.appendChild(el("h2", null, "Financées par trois échelons ou plus"));
+  var p = el("p", "sous-titre");
+  p.appendChild(document.createTextNode(
+    fmtNombre.format(nbCumuls) + " associations sont financées par au moins trois "));
+  p.appendChild(Lexique.mot("echelon", "échelons"));
+  p.appendChild(document.createTextNode(
+    " publics différents — question qu'aucun guichet ne sait poser, chaque " +
+    "administration ne connaissant que ses propres versements. Voici les " +
+    "premières par montant reçu, ou cherchez une association par son nom."));
+  intro.appendChild(p);
+  hote.appendChild(intro);
+  var ul = el("ul", "classement");
+  res.resultats.forEach(function (f) { ul.appendChild(ligneResultat(f)); });
+  hote.appendChild(ul);
+  Lexique.poser(hote);
+}
+
+var nbCumuls = 9566;
 
 // --- fiche d'une association ------------------------------------------------
 
-async function montrerFiche(b) {
+async function montrerFiche(bid) {
   var fiche = $("#fiche");
   $("#resultats").hidden = true;
+  $("#bloc-filtres").hidden = true;
   fiche.hidden = false;
   vider(fiche);
+  fiche.appendChild(messageEtat("Ouverture de la fiche…", "chargement"));
 
+  var donnees;
+  try { donnees = await Index.chargerFiche(bid); }
+  catch (e) {
+    vider(fiche);
+    fiche.appendChild(messageErreur(
+      "La fiche n'a pas pu être chargée.", function () { montrerFiche(bid); }));
+    fiche.appendChild(lienRetour());
+    return;
+  }
+  vider(fiche);
+  if (!donnees) {
+    fiche.appendChild(messageEtat(
+      "Cette association n'existe pas dans l'index. Le lien vient peut-être " +
+      "d'une version antérieure des données.", "info"));
+    fiche.appendChild(lienRetour());
+    return;
+  }
+  dessinerFiche(fiche, donnees.resume, donnees.versements);
+}
+
+function lienRetour() {
   var retour = el("button", "retour", "← Retour aux résultats");
   retour.type = "button";
-  retour.addEventListener("click", function () {
-    fiche.hidden = true; $("#resultats").hidden = false;
-  });
-  fiche.appendChild(retour);
+  retour.addEventListener("click", function () { history.back(); });
+  return retour;
+}
 
+function dessinerFiche(fiche, b, vers) {
+  fiche.appendChild(lienRetour());
   fiche.appendChild(el("h2", null, b.nom));
+
   var ident = [];
   if (b.siren) ident.push("SIREN " + b.siren);
   if (b.rna) ident.push("RNA " + b.rna);
-  var deps = meta.departements.valeurs;
-  if (b.dep_code && deps[b.dep_code]) ident.push(deps[b.dep_code][0] + " (" + b.dep_code + ")");
+  if (b.dep) ident.push(nomDep(b.dep));
   fiche.appendChild(el("p", "sous-titre", ident.join(" · ") ||
     "Sans identifiant national — reconnue par son nom et son département."));
 
   var stats = el("div", "compteurs");
-  var cases = [[euros(b.montant_eur), "reçus au total"],
-   [fmtNombre.format(Number(b.nb_versements)), "versements"],
-   [String(b.nb_echelons), "échelon" + (Number(b.nb_echelons) > 1 ? "s" : "") + " financeur" + (Number(b.nb_echelons) > 1 ? "s" : "")],
-   [String(b.nb_donateurs), "donateur" + (Number(b.nb_donateurs) > 1 ? "s" : "") + " distinct" + (Number(b.nb_donateurs) > 1 ? "s" : "")]];
-  // La dépendance : quelle part vient du principal financeur. C'est la question
-  // que le corpus permet de poser et qu'aucun guichet ne pose.
-  if (b.part_principal_pct != null) {
-    cases.push([Math.round(Number(b.part_principal_pct)) + " %",
-                "du principal financeur"]);
-  }
+  var cases = [
+    [euros(b.montant), "reçus au total"],
+    [fmtNombre.format(b.nbv), b.nbv > 1 ? "versements" : "versement"],
+    [String(b.ech), "échelon" + (b.ech > 1 ? "s" : "") + " financeur" + (b.ech > 1 ? "s" : "")],
+    [String(b.nbd), "donateur" + (b.nbd > 1 ? "s" : "") + " distinct" + (b.nbd > 1 ? "s" : "")]
+  ];
+  if (b.part != null) cases.push([Math.round(b.part) + " %", "du principal financeur"]);
   cases.forEach(function (c) {
     var d = el("div", "compteur");
     d.appendChild(el("span", "valeur", c[0]));
@@ -325,48 +276,43 @@ async function montrerFiche(b) {
     stats.appendChild(d);
   });
   fiche.appendChild(stats);
-  if (b.montant_ecarte_eur) {
+
+  if (b.ecarte) {
     var av = el("p", "avertissement");
     av.appendChild(el("b", null, "Montants mis de côté. "));
-    av.appendChild(document.createTextNode(
-      euros(b.montant_ecarte_eur) + " supplémentaires figurent dans la source mais sont " +
-      "exclus des totaux : leur unité ou leur vraisemblance est douteuse (cf. rapport de qualité)."));
+    av.appendChild(document.createTextNode(euros(b.ecarte) +
+      " supplémentaires figurent dans la source mais sont exclus des totaux : "));
+    av.appendChild(Lexique.mot("quarantaine", "leur unité est douteuse"));
+    av.appendChild(document.createTextNode(". Détail dans "));
+    var l = el("a", null, "Sources & méthode");
+    l.href = "methode.html";
+    av.appendChild(l);
+    av.appendChild(document.createTextNode("."));
     fiche.appendChild(av);
   }
 
-  var corps = el("div", "fiche-corps");
-  corps.appendChild(el("p", "chargement", "Chargement des versements…"));
-  fiche.appendChild(corps);
-
-  var fichier = await assurerShard(b.benef_id);
-  var vers = await requete(
-    "SELECT year, donor_level, donor_name_raw, donor_program, purpose_raw, " +
-    "amount_eur, amount_rejected_eur, granularity, measure, concours, " +
-    "source_label, source_url " +
-    "FROM '" + fichier + "' WHERE benef_id = ? ORDER BY year DESC, amount_eur DESC",
-    [b.benef_id]);
-  vider(corps);
-
-  // --- trajectoire : total par année ---------------------------------------
-  var parAn = {};
-  var parDonateur = {};
-  // La trajectoire ne trace que les DONS VOTÉS — la même règle que les totaux
-  // du site, celle de `common.py`. Y mêler une prestation facturée ou une
-  // exécution budgétaire ferait une courbe qui ne veut rien dire.
+  // --- trajectoire et financeurs -------------------------------------------
+  // Ne comptent que les DONS VOTÉS — la règle des totaux du site. Y mêler une
+  // prestation facturée ou une exécution budgétaire ferait une courbe qui ne
+  // veut rien dire.
+  var parAn = {}, parDonateur = {};
   vers.forEach(function (v) {
-    if (v.granularity === "aggregate" || v.amount_eur == null) return;
-    if (v.concours !== "don" || v.measure === "verse") return;
-    var y = v.year == null ? "?" : String(v.year);
-    parAn[y] = (parAn[y] || 0) + Number(v.amount_eur);
-    var k = v.donor_name_raw || "—";
-    parDonateur[k] = parDonateur[k] || { total: 0, n: 0, niveau: v.donor_level };
-    parDonateur[k].total += Number(v.amount_eur);
+    if (v.granularite === "aggregate" || v.montant == null) return;
+    if (v.concours !== "don" || v.mesure === "verse") return;
+    var y = v.annee == null ? "?" : String(v.annee);
+    parAn[y] = (parAn[y] || 0) + v.montant;
+    var k = v.donateur || "—";
+    parDonateur[k] = parDonateur[k] || { total: 0, n: 0, niveau: v.niveau };
+    parDonateur[k].total += v.montant;
     parDonateur[k].n++;
   });
 
   var annees = Object.keys(parAn).filter(function (y) { return y !== "?"; }).sort();
   if (annees.length > 1) {
-    corps.appendChild(el("h3", null, "Trajectoire"));
+    fiche.appendChild(el("h3", null, "Trajectoire"));
+    fiche.appendChild(el("p", "sous-titre",
+      "Dons votés, année par année. Une année absente n'est pas un zéro : elle " +
+      "peut aussi vouloir dire que le financeur n'a rien publié cette année-là."));
     var max = Math.max.apply(null, annees.map(function (y) { return parAn[y]; }));
     var traj = el("div", "trajectoire");
     annees.forEach(function (y) {
@@ -380,11 +326,10 @@ async function montrerFiche(b) {
       ligne.appendChild(el("span", "montant", euros(parAn[y])));
       traj.appendChild(ligne);
     });
-    corps.appendChild(traj);
+    fiche.appendChild(traj);
   }
 
-  // --- financeurs ----------------------------------------------------------
-  corps.appendChild(el("h3", null, "Financeurs"));
+  fiche.appendChild(el("h3", null, "Financeurs"));
   var ulD = el("ul", "classement");
   Object.keys(parDonateur)
     .sort(function (a, c) { return parDonateur[c].total - parDonateur[a].total; })
@@ -396,79 +341,165 @@ async function montrerFiche(b) {
       nom.appendChild(el("b", "badge", NIVEAUX[d.niveau] || d.niveau));
       li.appendChild(nom);
       li.appendChild(el("span", "montant", euros(d.total)));
-      li.appendChild(el("span", "detail", fmtNombre.format(d.n) + " versement" + (d.n > 1 ? "s" : "")));
+      li.appendChild(el("span", "detail", pluriel(d.n, "versement")));
       ulD.appendChild(li);
     });
-  corps.appendChild(ulD);
+  fiche.appendChild(ulD);
 
-  // --- versements ligne à ligne --------------------------------------------
-  corps.appendChild(el("h3", null, "Versements (" + fmtNombre.format(vers.length) + ")"));
-  var tableEnv = el("div", "table-versements");
+  fiche.appendChild(tableauVersements(vers));
+  Lexique.poser(fiche);
+}
+
+function raisonHorsTotaux(v) {
+  if (v.granularite === "aggregate") return ["agregat", RAISON_AGREGAT];
+  if (v.concours && v.concours !== "don") {
+    return [v.concours === "prestation" ? "prestation" : null,
+            RAISONS_HORS_DON[v.concours] || "Ce n'est pas un don."];
+  }
+  if (v.mesure === "verse") return ["paye", RAISON_PAYE];
+  return null;
+}
+
+function tableauVersements(vers) {
+  var bloc = el("div", "bloc-versements");
+  bloc.appendChild(el("h3", null, "Versements (" + fmtNombre.format(vers.length) + ")"));
+
+  // Chaque ligne hors totaux porte sa raison, ÉCRITE. Elle était auparavant
+  // dans un attribut `title` : invisible au doigt, invisible au clavier,
+  // invisible à l'impression.
+  var raisons = {};
+  vers.forEach(function (v) {
+    var r = raisonHorsTotaux(v);
+    if (r) raisons[r[1]] = true;
+  });
+  var cles = Object.keys(raisons);
+  if (cles.length) {
+    var legende = el("div", "legende-ecarte");
+    legende.appendChild(el("b", null, "Les montants en gris ne comptent pas dans les totaux."));
+    var ul = el("ul");
+    cles.forEach(function (r) { ul.appendChild(el("li", null, r)); });
+    legende.appendChild(ul);
+    bloc.appendChild(legende);
+  }
+
   var LIMITE = 300;
+  var env = el("div", "table-versements");
   var tbl = el("table");
-  var thead = el("thead");
-  var trh = el("tr");
-  ["Année", "Donateur", "Objet", "Montant"].forEach(function (h) { trh.appendChild(el("th", null, h)); });
+  var thead = el("thead"), trh = el("tr");
+  ["Année", "Donateur", "Objet", "Source", "Montant"].forEach(function (h) {
+    trh.appendChild(el("th", null, h));
+  });
   thead.appendChild(trh); tbl.appendChild(thead);
   var tbody = el("tbody");
   vers.slice(0, LIMITE).forEach(function (v) {
     var tr = el("tr");
-    tr.appendChild(el("td", "num", v.year == null ? "—" : String(v.year)));
+    tr.appendChild(el("td", "num", v.annee == null ? "—" : String(v.annee)));
     var tdD = el("td");
-    tdD.appendChild(document.createTextNode((v.donor_name_raw || "—")));
-    if (v.donor_program) tdD.appendChild(el("span", "detail", v.donor_program));
+    tdD.appendChild(document.createTextNode(v.donateur || "—"));
+    if (v.programme) tdD.appendChild(el("span", "detail", v.programme));
     tr.appendChild(tdD);
-    tr.appendChild(el("td", "objet", v.purpose_raw || "—"));
+    tr.appendChild(el("td", "objet", v.objet || "—"));
+
+    // La source était sélectionnée par la requête et jamais affichée : la
+    // promesse « chaque ligne porte l'identifiant de sa source » n'était pas
+    // tenue à l'écran.
+    var tdS = el("td", "source");
+    if (v.url) {
+      var a = el("a", null, v.source || "source");
+      a.href = v.url;
+      a.rel = "noopener";
+      a.target = "_blank";
+      tdS.appendChild(a);
+    } else {
+      tdS.appendChild(document.createTextNode(v.source || "—"));
+    }
+    tr.appendChild(tdS);
+
     var m = el("td", "num montant");
-    if (v.amount_eur != null) m.textContent = euros(v.amount_eur);
-    else if (v.amount_rejected_eur != null) {
-      m.textContent = "(" + euros(v.amount_rejected_eur) + ")";
-      m.title = "Montant publié par la source, exclu des totaux : unité ou vraisemblance douteuse.";
+    if (v.montant != null) m.textContent = euros(v.montant);
+    else if (v.montant_ecarte != null) {
+      m.textContent = "(" + euros(v.montant_ecarte) + ")";
       m.classList.add("ecarte");
+      m.appendChild(el("span", "raison", RAISON_QUARANTAINE));
     } else m.textContent = "—";
-    if (v.granularity === "aggregate") {
-      m.title = "Ligne agrégée (total publié par la source), jamais sommée avec les versements individuels.";
+    var r = raisonHorsTotaux(v);
+    if (r && v.montant != null) {
       m.classList.add("ecarte");
-    } else if (v.concours && v.concours !== "don") {
-      // Rien n'est caché : la ligne s'affiche, avec la raison pour laquelle
-      // elle ne compte pas comme un don.
-      m.title = RAISONS_HORS_DON[v.concours] || "Ce n'est pas un don.";
-      m.classList.add("ecarte");
-    } else if (v.measure === "verse") {
-      m.title = "Montant déclaré PAYÉ (exécution budgétaire). Affiché à part du voté, " +
-        "jamais additionné avec lui : c'est souvent le même argent.";
-      m.classList.add("ecarte");
+      m.appendChild(el("span", "raison", r[1]));
     }
     tr.appendChild(m);
     tbody.appendChild(tr);
   });
   tbl.appendChild(tbody);
-  tableEnv.appendChild(tbl);
+  env.appendChild(tbl);
   if (vers.length > LIMITE) {
-    tableEnv.appendChild(el("p", "sous-titre",
-      "Les " + LIMITE + " premiers versements sont affichés, sur " + fmtNombre.format(vers.length) + "."));
+    env.appendChild(el("p", "sous-titre",
+      "Les " + LIMITE + " premiers versements sont affichés, sur " +
+      fmtNombre.format(vers.length) + ", du plus récent au plus ancien."));
   }
-  corps.appendChild(tableEnv);
+  bloc.appendChild(env);
+  return bloc;
 }
 
-// --- initialisation ---------------------------------------------------------
+// --- contrôles --------------------------------------------------------------
+
+function reinitialiser() {
+  etat.q = ""; etat.dep = ""; etat.cumul = ""; etat.dependance = "";
+  $("#q").value = "";
+  $("#filtre-dep").value = "";
+  $("#filtre-cumul").value = "";
+  $("#filtre-dependance").value = "";
+  rafraichir(false);
+}
+
+function rafraichir(empiler) {
+  etat.a = null;
+  $("#fiche").hidden = true;
+  $("#resultats").hidden = false;
+  $("#bloc-filtres").hidden = false;
+  ecrireEtat(etat, !!empiler);
+  chercher();
+}
 
 function anti_rebond(fn, ms) {
   var t = null;
   return function () { clearTimeout(t); t = setTimeout(fn, ms); };
 }
 
-(async function () {
-  try {
-    await demarrerMoteur();
-  } catch (e) {
-    $("#moteur-etat").textContent =
-      "Le moteur de recherche n'a pas pu démarrer (" + e.message + "). " +
-      "Un navigateur récent est nécessaire.";
-    return;
+function appliquerEtatDepuisURL() {
+  var u = lireEtat();
+  etat.q = u.q || "";
+  etat.dep = u.dep || "";
+  etat.cumul = u.cumul || "";
+  etat.dependance = u.dependance || "";
+  etat.a = u.a || null;
+  $("#q").value = etat.q;
+  $("#filtre-dep").value = etat.dep;
+  $("#filtre-cumul").value = etat.cumul;
+  $("#filtre-dependance").value = etat.dependance;
+  if (etat.a) montrerFiche(etat.a);
+  else {
+    $("#fiche").hidden = true;
+    $("#resultats").hidden = false;
+    $("#bloc-filtres").hidden = false;
+    chercher();
   }
-  $("#moteur-etat").remove();
-  $("#application").hidden = false;
+}
+
+async function demarrer() {
+  meta = await chargerGz("data/aggregates/meta.json.gz");
+  stats = await chargerGz("data/recherche/index-stats.json").catch(function () { return null; });
+  if (stats) nbCumuls = stats.multi_echelons_3plus;
+  // 1,2 Ko, pour une seule phrase — mais une phrase avec un chiffre, et un
+  // chiffre écrit dans le HTML se périme en silence.
+  couverture = await chargerGz("data/aggregates/couverture.json.gz")
+    .catch(function () { return null; });
+  if (stats) {
+    var ps = $("#part-siren");
+    if (ps) {
+      ps.textContent = Math.round(100 * (stats.par_cle.S || 0) / stats.beneficiaires) + " %";
+    }
+  }
 
   var selDep = $("#filtre-dep");
   var deps = meta.departements.valeurs;
@@ -478,11 +509,72 @@ function anti_rebond(fn, ms) {
     selDep.appendChild(o);
   });
 
-  $("#q").addEventListener("input", anti_rebond(chercher, 250));
-  selDep.addEventListener("change", chercher);
-  $("#filtre-cumul").addEventListener("change", chercher);
-  $("#filtre-dependance").addEventListener("change", chercher);
+  $("#q").addEventListener("input", anti_rebond(function () {
+    etat.q = $("#q").value;
+    rafraichir(false);
+  }, 180));
+  ["dep", "cumul", "dependance"].forEach(function (cle) {
+    $("#filtre-" + cle).addEventListener("change", function (e) {
+      etat[cle] = e.target.value;
+      rafraichir(false);
+    });
+  });
+  $("#reinitialiser").addEventListener("click", reinitialiser);
+  window.addEventListener("popstate", appliquerEtatDepuisURL);
+  Lexique.poser(document);
 
-  await montrerCumuls();
+  // Le rang 1 (0,8 Mo) rend le champ utile tout de suite ; le rang 2 (5,1 Mo)
+  // arrive derrière et complète les résultats sans que rien ne clignote.
+  await Index.chargerRang1();
+  appliquerEtatDepuisURL();
+
+  // Qui arrive par un lien partagé vers UNE association n'a rien à faire de
+  // l'index des 427 451 noms : on ne le lui télécharge qu'au moment où il
+  // touche au champ de recherche. Qui arrive sur la liste, lui, le reçoit
+  // tout de suite.
+  if (etat.a) {
+    ["focus", "input"].forEach(function (ev) {
+      $("#q").addEventListener(ev, assurerIndexComplet, { once: true });
+    });
+    ["dep", "cumul", "dependance"].forEach(function (cle) {
+      $("#filtre-" + cle).addEventListener("change", assurerIndexComplet, { once: true });
+    });
+  } else {
+    await assurerIndexComplet();
+  }
   window.__DATA_READY = true;
-})();
+}
+
+var indexCompletLance = false;
+
+async function assurerIndexComplet() {
+  if (indexCompletLance) return;
+  indexCompletLance = true;
+  var hote = $("#etat-index");
+  var barre = jauge("Chargement de l'index complet" +
+    (stats ? " — " + fmtNombre.format(stats.beneficiaires) + " bénéficiaires" : "") +
+    ", une seule fois…");
+  hote.appendChild(barre);
+  try {
+    await Index.chargerRang2(function (part) { barre.avancer(part); });
+    vider(hote);
+    if (!etat.a) chercher();
+  } catch (e) {
+    vider(hote);
+    indexCompletLance = false;
+    hote.appendChild(messageErreur(
+      "L'index complet n'a pas pu être chargé ; la recherche porte pour l'instant " +
+      "sur les plus gros bénéficiaires seulement.", function () {
+        vider(hote); assurerIndexComplet();
+      }));
+  }
+}
+
+demarrer().catch(function (e) {
+  var hote = $("#etat-index");
+  vider(hote);
+  hote.appendChild(messageErreur("Le site n'a pas pu charger ses données (" +
+    e.message + ").", function () { location.reload(); }));
+});
+
+enregistrerServiceWorker();

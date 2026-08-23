@@ -252,11 +252,14 @@ button:hover { border-color: var(--accent); color: var(--accent); }
 .onglets button[aria-selected="true"] { color: var(--encre); border-bottom-color: var(--accent); font-weight: 600; }
 
 .classement { list-style: none; margin: 0; padding: 0; }
-.classement li {
+/* Les lignes de classement sont tantôt des `<li>`, tantôt des `<a>` — depuis
+   qu'elles mènent quelque part. Le sélecteur doit prendre les deux, sans quoi
+   la liste retombe en texte courant. */
+.classement > li, .classement > a {
   display: grid; grid-template-columns: 1fr auto; gap: 3px 12px;
   padding: 9px 0; border-bottom: 1px solid var(--surface-creuse); align-items: baseline;
 }
-.classement li:last-child { border-bottom: none; }
+.classement > li:last-child, .classement > a:last-child { border-bottom: none; }
 .classement .nom { font-size: var(--t-md); overflow-wrap: anywhere; }
 .classement .montant { font-size: var(--t-md); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .classement .detail { grid-column: 1 / -1; font-size: var(--t-sm); color: var(--ardoise); }
@@ -377,10 +380,331 @@ footer {
 }
 footer a { color: var(--accent); }
 
-.chargement { padding: 44px 0; text-align: center; color: var(--ardoise); }
+
+/* --- états de page -------------------------------------------------------- *
+ * Une seule classe servait au chargement, à la validation, au résultat vide et
+ * à l'erreur fatale : quatre sens, une seule apparence, et aucun moyen de
+ * réessayer. Chacun a maintenant la sienne. */
+
+.etat { padding: 26px 0; text-align: center; color: var(--ardoise); font-size: var(--t-md); }
+.etat-chargement { display: flex; align-items: center; justify-content: center; gap: 9px; }
+.etat-conseil { color: var(--encre-douce); }
+.etat-erreur {
+  color: var(--encre); background: var(--accent-fond); border-left: 3px solid var(--alerte);
+  border-radius: var(--rayon-sm); text-align: left; padding: 12px 16px;
+}
+.tourniquet {
+  width: 14px; height: 14px; border-radius: 50%; display: inline-block;
+  border: 2px solid var(--filet-fort); border-top-color: var(--accent);
+  animation: tourne .7s linear infinite;
+}
+@keyframes tourne { to { transform: rotate(360deg); } }
+
+.bouton-lien {
+  border: 0; background: none; padding: 0; color: var(--accent);
+  font: inherit; text-decoration: underline; cursor: pointer;
+}
+.bouton-lien:hover { color: var(--accent-vif); }
+
+/* Barre de progression déterminée : une phrase grise immobile ne dit pas si le
+   site avance ou s'il est mort. */
+.jauge-chargement { margin: 14px 0 18px; }
+.jauge-texte { display: block; font-size: var(--t-sm); color: var(--ardoise); margin-bottom: 5px; }
+.jauge-piste { height: 5px; border-radius: 3px; background: var(--surface-creuse); overflow: hidden; }
+.jauge-piste i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .18s linear; }
+
+/* --- accessibilité -------------------------------------------------------- */
+
+.saut {
+  position: absolute; left: -9999px; top: 0; z-index: 50;
+  background: var(--surface); color: var(--encre); padding: 10px 16px;
+  border: 1px solid var(--accent); border-radius: 0 0 var(--rayon) 0;
+}
+.saut:focus { left: 0; }
+
+/* --- champ unique et autocomplétion --------------------------------------- */
+
+.accroche { padding-bottom: 8px; }
+.champ-unique { position: relative; margin: 20px 0 6px; max-width: 720px; }
+.champ-unique label {
+  display: block; font-size: var(--t-xs); font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--ardoise); margin-bottom: 5px;
+}
+.champ-unique input[type="search"] {
+  width: 100%; font-size: var(--t-lg); padding: 13px 16px;
+  border: 2px solid var(--filet-fort); border-radius: var(--rayon);
+  background: var(--surface); box-shadow: var(--ombre);
+}
+.champ-unique input[type="search"]:focus { border-color: var(--accent); outline: none; }
+.aide-champ { margin: 8px 0 0; font-size: var(--t-sm); color: var(--ardoise); max-width: 80ch; }
+.aide-champ b { color: var(--encre-douce); }
+
+.suggestions {
+  position: absolute; z-index: 25; left: 0; right: 0; top: 100%; margin: 4px 0 0; padding: 4px;
+  list-style: none; background: var(--surface); border: 1px solid var(--filet-fort);
+  border-radius: var(--rayon); box-shadow: 0 8px 24px rgba(16, 24, 40, .14);
+  max-height: 62vh; overflow-y: auto;
+}
+.suggestions li {
+  display: grid; grid-template-columns: auto 1fr; gap: 2px 10px;
+  padding: 8px 10px; border-radius: var(--rayon-sm); cursor: pointer; align-items: baseline;
+}
+.suggestions li.actif { background: var(--accent-fond); }
+.suggestion-nom { font-size: var(--t-md); font-weight: 600; overflow-wrap: anywhere; }
+.suggestion-detail { grid-column: 2; font-size: var(--t-sm); color: var(--ardoise); }
+.pastille {
+  grid-row: 1 / 3; align-self: center; font-size: var(--t-xs); font-weight: 600;
+  padding: 2px 8px; border-radius: 10px; white-space: nowrap;
+  background: var(--surface-creuse); color: var(--encre-douce);
+}
+.pastille-commune { background: var(--accent-fond); color: var(--accent); }
+.pastille-departement, .pastille-region { background: var(--surface-creuse); color: var(--ardoise); }
+
+/* --- portes d'entrée ------------------------------------------------------ */
+
+.portes {
+  list-style: none; margin: 24px 0 6px; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); gap: 12px;
+}
+.portes a {
+  display: block; height: 100%; text-decoration: none; color: var(--encre);
+  background: var(--surface); border: 1px solid var(--filet); border-radius: var(--rayon);
+  padding: 14px 16px; box-shadow: var(--ombre); font-weight: 600; font-size: var(--t-md);
+}
+.portes a:hover { border-color: var(--accent); color: var(--accent); }
+.portes a span {
+  display: block; margin-top: 5px; font-weight: 400; font-size: var(--t-sm);
+  color: var(--ardoise); line-height: 1.45;
+}
+
+/* --- carte : entête, légende, liste --------------------------------------- */
+
+.section-carte { margin-top: 26px; }
+.entete-carte { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; justify-content: space-between; }
+.entete-carte h2 { margin: 0 0 6px; font-size: var(--t-lg); max-width: 60ch; }
+
+/* La légende porte les BORNES et le gris : cinq carrés bleus sans échelle
+   n'apprennent rien, et un département gris se lit « zéro » quand il veut dire
+   « rien de publié sous ce filtre ». */
+.legende { padding: 12px 6px 4px; }
+.echelle-legende { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.echelle-legende .pas { display: inline-flex; align-items: center; gap: 6px; }
+.echelle-legende .pas i { width: 20px; height: 11px; border-radius: 2px; display: block; border: 1px solid rgba(0,0,0,.10); }
+.echelle-legende .borne { font-size: var(--t-sm); color: var(--ardoise); font-variant-numeric: tabular-nums; }
+.echelle-legende .pas-vide { margin-left: 4px; }
+.note-legende { margin: 9px 0 0; font-size: var(--t-sm); color: var(--ardoise); max-width: 84ch; }
+.note-legende a { color: var(--accent); }
+.legende-vide { font-size: var(--t-sm); color: var(--ardoise); }
+.note-compteurs { margin: -12px 0 22px; font-size: var(--t-sm); color: var(--ardoise); }
+.note-compteurs a { color: var(--accent); }
+
+#carte path.hors-region { opacity: .32; }
+#carte text.etiquette-medaillon { font-size: 8px; fill: var(--ardoise); font-family: var(--pile); }
+
+.repli {
+  background: var(--surface); border: 1px solid var(--filet); border-radius: var(--rayon);
+  padding: 2px 18px; margin: 18px 0; box-shadow: var(--ombre);
+}
+.repli > summary {
+  cursor: pointer; padding: 12px 0; font-weight: 600; font-size: var(--t-md);
+  list-style-position: outside;
+}
+.repli > summary:hover { color: var(--accent); }
+.repli[open] > summary { border-bottom: 1px solid var(--filet); margin-bottom: 12px; }
+.repli > *:last-child { margin-bottom: 14px; }
+.repli p { font-size: var(--t-md); color: var(--encre-douce); max-width: 82ch; }
+.classement-compact li { padding: 6px 0; }
+
+/* --- points (réserves, à savoir) ------------------------------------------ */
+
+.section-reserves { margin-top: 34px; }
+.points { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; }
+.point {
+  background: var(--surface); border: 1px solid var(--filet);
+  border-left: 3px solid var(--accent); border-radius: var(--rayon-sm);
+  padding: 13px 17px; box-shadow: var(--ombre);
+}
+.point h3 { margin: 0 0 5px; font-size: var(--t-md); }
+.point p { margin: 0; font-size: var(--t-sm); color: var(--encre-douce); line-height: 1.55; }
+.point a { color: var(--accent); }
+.points-reserves { margin-top: 24px; }
+.points-reserves h3:first-child { grid-column: 1 / -1; }
+
+/* --- lexique -------------------------------------------------------------- *
+ * Un mot d'interface qui n'est défini que dans le corps d'un paragraphe d'une
+ * autre page n'est pas défini. Le trait pointillé dit qu'il y a quelque chose
+ * à ouvrir ; l'ouverture marche au clic ET au clavier — jamais au seul survol,
+ * qui n'existe pas au doigt. */
+
+.mot-lexique, [data-mot] {
+  position: relative; border-bottom: 1px dotted var(--ardoise); cursor: help;
+}
+.mot-lexique:hover, [data-mot]:hover { border-bottom-color: var(--accent); color: var(--accent); }
+.bulle-lexique {
+  position: absolute; z-index: 40; left: 0; top: calc(100% + 6px); width: max-content;
+  max-width: min(360px, 86vw); display: block; cursor: auto;
+  background: var(--surface); color: var(--encre-douce);
+  border: 1px solid var(--filet-fort); border-radius: var(--rayon);
+  padding: 12px 34px 12px 15px; box-shadow: 0 8px 24px rgba(16, 24, 40, .18);
+  font-size: var(--t-sm); font-weight: 400; line-height: 1.5; text-transform: none;
+  letter-spacing: normal; white-space: normal;
+}
+.bulle-lexique b { display: block; color: var(--encre); margin-bottom: 4px; }
+.ferme-bulle {
+  position: absolute; top: 5px; right: 6px; border: 0; background: none;
+  font-size: 17px; line-height: 1; padding: 3px 6px; color: var(--ardoise);
+}
+
+/* --- recherche : filtres, résultats, versements --------------------------- */
+
+.note-filtre { margin: -14px 0 20px; font-size: var(--t-sm); color: var(--ardoise); }
+.puces-filtres { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 4px 0 14px; }
+.puces-titre { font-size: var(--t-sm); color: var(--ardoise); }
+.puce-filtre {
+  font-size: var(--t-sm); padding: 3px 10px; border-radius: 12px;
+  background: var(--accent-fond); color: var(--accent); border: 1px solid transparent;
+}
+.puce-filtre:hover { border-color: var(--accent); }
+
+.compte-resultats { margin: 6px 0 10px; font-size: var(--t-md); color: var(--encre-douce); }
+.note-partielle { color: var(--ardoise); font-size: var(--t-sm); }
+.etat-vide { background: var(--surface); border: 1px solid var(--filet); border-radius: var(--rayon); padding: 18px 22px; box-shadow: var(--ombre); }
+.etat-vide p { font-weight: 600; }
+.conseils { margin: 0; padding-left: 20px; font-size: var(--t-md); color: var(--encre-douce); }
+.conseils li { margin-bottom: 5px; }
+
+#resultats > .classement, #resultats > .compte-resultats + .classement {
+  background: var(--surface); border: 1px solid var(--filet); border-radius: var(--rayon);
+  padding: 4px 20px 10px; box-shadow: var(--ombre);
+}
+a.resultat { text-decoration: none; color: inherit; }
+.badge-detail { display: block; font-weight: 400; color: var(--ardoise); font-size: var(--t-xs); }
+.badge { display: inline-block; vertical-align: baseline; }
+
+/* Les raisons pour lesquelles un montant ne compte pas dans les totaux
+   étaient dans des attributs `title` : invisibles au doigt, au clavier et à
+   l'impression. Elles sont maintenant écrites — une légende au-dessus du
+   tableau, et le motif exact sous chaque montant. */
+.legende-ecarte {
+  background: var(--surface-creuse); border-radius: var(--rayon-sm);
+  padding: 11px 16px; margin-bottom: 12px; font-size: var(--t-sm); color: var(--encre-douce);
+}
+.legende-ecarte ul { margin: 6px 0 0; padding-left: 20px; }
+.legende-ecarte li { margin-bottom: 3px; }
+/* `td.num` impose `white-space: nowrap` pour que les montants ne se coupent
+   pas ; la raison, elle, est une phrase et doit revenir à la ligne. Sans ce
+   rappel, elle poussait la page à 821 px de large sur un écran de 375. */
+td .raison {
+  display: block; font-size: var(--t-xs); color: var(--ardoise); font-weight: 400;
+  text-align: right; max-width: 22ch; margin-left: auto; white-space: normal;
+}
+td.source { font-size: var(--t-sm); max-width: 22ch; }
+td.source a { color: var(--accent); }
+.bloc-versements { margin-top: 26px; }
+
+/* --- commune -------------------------------------------------------------- */
+
+.entete-commune { margin-bottom: 16px; }
+.entete-commune h2 { margin: 0 0 2px; font-size: var(--t-2xl); }
+#fiche-commune h3 { margin: 26px 0 9px; font-size: var(--t-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--ardoise); }
+.encart-autre-vue {
+  margin-top: 26px; background: var(--surface); border: 1px solid var(--filet);
+  border-left: 3px solid var(--filet-fort); border-radius: var(--rayon-sm); padding: 14px 18px;
+}
+.encart-autre-vue h3 { margin-top: 0; }
+.encart-autre-vue p { margin: 0; font-size: var(--t-md); color: var(--encre-douce); max-width: 84ch; }
+.bouton {
+  display: inline-block; margin-top: 8px; text-decoration: none;
+  background: var(--accent); color: var(--surface); font-size: var(--t-md); font-weight: 600;
+  padding: 8px 14px; border-radius: var(--rayon-sm);
+}
+.bouton:hover { background: var(--accent-vif); }
+
+/* --- responsive ----------------------------------------------------------- *
+ * Le fichier n'avait que deux points de rupture utiles. Conséquences mesurées :
+ * barres d'outils entassées, tableaux en défilement horizontal sans en-tête,
+ * carte dont chaque département faisait moins qu'un doigt. */
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+@media (max-width: 860px) {
+  .bandeau-inner { padding: 12px 15px; }
+  /* Une seule rangée qui défile, plutôt que trois rangées empilées : le
+     bandeau mangeait un quart de l'écran d'un téléphone avant le titre. */
+  .menu { margin-left: 0; width: 100%; gap: 16px; flex-wrap: nowrap;
+          overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .menu::-webkit-scrollbar { display: none; }
+  .menu a { white-space: nowrap; }
+}
+
 @media (max-width: 620px) {
   .enveloppe { padding: 0 15px 60px; }
   .compteur .valeur { font-size: var(--t-xl); }
+  .compteurs { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  .barre-outils { padding: 12px 13px; }
+  .barre-outils .champ, .barre-outils .champ-large { width: 100%; min-width: 0; }
+  .barre-outils select, .barre-outils input { width: 100%; }
+  .pousse-droite { margin-left: 0; }
+  .pousse-droite button { width: 100%; }
+  .champ-unique input[type="search"] { font-size: var(--t-base); padding: 11px 13px; }
+  .entete-carte { flex-direction: column; align-items: stretch; }
+  .trajectoire .annee { grid-template-columns: 40px 1fr 74px; gap: 7px; }
+  .points { grid-template-columns: 1fr; }
+  .portes { grid-template-columns: 1fr; }
+
+  /* Un tableau de cinq colonnes ne tient pas sur un téléphone. Plutôt qu'un
+     défilement horizontal qui perd l'en-tête, chaque ligne devient une fiche
+     et chaque cellule porte son intitulé. */
+  .table-versements table, .table-versements thead,
+  .table-versements tbody, .table-versements tr, .table-versements td { display: block; width: auto; }
+  .table-versements table { min-width: 0; }
+  .table-versements thead { display: none; }
+  .table-versements tr {
+    border: 1px solid var(--filet); border-radius: var(--rayon-sm);
+    padding: 10px 13px; margin-bottom: 9px; background: var(--surface);
+  }
+  .table-versements td { border: 0; padding: 3px 0; }
+  .table-versements td.montant { text-align: left; font-size: var(--t-lg); }
+  .table-versements td.objet { max-width: none; }
+  .table-versements td.source { max-width: none; }
+  .table-versements td .raison { text-align: left; margin-left: 0; max-width: none; }
+
+  .table-enveloppe { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .table-enveloppe table { min-width: 480px; }
 }
+
+/* Le contenu qui défile horizontalement doit être atteignable au clavier :
+   sans `tabindex`, une zone de défilement n'est pas focusable. */
+.table-enveloppe:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* --- sommaire d'une page longue ------------------------------------------- *
+ * `couverture.html` compte dix sections, sept tableaux et deux cartes, et
+ * n'avait aucune navigation interne : arriver par un lien profond y laissait
+ * le lecteur au milieu de nulle part. */
+
+.sommaire {
+  background: var(--surface); border: 1px solid var(--filet); border-radius: var(--rayon);
+  padding: 13px 18px; margin-bottom: 22px; box-shadow: var(--ombre);
+}
+.sommaire b { font-size: var(--t-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--ardoise); }
+.sommaire ol { margin: 7px 0 0; padding-left: 20px; columns: 2; column-gap: 32px; font-size: var(--t-md); }
+.sommaire li { margin-bottom: 3px; break-inside: avoid; }
+.sommaire a { color: var(--accent); text-decoration: none; }
+.sommaire a:hover { text-decoration: underline; }
+@media (max-width: 620px) { .sommaire ol { columns: 1; } }
+
+/* Le tableau des versements a cinq colonnes et des objets longs : sans
+   conteneur de défilement, c'est la PAGE entière qui se met à défiler
+   horizontalement — mesuré à 1 772 px de large sur un écran de 1 280. */
+.table-versements { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-versements:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.table-versements td.objet, .table-versements td.source { overflow-wrap: anywhere; }
+@media (max-width: 620px) { .table-versements { overflow-x: visible; } }
+
+/* Un en-tête aligné à gauche au-dessus d'une colonne de montants alignés à
+   droite oblige à balayer toute la largeur pour savoir ce qu'on lit. */
+#fiche-commune th:not(:first-child),
+#table-exercices th:not(:first-child) { text-align: right; }
+.note-panneau { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--filet);
+  font-size: var(--t-xs); color: var(--ardoise); line-height: 1.5; }
+.note-panneau a { color: var(--accent); }

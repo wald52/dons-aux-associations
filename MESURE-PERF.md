@@ -15,6 +15,7 @@ node scripts/bench/measure.js --label v0 --timeout 420
 | `--label` | `run` | nom du relevé → `bench/<label>.json` |
 | `--timeout` | `300` | abandon (secondes) si les données ne sont jamais prêtes |
 | `--port` | `8099` | port du serveur statique local |
+| `--page` | `index.html` | page à mesurer — `recherche.html` a son propre coût d'entrée |
 | `--headful` | — | ouvrir un navigateur visible (débogage) |
 
 Le banc n'a **aucune connaissance de l'architecture interne** : il observe le
@@ -97,7 +98,59 @@ deux ou trois fois et comparer les ordres de grandeur.
 Les quatre cibles ci-dessous sont atteintes. La mémoire passe de 55 % du
 plafond du moteur à 0,3 % : le site cesse d'être hors de portée d'un téléphone.
 
-## Page recherche (phase 3)
+## Page recherche — phase 13 (23/08/2026)
+
+**DuckDB-WASM est retiré.** Le tableau de la phase 3, ci-dessous, décrit
+l'architecture précédente et n'est gardé que comme point de comparaison.
+
+| Mesure | phase 3 (DuckDB) | phase 13 | facteur |
+|---|---|---|---|
+| Octets transférés | ~48 Mo brut (~25 Mo en ligne) | **6,06 Mo** | ÷4 en ligne |
+| Requêtes | 8 | **11** | — |
+| Premier affichage | 0,12 s | **0,09 s** | — |
+| Champ de saisie utilisable | ~4,5 s | **~0,3 s** | ÷15 |
+| Index complet chargé | ~4,5 s | **2,2 s** | ÷2 |
+| Recherche par nom | 0,4–1,3 s | **14–51 ms** | ÷30 |
+| Fiche d'une association | 0,1–1,4 s | **16–20 ms** | ÷50 |
+| Réseau pour une fiche | ~0,9 Mo (shard Parquet) | **~0,12 Mo** | ÷7 |
+| Mémoire JS, après GC | non mesurée | **70 Mo** | — |
+
+Trois choses ne se lisent pas dans ce tableau et comptent autant :
+
+- **Le champ de saisie existe tout de suite.** Ce n'est plus « la page apparaît
+  au bout de 4,5 s », c'est « le champ accepte la frappe et répond sur les
+  25 000 plus gros bénéficiaires, pendant que le reste arrive ». Mesuré :
+  première suggestion **502 ms** après que le pointeur a touché le champ,
+  frappe de trois lettres comprise.
+- **Un lien partagé vers une association ne charge pas l'index.** Il ne
+  télécharge que son shard de fiche, ~120 Ko, et rien d'autre — vérifié dans
+  l'onglet réseau : quatre requêtes, aucun `.wasm`, aucun `noms.json.gz`.
+- **La mémoire brute affichée par le banc (163 Mo) est trompeuse** : elle est
+  relevée juste après `JSON.parse`, avant tout ramassage. Après deux passes de
+  GC forcé par CDP, le tas retenu est de **70 Mo**, et il ne bouge plus après
+  une recherche.
+
+### Le coût de l'accueil n'a pas bougé
+
+C'était la condition : la refonte de la recherche ne devait rien coûter à la
+carte. Vérifié — `bench/phase13-accueil.json` :
+
+| Mesure | phase 6a | phase 13 |
+|---|---|---|
+| Octets transférés | 0,14 Mo | **0,22 Mo** |
+| Premier affichage | 0,07 s | **0,06 s** |
+| Données exploitables | 0,59 s | **0,59 s** |
+| Mémoire JS | 3 Mo | **3 Mo** |
+
+Les 0,08 Mo de plus sont les modules JavaScript ajoutés (lexique,
+autocomplétion, index client). **L'index de suggestion (0,85 Mo) n'y est
+pas** : une première version le préchargeait à l'inactivité de la page, et
+l'accueil passait à **1,05 Mo** — mesuré, puis retiré. Il se charge maintenant
+quand le pointeur entre dans le champ, s'y pose ou lui donne le focus : qui
+vient seulement regarder la carte ne le paie jamais, et qui va s'en servir l'a
+avant sa première lettre.
+
+## Page recherche (phase 3, architecture retirée)
 
 Coûts mesurés en local, serveur sans gzip (en ligne, le wasm se comprime ~×3) :
 
@@ -107,8 +160,8 @@ Coûts mesurés en local, serveur sans gzip (en ligne, le wasm se comprime ~×3)
 | Recherche par nom | 0,4-1,3 s | **0** (index en mémoire) |
 | Fiche d'une association | 0,1-1,4 s | ~0,9 Mo (un shard, puis en cache) |
 
-Ce coût d'entrée ne concerne QUE `recherche.html` ; la carte (`index.html`)
-reste à 0,13 Mo / 0,05 s. Mesure de contrôle dans `bench/phase3.json`.
+Ce coût d'entrée ne concernait QUE `recherche.html` ; la carte (`index.html`)
+restait à 0,13 Mo / 0,05 s. Mesure de contrôle dans `bench/phase3.json`.
 
 ## Après phase 4 (`bench/phase4.json`)
 

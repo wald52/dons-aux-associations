@@ -1,3 +1,5 @@
+import { poser as poserLexique } from "./lexique.js";
+
 /* ============================================================================
  * Page de couverture — ce que le site sait et ne sait pas.
  *
@@ -297,16 +299,21 @@
       var nom = noms[code] ? noms[code][0] : code;
       p.setAttribute("aria-label", nom + " : " + pt.libelle
         + (pt.detail ? " — " + pt.detail : ""));
-      p.addEventListener("mousemove", function (ev) {
+      // `pointerevents` plutôt que `mousemove` : la carte n'affichait AUCUNE
+      // valeur au doigt, alors que c'est le seul moyen de lire cette page sur
+      // un téléphone.
+      function montrerInfobulle(ev) {
         vider(infobulle);
         infobulle.appendChild(el("b", null, nom + " (" + code + ")"));
         infobulle.appendChild(document.createTextNode(
           pt.libelle + (pt.detail ? " · " + pt.detail : "")));
         infobulle.classList.add("visible");
         infobulle.style.left = Math.min(ev.clientX + 14, window.innerWidth - 270) + "px";
-        infobulle.style.top = (ev.clientY + 14) + "px";
-      });
-      p.addEventListener("mouseleave", function () { infobulle.classList.remove("visible"); });
+        infobulle.style.top = Math.min(ev.clientY + 14, window.innerHeight - 80) + "px";
+      }
+      p.addEventListener("pointermove", montrerInfobulle);
+      p.addEventListener("pointerdown", montrerInfobulle);
+      p.addEventListener("pointerleave", function () { infobulle.classList.remove("visible"); });
       svg.appendChild(p);
     });
   }
@@ -544,7 +551,7 @@
   }
 
   /* ------------------------------------------------------------------------
-   * La fiche d'une commune.
+   * (déplacé) La fiche d'une commune.
    *
    * C'est la seule page du site qui parle de la commune QUI PAIE. Partout
    * ailleurs — carte d'accueil, fragments par département — la géographie est
@@ -555,206 +562,15 @@
    * chargé qu'au moment où on le demande : le premier écran n'en porte rien.
    * --------------------------------------------------------------------- */
 
-  var fiches = {};   // code département -> contenu du fichier, en cache
-
-  function depDuCode(insee) {
-    return insee.slice(0, 2) === "97" ? insee.slice(0, 3) : insee.slice(0, 2);
-  }
-
-  async function chargerFiches(dep) {
-    if (!fiches[dep]) {
-      fiches[dep] = await chargerGz(
-        "data/aggregates/denominateur-communes/" + dep + ".json.gz");
-    }
-    return fiches[dep];
-  }
-
-  function remplirDepartements() {
-    var sel = $("#choix-departement");
-    if (!sel || !etat.denominateur) return;
-    var noms = etat.meta.departements.valeurs;
-    vider(sel);
-    sel.appendChild(el("option", null, "— choisir —"));
-    Object.keys(noms).sort().forEach(function (code) {
-      var o = el("option", null, noms[code][0] + " (" + code + ")");
-      o.value = code;
-      sel.appendChild(o);
-    });
-    sel.addEventListener("change", function () {
-      if (!sel.value) return;
-      remplirCommunes(sel.value, null);
-    });
-
-    var selC = $("#choix-commune");
-    selC.addEventListener("change", function () {
-      if (selC.value) afficherFiche(selC.value);
-    });
-
-    // Une fiche doit pouvoir se partager par son adresse : un élu qui envoie
-    // « regarde ce que dit le site de notre commune » attend un lien, pas un
-    // mode d'emploi.
+  // La fiche communale a déménagé dans `commune.html` : elle est la chose la
+  // plus concrète du site et n'avait rien à faire en 8ᵉ section d'une page
+  // intitulée « ce que ce site ne sait pas ». Cette page n'en garde qu'un lien
+  // — et redirige les adresses déjà partagées.
+  function redirigerAncienneFiche() {
     var demande = (location.hash.match(/commune=(\w+)/) || [])[1];
-    if (demande) {
-      sel.value = depDuCode(demande);
-      remplirCommunes(depDuCode(demande), demande);
-    }
-  }
-
-  async function remplirCommunes(dep, aSelectionner) {
-    var selC = $("#choix-commune");
-    vider(selC);
-    selC.disabled = true;
-    selC.appendChild(el("option", null, "chargement…"));
-    var donnees;
-    try {
-      donnees = await chargerFiches(dep);
-    } catch (e) {
-      vider(selC);
-      selC.appendChild(el("option", null, "indisponible"));
-      return;
-    }
-    var codes = Object.keys(donnees.communes).sort(function (a, b) {
-      return donnees.communes[a].n.localeCompare(donnees.communes[b].n, "fr");
-    });
-    vider(selC);
-    var vide = el("option", null, "— choisir parmi " + fmt.format(codes.length) + " —");
-    vide.value = "";
-    selC.appendChild(vide);
-    codes.forEach(function (code) {
-      var o = el("option", null, donnees.communes[code].n + " (" + code + ")");
-      o.value = code;
-      selC.appendChild(o);
-    });
-    selC.disabled = false;
-    if (aSelectionner && donnees.communes[aSelectionner]) {
-      selC.value = aSelectionner;
-      afficherFiche(aSelectionner);
-    } else {
-      vider($("#fiche-commune"));
-    }
-  }
-
-  function afficherFiche(code) {
-    var dep = depDuCode(code);
-    var donnees = fiches[dep];
-    var c = donnees && donnees.communes[code];
-    var hote = $("#fiche-commune");
-    if (!c || !hote) return;
-    vider(hote);
-    location.hash = "commune=" + code;
-
-    var exercices = Object.keys(c.d).sort();
-    var declare = 0, vote = 0, paye = 0;
-    exercices.forEach(function (a) {
-      declare += c.d[a];
-      vote += c.v[a] || 0;
-      paye += c.p[a] || 0;
-    });
-    var part = declare > 0 ? Math.round(vote / declare * 1000) / 10 : null;
-
-    hote.appendChild(el("h4", null, c.n + " (" + code + ")"));
-
-    var compteurs = el("div", "compteurs");
-    [[montant(declare), "mandatés à des associations entre " + exercices[0] +
-      " et " + exercices[exercices.length - 1] + ", d'après le compte 6574"],
-     [vote ? montant(vote) : "rien",
-      vote ? "que le site connaît nommément, soit " + pourcent(part) + " de ce montant"
-           : "que le site connaît nommément de ces versements"],
-     [paye ? montant(paye) : "—",
-      paye ? "publiés comme payés — jamais additionnés au voté"
-           : "aucun montant publié comme payé"]
-    ].forEach(function (paire) {
-      var bloc = el("div", "compteur");
-      bloc.appendChild(el("span", "valeur", paire[0]));
-      bloc.appendChild(el("span", "etiquette", paire[1]));
-      compteurs.appendChild(bloc);
-    });
-    hote.appendChild(compteurs);
-
-    // La phrase qui manquait au site : dire ce qu'on ne sait pas d'une commune
-    // sans laisser croire qu'elle ne verse rien.
-    var verdict = el("p", "avertissement");
-    if (!vote && !paye) {
-      verdict.appendChild(el("b", null, "Le site ne connaît aucun versement de cette commune. "));
-      verdict.appendChild(document.createTextNode(
-        "Ce n'est pas qu'elle ne subventionne pas : sa comptabilité montre le contraire, " +
-        "puisqu'elle déclare " + montant(declare) + " au compte 6574. C'est que ses " +
-        "subventions ne sont publiées nulle part que nous ayons trouvé — seules les " +
-        "communes de plus de 3 500 habitants y sont tenues, et l'obligation est peu " +
-        "suivie. La lacune est du côté de la publication, pas du versement."));
-    } else {
-      verdict.appendChild(el("b", null, "Ce que le site en connaît, et ce qui lui échappe. "));
-      verdict.appendChild(document.createTextNode(
-        "Les montants de la colonne « connu » viennent des subventions publiées, " +
-        "nom du bénéficiaire par nom du bénéficiaire. Le déclaré, lui, ne nomme " +
-        "personne : c'est une ligne de comptabilité. " +
-        (part != null && part > 100
-          ? "La part dépasse 100 %, et ce n'est pas une erreur : le site connaît des " +
-            "montants VOTÉS quand la balance porte des montants MANDATÉS, et une " +
-            "collectivité vote souvent plus qu'elle ne mandate."
-          : "Les deux ne coïncident jamais exactement : le déclaré est MANDATÉ, " +
-            "le connu est très majoritairement VOTÉ.")));
-    }
-    hote.appendChild(verdict);
-
-    var t = el("table");
-    var thead = el("thead");
-    thead.appendChild(ligneTableau(
-      ["Exercice", "Déclaré au compte 6574", "Connu du site (voté)",
-       "Connu du site (payé)"], true));
-    t.appendChild(thead);
-    var tbody = el("tbody");
-    exercices.forEach(function (a) {
-      tbody.appendChild(ligneTableau([
-        a,
-        el("td", "num montant", montant(c.d[a])),
-        el("td", "num montant", c.v[a] ? montant(c.v[a]) : "—"),
-        el("td", "num montant", c.p[a] ? montant(c.p[a]) : "—")
-      ]));
-    });
-    t.appendChild(tbody);
-    var env = el("div", "table-enveloppe");
-    env.appendChild(t);
-    hote.appendChild(env);
-
-    var notes = [];
-    notes.push("Le compte 6574 s'intitule « subventions de fonctionnement aux " +
-      "associations et autres personnes de droit privé » : il n'est pas purement " +
-      "associatif, et une subvention imputée ailleurs (6568, investissement au 204) " +
-      "n'y figure pas.");
-    notes.push("Les budgets annexes de la commune sont compris dans le déclaré : ils " +
-      "portent le même SIREN qu'elle, et c'est par ce SIREN qu'ils lui sont rattachés.");
-    // Une année absente n'est PAS un zéro, et il ne faut pas la lire comme tel.
-    // La balance ne publie une ligne que si le compte a bougé : trois causes
-    // possibles, et rien dans la donnée ne dit laquelle. On énonce les trois
-    // plutôt que d'en choisir une.
-    var periode = (etat.denominateur.resume.commune || {}).exercices || [];
-    var attendus = periode.length === 2
-      ? Number(periode[1]) - Number(periode[0]) + 1 : null;
-    if (attendus && exercices.length < attendus) {
-      notes.push("Cette commune déclare un montant sur " + exercices.length +
-        " des " + attendus + " exercices publiés (" + periode[0] + "-" + periode[1] +
-        "). Une année absente n'est pas un zéro : la balance ne porte une ligne " +
-        "que si le compte a servi. La commune peut n'avoir rien versé cette " +
-        "année-là, avoir imputé sa subvention à un autre compte, ou ne pas " +
-        "encore exister — nous ne reconstituons pas l'historique des communes " +
-        "fusionnées, ce serait le deviner.");
-    }
-    if (code === "75056") {
-      notes.push("Paris a été DEUX collectivités jusqu'en 2018 — une commune et un " +
-        "département — avant de fusionner au 1er janvier 2019 (loi n° 2017-257). " +
-        "Cette fiche ne porte que la part communale.");
-    }
-    if (!vote && !paye) {
-      notes.push("Un versement n'est rattaché à une commune que si le libellé de son " +
-        "financeur a pu être rapproché du référentiel INSEE. Un libellé inhabituel " +
-        "échoue à s'apparier : « rien de connu » peut donc être un défaut " +
-        "d'appariement plutôt qu'une absence de donnée — l'erreur va toujours vers " +
-        "la sous-estimation.");
-    }
-    var p = el("p", "note-carte");
-    p.appendChild(document.createTextNode(notes.filter(Boolean).join(" ")));
-    hote.appendChild(p);
+    if (!demande) return false;
+    location.replace("commune.html#insee=" + demande);
+    return true;
   }
 
   /* ------------------------------------------------------------------------
@@ -868,7 +684,20 @@
     });
   }
 
+  // Les nombres de la section « et votre commune ? » viennent de la donnée,
+  // jamais d'un chiffre écrit dans le HTML : celui-ci se périme en silence.
+  function remplirNombresCommunes() {
+    var c = etat.denominateur && etat.denominateur.resume && etat.denominateur.resume.commune;
+    if (!c) return;
+    var a = $("#nb-declarants"), b = $("#nb-communes");
+    if (a) a.textContent = fmt.format(c.declarants);
+    if (b) b.textContent = fmt.format(c.univers);
+  }
+
   (async function () {
+    // On rend la main AVANT de rien charger : sinon la page qu'on quitte
+    // lance cinq requêtes que la navigation annule aussitôt.
+    if (redirigerAncienneFiche()) return;
     try {
       // Le dénominateur et l'angle mort sont des ajouts : la page doit
       // s'afficher entière même si l'un des deux manque (agrégat pas encore
@@ -895,14 +724,24 @@
       dessinerTable();
       dessinerDenominateur();
       dessinerExercices();
-      remplirDepartements();
+      remplirNombresCommunes();
       dessinerDenominateurDepartements();
       dessinerAngleMort();
       dessinerChantiers();
+      poserLexique(document);
       window.__DATA_READY = true;
     } catch (e) {
       var c = $("#chargement");
-      if (c) c.textContent = "Chargement impossible : " + e.message;
+      if (c) {
+        vider(c);
+        c.className = "etat etat-erreur";
+        c.appendChild(el("span", null,
+          "Le site n'a pas pu charger ses données. Vérifiez votre connexion. "));
+        var b = el("button", "bouton-lien", "Réessayer");
+        b.type = "button";
+        b.addEventListener("click", function () { location.reload(); });
+        c.appendChild(b);
+      }
       console.error(e);
     }
   })();

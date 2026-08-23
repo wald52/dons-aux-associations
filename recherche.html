@@ -3,59 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
 <title>Recherche croisée — Dons publics aux associations</title>
 <meta name="description" content="Qui finance cette association ? Tous les versements publics, tous échelons confondus : État, opérateurs, régions, départements, intercommunalités, communes.">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<a class="saut" href="#contenu">Aller au contenu</a>
 <nav class="bandeau">
   <div class="bandeau-inner">
     <a class="marque" href="index.html">Dons publics aux associations
       <span>Qui finance les associations en France</span></a>
     <div class="menu">
-      <a href="index.html">Carte</a>
-      <a href="recherche.html" aria-current="page">Recherche croisée</a>
+      <a href="index.html">Accueil</a>
+      <a href="recherche.html" aria-current="page">Chercher une association</a>
+      <a href="commune.html">Ma commune</a>
       <a href="couverture.html">Ce qu'on ne sait pas</a>
       <a href="methode.html">Sources &amp; méthode</a>
     </div>
   </div>
 </nav>
-<div class="enveloppe">
+<main class="enveloppe" id="contenu">
 
   <header>
     <h1>Qui finance cette association&nbsp;?</h1>
-    <p>La question qu'aucun guichet ne sait poser : <b>qui finance cette association,
-       tous échelons confondus ?</b> État, opérateurs, régions, départements,
-       intercommunalités et communes, croisés sur 2,69 millions de versements.</p>
+    <p class="chapeau">Tapez un nom. Le site répond en croisant l'État, ses opérateurs,
+       les régions, les départements, les intercommunalités et les communes —
+       ce qu'aucun guichet ne sait faire, chaque administration ne connaissant
+       que ses propres versements.</p>
   </header>
 
-  <p id="moteur-etat" class="chargement">Préparation du moteur de recherche…</p>
-
-  <div id="application" hidden>
-
-    <div class="barre-outils">
+  <div id="bloc-filtres">
+    <div class="barre-outils" role="search">
       <div class="champ champ-large">
-        <label for="q">Association</label>
-        <input id="q" type="search" placeholder="Nom d'une association — ex. restos du cœur, secours populaire…"
-               autocomplete="off" spellcheck="false">
+        <label for="q">Nom de l'association</label>
+        <input id="q" type="search" placeholder="ex. restos du cœur, secours populaire, croix rouge…"
+               autocomplete="off" spellcheck="false" autofocus>
       </div>
       <div class="champ">
         <label for="filtre-dep">Département</label>
         <select id="filtre-dep"><option value="">Tous</option></select>
       </div>
       <div class="champ">
-        <label for="filtre-dependance">Dépendance</label>
-        <select id="filtre-dependance">
-          <option value="">Indifférente</option>
-          <option value="95">95 % ou plus d'un seul financeur</option>
-          <option value="80">80 % ou plus d'un seul financeur</option>
-          <option value="50">50 % ou plus d'un seul financeur</option>
-        </select>
-      </div>
-      <div class="champ">
-        <label for="filtre-cumul">Cumul d'échelons</label>
+        <label for="filtre-cumul"><span data-mot="cumul">Cumul d'échelons</span></label>
         <select id="filtre-cumul">
           <option value="">Indifférent</option>
           <option value="2">2 échelons ou plus</option>
@@ -63,25 +54,51 @@
           <option value="4">4 échelons ou plus</option>
         </select>
       </div>
+      <div class="champ">
+        <label for="filtre-dependance"><span data-mot="dependance">Dépendance</span></label>
+        <select id="filtre-dependance">
+          <option value="">Indifférente</option>
+          <option value="95">95 % ou plus d'un seul financeur</option>
+          <option value="80">80 % ou plus d'un seul financeur</option>
+          <option value="50">50 % ou plus d'un seul financeur</option>
+        </select>
+      </div>
+      <div class="champ pousse-droite">
+        <button id="reinitialiser" type="button">Réinitialiser</button>
+      </div>
     </div>
 
-    <p class="avertissement" id="note-methode">
-      <b>Lecture.</b> Une association est reconnue par son SIREN quand la source le donne
-      (72 % des bénéficiaires), sinon par son nom et son département. Une même association
-      publiée sans identifiant par deux sources peut donc apparaître deux fois, et un cumul
-      d'échelons peut être sous-estimé — jamais inventé.
-    </p>
-
-    <div id="resultats"></div>
-    <div id="fiche" hidden></div>
+    <p class="note-filtre">Le filtre de dépendance ne s'applique qu'aux associations
+       ayant reçu au moins 10&nbsp;000&nbsp;€&nbsp;: sur trois cents euros touchés une
+       fois, une part de financement ne voudrait rien dire.</p>
   </div>
+
+  <div id="etat-index" aria-live="polite"></div>
+
+  <div id="resultats"></div>
+  <div id="fiche" hidden></div>
+
+  <details class="repli">
+    <summary>Comment une association est reconnue</summary>
+    <p>Une association est reconnue par son <b>SIREN</b> quand la source le donne
+       (<b id="part-siren">la moitié</b> des bénéficiaires), sinon par son
+       <b>nom et son département</b> —
+       jamais par le nom seul&nbsp;: «&nbsp;Centre communal d'action sociale&nbsp;»
+       existe dans 41 départements, et les confondre inventerait des cumuls
+       d'échelons qui n'existent pas.</p>
+    <p>Conséquence assumée&nbsp;: une même association publiée sans identifiant par
+       deux sources peut apparaître deux fois, et un cumul d'échelons peut être
+       <b>sous-estimé — jamais inventé</b>. C'est le bon côté où se tromper.</p>
+  </details>
 
   <footer>
     Données issues des portails publics d'open data, Licence Ouverte 2.0 —
     montants publiés par les administrations, sans correction.
-    Recherche exécutée dans votre navigateur : aucune requête n'est envoyée à un serveur.
+    <b>Recherche exécutée dans votre navigateur&nbsp;: aucune requête n'est envoyée
+    à un serveur.</b> Ce que vous cherchez ici ne regarde personne.
+    <a href="methode.html">Sources et méthode</a>.
   </footer>
-</div>
+</main>
 <script type="module" src="assets/js/recherche.js"></script>
 </body>
 </html>

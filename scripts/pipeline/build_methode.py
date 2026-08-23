@@ -44,6 +44,12 @@ def nb(x):
     return f"{x:,}".replace(",", " ")
 
 
+def de(mot):
+    """« de » ou « d' » selon l'initiale. Sans quoi la page engendrée écrit
+    « 313,1 M€ de aides en nature »."""
+    return ("d'" if mot[:1].lower() in "aeiouyhéèêà" else "de ") + mot
+
+
 def eur(x):
     if x is None:
         return "—"
@@ -60,7 +66,7 @@ def main():
     scdl = lire("data/sources-manifest/scdl.json")
     ods = lire("data/sources-manifest/ods.json")
     plf = lire("data/sources-manifest/plf-jaune.json")
-    idx = lire("data/canonical/recherche/index-stats.json")
+    idx = lire("data/recherche/index-stats.json")
     meta = lire_gz("data/aggregates/meta.json.gz")
     tot = meta.get("totaux", {})
     votes = tot.get("dons_votes", {})
@@ -72,7 +78,7 @@ def main():
         "nature": "aides en nature (locaux, personnel mis à disposition)",
     }
     lignes_hors_don = "\n".join(
-        f"      <li><strong>{eur(v[1])}</strong> de {LIBELLES_HORS_DON.get(k, k)}"
+        f"      <li><strong>{eur(v[1])}</strong> {de(LIBELLES_HORS_DON.get(k, k))}"
         f" — {nb(v[0])} lignes.</li>"
         for k, v in hors_don.items())
 
@@ -231,19 +237,21 @@ def main():
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<a class="saut" href="#contenu">Aller au contenu</a>
 <nav class="bandeau">
   <div class="bandeau-inner">
     <a class="marque" href="index.html">Dons publics aux associations
       <span>Qui finance les associations en France</span></a>
     <div class="menu">
-      <a href="index.html">Carte</a>
-      <a href="recherche.html">Recherche croisée</a>
+      <a href="index.html">Accueil</a>
+      <a href="recherche.html">Chercher une association</a>
+      <a href="commune.html">Ma commune</a>
       <a href="couverture.html">Ce qu'on ne sait pas</a>
       <a href="methode.html" aria-current="page">Sources &amp; méthode</a>
     </div>
   </div>
 </nav>
-<div class="enveloppe">
+<main class="enveloppe" id="contenu">
   <header>
     <h1>Sources &amp; méthode</h1>
     <p class="chapeau">Cette page est <strong>engendrée à partir des données elles-mêmes</strong>
@@ -259,8 +267,8 @@ def main():
       <span class="etiquette">de dons payés, comptés à part</span></div>
     <div class="compteur"><span class="valeur">{nb(len(q.get('by_source', {})))}</span>
       <span class="etiquette">sources</span></div>
-    <div class="compteur"><span class="valeur">{q.get('years_covered', ['?'])[0]}–{q.get('years_covered', ['?'])[-1]}</span>
-      <span class="etiquette">années couvertes</span></div>
+    <div class="compteur"><span class="valeur">{nb(idx.get('beneficiaires', 0))}</span>
+      <span class="etiquette">bénéficiaires résolus</span></div>
   </div>
 
   <div class="prose">
@@ -309,7 +317,11 @@ def main():
     <h2>Les montants mis en quarantaine</h2>
     <p>Certaines valeurs publiées ne sont pas des montants, ou sont dans une unité douteuse.
        Elles sont conservées dans les données mais <strong>exclues de tous les totaux</strong>
-       {'— ' + eur(rejet['amount_eur']) + ' sur ' + nb(rejet['rows']) + ' lignes' if rejet else ''}.</p>
+       {'— ' + nb(rejet['rows']) + ' lignes' if rejet else ''}. Leur somme n'est
+       <em>pas</em> donnée ici, et c'est délibéré&nbsp;: elle est dominée par des valeurs
+       qui ne sont pas des montants du tout — un SIRET recopié dans la colonne montant
+       vaut 78&nbsp;962 milliards d'euros à lui seul. Additionner ces valeurs produirait
+       un nombre qui n'a pas de sens.</p>
     <ul>
       <li><strong>Métropole de Lyon</strong> : 9&nbsp;081 lignes totalisant 48&nbsp;Md€, quand le
         budget annuel de la Métropole avoisine 3,8&nbsp;Md€. Médiane à 1&nbsp;584&nbsp;200&nbsp;€,
@@ -416,7 +428,7 @@ def main():
     {q.get('generated_at', '')[:10]} à partir de <code>quality-report.json</code>,
     <code>couverture.json</code> et des manifestes de moissonnage.
   </footer>
-</div>
+</main>
 </body>
 </html>
 """

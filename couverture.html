@@ -10,19 +10,21 @@
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<a class="saut" href="#contenu">Aller au contenu</a>
 <nav class="bandeau">
   <div class="bandeau-inner">
     <a class="marque" href="index.html">Dons publics aux associations
       <span>Qui finance les associations en France</span></a>
     <div class="menu">
-      <a href="index.html">Carte</a>
-      <a href="recherche.html">Recherche croisée</a>
+      <a href="index.html">Accueil</a>
+      <a href="recherche.html">Chercher une association</a>
+      <a href="commune.html">Ma commune</a>
       <a href="couverture.html" aria-current="page">Ce qu'on ne sait pas</a>
       <a href="methode.html">Sources &amp; méthode</a>
     </div>
   </div>
 </nav>
-<div class="enveloppe">
+<main class="enveloppe" id="contenu">
 
   <header>
     <h1>Ce que ce site ne sait pas</h1>
@@ -31,9 +33,20 @@
        <strong>nous n'avons pas la donnée</strong>. Cette page dit laquelle, échelon par échelon.</p>
   </header>
 
-  <p id="chargement" class="chargement">Chargement…</p>
+  <p id="chargement" class="etat etat-chargement">Chargement…</p>
 
   <div id="application" hidden>
+    <nav class="sommaire" aria-label="Sommaire de la page">
+      <b>Sur cette page</b>
+      <ol>
+        <li><a href="#qui-publie">Qui publie, échelon par échelon</a></li>
+        <li><a href="#departements">Les départements, carte et tableau</a></li>
+        <li><a href="#combien">Combien manque-t-il&nbsp;?</a></li>
+        <li><a href="#invisibles">Les associations que le site ne voit pas</a></li>
+        <li><a href="#chantiers">Ce qui reste à faire</a></li>
+      </ol>
+    </nav>
+
     <div id="resume" class="compteurs"></div>
 
     <p class="avertissement">
@@ -43,9 +56,10 @@
       l'erreur va toujours dans le sens de la sous-estimation, jamais de la surestimation.
     </p>
 
+    <h2 class="titre-section" id="qui-publie">Qui publie, échelon par échelon</h2>
     <div id="niveaux"></div>
 
-    <h2 class="titre-section">Départements</h2>
+    <h2 class="titre-section" id="departements">Départements</h2>
     <div class="bascule" id="bascule-carte" role="group"
          aria-label="Ce que la carte montre"></div>
     <p class="sous-titre" id="titre-carte"></p>
@@ -61,7 +75,7 @@
        une couleur seule ne doit jamais porter une information.</p>
     <div class="table-enveloppe"><table id="table-departements"></table></div>
 
-    <h2 class="titre-section">Combien manque-t-il ?</h2>
+    <h2 class="titre-section" id="combien">Combien manque-t-il ?</h2>
     <p class="sous-titre">Jusqu'ici, cette page disait qui publie. Elle ne disait pas
        combien d'argent échappe au site — une commune absente pouvait aussi bien ne rien
        verser que ne rien publier. Les balances comptables de la DGFiP tranchent :
@@ -76,26 +90,16 @@
 
     <h3 class="titre-section">Exercice par exercice — les communes</h3>
     <p class="sous-titre">Le seul échelon dont les balances remontent à 2010. Les trois
-       colonnes ne s'additionnent jamais : le déclaré est un montant <em>mandaté</em>,
-       le voté et le payé sont deux mesures que le site affiche déjà côte à côte.</p>
+       colonnes ne s'additionnent jamais : le déclaré est un montant <span data-mot="mandate">mandaté</span>,
+       le <span data-mot="vote">voté</span> et le <span data-mot="paye">payé</span> sont deux mesures que le site affiche déjà côte à côte.</p>
     <div class="table-enveloppe"><table id="table-exercices"></table></div>
 
     <h3 class="titre-section">Et votre commune ?</h3>
     <p class="sous-titre">Il n'y a plus une seule commune sur laquelle ce site n'ait rien à
-       dire : <strong>34 829 sur 34 936</strong> déclarent un compte 6574 à la DGFiP.
-       Choisissez la vôtre — le site dira ce qu'elle a mandaté aux associations, et ce qu'il
-       en connaît nommément.</p>
-    <div class="barre-outils">
-      <div class="champ">
-        <label for="choix-departement">Département</label>
-        <select id="choix-departement"></select>
-      </div>
-      <div class="champ champ-large">
-        <label for="choix-commune">Commune</label>
-        <select id="choix-commune" disabled></select>
-      </div>
-    </div>
-    <div id="fiche-commune"></div>
+       dire&nbsp;: <b id="nb-declarants">34&nbsp;829</b> sur <b id="nb-communes">34&nbsp;936</b>
+       déclarent un compte 6574 à la DGFiP. Chacune a sa fiche&nbsp;: ce qu'elle a mandaté
+       aux associations, exercice par exercice, et ce que le site en connaît nommément.</p>
+    <p><a class="bouton" href="commune.html">Chercher ma commune</a></p>
 
     <h3 class="titre-section">Les quinze départements où les communes déclarent le plus</h3>
     <p class="sous-titre">Somme du compte 6574 de toutes les communes du département, face à
@@ -105,7 +109,7 @@
        en haut de page, dès qu'on bascule celle-ci sur «&nbsp;ce qui nous échappe&nbsp;».</p>
     <div class="table-enveloppe"><table id="table-denominateur-departements"></table></div>
 
-    <h2 class="titre-section">Les associations que le site ne voit pas</h2>
+    <h2 class="titre-section" id="invisibles">Les associations que le site ne voit pas</h2>
     <p class="sous-titre">L'autre bout de la même question. Toute association ou fondation
        qui reçoit plus de 153 000 € de dons et/ou de subventions publiques doit déposer ses
        comptes annuels au Journal officiel (art. L612-4 et D612-5 du code de commerce).
@@ -126,7 +130,7 @@
     <div class="table-enveloppe"><table id="table-angle-mort"></table></div>
     <p class="avertissement" id="angle-mort-reserves"></p>
 
-    <h2 class="titre-section">Ce qui reste à faire</h2>
+    <h2 class="titre-section" id="chantiers">Ce qui reste à faire</h2>
     <div id="chantiers"></div>
   </div>
 
@@ -135,7 +139,7 @@
     <code>data/canonical/couverture.json</code>. Méthode détaillée dans le dépôt.
   </footer>
   <div id="infobulle" role="tooltip"></div>
-</div>
-<script src="assets/js/couverture.js"></script>
+</main>
+<script type="module" src="assets/js/couverture.js"></script>
 </body>
 </html>
