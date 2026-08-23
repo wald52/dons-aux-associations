@@ -98,7 +98,18 @@ def normaliser_fichier(fiche, fichier, ingested_at):
         d[k] = d.get(k, 0) + 1
 
     # L'attribuant est le plus souvent constant dans un fichier : on le résout
-    # une fois, en repli sur l'organisation qui publie le jeu.
+    # une fois, en repli sur l'organisation qui publie le jeu — SAUF quand cette
+    # organisation est un compte de publication et non une personne morale. Les
+    # fichiers budgétaires de la Ville de Rennes sont déposés par « Rennes
+    # Métropole en accès libre » : le site créditait l'EPCI de 396 M€ versés par
+    # la commune, et ces lignes ne se dédupliquaient pas avec les mêmes données
+    # publiées sur le portail. On lit alors le titre du jeu, et on ne retient
+    # que ce qui correspond EXACTEMENT à un nom du référentiel INSEE.
+    organisation = fiche.get("organisation") or ""
+    if C.est_un_compte_de_publication(organisation):
+        organisation = (C.collectivite_du_libelle(fichier.get("titre"), fiche.get("titre"))
+                        or organisation)
+
     for i, r in enumerate(lignes, start=1):
         st["lues"] += 1
         nom = C.clean_text(r.get(col["benef_nom"])) if col["benef_nom"] else ""
@@ -118,7 +129,7 @@ def normaliser_fichier(fiche, fichier, ingested_at):
             flags.append("no_rna")
 
         attrib_nom = (C.clean_text(r.get(col["attrib_nom"])) if col["attrib_nom"] else "") \
-            or (fiche.get("organisation") or "")
+            or organisation
         attrib_siret = C.valid_siret(r.get(col["attrib_id"])) if col["attrib_id"] else None
         attrib_siren = attrib_siret[:9] if attrib_siret else (
             C.valid_siren(r.get(col["attrib_id"])) if col["attrib_id"] else None)

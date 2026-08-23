@@ -834,6 +834,74 @@ SQL_COMPTE_DANS_LES_TOTAUX = (
 )
 
 
+
+# Un compte de publication n'est pas une personne morale. Sur data.gouv.fr, les
+# fichiers budgétaires de la Ville de Rennes sont déposés par un compte nommé
+# « Rennes Métropole en accès libre » : faute de colonne d'attribuant, le site
+# créditait l'EPCI de 396 M€ versés par la COMMUNE, et ces lignes ne se
+# dédupliquaient pas avec les mêmes données publiées sur le portail — deux
+# donateurs différents, donc deux clés métier.
+_COMPTES_DE_PUBLICATION = ("acces libre", "open data", "opendata",
+                           "donnees ouvertes", "portail")
+
+# Formes juridiques qu'on retire avant de confronter un nom au référentiel.
+_FORMES_COLLECTIVITE = ("ville de", "ville d", "commune de", "commune d",
+                        "mairie de", "mairie d", "departement de",
+                        "departement du", "departement d", "region")
+
+
+def est_un_compte_de_publication(nom):
+    """Vrai si ce libellé nomme un compte open data et non une collectivité."""
+    t = fold(nom or "")
+    return bool(t) and any(m in t for m in _COMPTES_DE_PUBLICATION)
+
+
+def _noms_du_referentiel():
+    global _NOMS_REFERENTIEL
+    try:
+        return _NOMS_REFERENTIEL
+    except NameError:
+        pass
+    ref = referentiel()
+    noms = set()
+    for cle in ("communes", "departements", "regions", "epci"):
+        for v in ref.get(cle, {}).values():
+            n = fold(v.get("nom") or "")
+            if len(n) >= 4:
+                noms.add(n)
+    _NOMS_REFERENTIEL = noms
+    return noms
+
+
+def collectivite_du_libelle(*libelles):
+    """Collectivité nommée dans un titre de jeu, ou None.
+
+    Ne sert QUE de dernier recours, quand le fichier ne porte aucune colonne
+    d'attribuant et que le compte qui publie n'est pas une personne morale.
+    Rien n'est deviné : un segment n'est retenu que s'il correspond EXACTEMENT
+    à un nom du référentiel INSEE, une fois sa forme juridique retirée. Un
+    titre qui ne nomme personne rend None, et l'appelant garde son repli.
+    """
+    noms = _noms_du_referentiel()
+    for libelle in libelles:
+        brut = str(libelle or "")
+        # Le tiret ne coupe que s'il est SUIVI d'une espace : « CA 2011- Ville de
+        # Rennes » se coupe, « Noyal-Châtillon-sur-Seiche » reste entier.
+        segments = [x.strip() for x in re.split(r"\s*[-–|]\s+|[|]", brut) if x.strip()]
+        # Puis les fins de titre : « … aux associations Noyal-Châtillon-sur-Seiche ».
+        mots = brut.split()
+        segments += [" ".join(mots[-k:]) for k in range(1, 5) if len(mots) >= k]
+        for seg in segments:
+            t = fold(seg)
+            for forme in _FORMES_COLLECTIVITE:
+                if t.startswith(forme + " "):
+                    t = t[len(forme) + 1:]
+                    break
+            if t in noms:
+                return seg
+    return None
+
+
 # ------------------------------------- identité d'un donateur --------------
 #
 # Une même collectivité ne se nomme pas pareil d'une publication à l'autre :
@@ -1043,7 +1111,7 @@ def _est_exercice(mot):
 # fichiers dont les « colonnes » n'en sont pas.
 MOTIFS_STRICTS = frozenset({
     ("associations",), ("organisation",), ("destinataire",), ("destinataires",),
-    ("liborgabenef",),
+    ("liborgabenef",), ("libelle",),
 })
 
 
@@ -1086,7 +1154,14 @@ ROLES_COLONNES = {
          # pour être cherchés au milieu d'une phrase.
          ("liborgabenef",), ("organisation",),
          ("destinataire",), ("destinataires",), ("associations",),
-         ("nom",)],
+         ("nom",),
+         # EN TOUT DERNIER, et STRICT. Les documents budgétaires de la Ville de
+         # Rennes (`sous_fonction;libelle;bp_2013`) et les financements de la
+         # DRAC des Pays de la Loire n'ont pas d'autre colonne de bénéficiaire
+         # que `libelle`. Le motif ne vaut que si la colonne s'appelle
+         # exactement ainsi : partout ailleurs, `libelle` désigne l'objet, et
+         # c'est d'ailleurs un DISQUALIFIANT du rôle « montant ».
+         ("libelle",)],
         # « financeur » disqualifie : `organismes_financeurs` est celui qui
         # PAIE. Sans lui, le motif `organismes` lisait le bénéficiaire dans la
         # colonne du donateur — une inversion silencieuse.
@@ -1119,13 +1194,25 @@ ROLES_COLONNES = {
          #   `MANDATE`          Grand Paris Sud ;
          #   `mt_mandate_budg`  GrandSoissons Agglomération ;
          #   `mtsubv`           Région Île-de-France, avec `liborgabenef`.
-         ("mtsubv",), ("mandate",)],
+         ("mtsubv",), ("mandate",),
+         # Les documents budgétaires (budget primitif, compte administratif)
+         # nomment leur colonne d'argent par l'étape, pas par « montant » :
+         #   `realise_de_l_annee`  ce qui a été exécuté (Rennes, Vezin-le-Coquet) ;
+         #   `budget_de_l_annee`   ce qui a été voté ;
+         #   `somme`               le cumul par tiers d'un compte administratif.
+         ("realise", "annee"), ("budget", "annee"), ("somme",)],
         ("attribuant", "nom", "objet", "nature", "date", "pourcentage", "taux",
          "nombre", "dossier", "reference", "libelle", "type", "prestation"),
     ),
     "attribuant": (
+        # `nom collectivite` AVANT `collectivite` : les fichiers de balance
+        # budgétaire portent les deux, et la première ne contient que la
+        # catégorie (« COMMUNE ») quand la seconde nomme la collectivité
+        # (« Ville de Rennes », « VEZIN-LE-COQUET »). Le motif court gagnait, et
+        # le donateur devenait « COMMUNE » — donc générique, donc remplacé par le
+        # compte qui publie sur data.gouv.fr.
         [("nom", "attribuant"), ("nom", "ets", "attribuant"), ("attribuant",),
-         ("collectivite",), ("financeur",)],
+         ("nom", "collectivite"), ("collectivite",), ("financeur",)],
         # « code » disqualifie : GrandSoissons Agglomération publie une colonne
         # `Code Collectivité` qui ne contient que « 1 ». Sans ce mot, le motif
         # `collectivite` y lisait le donateur, et 172 subventions entraient au
@@ -1201,6 +1288,13 @@ def kind_from_nature(libelle):
 # les distingue donc par `measure` et seul « attribue » entre dans les totaux.
 _MOTS_VERSE = ("compte administratif", "subventions versees", "subventions verses",
                "mandatees", "mandate", "paiements", "versements effectues")
+# « CA 2014 » est un compte administratif écrit en abrégé — la Ville de Rennes
+# ne l'écrit JAMAIS en toutes lettres. Sans ce motif, le site comptait le budget
+# primitif ET son exécution du même exercice comme deux subventions votées :
+# Rennes 2012 pesait 74,56 M€ pour un budget associatif d'environ 54 M€.
+# Le sigle seul serait bien trop court ; c'est l'exercice accolé qui fait la
+# preuve, exactement comme le motif de colonne `("ca", EXERCICE)`.
+_CA_EXERCICE = re.compile(r"\bca[ ._-]?(19|20)\d{2}\b")
 
 
 def measure_of(*libelles):
@@ -1220,7 +1314,10 @@ def measure_of(*libelles):
     # « voté » d'un côté et « payé » de l'autre, pour la même donnée. Le
     # résultat négatif du §4a ne portait pas là-dessus : il disait de ne pas
     # toucher à `fold` lui-même, dont dépend toute la reconnaissance.
-    t = " ".join(fold(x or "").replace("_", " ").replace("-", " ") for x in libelles)
+    brut = " ".join(fold(x or "") for x in libelles)
+    t = brut.replace("_", " ").replace("-", " ")
+    if _CA_EXERCICE.search(brut) or _CA_EXERCICE.search(t):
+        return "verse"
     return "verse" if any(m in t for m in _MOTS_VERSE) else "attribue"
 
 
