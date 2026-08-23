@@ -914,7 +914,9 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       data.gouv.fr passe de 148 à **377 jeux retenus** (504 fichiers),
       Opendatasoft de 371 à **407**, et le Jaune de 10 à **13 millésimes sur 14**.
       **2 809 711 lignes, 658 sources, 149,68 Md€ votés**, 90 communes,
-      34 départements, 7 régions. **33/33 contrôles.**
+      34 départements, 7 régions. **33/33 contrôles.** (Sept régions était le
+      chiffre du jour : la phase 10 en a retiré un faux positif, il y en a
+      **six** — cf. le piège du SIREN des régions.)
 
 - [x] **Phase 10** — le dénominateur, l'angle mort et l'échelle. Le site
       savait « qui a reçu quoi » ; il sait maintenant dire ce qui lui manque.
@@ -928,7 +930,10 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       Depuis le 22/08/2026, la carte de couverture porte ce dénominateur : deux
       vues sous une bascule, « ce qui est publié » et « ce qui nous échappe »,
       et **chacune des 34 829 communes déclarantes a sa fiche** (48/49
-      contrôles).
+      contrôles). Enfin, les 12 938 organismes non reconnus sont rangés sous
+      **six causes lues dans une donnée existante**, qui en expliquent
+      **68,3 %** — une liste de 3 220 noms à éplucher n'était pas un livrable.
+      **49/50 contrôles**, le compte d'aujourd'hui.
 
 Détail de chaque phase dans `ROADMAP.md`.
 
