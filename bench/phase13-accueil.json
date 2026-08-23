@@ -1,0 +1,70 @@
+{
+  "label": "phase13-accueil",
+  "date": "2026-08-23T20:19:24.890Z",
+  "url": "http://127.0.0.1:8157/index.html",
+  "timeoutSeconds": 120,
+  "timings": {
+    "firstContentfulPaintSeconds": 0.06,
+    "dataReadySeconds": 0.59,
+    "dataReady": true,
+    "wallClockSeconds": 0.59
+  },
+  "network": {
+    "requests": 12,
+    "failed": 0,
+    "transferredMB": 0.22,
+    "byType": {
+      "gz": {
+        "requests": 5,
+        "MB": 0.12
+      },
+      "js": {
+        "requests": 5,
+        "MB": 0.06
+      },
+      "css": {
+        "requests": 1,
+        "MB": 0.03
+      },
+      "html": {
+        "requests": 1,
+        "MB": 0.01
+      }
+    },
+    "heaviest": [
+      {
+        "url": "/data/aggregates/map-departements.json.gz",
+        "MB": 0.08,
+        "ms": 27
+      },
+      {
+        "url": "/assets/css/style.css",
+        "MB": 0.03,
+        "ms": 9
+      },
+      {
+        "url": "/assets/js/app.js",
+        "MB": 0.03,
+        "ms": 9
+      },
+      {
+        "url": "/data/aggregates/cube.json.gz",
+        "MB": 0.02,
+        "ms": 22
+      },
+      {
+        "url": "/assets/js/index-recherche.js",
+        "MB": 0.01,
+        "ms": 8
+      }
+    ]
+  },
+  "memory": {
+    "usedMB": 3,
+    "limitMB": 4096
+  },
+  "data": {
+    "records": null,
+    "scriptTags": 1
+  }
+}

@@ -568,7 +568,9 @@ import { poser as poserLexique } from "./lexique.js";
   // — et redirige les adresses déjà partagées.
   function redirigerAncienneFiche() {
     var demande = (location.hash.match(/commune=(\w+)/) || [])[1];
-    if (demande) location.replace("commune.html#insee=" + demande);
+    if (!demande) return false;
+    location.replace("commune.html#insee=" + demande);
+    return true;
   }
 
   /* ------------------------------------------------------------------------
@@ -693,7 +695,9 @@ import { poser as poserLexique } from "./lexique.js";
   }
 
   (async function () {
-    redirigerAncienneFiche();
+    // On rend la main AVANT de rien charger : sinon la page qu'on quitte
+    // lance cinq requêtes que la navigation annule aussitôt.
+    if (redirigerAncienneFiche()) return;
     try {
       // Le dénominateur et l'angle mort sont des ajouts : la page doit
       // s'afficher entière même si l'un des deux manque (agrégat pas encore

@@ -1,0 +1,74 @@
+{
+  "label": "phase13-recherche",
+  "date": "2026-08-23T20:18:22.958Z",
+  "url": "http://127.0.0.1:8155/recherche.html",
+  "timeoutSeconds": 120,
+  "timings": {
+    "firstContentfulPaintSeconds": 0.09,
+    "dataReadySeconds": 2.18,
+    "dataReady": true,
+    "wallClockSeconds": 2.18
+  },
+  "network": {
+    "requests": 11,
+    "failed": 0,
+    "transferredMB": 6.06,
+    "byType": {
+      "gz": {
+        "requests": 4,
+        "MB": 5.97
+      },
+      "js": {
+        "requests": 4,
+        "MB": 0.05
+      },
+      "css": {
+        "requests": 1,
+        "MB": 0.03
+      },
+      "html": {
+        "requests": 1,
+        "MB": 0
+      },
+      "json": {
+        "requests": 1,
+        "MB": 0
+      }
+    },
+    "heaviest": [
+      {
+        "url": "/data/recherche/noms.json.gz",
+        "MB": 5.14,
+        "ms": 25
+      },
+      {
+        "url": "/data/aggregates/suggest.json.gz",
+        "MB": 0.83,
+        "ms": 16
+      },
+      {
+        "url": "/assets/css/style.css",
+        "MB": 0.03,
+        "ms": 10
+      },
+      {
+        "url": "/assets/js/recherche.js",
+        "MB": 0.02,
+        "ms": 9
+      },
+      {
+        "url": "/assets/js/index-recherche.js",
+        "MB": 0.01,
+        "ms": 13
+      }
+    ]
+  },
+  "memory": {
+    "usedMB": 163,
+    "limitMB": 4096
+  },
+  "data": {
+    "records": null,
+    "scriptTags": 1
+  }
+}

@@ -20,6 +20,8 @@ import * as Index from "./index-recherche.js";
 import * as Lexique from "./lexique.js";
 
 var meta = null;
+var stats = null;
+var couverture = null;
 var etat = { q: "", dep: "", cumul: "", dependance: "", a: null };
 var dernierResultat = null;
 
@@ -157,9 +159,12 @@ function chercher() {
       li.appendChild(document.createTextNode("."));
       conseils.appendChild(li);
     }
+    var c = couverture && couverture.resume && couverture.resume.commune;
     conseils.appendChild(el("li", null,
       "Une association absente n'est pas une association sans subvention : " +
-      "seules 95 communes sur 34 936 publient les leurs."));
+      (c ? "seules " + fmtNombre.format(c.avec_donnees) + " communes sur " +
+           fmtNombre.format(c.univers) + " publient les leurs."
+         : "la plupart des communes ne publient pas les leurs.")));
     vide.appendChild(conseils);
     hote.appendChild(vide);
     return;
@@ -174,8 +179,9 @@ function chercher() {
   }
   if (res.source === "partiel") {
     entete.appendChild(el("span", "note-partielle",
-      " Recherche sur les 25 000 plus gros bénéficiaires ; l'index complet " +
-      "(427 451) finit de charger et les résultats se compléteront seuls."));
+      " Recherche sur les plus gros bénéficiaires seulement ; l'index complet" +
+      (stats ? " (" + fmtNombre.format(stats.beneficiaires) + ")" : "") +
+      " finit de charger, et les résultats se compléteront seuls."));
   }
   hote.appendChild(entete);
 
@@ -482,9 +488,18 @@ function appliquerEtatDepuisURL() {
 
 async function demarrer() {
   meta = await chargerGz("data/aggregates/meta.json.gz");
-  nbCumuls = await chargerGz("data/recherche/index-stats.json")
-    .then(function (s) { return s.multi_echelons_3plus; })
-    .catch(function () { return nbCumuls; });
+  stats = await chargerGz("data/recherche/index-stats.json").catch(function () { return null; });
+  if (stats) nbCumuls = stats.multi_echelons_3plus;
+  // 1,2 Ko, pour une seule phrase — mais une phrase avec un chiffre, et un
+  // chiffre écrit dans le HTML se périme en silence.
+  couverture = await chargerGz("data/aggregates/couverture.json.gz")
+    .catch(function () { return null; });
+  if (stats) {
+    var ps = $("#part-siren");
+    if (ps) {
+      ps.textContent = Math.round(100 * (stats.par_cle.S || 0) / stats.beneficiaires) + " %";
+    }
+  }
 
   var selDep = $("#filtre-dep");
   var deps = meta.departements.valeurs;
@@ -536,7 +551,9 @@ async function assurerIndexComplet() {
   if (indexCompletLance) return;
   indexCompletLance = true;
   var hote = $("#etat-index");
-  var barre = jauge("Chargement de l'index complet — 427 451 associations, une seule fois…");
+  var barre = jauge("Chargement de l'index complet" +
+    (stats ? " — " + fmtNombre.format(stats.beneficiaires) + " bénéficiaires" : "") +
+    ", une seule fois…");
   hote.appendChild(barre);
   try {
     await Index.chargerRang2(function (part) { barre.avancer(part); });
@@ -547,7 +564,7 @@ async function assurerIndexComplet() {
     indexCompletLance = false;
     hote.appendChild(messageErreur(
       "L'index complet n'a pas pu être chargé ; la recherche porte pour l'instant " +
-      "sur les 25 000 plus gros bénéficiaires.", function () {
+      "sur les plus gros bénéficiaires seulement.", function () {
         vider(hote); assurerIndexComplet();
       }));
   }

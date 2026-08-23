@@ -100,12 +100,26 @@ export function chargerRang1() {
   return promesseRang1;
 }
 
-/** Précharge sans bloquer : l'accueil peint sa carte en 0,07 s, l'index de
- *  suggestion arrive pendant que le lecteur la regarde. */
-export function prechargerRang1() {
-  var lancer = function () { chargerRang1().catch(function () { /* au focus */ }); };
-  if (typeof requestIdleCallback === "function") requestIdleCallback(lancer, { timeout: 3000 });
-  else setTimeout(lancer, 1200);
+/** Arme le chargement de l'index de suggestion sur l'INTENTION de s'en servir,
+ *  pas sur l'inactivité de la page.
+ *
+ *  Un préchargement systématique faisait passer l'accueil de 0,14 à 1,05 Mo —
+ *  mesuré — pour un fichier dont la plupart des visiteurs n'auront pas l'usage.
+ *  Le pointeur qui entre dans le champ, un doigt qui s'y pose ou le focus
+ *  précèdent la première lettre de quelques centaines de millisecondes : c'est
+ *  exactement le temps qu'il faut. Qui ne touche jamais au champ ne paie rien.
+ */
+export function armerPrechargement(input) {
+  if (!input) return;
+  var lance = false;
+  var lancer = function () {
+    if (lance) return;
+    lance = true;
+    chargerRang1().catch(function () { /* réessayé à la frappe */ });
+  };
+  ["pointerenter", "touchstart", "focus"].forEach(function (ev) {
+    input.addEventListener(ev, lancer, { once: true, passive: true });
+  });
 }
 
 // --- rang 2 -----------------------------------------------------------------
@@ -115,28 +129,69 @@ var promesseRang2 = null;
 
 export function rang2Pret() { return rang2 !== null; }
 
+/** Une colonne de texte gardée en UNE chaîne, avec ses bornes dans un tableau
+ *  typé — et découpée seulement pour les quelques lignes affichées.
+ *
+ *  Découper d'avance coûtait cher : 427 451 chaînes JavaScript, c'est autant
+ *  d'objets à en-tête, et l'onglet montait à 156 Mo. Une chaîne unique plus un
+ *  `Int32Array` tient dans la taille des octets eux-mêmes. */
+function colonne(brut) {
+  var n = 0;
+  for (var k = 0; k < brut.length; k++) if (brut.charCodeAt(k) === 10) n++;
+  var bornes = new Int32Array(n + 2);
+  var i = 0, pos = 0;
+  bornes[0] = 0;
+  while (true) {
+    var j = brut.indexOf("\n", pos);
+    if (j < 0) break;
+    bornes[++i] = j + 1;
+    pos = j + 1;
+  }
+  bornes[++i] = brut.length + 1;
+  return {
+    nb: i,
+    lire: function (k) { return brut.slice(bornes[k], bornes[k + 1] - 1); },
+    longueur: function (k) { return bornes[k + 1] - 1 - bornes[k]; }
+  };
+}
+
 export function chargerRang2(surProgression) {
   if (!promesseRang2) {
     promesseRang2 = chargerGz("data/recherche/noms.json.gz", surProgression)
       .then(function (d) {
-        var noms = d.n.split("\n");
-        // Une seule grande chaîne, bornée par « \n », plutôt qu'un tableau de
-        // 427 451 chaînes pliées : `indexOf` y court en une passe native, et
-        // la position se retraduit en rang par un compte de sauts de ligne
-        // précalculé.
-        var plies = noms.map(plier);
-        rang2 = {
-          nb: d.nb, noms: noms, plies: plies,
-          gros: "\n" + plies.join("\n") + "\n",
-          deps: d.d.split("\n"), m: d.m, e: d.e, v: d.v, a: d.a, b: d.b,
-          x: d.x, p: d.p, echelons: d.echelons || ECHELONS
-        };
-        // Table des rangs par position dans la grande chaîne : construite une
-        // fois, elle évite de recompter les sauts de ligne à chaque résultat.
+        // Une seule grande chaîne de noms pliés, bornée par « \n » : `indexOf`
+        // y court en une passe native — quelques millisecondes sur 427 451
+        // noms — et la position se retraduit en rang par dichotomie.
+        var brut = colonne(d.n);
+        var plies = new Array(d.nb);
+        for (var i = 0; i < d.nb; i++) plies[i] = plier(brut.lire(i));
+        var gros = "\n" + plies.join("\n") + "\n";
         var debuts = new Int32Array(d.nb);
+        var longueurs = new Int32Array(d.nb);
         var pos = 1;
-        for (var i = 0; i < d.nb; i++) { debuts[i] = pos; pos += plies[i].length + 1; }
-        rang2.debuts = debuts;
+        for (i = 0; i < d.nb; i++) {
+          debuts[i] = pos; longueurs[i] = plies[i].length; pos += plies[i].length + 1;
+        }
+        // Les 427 451 chaînes pliées ont fini leur office : seule la grande
+        // chaîne sert désormais, et les longueurs sont dans un tableau typé.
+        plies = null;
+        // Les colonnes numériques passent en tableaux TYPÉS. Sept tableaux
+        // JavaScript de 427 451 nombres, c'est l'essentiel de la mémoire de
+        // cette page ; les mêmes en `Int32Array` et `Uint8Array` pèsent le
+        // poids de leurs octets, et laissent le JSON d'origine être collecté.
+        rang2 = {
+          nb: d.nb, brut: brut, gros: gros, debuts: debuts, longueurs: longueurs,
+          deps: colonne(d.d),
+          m: Float64Array.from(d.m),
+          e: Uint8Array.from(d.e),
+          v: Int32Array.from(d.v),
+          a: Uint16Array.from(d.a),
+          b: Uint16Array.from(d.b),
+          x: Uint8Array.from(d.x),
+          p: Uint8Array.from(d.p),
+          echelons: d.echelons || ECHELONS
+        };
+        d = null;
         return rang2;
       });
   }
@@ -147,7 +202,7 @@ export function chargerRang2(surProgression) {
 
 function fiche2(i) {
   return {
-    rang: i, nom: rang2.noms[i], dep: rang2.deps[i] || null,
+    rang: i, nom: rang2.brut.lire(i), dep: rang2.deps.lire(i) || null,
     montant: rang2.m[i], ech: rang2.e[i], nbv: rang2.v[i],
     a0: rang2.a[i] || null, a1: rang2.a[i] ? rang2.a[i] + rang2.b[i] : null,
     echelons: echelonsDuMasque(rang2.x[i], rang2.echelons),
@@ -233,7 +288,7 @@ function rangDe(pos) {
   }
   // Une trouvaille qui déborde sur la ligne suivante n'en est pas une.
   if (res < 0) return -1;
-  if (pos + 1 > d[res] + rang2.plies[res].length) return -1;
+  if (pos + 1 > d[res] + rang2.longueurs[res]) return -1;
   return res;
 }
 
@@ -315,20 +370,27 @@ export function chercherTerritoires(q, limite) {
   rang1.regions.forEach(function (r) {
     if (plier(r[1]).indexOf(q) === 0) out.push({ genre: "region", code: r[0], nom: r[1] });
   });
+  // On balaie TOUTES les communes avant de trier. S'arrêter aux premières
+  // trouvées revenait à les prendre dans l'ordre des codes INSEE : taper
+  // « bes » proposait Bessay-sur-Allier, Besson et Besny-et-Loizy, et pas
+  // Besançon. Un balayage complet des 34 936 noms coûte deux millisecondes.
   var c = rang1.communes;
-  for (var i = 0; i < c.plies.length && out.length < (limite || 8) + 4; i++) {
+  var communes = [];
+  for (var i = 0; i < c.plies.length; i++) {
     if (c.plies[i].indexOf(q) === 0) {
-      out.push({ genre: "commune", code: c.ids[i], nom: c.noms[i],
-                 dep: c.deps[i], population: c.p[i] });
+      communes.push({ genre: "commune", code: c.ids[i], nom: c.noms[i],
+                      dep: c.deps[i], population: c.p[i] });
     }
   }
   // Une commune peuplée avant un hameau homonyme : à requête égale, c'est
-  // celle que le lecteur cherche neuf fois sur dix.
-  out.sort(function (a, b) {
-    if (a.genre !== b.genre) return a.genre === "commune" ? 1 : -1;
+  // celle que le lecteur cherche neuf fois sur dix. Et un nom exact passe
+  // devant un nom plus long — « Rennes » avant « Rennes-les-Bains ».
+  communes.sort(function (a, b) {
+    var ea = plier(a.nom) === q ? 0 : 1, eb = plier(b.nom) === q ? 0 : 1;
+    if (ea !== eb) return ea - eb;
     return (b.population || 0) - (a.population || 0);
   });
-  return out.slice(0, limite || 8);
+  return out.concat(communes).slice(0, limite || 8);
 }
 
 export function communes() { return rang1 ? rang1.communes : null; }

@@ -23,10 +23,12 @@ et pourquoi).
 
 ## Où en est le site
 
-Les phases 0 à 12 sont faites. Sur les quatre objectifs de départ — vitesse,
+Les phases 0 à 13 sont faites. Sur les quatre objectifs de départ — vitesse,
 données justes et exhaustives, recherche croisée, lisibilité — **trois sont
-atteints**. Le site charge en 0,07 s, la recherche croisée fonctionne sur
-2,7 M de lignes sans backend, le design est unifié.
+atteints**. L'accueil charge en 0,06 s, la recherche croisée répond en
+quelques millisecondes sur 2,8 M de lignes sans backend, et depuis la phase 13
+elle n'attend plus rien : le champ de saisie est utilisable en 0,3 s au lieu de
+4,5 s, et tout ce que le site montre a une adresse partageable.
 
 **L'exhaustivité est le seul objectif encore largement ouvert, et la phase 7 a
 montré qu'elle ne s'ouvrira plus par moissonnage.**
@@ -467,6 +469,19 @@ collectivité qu'on ne couvre pas. Les trois derniers coûtent zéro couverture
 
 ## 3. Dette mineure
 
+- **Ce que la phase 13 laisse ouvert, côté interface.** Aucun de ces points
+  n'est bloquant, et chacun se mesure avant d'être ouvert :
+  - la page `couverture.html` reste très longue (dix sections, sept tableaux) ;
+    elle a maintenant un sommaire, mais mériterait d'être coupée en deux ;
+  - aucune vue par DONATEUR n'existe : « tout ce que la Région Bretagne a
+    financé » demanderait un index shardé par donateur, symétrique de celui des
+    bénéficiaires — le calcul est le même, le fichier serait du même ordre ;
+  - `top.json.gz` n'a pas de dimension annuelle : « les plus gros bénéficiaires
+    en 2023 » n'est pas répondable sans un nouvel agrégat ;
+  - il n'y a **aucun export** : ni CSV d'une fiche, ni lien de téléchargement
+    des versements d'une association. C'est probablement le manque le plus
+    utile qui reste pour un journaliste ou un élu.
+
 - **Le doublon Baule** : 182 lignes, 365 k€. `communes-pays-loire` étiquette
   « Commune de La Baule » ce qui est en réalité **Baule dans le Loiret**. On ne
   corrige pas le libellé : deviner qu'un « La Baule » veut dire « Baule »
@@ -809,11 +824,15 @@ assumer la borne de 2019.
    chantier se formule « il faudra vérifier N éléments à la main » avec N au-delà
    de quelques dizaines, c'est le chantier qui est mal posé, pas le lecteur qui
    manque de courage.
-4. **Décider ce que devient le site sans changement d'échelle.** Le plafond de
-   couverture est atteint, et la valeur du site se déplace vers ce qu'il FAIT de
-   ce qu'il a — croisements, séries, exports, lisibilité — plutôt que vers un
-   corpus plus gros. La phase 10 en est un exemple : elle n'a pas ajouté une
-   subvention, elle a rendu mesurable ce qui manque.
+4. ~~**Décider ce que devient le site sans changement d'échelle.**~~ — **fait
+   le 23/08/2026, phase 13.** Réponse : il devient utilisable. Le corpus n'a pas
+   bougé d'une ligne ; ce qui a changé, c'est qu'on peut l'atteindre. La
+   recherche ne fait plus attendre 50 Mo derrière une phrase grise, la carte dit
+   ce qu'elle montre, « ma commune » a sa page, et tout est partageable par son
+   adresse. Trois résultats négatifs mesurés au passage sont dans les pièges de
+   `CLAUDE.md` : un préchargement « en tâche de fond » se paie quand même, un
+   index en chaînes JavaScript coûte deux fois sa taille en mémoire, et un
+   balayage partiel trie ce qu'il a trouvé plutôt que ce qu'il fallait trouver.
 5. ~~Les jeux écartés à rouvrir (1d)~~ — **fait le 23/08/2026, et l'énoncé
    était faux sur les trois points.** Deux des trois correctifs étaient déjà
    appliqués, l'inventaire datait d'avant le re-moissonnage, et les collectivités

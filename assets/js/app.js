@@ -561,6 +561,14 @@ async function ajouterDenominateur() {
   var c = d && d.resume && d.resume.commune;
   if (!c || !c.declare_eur) return;
   etat.denominateur = c;
+  // Les chiffres de l'en-tête viennent de la donnée, jamais d'un nombre écrit
+  // dans le HTML : celui-ci se périme en silence à la publication suivante.
+  var d1 = $("#nb-declarants");
+  if (d1) d1.textContent = fmtNombre.format(c.declarants);
+  var d2 = $("#nb-declare");
+  if (d2) d2.textContent = euros(c.declare_eur);
+  var d3 = $("#nb-connu");
+  if (d3) d3.textContent = euros(c.site_vote_eur).replace(/\s?Md€$/, "");
   var hote = $("#reserves");
   if (!hote) return;
   var lien = el("a", null, "Ce qu'on ne sait pas");
@@ -684,6 +692,10 @@ function appliquerEtatDepuisURL() {
 
 function poserChampUnique() {
   var input = $("#cherche-tout");
+  // L'index de suggestion se charge dès que le pointeur approche du champ :
+  // le précharger d'office coûtait 0,9 Mo à tout le monde, y compris à qui
+  // vient seulement regarder la carte.
+  Index.armerPrechargement(input);
   Suggest.poser(input, {
     choisir: async function (s) {
       location.href = await Suggest.adresseDe(s);
@@ -708,6 +720,9 @@ async function demarrer() {
   $("#chargement").remove();
   $("#application").hidden = false;
 
+  var nv = $("#nb-versements");
+  if (nv) nv.textContent = fmtNombre.format(etat.meta.totaux.lignes);
+
   remplirFiltres();
   construireCarte();
   dessinerReserves();
@@ -720,8 +735,6 @@ async function demarrer() {
   window.__DATA_READY = true;
 
   ajouterDenominateur();
-  // L'index de suggestion arrive pendant que le lecteur regarde la carte.
-  Index.prechargerRang1();
 }
 
 demarrer().catch(function (err) {

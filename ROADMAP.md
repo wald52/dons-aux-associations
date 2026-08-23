@@ -199,6 +199,67 @@ sera repris sans modification du code.
 - Prioriser par **population couverte**, pas par nombre de fichiers.
 - Afficher la couverture en permanence dans l'interface.
 
+### Phase 13 — L'interface — **faite le 23/08/2026**
+
+Le chantier n° 4 de `RESTE-A-FAIRE.md` : « décider ce que devient le site sans
+changement d'échelle ». Réponse : il devient utilisable.
+
+**Le diagnostic, mesuré avant de toucher au code.**
+
+1. `recherche.html` téléchargeait 34,2 Mo de DuckDB-WASM puis 17,7 Mo de
+   `beneficiaires.parquet` AVANT d'afficher un champ de saisie — 4,5 s en
+   local, sans latence, derrière une seule phrase grise immobile. Et la page
+   annonçait « une dizaine de Mo » puis « 11 Mo » : deux sous-estimations.
+2. La carte d'accueil colorait le département où **siègent les associations
+   qui reçoivent**, pas la collectivité qui verse. Cette phrase existait,
+   noyée dans un pavé de 900 caractères placé entre les compteurs et la carte.
+   Ni bornes de classes, ni gris expliqué, ni support tactile.
+3. **Rien n'était partageable.** Aucune URL ne portait un département, une
+   année, une recherche ni une association. Le seul état d'URL du site
+   (`#commune=` sur `couverture.html`) cassait le bouton Retour.
+4. « Et votre commune ? » — la chose la plus concrète du site, disponible pour
+   34 829 communes sur 34 936 — était la 8ᵉ section d'une page intitulée « ce
+   que ce site ne sait pas », derrière un `<select>` de 900 entrées, avec la
+   fiche rendue hors écran.
+
+**Ce qui a été fait.**
+
+`build_index_navigateur.py` remplace `build_search_index.py` : mêmes règles
+d'identité, mot pour mot, format servi différent. Quatre sorties — un rang 1
+de 0,85 Mo (25 000 plus gros bénéficiaires, 34 936 communes, départements,
+régions), un rang 2 de 5,1 Mo (les 427 451 bénéficiaires), 512 blocs
+d'identifiants, 512 shards de fiches autosuffisants. Une fiche s'ouvre avec
+UNE requête de ~120 Ko, y compris depuis un lien partagé qui n'a jamais chargé
+l'index.
+
+Le hachage de répartition passe à FNV-1a : l'ancien, somme des octets modulo
+64, produisait des shards de 233 Ko face à des shards de 1,66 Mo, et se serait
+effondré modulo 512.
+
+L'accueil s'ouvre sur un champ unique qui accepte une association, une commune,
+un département ou une région et route vers la bonne page. La carte gagne un
+titre explicite, une légende avec ses bornes et son gris, une bascule
+total / par habitant, le tactile, et des classements qui mènent quelque part.
+`commune.html` devient une page. Un lexique définit les mots du site là où ils
+s'affichent. Le mobile est traité pour de bon : quatre points de rupture au
+lieu de deux, tableaux en cartes, nav qui défile, plus aucun défilement
+horizontal à 375 px.
+
+**Résultats.** Accueil inchangé (0,22 Mo, 0,06 s, 3 Mo de tas). Recherche :
+6,06 Mo au lieu de ~48, champ utilisable en ~0,3 s au lieu de 4,5 s, recherche
+en 14–51 ms au lieu de 0,4–1,3 s, fiche en 16–20 ms au lieu de 0,1–1,4 s.
+Dépôt suivi de 342 à 309 Mo. **49/50 contrôles.**
+
+**Trois résultats négatifs à retenir**, tous mesurés :
+- précharger le rang 1 « en tâche de fond » faisait passer l'accueil de 0,22 à
+  1,05 Mo — retiré au profit d'un chargement à l'intention (survol, focus) ;
+- garder l'index en 427 451 chaînes JavaScript coûtait 156 Mo de tas contre 70
+  en une grande chaîne plus des tableaux typés ;
+- s'arrêter aux douze premières communes appariées avant de les trier par
+  population faisait proposer Bessay-sur-Allier avant Besançon.
+
+---
+
 ### Phase 5 — Design et compréhension — **fait**
 
 ```bash

@@ -305,8 +305,18 @@ async function demarrer() {
     });
   }
 
-  await Index.chargerRang1();
+  var couv = await chargerGz("data/aggregates/couverture.json.gz")
+    .catch(function () { return null; });
+  var cc = couv && couv.resume && couv.resume.commune;
+  if (cc) {
+    var a = $("#nb-publiantes"), z = $("#nb-univers");
+    if (a) a.textContent = fmtNombre.format(cc.avec_donnees);
+    if (z) z.textContent = fmtNombre.format(cc.univers);
+  }
+
   var input = $("#cherche-commune");
+  Index.armerPrechargement(input);
+  await Index.chargerRang1();
   Suggest.poser(input, {
     genres: ["commune"],
     limite: 10,
