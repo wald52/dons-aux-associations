@@ -1,6 +1,6 @@
 # Ce qui reste à faire
 
-État arrêté au **23/08/2026**, après la phase 11. Chiffres mesurés, pas estimés :
+État arrêté au **23/08/2026**, après la phase 12. Chiffres mesurés, pas estimés :
 ils viennent de `data/canonical/quality-report.json`, `couverture.json`, des
 manifestes de moissonnage et du banc `bench/phase7.json`.
 
@@ -23,7 +23,7 @@ et pourquoi).
 
 ## Où en est le site
 
-Les phases 0 à 11 sont faites. Sur les quatre objectifs de départ — vitesse,
+Les phases 0 à 12 sont faites. Sur les quatre objectifs de départ — vitesse,
 données justes et exhaustives, recherche croisée, lisibilité — **trois sont
 atteints**. Le site charge en 0,07 s, la recherche croisée fonctionne sur
 2,7 M de lignes sans backend, le design est unifié.
@@ -33,13 +33,13 @@ montré qu'elle ne s'ouvrira plus par moissonnage.**
 
 | | valeur |
 |---|---|
-| Lignes servies | 2 817 042 |
-| **Dons votés** | **148,34 Md€** |
-| **Dons payés** (à côté, jamais additionnés) | **10,04 Md€** |
+| Lignes servies | 2 811 070 |
+| **Dons votés** | **148,40 Md€** |
+| **Dons payés** (à côté, jamais additionnés) | **10,43 Md€** |
 | Ingéré mais pas un don (prestations, remboursements, nature) | 1,57 Md€ |
-| Sources | 681 |
-| Bénéficiaires résolus | 417 639 *(la phase 10 annonçait 439 803 : chiffre jamais mesuré, l'index en portait 415 207)* |
-| Dont cumulant 3 échelons ou plus | 10 128 |
+| Sources | 698 |
+| Bénéficiaires résolus | 427 451 |
+| Dont cumulant 3 échelons ou plus | 9 566 *(10 128 en phase 11 : 554 de ces cumuls étaient un échelon EPCI fantôme, cf. §1e)* |
 | Contrôles `verify.py` | **49 / 50** (le 50ᵉ demande `data/canonical/parts/`, non versionné) |
 | **Ce que déclarent les communes à la DGFiP (6574, 2010-2025)** | **51,10 Md€**, dont le site connaît **14,9 %** |
 | **Organismes déposant leurs comptes au JO** | **31 683**, dont **18 745 reconnus** |
@@ -57,11 +57,11 @@ Couverture face au référentiel INSEE. **C'est un MINIMUM** : l'appariement
 échoue plutôt qu'il n'invente, donc l'erreur va toujours vers la
 sous-estimation (cf. `CLAUDE.md`).
 
-| Échelon | Avec données | Univers | phase 10 |
+| Échelon | Avec données | Univers | phase 11 |
 |---|---|---|---|
-| Communes | **94** | 34 936 | 90 |
-| EPCI | **32** | 1 335 | 31 |
-| Départements | **35** | 101 | 34 |
+| Communes | **95** | 34 936 | 94 |
+| EPCI | **31** | 1 335 | 32 |
+| Départements | **35** | 101 | 35 |
 | Régions | **6** | 18 | 6 |
 
 10,9 % de la population française. (« Repérées » ajoute les collectivités qui
@@ -293,6 +293,78 @@ héritée qui les portait déjà : aucun gain. Ses trois exercices récents, eux
 raison sociale. Le pipeline écarte les lignes sans nom. Les récupérer sur le seul
 SIRET est un **arbitrage de doctrine** — un bénéficiaire identifié mais sans nom
 affichable —, pas un correctif de reconnaissance. À trancher par l'utilisateur.
+
+### 1e. Rennes — **FAIT le 23/08/2026, et le chantier n'était pas celui qui était écrit**
+
+Le §1d refermé annonçait « une trentaine de jeux de la Ville de Rennes à
+rouvrir, ~20 000 lignes, gain en profondeur ». Les fichiers étaient **déjà dans
+le site**, et mal classés.
+
+**« CA 2014 » est un compte administratif.** `measure_of` ne reconnaissait
+« compte administratif » qu'en toutes lettres, et Rennes ne l'écrit jamais
+autrement. Le site comptait donc le budget primitif ET son exécution du même
+exercice comme deux subventions VOTÉES : Rennes 2012 pesait 74,56 M€ pour un
+budget associatif d'environ 54 M€. Mesuré sur tout le corpus : **1 828 lignes,
+227,2 M€**, chez Rennes, Lorient Agglomération et la CC du Val d'Essonne.
+
+**Un compte de publication servait de donateur.** Les fichiers budgétaires de la
+Ville de Rennes sont déposés sur data.gouv.fr par « Rennes Métropole en accès
+libre ». Faute de colonne d'attribuant, le site créditait **l'EPCI de 396 M€
+versés par la COMMUNE**, et ces lignes ne se dédupliquaient pas avec la même
+donnée publiée sur le portail.
+
+| | phase 11 | maintenant |
+|---|---|---|
+| Lignes | 2 817 042 | **2 811 070** |
+| Sources | 681 | **698** |
+| Communes | 94 | **95** |
+| EPCI | 32 | **31** |
+| Dons votés | 148,34 Md€ | **148,40 Md€** |
+| Dons payés | 10,04 Md€ | **10,43 Md€** |
+| Cumuls ≥ 3 échelons | 10 128 | **9 566** |
+
+**La couverture PERD un EPCI, et c'est juste.** Rennes Métropole n'a jamais rien
+publié en propre : elle repasse de « données présentes » à « publie mais non
+exploité ». Le site affirmait couvrir la métropole quand il ne couvrait que sa
+ville-centre. Les cumuls à trois échelons tombent pour la même raison —
+comparaison **exacte** des deux index de recherche : 567 bénéficiaires passent
+sous trois échelons, dont **554 (97,7 %) en perdant précisément leur échelon
+EPCI**, motifs dominants « commune,epci,inconnu » (328) et « commune,epci,etat »
+(177). Ces cumuls n'existaient pas.
+
+La série rennaise est enfin lisible, voté et payé côte à côte :
+
+| exercice | voté (BP) | payé (CA) |
+|---|---|---|
+| 2012 | 53,78 M€ | 20,78 M€ |
+| 2013 | 55,32 M€ | 14,69 M€ |
+| 2014 | 56,24 M€ | 13,62 M€ |
+| 2017 | 63,91 M€ | 47,86 M€ |
+| 2019 | — | 50,94 M€ |
+
+2019 n'a pas de voté parce que le site n'a pas le budget primitif 2019. C'est
+une lacune vraie, pas un artefact.
+
+**Deux effets de bord, tous deux des corrections.** Besançon entre dans la
+couverture (4 050 lignes, 148,59 M€), rendu à sa commune au lieu de rester chez
+« Open Data Bourgogne ». Et 421,54 M€ de la **DRAC des Pays de la Loire**
+repassent de « région » à « État » : le repli par nom cherchait « region » en
+sous-chaîne, et « Direction **région**ale des affaires culturelles » l'attrapait.
+
+**Un invité imprévu, gardé.** Le motif `libelle`, nécessaire aux budgets
+primitifs de Rennes, ouvre aussi les financements de la DRAC des Pays de la
+Loire : 9 988 lignes, 363,66 M€ d'État. Son bénéficiaire est **concaténé avec
+l'objet** (« O CAPITAINE MON CAPITAINE - Aide au projet Arts de la Rue pour… »),
+donc inutilisable pour le rapprochement. Gardé quand même : l'erreur va vers la
+fragmentation d'une association en plusieurs — une lacune — et non vers la
+fusion de deux organismes, qui serait un mensonge.
+
+**Ce qui reste dehors, mesuré.** Les comptes administratifs 2008-2010 de Rennes,
+~13 000 lignes. **Deux millésimes du même publieur donnent aux mêmes noms de
+colonnes des sens opposés** : en 2009, `provisions_par_tiers` porte le détail et
+`total_des_mandats_emis` l'agrégat, proprement séparés ; en 2010, 414 des 461
+lignes de `total_des_mandats_emis` sont des versements individuels, pour 125 M€
+sur 1 920 lignes. Aucun choix de colonne unique n'est défendable.
 
 ---
 
@@ -721,7 +793,7 @@ assumer la borne de 2019.
 
 ## Ordre recommandé
 
-*Révisé le 23/08/2026, après la phase 11.*
+*Révisé le 23/08/2026, après la phase 12.*
 
 1. ~~Colorer la carte de couverture par la part connue (5a)~~ — **fait le
    22/08/2026.** Ce que la carte montre maintenant, et qu'aucun tableau ne
@@ -751,9 +823,15 @@ assumer la borne de 2019.
    règles actuelles retiendraient portent tous zéro ligne. Leçon : un inventaire
    qui n'est pas relu dans les manifestes du jour envoie sur le mauvais chantier,
    exactement ce que l'avertissement en tête de ce fichier dit d'éviter.
-6. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
+6. ~~La Ville de Rennes (1e)~~ — **faite le 23/08/2026**, et là encore l'énoncé
+   était faux : les fichiers étaient déjà dans le site, mal classés. Un compte
+   administratif comptait comme du budget voté (227,2 M€ sur tout le corpus) et
+   un compte de publication servait de donateur (396 M€ de la commune crédités à
+   l'EPCI). La couverture y perd Rennes Métropole, qui n'a jamais rien publié en
+   propre, et y gagne Besançon.
+7. **La levée de la quarantaine 2011 (2a)** — 12,3 Md€ et un huitième de
    l'histoire du site en dépendent.
-7. ~~`measure_of` et les tirets bas~~ — **fait**, en deux temps. Phase 8 :
+8. ~~`measure_of` et les tirets bas~~ — **fait**, en deux temps. Phase 8 :
    deux changements de doctrine tranchés par l'utilisateur — voté et payé
    s'affichent côte à côte, et seuls les DONS entrent dans les totaux. Le
    23/08/2026, les séparateurs ont finalement été ramenés à l'espace **dans
@@ -762,7 +840,7 @@ assumer la borne de 2019.
    (`subventions_versees`) et « payé » côté data.gouv.fr (« Subventions
    versées »). Ce que le §4b disait coûteux ne l'est plus depuis la phase 8 :
    « payé » s'affiche à côté du voté au lieu de disparaître.
-8. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
+9. **Ne pas relancer le moissonnage pour la couverture.** Les deux canaux sont
    mesurés épuisés (1a). Y revenir sans une source nouvelle serait du travail
    jetable.
 

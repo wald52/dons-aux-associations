@@ -813,6 +813,92 @@ sur-affirme — la Région publie, mais c'est la commune qui verse. D'où le pal
 
 ---
 
+## Phase 12 — Rennes : le voté cesse d'être son propre compte administratif (23/08/2026)
+
+La phase 11 laissait une trentaine de jeux de la Ville de Rennes écartés,
+~20 000 lignes, annoncés comme « du gain en profondeur ». **Les fichiers étaient
+déjà dans le site, et mal classés.**
+
+### Deux défauts, tous deux dans la lecture, pas dans le moissonnage
+
+**« CA 2014 » est un compte administratif.** `measure_of` ne reconnaissait
+« compte administratif » qu'en toutes lettres, et la Ville de Rennes ne l'écrit
+jamais autrement. Le site comptait donc le budget primitif ET son exécution du
+même exercice comme deux subventions VOTÉES : Rennes 2012 pesait 74,56 M€ pour
+un budget associatif d'environ 54 M€. Mesuré sur tout le corpus : **1 828
+lignes, 227,2 M€**, chez Rennes, Lorient Agglomération et la CC du Val
+d'Essonne. Le sigle seul serait bien trop court — c'est l'exercice accolé qui
+fait la preuve, comme pour le motif de colonne `("ca", EXERCICE)`.
+
+**Un compte de publication servait de donateur.** Les fichiers budgétaires de la
+Ville de Rennes sont déposés sur data.gouv.fr par un compte nommé « Rennes
+Métropole en accès libre ». Faute de colonne d'attribuant, le site créditait
+**l'EPCI de 396 M€ versés par la COMMUNE**, et ces lignes ne se dédupliquaient
+pas avec la même donnée publiée sur le portail : deux donateurs, donc deux clés
+métier. `collectivite_du_libelle` lit le titre du jeu et ne retient QUE ce qui
+correspond exactement à un nom du référentiel INSEE ; un titre qui ne nomme
+personne laisse le donateur non attribué.
+
+| | phase 11 | phase 12 |
+|---|---|---|
+| Lignes | 2 817 042 | **2 811 070** |
+| Sources | 681 | **698** |
+| Communes | 94 | **95** |
+| EPCI | 32 | **31** |
+| Dons votés | 148,34 Md€ | **148,40 Md€** |
+| Dons payés | 10,04 Md€ | **10,43 Md€** |
+| Cumuls ≥ 3 échelons | 10 128 | **9 566** |
+| Contrôles | 50/50 | **50/50** |
+
+### La couverture perd un EPCI, et c'est juste
+
+Rennes Métropole n'a **jamais rien publié en propre** : tout ce qui lui était
+crédité était l'argent de la Ville. Elle repasse de « données présentes » à
+« publie mais non exploité ». Le site affirmait couvrir la métropole quand il ne
+couvrait que sa ville-centre.
+
+Les cumuls à trois échelons tombent de 562 pour la même raison. Comparaison
+**exacte** des deux index de recherche : 567 bénéficiaires passent sous trois
+échelons, dont **554 (97,7 %) en perdant précisément leur échelon EPCI**, avec
+pour motifs dominants « commune,epci,inconnu » (328) et « commune,epci,etat »
+(177). Ces cumuls n'existaient pas.
+
+La série rennaise est enfin lisible : 53,78 M€ votés en 2012, 55,32 en 2013,
+56,24 en 2014, 56,34 en 2015, 59,60 en 2016, 63,91 en 2017, 50,20 en 2018 — avec
+leur exécution à côté. Avant, 2011, 2013 et 2014 n'existaient que par leur compte
+administratif compté comme du voté, et 2015 et 2018 manquaient tout à fait.
+
+### Effets de bord, tous des corrections
+
+Besançon entre dans la couverture (4 050 lignes, 148,59 M€), rendu à sa commune
+au lieu de rester chez « Open Data Bourgogne ». Et **421,54 M€ de la DRAC des
+Pays de la Loire** repassent de « région » à « État » : le repli par nom
+cherchait « region » en sous-chaîne, et « Direction **région**ale des affaires
+culturelles » l'attrapait. Une région ne s'appelle jamais « direction ».
+
+### Un invité imprévu, gardé
+
+Le motif `libelle` — strict, en dernier recours — est nécessaire aux budgets
+primitifs de Rennes. Il ouvre du même coup les financements de la DRAC des Pays
+de la Loire : **9 988 lignes, 363,66 M€** d'État. Son bénéficiaire est concaténé
+avec l'objet (« O CAPITAINE MON CAPITAINE - Aide au projet Arts de la Rue
+pour… »), donc inutilisable pour le rapprochement. Gardé : l'erreur va vers la
+fragmentation d'une association en plusieurs, qui est une lacune, et non vers la
+fusion de deux organismes, qui serait un mensonge.
+
+### Ce qui reste dehors, mesuré
+
+Les comptes administratifs 2008-2010 de Rennes, ~13 000 lignes. **Deux
+millésimes du même publieur donnent aux mêmes noms de colonnes des sens
+opposés** : en 2009, `provisions_par_tiers` porte le détail et
+`total_des_mandats_emis` l'agrégat, proprement séparés (les 93 lignes de détail
+commencent par « . », les 52 lignes de total non) ; en 2010, **414 des 461**
+lignes de `total_des_mandats_emis` sont au contraire des versements individuels,
+pour 125 M€ sur un fichier de 1 920 lignes. Aucun choix de colonne unique n'est
+défendable.
+
+---
+
 ## Phase 11 — Les jeux écartés, et ce qu'ils ont cassé en entrant (23/08/2026)
 
 `RESTE-A-FAIRE.md` §1d désignait le dernier gisement qui ne dépende de

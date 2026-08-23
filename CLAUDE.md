@@ -50,16 +50,16 @@ Mesuré, pas estimé. Relevés dans `bench/`, méthode dans `MESURE-PERF.md`.
 | Données exploitables | 57,75 s | **0,58 s** |
 | Mémoire JS | 1 965 Mo | **3 Mo** |
 | Balises `<script>` | 170 | **1** |
-| Lignes dans la table | 1 595 805 | **2 817 042** |
+| Lignes dans la table | 1 595 805 | **2 811 070** |
 
 (Premier écran : 113 Ko gzippés. Banc de vitesse `bench/phase7.json`, inchangé
 par la phase 9 — le volume servi n'a pas bougé.)
 
-Données : **681 sources**, **148,34 Md€ de dons VOTÉS** et **10,04 Md€ de dons
+Données : **698 sources**, **148,40 Md€ de dons VOTÉS** et **10,43 Md€ de dons
 PAYÉS** affichés côte à côte et jamais additionnés ; 1,57 Md€ ingérés mais hors
 des totaux parce que ce ne sont pas des dons (prestations facturées,
 remboursements, aides en nature), 2,08 Md€ de lignes agrégées, et la quarantaine
-d'unité. 417 639 bénéficiaires résolus, dont **10 128 cumulent au moins trois
+d'unité. 427 451 bénéficiaires résolus, dont **9 566 cumulent au moins trois
 échelons**. (La phase 10 en annonçait 439 803 : chiffre jamais mesuré,
 `index-stats.json` en portait 415 207.)
 
@@ -72,11 +72,13 @@ et 2021) ajoutent 23,6 Md€ d'État qui manquaient. La série du Jaune est
 désormais continue de 2010 à 2023, sauf l'exercice 2022 (fichier vide à la
 source).
 
-Couverture face au référentiel INSEE, et c'est un MINIMUM : **94 communes**
-sur 34 936, **32 EPCI** sur 1 335, **35 départements** sur 101, **6 régions**
+Couverture face au référentiel INSEE, et c'est un MINIMUM : **95 communes**
+sur 34 936, **31 EPCI** sur 1 335, **35 départements** sur 101, **6 régions**
 sur 18. Bordeaux, Bourges, les Hauts-de-Seine et l'Aude sont entrés en phase 9 ;
 Aix-en-Provence, Saint-Maur-des-Fossés, Fleury-sur-Orne, Moissy-Cramayel,
-GrandSoissons Agglomération et la Seine-Maritime en phase 11.
+GrandSoissons Agglomération et la Seine-Maritime en phase 11 ; Besançon en
+phase 12, qui RETIRE en revanche Rennes Métropole — cf. le piège du compte de
+publication.
 
 (**Six régions, pas sept** : la phase 10 a retiré un faux positif. La
 Nouvelle-Aquitaine était comptée couverte à cause du SIREN de la Région
@@ -870,6 +872,62 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   correctifs sans qu'il soit relu, et son inventaire décrivait un moissonnage
   périmé. Ses « deux communes vraiment nouvelles » publiaient zéro ligne.
 
+- **« CA 2014 » est un compte administratif, donc de l'argent PAYÉ.** La Ville de
+  Rennes ne l'écrit jamais en toutes lettres, si bien que `measure_of` ne le
+  voyait pas et que le site comptait le budget primitif ET son exécution du même
+  exercice comme deux subventions VOTÉES : Rennes 2012 pesait 74,56 M€ pour un
+  budget associatif d'environ 54 M€. Mesuré sur tout le corpus : **1 828 lignes,
+  227,2 M€**, chez Rennes, Lorient Agglomération et la CC du Val d'Essonne. Le
+  sigle seul serait bien trop court — c'est l'exercice accolé qui fait la preuve,
+  comme pour le motif de colonne `("ca", EXERCICE)`.
+
+- **Un compte de publication n'est pas un donateur.** Les fichiers budgétaires
+  de la Ville de Rennes sont déposés sur data.gouv.fr par un compte nommé
+  « Rennes Métropole en accès libre ». Faute de colonne d'attribuant, le site
+  créditait **l'EPCI de 396 M€ versés par la COMMUNE**, et ces lignes ne se
+  dédupliquaient pas avec les mêmes données publiées sur le portail — deux
+  donateurs, donc deux clés métier. `collectivite_du_libelle` lit alors le titre
+  du jeu et ne retient QUE ce qui correspond exactement à un nom du référentiel
+  INSEE ; un titre qui ne nomme personne laisse le donateur NON ATTRIBUÉ, ce qui
+  se voit et se corrige, quand un donateur faux se propage jusque dans la
+  couverture. Conséquence assumée : **Rennes Métropole sort de la couverture**,
+  n'ayant jamais rien publié en propre.
+
+- **Un nom nu ne dit pas son échelon.** « Besançon » trouvé dans un titre est
+  une commune, mais `donor_level_of` le laisse en `inconnu` faute de forme
+  juridique. On lui ajoute la catégorie que le référentiel donne à ce nom
+  (« Commune de Besançon ») — rien n'est inventé, le nom vient d'y être trouvé.
+
+- **Une région ne s'appelle jamais « direction ».** Le repli par nom cherche
+  « region » en SOUS-CHAÎNE : « Direction régionale des affaires culturelles des
+  Pays de la Loire » devenait une région, et 421,54 M€ d'argent d'État étaient
+  crédités à un échelon régional. Les services déconcentrés écrits en toutes
+  lettres sont donc dans `_SIGLES_ETAT`, testé avant le repli.
+
+- **Un motif de bénéficiaire ne vaut en dernier recours que s'il est STRICT.**
+  `libelle` désigne l'objet presque partout — c'est même un disqualifiant du rôle
+  « montant » — mais c'est la seule colonne de bénéficiaire des budgets primitifs
+  de Rennes et des financements de la DRAC des Pays de la Loire. Le motif ne vaut
+  donc que si la colonne s'appelle exactement ainsi. Effet mesuré sur les 824
+  en-têtes connus : +26, zéro régression.
+
+- **La DRAC des Pays de la Loire concatène le bénéficiaire et l'objet.**
+  « O CAPITAINE MON CAPITAINE - Aide au projet Arts de la Rue pour la reprise du
+  spectacle "Quenn-a-Man" » est un seul champ. 9 988 lignes et 363,66 M€ d'État
+  entrent avec un nom d'organisme inutilisable pour le rapprochement. On les
+  garde : l'erreur va vers la FRAGMENTATION d'une association en plusieurs, qui
+  est une lacune, et non vers la fusion de deux organismes, qui serait un
+  mensonge. Ne pas « corriger » en coupant au premier tiret — ce serait un
+  traitement par source, que le projet refuse.
+
+- **Deux millésimes du même publieur peuvent donner aux mêmes noms de colonnes
+  des sens opposés.** Comptes administratifs de Rennes : en 2009,
+  `provisions_par_tiers` porte le détail et `total_des_mandats_emis` l'agrégat,
+  proprement séparés (93 lignes de détail commencent par « . », 52 lignes de
+  total non) ; en 2010, **414 des 461** lignes de `total_des_mandats_emis` sont
+  au contraire des versements individuels, pour 125 M€ sur 1 920 lignes. Aucun
+  choix de colonne unique n'est défendable : ces ~13 000 lignes restent dehors.
+
 - **Les CSV bruts sont désindexés** (`data/*.csv` dans `.gitignore`). Ils sont
   re-téléchargeables, URLs dans `SOURCES.md`, et leurs données sont déjà dans
   `data/sources/`. Ne pas les recommiter.
@@ -1024,6 +1082,28 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       code, un publieur qui est un service et non une collectivité.
       Le §1d qui commandait ce chantier était faux sur ses trois points :
       leçon rangée dans les pièges.
+
+- [x] **Phase 12** — Rennes : le chantier n'était pas celui qui était écrit. Le
+      §1d annonçait « une trentaine de jeux à rouvrir » ; les fichiers étaient
+      déjà là, et **mal classés**. « CA 2014 » est un compte administratif que
+      `measure_of` ne reconnaissait pas : le site comptait le budget primitif ET
+      son exécution du même exercice comme deux subventions votées — **1 828
+      lignes, 227,2 M€** sur tout le corpus. Et un compte de publication servait
+      de donateur : **396 M€ versés par la Ville de Rennes étaient crédités à
+      Rennes Métropole**, sans se dédupliquer avec la même donnée publiée sur le
+      portail.
+      **2 811 070 lignes, 698 sources, 95 communes, 31 EPCI, 35 départements,
+      148,40 Md€ votés et 10,43 Md€ payés. 50/50 contrôles.**
+      La couverture PERD un EPCI et c'est juste : Rennes Métropole n'a jamais
+      rien publié en propre. Les cumuls à trois échelons tombent de 562 pour la
+      même raison — comparaison exacte des deux index : 567 bénéficiaires
+      passent sous trois échelons, dont **554 en perdant leur échelon EPCI**.
+      Ces cumuls n'existaient pas.
+      Quatre graphies de plus (`realise_de_l_annee`, `budget_de_l_annee`,
+      `somme`, `libelle` strict) ouvrent les budgets primitifs de Rennes et,
+      avec eux, les financements de la DRAC des Pays de la Loire (9 988 lignes,
+      363,66 M€). Les comptes administratifs 2008-2010 de Rennes restent dehors,
+      mesure à l'appui.
 
 Détail de chaque phase dans `ROADMAP.md`.
 
