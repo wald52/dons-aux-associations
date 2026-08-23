@@ -18,13 +18,17 @@ python3 scripts/pipeline/build_canonical.py | tail -20
 etape "ce que le site sert"
 python3 scripts/pipeline/build_carte.py       | tail -2
 python3 scripts/pipeline/build_aggregates.py  | tail -3
-python3 scripts/pipeline/build_search_index.py | tail -4
+python3 scripts/pipeline/build_index_navigateur.py | tail -7
 python3 scripts/pipeline/build_couverture.py  | tail -7
 
 # Le dénominateur et l'angle mort disent ce que le site NE VOIT PAS. Ils ne
 # touchent pas à la table canonique et ne sont sommés avec rien ; le second lit
 # l'index de recherche, il vient donc après lui. `build_methode.py` les lit tous
 # les deux et passe en dernier des constructions.
+#
+# `build_index_navigateur.py` vient APRÈS `build_aggregates.py` : il lit
+# `meta.json.gz` pour nommer les départements et les régions du rang 1 de
+# l'autocomplétion.
 python3 scripts/pipeline/build_denominateur.py | tail -6
 python3 scripts/pipeline/build_fiches_communes.py | tail -4
 python3 scripts/pipeline/build_angle_mort.py   | tail -5

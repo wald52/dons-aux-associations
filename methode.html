@@ -10,19 +10,21 @@
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<a class="saut" href="#contenu">Aller au contenu</a>
 <nav class="bandeau">
   <div class="bandeau-inner">
     <a class="marque" href="index.html">Dons publics aux associations
       <span>Qui finance les associations en France</span></a>
     <div class="menu">
-      <a href="index.html">Carte</a>
-      <a href="recherche.html">Recherche croisée</a>
+      <a href="index.html">Accueil</a>
+      <a href="recherche.html">Chercher une association</a>
+      <a href="commune.html">Ma commune</a>
       <a href="couverture.html">Ce qu'on ne sait pas</a>
       <a href="methode.html" aria-current="page">Sources &amp; méthode</a>
     </div>
   </div>
 </nav>
-<div class="enveloppe">
+<main class="enveloppe" id="contenu">
   <header>
     <h1>Sources &amp; méthode</h1>
     <p class="chapeau">Cette page est <strong>engendrée à partir des données elles-mêmes</strong>
@@ -38,8 +40,8 @@
       <span class="etiquette">de dons payés, comptés à part</span></div>
     <div class="compteur"><span class="valeur">698</span>
       <span class="etiquette">sources</span></div>
-    <div class="compteur"><span class="valeur">1991–2036</span>
-      <span class="etiquette">années couvertes</span></div>
+    <div class="compteur"><span class="valeur">427 451</span>
+      <span class="etiquette">bénéficiaires résolus</span></div>
   </div>
 
   <div class="prose">
@@ -91,7 +93,11 @@
     <h2>Les montants mis en quarantaine</h2>
     <p>Certaines valeurs publiées ne sont pas des montants, ou sont dans une unité douteuse.
        Elles sont conservées dans les données mais <strong>exclues de tous les totaux</strong>
-       — 80002255770,2 Md€ sur 30 255 lignes.</p>
+       — 30 255 lignes. Leur somme n'est
+       <em>pas</em> donnée ici, et c'est délibéré&nbsp;: elle est dominée par des valeurs
+       qui ne sont pas des montants du tout — un SIRET recopié dans la colonne montant
+       vaut 78&nbsp;962 milliards d'euros à lui seul. Additionner ces valeurs produirait
+       un nombre qui n'a pas de sens.</p>
     <ul>
       <li><strong>Métropole de Lyon</strong> : 9&nbsp;081 lignes totalisant 48&nbsp;Md€, quand le
         budget annuel de la Métropole avoisine 3,8&nbsp;Md€. Médiane à 1&nbsp;584&nbsp;200&nbsp;€,
@@ -115,7 +121,7 @@
        consultables ligne à ligne, et sont comptées à part&nbsp;:</p>
     <ul>
       <li><strong>1,9 Md€</strong> de prestations facturées par l'association — 121 981 lignes.</li>
-      <li><strong>313,1 M€</strong> de aides en nature (locaux, personnel mis à disposition) — 7 658 lignes.</li>
+      <li><strong>313,1 M€</strong> d'aides en nature (locaux, personnel mis à disposition) — 7 658 lignes.</li>
       <li><strong>90,1 M€</strong> de remboursements de frais et cotisations d'adhésion — 2 644 lignes.</li>
     </ul>
     <p>La lecture se fait sur les <strong>mots</strong> de l'objet publié, jamais sur des
@@ -230,6 +236,6 @@
     2026-08-23 à partir de <code>quality-report.json</code>,
     <code>couverture.json</code> et des manifestes de moissonnage.
   </footer>
-</div>
+</main>
 </body>
 </html>

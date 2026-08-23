@@ -5,82 +5,121 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
 <title>Dons publics aux associations</title>
-<meta name="description" content="Cartographie des subventions publiques versées aux associations en France par l'État, les régions, les départements, les communes et les intercommunalités.">
+<meta name="description" content="Cherchez une association, une commune ou un département : qui finance les associations en France, par l'État, les régions, les départements, les communes et les intercommunalités.">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<a class="saut" href="#contenu">Aller au contenu</a>
 <nav class="bandeau">
   <div class="bandeau-inner">
     <a class="marque" href="index.html">Dons publics aux associations
       <span>Qui finance les associations en France</span></a>
     <div class="menu">
-      <a href="index.html" aria-current="page">Carte</a>
-      <a href="recherche.html">Recherche croisée</a>
+      <a href="index.html" aria-current="page">Accueil</a>
+      <a href="recherche.html">Chercher une association</a>
+      <a href="commune.html">Ma commune</a>
       <a href="couverture.html">Ce qu'on ne sait pas</a>
       <a href="methode.html">Sources &amp; méthode</a>
     </div>
   </div>
 </nav>
-<div class="enveloppe">
+<main class="enveloppe" id="contenu">
 
-  <header>
-    <h1>Où va l'argent public versé aux associations&nbsp;?</h1>
-    <p class="chapeau">Deux millions de subventions versées par l'État, ses opérateurs,
-       les régions, les départements, les intercommunalités et les communes.
-       Cliquez un département pour son détail, ou
-       <a href="recherche.html">cherchez une association</a> pour voir tous ses financeurs.</p>
+  <header class="accroche">
+    <h1>Qui finance les associations&nbsp;?</h1>
+    <p class="chapeau">2,8 millions de subventions versées par l'État, ses opérateurs,
+       les régions, les départements, les intercommunalités et les communes —
+       rassemblées au même endroit pour la première fois.</p>
+
+    <div class="champ-unique">
+      <label for="cherche-tout">Cherchez une association, votre commune, un département</label>
+      <input id="cherche-tout" type="search" spellcheck="false"
+             placeholder="ex. secours populaire, Besançon, Ille-et-Vilaine…">
+      <p class="aide-champ">Une <b>association</b> vous dira qui la finance. Une
+         <b>commune</b> vous dira ce qu'elle verse aux associations. Un
+         <b>département</b> vous dira ce que les associations qui y siègent
+         ont reçu.</p>
+    </div>
+
+    <ul class="portes">
+      <li><a href="commune.html">Ce que verse ma commune
+        <span>Pour les 34&nbsp;829 communes qui déclarent leurs subventions à la DGFiP&nbsp;— publiées ou non.</span></a></li>
+      <li><a href="recherche.html#cumul=3">Financées par trois échelons ou plus
+        <span>Les associations qu'aucun guichet ne voit en entier, parce que chacun ne connaît que ses propres versements.</span></a></li>
+      <li><a href="couverture.html">Ce que ce site ne sait pas
+        <span>Combien d'argent échappe encore au site, et pourquoi&nbsp;: 51,1&nbsp;Md€ déclarés, 7,9 connus.</span></a></li>
+    </ul>
   </header>
 
-  <p id="chargement" class="chargement">Chargement des données…</p>
+  <p id="chargement" class="etat etat-chargement">Chargement des données…</p>
 
   <div id="application" hidden>
 
-    <div class="barre-outils" role="toolbar" aria-label="Filtres">
-      <div class="champ">
-        <label for="filtre-annee">Année</label>
-        <select id="filtre-annee"><option value="toutes">Toutes les années</option></select>
-      </div>
-      <div class="champ">
-        <label for="filtre-niveau">Donateur</label>
-        <select id="filtre-niveau"><option value="tous">Tous les donateurs</option></select>
-      </div>
-      <div class="champ pousse-droite">
-        <label for="reinitialiser">&nbsp;</label>
-        <button id="reinitialiser" type="button">Réinitialiser</button>
-      </div>
-    </div>
-
     <div id="compteurs" class="compteurs"></div>
+    <p id="note-compteurs" class="note-compteurs"></p>
 
-    <p id="avertissement" class="avertissement"></p>
-
-    <div class="grille">
-      <div class="bloc-carte">
-        <svg id="carte" viewBox="0 0 800 620" role="img"
-             aria-label="Carte des subventions par département"></svg>
-        <div class="legende">
-          <span id="legende-min">—</span>
-          <span class="echelle" id="echelle" aria-hidden="true"></span>
-          <span id="legende-max">—</span>
-          <span>· montant reçu par les associations du département</span>
+    <section class="section-carte">
+      <div class="entete-carte">
+        <h2 id="titre-carte">Ce que les associations de chaque département ont reçu</h2>
+        <div class="bascule" id="bascule-vue" role="group" aria-label="Ce que la carte montre">
+          <button type="button" data-vue="total" aria-pressed="true">Total</button>
+          <button type="button" data-vue="habitant" aria-pressed="false">Par habitant</button>
         </div>
       </div>
 
-      <aside class="panneau" aria-live="polite">
-        <h2 id="panneau-titre">France entière</h2>
-        <p id="panneau-soustitre" class="sous-titre"></p>
-        <div class="onglets" role="tablist">
-          <button type="button" role="tab" data-onglet="beneficiaires" aria-selected="true">Bénéficiaires</button>
-          <button type="button" role="tab" data-onglet="donateurs" aria-selected="false">Donateurs</button>
+      <div class="barre-outils" role="toolbar" aria-label="Filtres">
+        <div class="champ">
+          <label for="filtre-annee">Année</label>
+          <select id="filtre-annee"><option value="toutes">Toutes les années</option></select>
         </div>
-        <div id="panneau-corps"></div>
-      </aside>
-    </div>
+        <div class="champ">
+          <label for="filtre-niveau">Qui verse</label>
+          <select id="filtre-niveau"><option value="tous">Tous les donateurs</option></select>
+        </div>
+        <div class="champ pousse-droite">
+          <button id="reinitialiser" type="button">Réinitialiser</button>
+        </div>
+      </div>
+
+      <div class="grille">
+        <div class="bloc-carte">
+          <svg id="carte" viewBox="0 0 800 620" role="img"
+               aria-label="Carte des montants reçus par les associations, par département"></svg>
+          <div class="legende" id="legende"></div>
+        </div>
+
+        <aside class="panneau" id="panneau" aria-live="polite">
+          <h2 id="panneau-titre">France entière</h2>
+          <p id="panneau-soustitre" class="sous-titre"></p>
+          <div class="onglets" role="tablist">
+            <button type="button" role="tab" data-onglet="beneficiaires" aria-selected="true">Bénéficiaires</button>
+            <button type="button" role="tab" data-onglet="donateurs" aria-selected="false">Donateurs</button>
+          </div>
+          <div id="panneau-corps"></div>
+        </aside>
+      </div>
+
+      <details class="repli repli-liste">
+        <summary>Les départements, en toutes lettres</summary>
+        <p class="sous-titre">La même chose que la carte, triée par montant — une couleur
+           seule ne doit jamais porter une information, et sur un téléphone un
+           département fait moins qu'un doigt.</p>
+        <div id="liste-departements"></div>
+      </details>
+    </section>
+
+    <section class="section-reserves">
+      <h2>Ce que ces chiffres ne disent pas</h2>
+      <p class="sous-titre">Quatre réserves, qui valent pour tout ce que montre cette page.
+         Elles ne sont pas des précautions de style&nbsp;: chacune change la lecture
+         d'un chiffre affiché ci-dessus.</p>
+      <div id="reserves" class="points"></div>
+    </section>
 
     <footer>
       Données issues des portails publics d'open data, sous Licence Ouverte 2.0.
-      Les montants sont ceux publiés par les administrations, <strong>sans correction</strong> :
+      Les montants sont ceux publiés par les administrations, <strong>sans correction</strong>&nbsp;:
       les écarts constatés sont signalés, jamais redressés.
       <a href="methode.html">Sources et méthode</a> ·
       <a href="couverture.html">Ce que ce site ne sait pas</a> ·
@@ -89,7 +128,7 @@
   </div>
 
   <div id="infobulle" role="tooltip"></div>
-</div>
-<script src="assets/js/app.js"></script>
+</main>
+<script type="module" src="assets/js/app.js"></script>
 </body>
 </html>

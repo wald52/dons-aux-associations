@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Ma commune — Dons publics aux associations</title>
+<meta name="description" content="Ce que votre commune verse aux associations, pour les 34 829 communes qui le déclarent à la DGFiP — qu'elles publient leurs subventions ou non.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="saut" href="#contenu">Aller au contenu</a>
+<nav class="bandeau">
+  <div class="bandeau-inner">
+    <a class="marque" href="index.html">Dons publics aux associations
+      <span>Qui finance les associations en France</span></a>
+    <div class="menu">
+      <a href="index.html">Accueil</a>
+      <a href="recherche.html">Chercher une association</a>
+      <a href="commune.html" aria-current="page">Ma commune</a>
+      <a href="couverture.html">Ce qu'on ne sait pas</a>
+      <a href="methode.html">Sources &amp; méthode</a>
+    </div>
+  </div>
+</nav>
+<main class="enveloppe" id="contenu">
+
+  <header>
+    <h1>Que verse ma commune aux associations&nbsp;?</h1>
+    <p class="chapeau">Il n'y a pas une seule commune de France sur laquelle ce site
+       n'ait rien à dire. Même celles qui ne publient rien déclarent leur
+       <span data-mot="compte6574">compte 6574</span> à la DGFiP&nbsp;: on sait donc
+       <b>combien</b> elles versent, même quand on ignore <b>à qui</b>.</p>
+
+    <div class="champ-unique">
+      <label for="cherche-commune">Votre commune</label>
+      <input id="cherche-commune" type="search" spellcheck="false"
+             placeholder="ex. Besançon, Fleury-sur-Orne, Saint-Denis…">
+    </div>
+  </header>
+
+  <div id="accueil-commune">
+    <div id="resume-national" class="compteurs"></div>
+    <p class="sous-titre">Ces trois chiffres valent pour la France entière. Choisissez
+       une commune ci-dessus pour les siens.</p>
+
+    <div class="points">
+      <div class="point">
+        <h3>Ce que cette page sait</h3>
+        <p>Combien la commune a <span data-mot="mandate">mandaté</span> aux associations
+           chaque année depuis 2010, d'après ses balances comptables — une source qui ne
+           dépend d'aucune politique d'open data.</p>
+      </div>
+      <div class="point">
+        <h3>Ce qu'elle ne sait pas</h3>
+        <p>À qui. Le compte 6574 est une ligne de comptabilité&nbsp;: il ne nomme aucun
+           bénéficiaire. Seules les communes qui publient leurs subventions permettent
+           de le dire — et elles sont 95 sur 34&nbsp;936.</p>
+      </div>
+      <div class="point">
+        <h3>Pourquoi les deux chiffres diffèrent</h3>
+        <p>Le déclaré est <span data-mot="mandate">mandaté</span>, le connu est très
+           majoritairement <span data-mot="vote">voté</span>. Ce ne sont pas les mêmes
+           euros au même moment&nbsp;: ils ne coïncident jamais exactement, et ne
+           s'additionnent jamais.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="fiche-commune"></div>
+
+  <footer>
+    Compte 6574 des balances comptables de la DGFiP, exercices 2010-2025,
+    Licence Ouverte 2.0. Ces montants ne sont <strong>jamais additionnés</strong>
+    à ceux des subventions nominatives du site&nbsp;: ce serait compter deux fois
+    le même argent. <a href="couverture.html">Ce qu'on ne sait pas</a> ·
+    <a href="methode.html">Sources et méthode</a>.
+  </footer>
+</main>
+<script type="module" src="assets/js/commune.js"></script>
+</body>
+</html>

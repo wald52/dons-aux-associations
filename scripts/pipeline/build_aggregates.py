@@ -191,7 +191,16 @@ def main():
     # --- métadonnées ---------------------------------------------------------
     cov = json.load(open(os.path.join(ROOT, "data", "canonical", "coverage.json"),
                          encoding="utf-8"))
-    deps_meta = {code: [m["nom"], m["reg_code"]] for code, m in ref["departements"].items()}
+    # La population de chaque département, sommée depuis les communes du
+    # référentiel INSEE. Elle sert la vue « par habitant » de la carte : un
+    # choroplèthe de montants bruts est d'abord une carte de population, et
+    # c'est la vue rapportée aux habitants qui apprend quelque chose.
+    pop_dep = collections.Counter()
+    for m in ref["communes"].values():
+        if m.get("dep_code"):
+            pop_dep[m["dep_code"]] += m.get("population") or 0
+    deps_meta = {code: [m["nom"], m["reg_code"], pop_dep.get(code, 0)]
+                 for code, m in ref["departements"].items()}
     regs_meta = {code: m["nom"] for code, m in ref["regions"].items()}
 
     write_gz({
@@ -203,7 +212,7 @@ def main():
             "departement": "Département", "epci": "Intercommunalité",
             "commune": "Commune", "inconnu": "Donateur non identifié",
         },
-        "departements": {"schema": ["nom", "reg_code"], "valeurs": deps_meta},
+        "departements": {"schema": ["nom", "reg_code", "population"], "valeurs": deps_meta},
         "regions": regs_meta,
         "totaux": {
             "lignes": report["rows_total"],

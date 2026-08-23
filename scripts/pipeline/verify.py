@@ -232,41 +232,68 @@ def main():
               f"{n_vote:,} votés + {n_paye:,} payés + {hors:,} hors don "
               f"+ {n_agg:,} agrégats + {n_hors_champ:,} hors champ = {n:,}")
 
-    # 10. Index de recherche croisée (phase 3) — s'il a été construit --------
-    rech = os.path.join(ROOT, "data", "canonical", "recherche")
+    # 10. Index de navigateur (phase 13) — s'il a été construit -----------
+    #
+    # Mêmes six garanties qu'à l'époque des Parquet, portées au format servi :
+    # rien de ce que le navigateur affiche ne doit pouvoir diverger de la
+    # table canonique en silence.
+    rech = os.path.join(ROOT, "data", "recherche")
     if os.path.isdir(rech):
-        tb = pq.read_table(os.path.join(rech, "beneficiaires.parquet"))
+        import gzip as _gzip
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from build_index_navigateur import shard_of, NB_SHARDS, NB_BLOCS
+
+        def _lire(chemin):
+            with _gzip.open(chemin, "rt", encoding="utf-8") as f:
+                return json.load(f)
+
+        noms = _lire(os.path.join(rech, "noms.json.gz"))
+        nb_benef = noms["nb"]
         check("index : versements comptés = table canonique",
-              sum(tb.column("nb_versements").to_pylist()) == n,
-              f"{sum(tb.column('nb_versements').to_pylist()):,}")
-        somme_idx = round(sum(x or 0 for x in tb.column("montant_eur").to_pylist()), 2)
+              sum(noms["v"]) == n, f"{sum(noms['v']):,}")
+        somme_idx = sum(noms["m"])
         # Même règle que l'index et que les agrégats — celle de common.py. La
         # recopier ici la ferait diverger au premier changement.
-        somme_can = round(sum(
+        somme_can = sum(
             amt[i] or 0 for i in range(n)
             if C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i],
-                                        concours[i])), 2)
+                                        concours[i]))
+        # L'index sert des entiers : l'écart admis est d'un euro par
+        # bénéficiaire, pas d'un euro en tout.
         check("index : montants = table canonique",
-              abs(somme_idx - somme_can) < 1, f"{somme_idx:,.0f} €")
-        bids = set(tb.column("benef_id").to_pylist())
-        check("index : benef_id uniques", len(bids) == tb.num_rows)
+              abs(somme_idx - somme_can) < nb_benef, f"{somme_idx:,.0f} €")
 
-        import glob as _glob
-        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-        from build_search_index import shard_of, NB_SHARDS
-        shard_files = sorted(_glob.glob(os.path.join(rech, "versements", "*.parquet")))
-        check("index : 64 shards de versements présents", len(shard_files) == NB_SHARDS,
-              f"{len(shard_files)} fichiers")
+        # Le rang d'un résultat désigne un identifiant par sa POSITION : si un
+        # bloc ne commence pas là où le précédent s'arrête, chaque fiche
+        # ouverte serait celle d'une autre association.
+        bids = []
+        desalignes = 0
+        for b in range(NB_BLOCS):
+            bloc = _lire(os.path.join(rech, "ids", f"{b:03d}.json.gz"))
+            if bloc["debut"] != len(bids):
+                desalignes += 1
+            bids.extend(bloc["ids"])
+        check("index : blocs d'identifiants alignés sur les noms",
+              desalignes == 0 and len(bids) == nb_benef and len(set(bids)) == nb_benef,
+              f"{len(bids):,} identifiants, {len(set(bids)):,} distincts, "
+              f"{desalignes} bloc(s) désaligné(s)")
+        connus = set(bids)
+
+        fichiers = sorted(glob.glob(os.path.join(rech, "fiches", "*.json.gz")))
+        check(f"index : {NB_SHARDS} shards de fiches présents",
+              len(fichiers) == NB_SHARDS, f"{len(fichiers)} fichiers")
         vrows = 0
         mal_places = 0
         orphelins = 0
-        for f in shard_files:
-            num = int(os.path.basename(f)[:2])
-            tv = pq.read_table(f, columns=["benef_id"])
-            vrows += tv.num_rows
-            vus = set(tv.column("benef_id").to_pylist())
-            mal_places += sum(1 for b in vus if shard_of(b) != num)
-            orphelins += sum(1 for b in vus if b not in bids)
+        vus = set()
+        for f in fichiers:
+            num = int(os.path.basename(f)[:3])
+            shard = _lire(f)
+            vrows += len(shard["y"])
+            dedans = shard["bid"].split("\n") if shard["bid"] else []
+            mal_places += sum(1 for b in dedans if shard_of(b) != num)
+            orphelins += sum(1 for b in dedans if b not in connus)
+            vus.update(dedans)
         check("index : chaque versement dans son shard", mal_places == 0,
               f"{vrows:,} versements répartis")
         check("index : aucun bénéficiaire orphelin", orphelins == 0)

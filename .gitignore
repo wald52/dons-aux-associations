@@ -33,3 +33,5 @@ __pycache__/
 # 1 Go de GitHub Pages. Pour rejouer normalize_legacy.py, les récupérer depuis
 # l'historique : git checkout 0b14348 -- data/sources
 data/sources/
+
+# Le banc de mesure installe playwright hors du dépôt ; rien à ignorer ici.

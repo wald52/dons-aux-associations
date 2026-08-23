@@ -41,13 +41,14 @@ Usage :
     python3 scripts/pipeline/build_angle_mort.py
 
 Entrées : data/raw/jo/comptes-annuels.csv (cf. fetch_jo_comptes.py)
-          data/canonical/recherche/beneficiaires.parquet
+          data/recherche/noms.json.gz + data/recherche/ids/
 Sorties : data/canonical/angle-mort.json (versionné)
           data/aggregates/angle-mort.json.gz (servi au navigateur)
 """
 
 import collections
 import csv
+import glob
 import gzip
 import io
 import json
@@ -59,14 +60,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 if __name__ == "__main__":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
-import pyarrow.parquet as pq
-
 import common as C
 
 ROOT = C.ROOT
 JO = os.path.join(ROOT, "data", "raw", "jo", "comptes-annuels.csv")
 MANIFEST_JO = os.path.join(ROOT, "data", "sources-manifest", "jo-comptes.json")
-INDEX = os.path.join(ROOT, "data", "canonical", "recherche", "beneficiaires.parquet")
+INDEX = os.path.join(ROOT, "data", "recherche")
 OUT_DETAIL = os.path.join(ROOT, "data", "canonical", "angle-mort.json")
 OUT_WEB = os.path.join(ROOT, "data", "aggregates", "angle-mort.json.gz")
 
@@ -203,24 +202,57 @@ def normaliser_rna(v):
 
 
 def index_du_site():
-    """SIREN, RNA et couples (nom, département) connus du site."""
-    t = pq.read_table(INDEX, columns=["siren", "rna", "nom", "nom_norm", "dep_code",
-                                      "montant_eur", "nb_echelons"])
+    """SIREN, RNA et couples (nom, département) connus du site.
+
+    Lu dans l'index servi au navigateur, pas dans un fichier de travail à part :
+    ce que cette page compare à l'angle mort doit être EXACTEMENT ce que le
+    site montre, sans quoi le taux de reconnaissance décrirait un index qui
+    n'existe plus.
+
+    Le SIREN et le RNA ne sont pas stockés : ils SONT l'identifiant. La règle
+    de `build_index_navigateur.benef_id` — « S »+siren, sinon « R »+rna, sinon
+    « N »+empreinte — se relit dans l'autre sens sans rien deviner.
+
+    Le RNA, lui, ne se relit pas dans l'identifiant quand le bénéficiaire est
+    identifié par son SIREN : il vient de `rna.json.gz`, écrit pour cet usage.
+
+    `nom_norm`, lui, est recalculé depuis le nom affiché. L'index ne le sert
+    pas (2,6 Mo économisés sur chaque recherche), et le pliage est celui du
+    pipeline, `C.normalize_name`. L'écart possible est marginal et va vers la
+    sous-reconnaissance : le nom retenu par l'index est le plus fréquent des
+    libellés, quand `nom_norm` venait du premier rencontré.
+    """
+    with gzip.open(os.path.join(INDEX, "noms.json.gz"), "rt", encoding="utf-8") as f:
+        noms = json.load(f)
+    with gzip.open(os.path.join(INDEX, "rna.json.gz"), "rt", encoding="utf-8") as f:
+        creux = json.load(f)
+    rna_par_rang = dict(zip(creux["i"], creux["v"]))
+    ids = []
+    for b in range(len(glob.glob(os.path.join(INDEX, "ids", "*.json.gz")))):
+        with gzip.open(os.path.join(INDEX, "ids", f"{b:03d}.json.gz"),
+                       "rt", encoding="utf-8") as f:
+            ids.extend(json.load(f)["ids"])
+
+    libelles = noms["n"].split("\n")
+    deps = noms["d"].split("\n")
     sirens = {}
     rnas = {}
     par_nom = collections.defaultdict(set)
-    for siren, rna, nom, nom_norm, dep, montant, echelons in zip(
-            t.column("siren").to_pylist(), t.column("rna").to_pylist(),
-            t.column("nom").to_pylist(), t.column("nom_norm").to_pylist(),
-            t.column("dep_code").to_pylist(),
-            t.column("montant_eur").to_pylist(), t.column("nb_echelons").to_pylist()):
-        fiche = (nom, dep, montant or 0.0, echelons or 0)
+    for i, bid in enumerate(ids):
+        nom = libelles[i]
+        dep = deps[i] or None
+        fiche = (nom, dep, float(noms["m"][i] or 0), noms["e"][i] or 0)
+        nom_norm = C.normalize_name(nom)
         if nom_norm:
             par_nom[nom_norm].add(dep)
-        s = (siren or "").strip()
-        if len(s) == 9 and s.isdigit():
-            sirens.setdefault(s, fiche)
-        r = normaliser_rna(rna)
+        if bid.startswith("S"):
+            s = bid[1:]
+            if len(s) == 9 and s.isdigit():
+                sirens.setdefault(s, fiche)
+        # Le RNA vient du fichier creux : un bénéficiaire identifié par son
+        # SIREN en a souvent un aussi, et c'est parfois le seul par lequel un
+        # déposant du Journal officiel se laisse reconnaître.
+        r = normaliser_rna(rna_par_rang.get(i) or (bid[1:] if bid.startswith("R") else None))
         if r:
             rnas.setdefault(r, fiche)
     return sirens, rnas, par_nom
@@ -231,8 +263,8 @@ def main():
     if not os.path.exists(JO):
         print("  export absent : lancer d'abord fetch_jo_comptes.py")
         return 1
-    if not os.path.exists(INDEX):
-        print("  index absent : lancer d'abord build_search_index.py")
+    if not os.path.isdir(INDEX):
+        print("  index absent : lancer d'abord build_index_navigateur.py")
         return 1
 
     sirens_site, rnas_site, noms_site = index_du_site()
