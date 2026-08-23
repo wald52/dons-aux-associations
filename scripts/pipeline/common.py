@@ -896,9 +896,14 @@ def collectivite_du_libelle(*libelles):
         # Le tiret ne coupe que s'il est SUIVI d'une espace : « CA 2011- Ville de
         # Rennes » se coupe, « Noyal-Châtillon-sur-Seiche » reste entier.
         segments = [x.strip() for x in re.split(r"\s*[-–|]\s+|[|]", brut) if x.strip()]
-        # Puis les fins de titre : « … aux associations Noyal-Châtillon-sur-Seiche ».
+        # Puis TOUS les groupes de 1 à 4 mots contigus : la collectivité est
+        # parfois au milieu du titre (« Subventions Besançon 2008-2012 ») ou à
+        # sa fin (« … aux associations Noyal-Châtillon-sur-Seiche »). Le filtre
+        # n'est pas la position mais le référentiel : seul un nom qui EXISTE à
+        # l'INSEE est retenu.
         mots = brut.split()
-        segments += [" ".join(mots[-k:]) for k in range(1, 5) if len(mots) >= k]
+        segments += [" ".join(mots[i:i + k])
+                     for k in range(1, 5) for i in range(len(mots) - k + 1)]
         for seg in segments:
             t = fold(seg)
             for forme in _FORMES_COLLECTIVITE:
