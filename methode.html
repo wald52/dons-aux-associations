@@ -30,13 +30,13 @@
   </header>
 
   <div class="compteurs">
-    <div class="compteur"><span class="valeur">2 817 042</span>
+    <div class="compteur"><span class="valeur">2 811 070</span>
       <span class="etiquette">versements recensés</span></div>
-    <div class="compteur"><span class="valeur">148,3 Md€</span>
+    <div class="compteur"><span class="valeur">148,4 Md€</span>
       <span class="etiquette">de dons votés</span></div>
-    <div class="compteur"><span class="valeur">10,0 Md€</span>
+    <div class="compteur"><span class="valeur">10,4 Md€</span>
       <span class="etiquette">de dons payés, comptés à part</span></div>
-    <div class="compteur"><span class="valeur">681</span>
+    <div class="compteur"><span class="valeur">698</span>
       <span class="etiquette">sources</span></div>
     <div class="compteur"><span class="valeur">1991–2036</span>
       <span class="etiquette">années couvertes</span></div>
@@ -57,20 +57,20 @@
         <tbody>
       <tr><td>État — annexe Jaune</td><td class='num'>13</td><td class='num'>808 666</td><td class='num montant'>61,8 Md€</td></tr>
       <tr><td>Sources reprises une par une</td><td class='num'>144</td><td class='num'>774 737</td><td class='num montant'>30,9 Md€</td></tr>
-      <tr><td>Collectivités — moissonnage des portails</td><td class='num'>230</td><td class='num'>727 864</td><td class='num montant'>35,4 Md€</td></tr>
-      <tr><td>Collectivités — moissonnage data.gouv.fr</td><td class='num'>294</td><td class='num'>505 775</td><td class='num montant'>20,3 Md€</td></tr>
+      <tr><td>Collectivités — moissonnage des portails</td><td class='num'>253</td><td class='num'>730 600</td><td class='num montant'>35,5 Md€</td></tr>
+      <tr><td>Collectivités — moissonnage data.gouv.fr</td><td class='num'>288</td><td class='num'>497 067</td><td class='num montant'>20,3 Md€</td></tr>
         </tbody>
       </table>
     </div>
-    <p><strong>Le moissonnage est automatique.</strong> 666 jeux de
-       données ont été examinés sur data.gouv.fr, 383 retenus, soit
-       510 fichiers. Un fichier n'est retenu que si ses colonnes
+    <p><strong>Le moissonnage est automatique.</strong> 663 jeux de
+       données ont été examinés sur data.gouv.fr, 414 retenus, soit
+       542 fichiers. Un fichier n'est retenu que si ses colonnes
        réelles correspondent à des subventions — le schéma déclaré ne suffit pas. Tout nouveau
        millésime publié par une collectivité sera repris sans intervention.</p>
     <p>Les collectivités qui ne passent pas par data.gouv.fr publient sur leur propre
        portail. Ces portails partagent tous la même interface, donc un second moissonneur
        les couvre : 47 portails visités,
-       603 jeux examinés, 431
+       603 jeux examinés, 479
        retenus — au même test sur les colonnes réelles.</p>
     <p>L'annexe budgétaire « Jaune » de l'État est moissonnée de la même façon, sur
        13 millésimes.</p>
@@ -78,11 +78,11 @@
     <h2>Ce que la déduplication retire</h2>
     <p>Deux administrations publient parfois le même versement. Les additionner le
        compterait deux fois. Une clé métier — bénéficiaire, donateur, année, montant, objet —
-       les réconcilie&nbsp;: <strong>1 159 532 lignes</strong> écartées, soit
-       89,7 Md€.</p>
+       les réconcilie&nbsp;: <strong>1 199 819 lignes</strong> écartées, soit
+       91,9 Md€.</p>
     <div class="encart">
       <h3>Ce qui n'est PAS dédupliqué</h3>
-      <p>À l'intérieur d'une même source, 104 307 lignes ont une clé
+      <p>À l'intérieur d'une même source, 98 467 lignes ont une clé
          identique et sont <strong>toutes conservées</strong>. L'inspection montre qu'il s'agit
          d'organismes homonymes distincts — vingt-trois « Maison des jeunes et de la culture »
          touchant la même subvention type sont vingt-trois associations, pas un doublon.</p>
@@ -129,10 +129,10 @@
        <strong>voté</strong>, puis ce qu'elle a <strong>mandaté</strong> (annexe au compte
        administratif). Les additionner la compterait deux fois.</p>
     <p>Le site affiche donc les deux côte à côte et ne les somme jamais&nbsp;:
-       <strong>148,3 Md€</strong> votés
-       (2 454 125 versements) et
-       <strong>10,0 Md€</strong> déclarés payés
-       (124 755 versements).</p>
+       <strong>148,4 Md€</strong> votés
+       (2 445 251 versements) et
+       <strong>10,4 Md€</strong> déclarés payés
+       (127 656 versements).</p>
     <div class="encart">
       <h3>Pourquoi le payé n'est plus caché</h3>
       <p>La règle a longtemps été « le payé sort des totaux ». Mesuré, cela retirait
@@ -146,16 +146,16 @@
 
     <h2>Les anomalies que nous signalons sans les corriger</h2>
     <ul>
-<li>L'année <strong>1991</strong> totalise 78 261 €, soit 513,9 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li><li>L'année <strong>2010</strong> totalise 1,8 Md€, soit 5,5 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li>
+<li>L'année <strong>1991</strong> totalise 78 261 €, soit 513,9 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li><li>L'année <strong>2010</strong> totalise 1,8 Md€, soit 4,9 fois les années voisines. Ce chiffre est conforme à ce que publie la source ; le périmètre de l'annexe cette année-là reste à vérifier.</li>
       <li><strong>29 159 numéros SIRET ont été détruits par un
         tableur</strong> : ils sont publiés sous la forme <code>2,19301E+13</code>, un nombre dont
         seuls six chiffres significatifs subsistent. Ce n'est pas réparable ; seul un
         re-moissonnage de la source d'origine le corrigerait.</li>
       <li><strong>298 588 versements n'ont pas de département exploitable</strong>
         et n'apparaissent donc pas sur la carte, bien qu'ils comptent dans les totaux.</li>
-      <li><strong>Des doublons que la clé métier ne voit pas</strong> — 27 676 lignes, 798,6 M€. Même bénéficiaire, même donateur, même exercice, même montant, publiés par deux sources sous des objets différents. L'objet faisant partie de la clé, la déduplication ne les rapproche pas. Ils restent DANS les totaux : retirer l'objet de la clé fondrait deux subventions réellement distinctes de même montant à la même association la même année.</li>
+      <li><strong>Des doublons que la clé métier ne voit pas</strong> — 27 540 lignes, 786,5 M€. Même bénéficiaire, même donateur, même exercice, même montant, publiés par deux sources sous des objets différents. L'objet faisant partie de la clé, la déduplication ne les rapproche pas. Ils restent DANS les totaux : retirer l'objet de la clé fondrait deux subventions réellement distinctes de même montant à la même association la même année.</li>
       <li><strong>Des bénéficiaires dont le nom est un numéro</strong> — 7 016 lignes, 125,5 M€. La source a recopié le SIREN ou le RNA dans la colonne du nom. L'organisme est identifiable mais illisible, et ne se rapproche pas de ses propres lignes correctement nommées.</li>
-      <li><strong>Des bénéficiaires comptés comme associations faute de mieux</strong> — 171 642 lignes, 55,1 Md€. La source ne dit pas leur nature juridique : nous la devinons sur le nom, et le défaut est « association ». On y trouve donc des sociétés et des opérateurs publics. Rien n'est retiré — deviner une exclusion effacerait des associations réelles — mais la liste demande un œil humain.</li>
+      <li><strong>Des bénéficiaires comptés comme associations faute de mieux</strong> — 180 139 lignes, 55,2 Md€. La source ne dit pas leur nature juridique : nous la devinons sur le nom, et le défaut est « association ». On y trouve donc des sociétés et des opérateurs publics. Rien n'est retiré — deviner une exclusion effacerait des associations réelles — mais la liste demande un œil humain.</li>
     </ul>
 
     <h2>Comment une association est reconnue</h2>
@@ -165,18 +165,18 @@
        « Centre communal d'action sociale » existe dans quarante et un départements.</p>
     <p>La conséquence est assumée : une association publiée sans identifiant par deux sources
        peut apparaître deux fois, et un cumul d'échelons peut être <strong>sous-estimé, jamais
-       inventé</strong>. Sur 417 639 bénéficiaires résolus,
-       10 128 sont financés par au moins trois échelons publics.</p>
+       inventé</strong>. Sur 427 451 bénéficiaires résolus,
+       9 566 sont financés par au moins trois échelons publics.</p>
 
     <h2>Ce que la couverture veut dire</h2>
     <p>La carte ne couvre pas la France entière et ne le prétend pas.
-       94 communes sur 34 936 ont des
-       données, soit <strong>11,3&nbsp;% de la
+       95 communes sur 34 936 ont des
+       données, soit <strong>11,4&nbsp;% de la
        population</strong> — la couverture se mesure en habitants, pas en nombre de fichiers.</p>
     <p>La raison principale est en amont : <strong>très peu de collectivités publient</strong>.
        Toutes sources confondues, les données ne contiennent que
-       123 communes,
-       43 intercommunalités,
+       124 communes,
+       42 intercommunalités,
        44 départements et
        7 régions
        en tant que <em>financeurs</em>. L'État, lui, est couvert de façon dense.
@@ -196,16 +196,16 @@
       <thead><tr><th>Exercice</th><th>Comptes nationaux (D751)</th>
         <th>Le site retrouve (voté)</th><th>Part</th></tr></thead>
       <tbody>
-      <tr><td>2012</td><td class='num montant'>30,5&nbsp;Md€</td><td class='num montant'>2,1 Md€</td><td class='num'>6,9 %</td></tr>
+      <tr><td>2012</td><td class='num montant'>30,5&nbsp;Md€</td><td class='num montant'>2,1 Md€</td><td class='num'>6,8 %</td></tr>
       <tr><td>2013</td><td class='num montant'>31,3&nbsp;Md€</td><td class='num montant'>2,6 Md€</td><td class='num'>8,3 %</td></tr>
-      <tr><td>2014</td><td class='num montant'>31,8&nbsp;Md€</td><td class='num montant'>3,1 Md€</td><td class='num'>9,9 %</td></tr>
-      <tr><td>2015</td><td class='num montant'>32,3&nbsp;Md€</td><td class='num montant'>3,8 Md€</td><td class='num'>11,8 %</td></tr>
-      <tr><td>2016</td><td class='num montant'>33,1&nbsp;Md€</td><td class='num montant'>7,1 Md€</td><td class='num'>21,5 %</td></tr>
-      <tr><td>2017</td><td class='num montant'>34,4&nbsp;Md€</td><td class='num montant'>8,9 Md€</td><td class='num'>26,0 %</td></tr>
-      <tr><td>2018</td><td class='num montant'>35,0&nbsp;Md€</td><td class='num montant'>11,0 Md€</td><td class='num'>31,5 %</td></tr>
-      <tr><td>2019</td><td class='num montant'>35,8&nbsp;Md€</td><td class='num montant'>15,5 Md€</td><td class='num'>43,2 %</td></tr>
+      <tr><td>2014</td><td class='num montant'>31,8&nbsp;Md€</td><td class='num montant'>3,1 Md€</td><td class='num'>9,7 %</td></tr>
+      <tr><td>2015</td><td class='num montant'>32,3&nbsp;Md€</td><td class='num montant'>3,9 Md€</td><td class='num'>11,9 %</td></tr>
+      <tr><td>2016</td><td class='num montant'>33,1&nbsp;Md€</td><td class='num montant'>7,0 Md€</td><td class='num'>21,2 %</td></tr>
+      <tr><td>2017</td><td class='num montant'>34,4&nbsp;Md€</td><td class='num montant'>9,0 Md€</td><td class='num'>26,2 %</td></tr>
+      <tr><td>2018</td><td class='num montant'>35,0&nbsp;Md€</td><td class='num montant'>11,1 Md€</td><td class='num'>31,6 %</td></tr>
+      <tr><td>2019</td><td class='num montant'>35,8&nbsp;Md€</td><td class='num montant'>15,5 Md€</td><td class='num'>43,4 %</td></tr>
       <tr><td>2020</td><td class='num montant'>38,0&nbsp;Md€</td><td class='num montant'>17,4 Md€</td><td class='num'>45,8 %</td></tr>
-      <tr><td>2021</td><td class='num montant'>40,0&nbsp;Md€</td><td class='num montant'>19,9 Md€</td><td class='num'>49,7 %</td></tr>
+      <tr><td>2021</td><td class='num montant'>40,0&nbsp;Md€</td><td class='num montant'>19,9 Md€</td><td class='num'>49,8 %</td></tr>
       <tr><td>2022</td><td class='num montant'>42,7&nbsp;Md€</td><td class='num montant'>9,0 Md€</td><td class='num'>21,1 %</td></tr>
       <tr><td>2023</td><td class='num montant'>45,6&nbsp;Md€</td><td class='num montant'>24,0 Md€</td><td class='num'>52,6 %</td></tr>
       </tbody>
@@ -215,7 +215,7 @@
        complétude&nbsp;: une part faible sur un exercice ancien signale surtout que peu de
        collectivités publiaient alors.</p>
       <p>L'exercice 2022 creuse la colonne du site&nbsp;: ce n'est pas une baisse des subventions, mais l'absence de l'annexe Jaune de l'État, qui pèse à elle seule les deux tiers du total — le fichier de l'exercice 2022 est vide à la source.</p>
-      <p>Second repère, territorial celui-là&nbsp;: le compte 6574 des balances comptables de la DGFiP. 34 829 communes y déclarent 51,1 Md€ de subventions de fonctionnement aux associations entre 2010 et 2025&nbsp;; le site en connaît <strong>7,7 Md€</strong>, soit 15,1&nbsp;%. Le détail échelon par échelon est sur la page <a href="couverture.html">Ce qu'on ne sait pas</a>.</p>
+      <p>Second repère, territorial celui-là&nbsp;: le compte 6574 des balances comptables de la DGFiP. 34 829 communes y déclarent 51,1 Md€ de subventions de fonctionnement aux associations entre 2010 et 2025&nbsp;; le site en connaît <strong>7,9 Md€</strong>, soit 15,5&nbsp;%. Le détail échelon par échelon est sur la page <a href="couverture.html">Ce qu'on ne sait pas</a>.</p>
 
 
     <h2>Reproduire ces chiffres</h2>

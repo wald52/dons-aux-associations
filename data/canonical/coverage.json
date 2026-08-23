@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T01:33:23Z",
+  "generated_at": "2026-08-23T12:44:59Z",
   "referentiel": {
     "source": "wald52/carte-finances-locales (OFGL / BANATIC / INSEE)",
     "millesime": 2024,
@@ -725,5 +725,5 @@
       }
     }
   },
-  "lignes_sans_departement": 1532227
+  "lignes_sans_departement": 1526255
 }

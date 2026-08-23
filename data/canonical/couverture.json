@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T01:38:48Z",
+  "generated_at": "2026-08-23T12:50:28Z",
   "methode": "Chaque libellé de donateur est rapproché du référentiel INSEE et désigne AU PLUS UNE collectivité — en cas d'homonymie, aucune. La couverture affichée est donc un minimum : un libellé inhabituel échoue à s'apparier alors que la donnée existe, mais aucune collectivité n'est comptée à tort.",
   "etats": {
     "donnees": "des subventions versées par cette collectivité sont présentes",
@@ -10,13 +10,13 @@
     "commune": {
       "univers": 34936,
       "par_etat": {
-        "sans_donnees": 34826,
-        "donnees": 94,
+        "sans_donnees": 34825,
+        "donnees": 95,
         "publie_non_lu": 16
       },
       "population_totale": 68325284,
-      "population_couverte": 7697150,
-      "part_population_couverte": 11.3,
+      "population_couverte": 7815639,
+      "part_population_couverte": 11.4,
       "detail": {
         "02722": {
           "nom": "Soissons",
@@ -115,6 +115,13 @@
           "lignes": 36,
           "montant_eur": 27232.0,
           "population": 3147
+        },
+        "25056": {
+          "nom": "Besançon",
+          "etat": "donnees",
+          "lignes": 4050,
+          "montant_eur": 148591879.0,
+          "population": 118489
         },
         "25204": {
           "nom": "Doubs",
@@ -231,8 +238,8 @@
         "35238": {
           "nom": "Rennes",
           "etat": "donnees",
-          "lignes": 35047,
-          "montant_eur": 793811074.28,
+          "lignes": 38249,
+          "montant_eur": 901447607.95,
           "population": 230890
         },
         "35277": {
@@ -252,8 +259,8 @@
         "35331": {
           "nom": "Talensac",
           "etat": "donnees",
-          "lignes": 330,
-          "montant_eur": 19034424.0,
+          "lignes": 220,
+          "montant_eur": 18847812.0,
           "population": 2571
         },
         "36006": {
@@ -789,7 +796,7 @@
           "population": 36568
         }
       },
-      "donateurs_dans_les_donnees": 123,
+      "donateurs_dans_les_donnees": 124,
       "donateurs_non_apparies": [
         "CCAS GRANDCHAMP DESFONTAINES",
         "CCAS VILLE DE NOUMEA",
@@ -806,8 +813,8 @@
       "univers": 1335,
       "par_etat": {
         "sans_donnees": 1292,
-        "donnees": 32,
-        "publie_non_lu": 11
+        "donnees": 31,
+        "publie_non_lu": 12
       },
       "population_totale": 0,
       "population_couverte": 0,
@@ -906,9 +913,9 @@
         },
         "243500139": {
           "nom": "Rennes Métropole",
-          "etat": "donnees",
-          "lignes": 20187,
-          "montant_eur": 396053293.81,
+          "etat": "publie_non_lu",
+          "lignes": 0,
+          "montant_eur": 0,
           "population": 0
         },
         "243500741": {
@@ -957,7 +964,7 @@
           "nom": "Communauté d'agglomération Lorient Agglomération",
           "etat": "donnees",
           "lignes": 663,
-          "montant_eur": 105847619.16,
+          "montant_eur": 89240128.32,
           "population": 0
         },
         "245701222": {
@@ -1115,7 +1122,7 @@
           "population": 0
         }
       },
-      "donateurs_dans_les_donnees": 43,
+      "donateurs_dans_les_donnees": 42,
       "donateurs_non_apparies": [
         "AGGLOMERATION MONTARGOISE",
         "AGGLOPOLYS",
@@ -1510,12 +1517,12 @@
   },
   "donateurs_hors_referentiel": {
     "inconnu": [
-      67060,
-      2117539569.47
+      62834,
+      1903653512.47
     ],
     "etat": [
-      1862648,
-      99876294638.38
+      1873947,
+      100297838578.38
     ],
     "operateur": [
       64676,

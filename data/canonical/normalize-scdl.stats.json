@@ -1,15 +1,15 @@
 {
   "family": "scdl",
-  "normalized_at": "2026-08-23T01:23:14Z",
-  "fichiers": 510,
-  "lues": 1207736,
-  "gardees": 1035571,
+  "normalized_at": "2026-08-23T12:34:39Z",
+  "fichiers": 542,
+  "lues": 1235349,
+  "gardees": 1061454,
   "par_niveau": {
-    "commune": 145036,
-    "inconnu": 66116,
+    "commune": 175460,
+    "inconnu": 61840,
     "operateur": 75743,
-    "etat": 324010,
-    "epci": 70647,
+    "etat": 343986,
+    "epci": 50406,
     "departement": 112799,
     "region": 241220
   },
@@ -869,41 +869,6 @@
       "montant": 607026.0
     },
     {
-      "source_id": "scdl-651768b4-818ce77b",
-      "dataset": "Subventions depuis 2017",
-      "organisation": "Agglomération Montargoise Et rives du loing",
-      "page": "https://www.data.gouv.fr/datasets/subventions-depuis-2017/",
-      "fichier": "data/raw/scdl/651768b4-818ce77b.csv",
-      "encodage": "utf-8-sig",
-      "lues": 119,
-      "gardees": 119,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_rna": 119,
-        "no_siret": 1,
-        "year_from_label": 22,
-        "beneficiary_not_association": 13
-      },
-      "niveaux": {
-        "epci": 119
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nomBeneficiaire",
-        "benef_id": "idBeneficiaire",
-        "benef_rna": "rnaBeneficiaire",
-        "attrib_nom": "﻿nomAttribuant",
-        "objet": "objet",
-        "montant": "montant",
-        "date_conv": "dateConvention",
-        "nature": "nature",
-        "attrib_id": "idAttribuant",
-        "reference": "referenceDecision"
-      },
-      "parquet": "data/canonical/parts/scdl-651768b4-818ce77b.parquet",
-      "montant": 6620556.88
-    },
-    {
       "source_id": "scdl-651768b4-ad3e717c",
       "dataset": "Subventions - 2019",
       "organisation": "Agglomération Montargoise Et rives du loing",
@@ -970,6 +935,41 @@
       },
       "parquet": "data/canonical/parts/scdl-651768b4-ed398d42.parquet",
       "montant": 538347.62
+    },
+    {
+      "source_id": "scdl-651768b4-818ce77b",
+      "dataset": "Subventions depuis 2017",
+      "organisation": "Agglomération Montargoise Et rives du loing",
+      "page": "https://www.data.gouv.fr/datasets/subventions-depuis-2017/",
+      "fichier": "data/raw/scdl/651768b4-818ce77b.csv",
+      "encodage": "utf-8-sig",
+      "lues": 119,
+      "gardees": 119,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 119,
+        "no_siret": 1,
+        "year_from_label": 22,
+        "beneficiary_not_association": 13
+      },
+      "niveaux": {
+        "epci": 119
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nomBeneficiaire",
+        "benef_id": "idBeneficiaire",
+        "benef_rna": "rnaBeneficiaire",
+        "attrib_nom": "﻿nomAttribuant",
+        "objet": "objet",
+        "montant": "montant",
+        "date_conv": "dateConvention",
+        "nature": "nature",
+        "attrib_id": "idAttribuant",
+        "reference": "referenceDecision"
+      },
+      "parquet": "data/canonical/parts/scdl-651768b4-818ce77b.parquet",
+      "montant": 6620556.88
     },
     {
       "source_id": "scdl-651768b4-b5193ffe",
@@ -3254,36 +3254,6 @@
       "montant": 29258.2
     },
     {
-      "source_id": "scdl-5bacabdc-5cf9ba69",
-      "dataset": "Subventions accordées aux associations par la commune de TALENSAC",
-      "organisation": "Commune de TALENSAC",
-      "page": "https://www.data.gouv.fr/datasets/subventions-accordees-aux-associations-par-la-commune-de-talensac/",
-      "fichier": "data/raw/scdl/5bacabdc-5cf9ba69.csv",
-      "encodage": "cp1252",
-      "lues": 111,
-      "gardees": 110,
-      "ecartees": 1,
-      "raisons": {
-        "montant illisible": 1
-      },
-      "drapeaux": {
-        "no_rna": 110,
-        "year_missing": 110
-      },
-      "niveaux": {
-        "commune": 110
-      },
-      "colonnes_mappees": {
-        "benef_nom": "COLL_NOM",
-        "benef_id": "COLL_SIRET",
-        "objet": "SUB_OBJET",
-        "montant": "SUB_MONTANT",
-        "nature": "SUB_NATURE"
-      },
-      "parquet": "data/canonical/parts/scdl-5bacabdc-5cf9ba69.parquet",
-      "montant": 186612.0
-    },
-    {
       "source_id": "scdl-5eafe683-2b7922f3",
       "dataset": "Subventions - Conventions signées avec des organismes privés",
       "organisation": "Conseil Départemental des Pyrénées Orientales",
@@ -3493,38 +3463,6 @@
       "montant": 48039220.87
     },
     {
-      "source_id": "scdl-69f42595-763f7be6",
-      "dataset": "Subventions accordées par la Direction de la transformation, de l’innovation et du pilotage du Département de la Haute-Garonne",
-      "organisation": "Conseil départemental de la Haute-Garonne - Haute-Garonne Open Data",
-      "page": "https://www.data.gouv.fr/datasets/subventions-accordees-par-la-direction-de-la-transformation-de-linnovation-et-du-pilotage-du-departement-de-la-haute-garonne/",
-      "fichier": "data/raw/scdl/69f42595-763f7be6.csv",
-      "encodage": "utf-8-sig",
-      "lues": 3,
-      "gardees": 3,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_rna": 1
-      },
-      "niveaux": {
-        "departement": 3
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nomBeneficiaire",
-        "benef_id": "idBeneficiaire",
-        "benef_rna": "rnaBeneficiaire",
-        "attrib_nom": "nomAttribuant",
-        "objet": "objet",
-        "montant": "montant",
-        "date_conv": "dateConvention",
-        "nature": "nature",
-        "attrib_id": "idAttribuant",
-        "reference": "referenceDecision"
-      },
-      "parquet": "data/canonical/parts/scdl-69f42595-763f7be6.parquet",
-      "montant": 441341.0
-    },
-    {
       "source_id": "scdl-69f42554-669a352c",
       "dataset": "Subventions accordées par la Direction de l'éducation du Département de la Haute-Garonne",
       "organisation": "Conseil départemental de la Haute-Garonne - Haute-Garonne Open Data",
@@ -3555,6 +3493,38 @@
       },
       "parquet": "data/canonical/parts/scdl-69f42554-669a352c.parquet",
       "montant": 2838753.0
+    },
+    {
+      "source_id": "scdl-69f42595-763f7be6",
+      "dataset": "Subventions accordées par la Direction de la transformation, de l’innovation et du pilotage du Département de la Haute-Garonne",
+      "organisation": "Conseil départemental de la Haute-Garonne - Haute-Garonne Open Data",
+      "page": "https://www.data.gouv.fr/datasets/subventions-accordees-par-la-direction-de-la-transformation-de-linnovation-et-du-pilotage-du-departement-de-la-haute-garonne/",
+      "fichier": "data/raw/scdl/69f42595-763f7be6.csv",
+      "encodage": "utf-8-sig",
+      "lues": 3,
+      "gardees": 3,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 1
+      },
+      "niveaux": {
+        "departement": 3
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nomBeneficiaire",
+        "benef_id": "idBeneficiaire",
+        "benef_rna": "rnaBeneficiaire",
+        "attrib_nom": "nomAttribuant",
+        "objet": "objet",
+        "montant": "montant",
+        "date_conv": "dateConvention",
+        "nature": "nature",
+        "attrib_id": "idAttribuant",
+        "reference": "referenceDecision"
+      },
+      "parquet": "data/canonical/parts/scdl-69f42595-763f7be6.parquet",
+      "montant": 441341.0
     },
     {
       "source_id": "scdl-69f4254e-91c31a7f",
@@ -3589,11 +3559,11 @@
       "montant": 2508833.0
     },
     {
-      "source_id": "scdl-64702fca-f6dc40e9",
-      "dataset": "Subventions Commune de Fronton",
+      "source_id": "scdl-646c3b2a-d994577e",
+      "dataset": "Subventions Commune de Labarthe-sur-Lèze",
       "organisation": "Conseil départemental de la Haute-Garonne - Haute-Garonne Open Data",
-      "page": "https://www.data.gouv.fr/datasets/subventions-commune-de-fronton/",
-      "fichier": "data/raw/scdl/64702fca-f6dc40e9.csv",
+      "page": "https://www.data.gouv.fr/datasets/subventions-commune-de-labarthe-sur-leze/",
+      "fichier": "data/raw/scdl/646c3b2a-d994577e.csv",
       "encodage": "utf-8-sig",
       "lues": 0,
       "gardees": 0,
@@ -3614,11 +3584,11 @@
       }
     },
     {
-      "source_id": "scdl-646c3b2a-d994577e",
-      "dataset": "Subventions Commune de Labarthe-sur-Lèze",
+      "source_id": "scdl-64702fca-f6dc40e9",
+      "dataset": "Subventions Commune de Fronton",
       "organisation": "Conseil départemental de la Haute-Garonne - Haute-Garonne Open Data",
-      "page": "https://www.data.gouv.fr/datasets/subventions-commune-de-labarthe-sur-leze/",
-      "fichier": "data/raw/scdl/646c3b2a-d994577e.csv",
+      "page": "https://www.data.gouv.fr/datasets/subventions-commune-de-fronton/",
+      "fichier": "data/raw/scdl/64702fca-f6dc40e9.csv",
       "encodage": "utf-8-sig",
       "lues": 0,
       "gardees": 0,
@@ -4635,6 +4605,60 @@
       },
       "parquet": "data/canonical/parts/scdl-6961493f-1e416b72.parquet",
       "montant": 240000.0
+    },
+    {
+      "source_id": "scdl-6a22898d-3f3e1eb9",
+      "dataset": "Financements de la DRAC Pays de la Loire",
+      "organisation": "Direction régionale des affaires culturelles des Pays de la Loire",
+      "page": "https://www.data.gouv.fr/datasets/financements-de-la-drac-pays-de-la-loire/",
+      "fichier": "data/raw/scdl/6a22898d-3f3e1eb9.csv",
+      "encodage": "utf-8-sig",
+      "lues": 9988,
+      "gardees": 9988,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 9988,
+        "no_rna": 9988,
+        "beneficiary_not_association": 539
+      },
+      "niveaux": {
+        "etat": 9988
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé",
+        "montant": "Montant",
+        "annee": "Année"
+      },
+      "parquet": "data/canonical/parts/scdl-6a22898d-3f3e1eb9.parquet",
+      "montant": 363662808.0
+    },
+    {
+      "source_id": "scdl-6a22898d-69fedd52",
+      "dataset": "Financements de la DRAC Pays de la Loire",
+      "organisation": "Direction régionale des affaires culturelles des Pays de la Loire",
+      "page": "https://www.data.gouv.fr/datasets/financements-de-la-drac-pays-de-la-loire/",
+      "fichier": "data/raw/scdl/6a22898d-69fedd52.csv",
+      "encodage": "cp1252",
+      "lues": 9988,
+      "gardees": 9988,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 9988,
+        "no_rna": 9988,
+        "beneficiary_not_association": 539
+      },
+      "niveaux": {
+        "etat": 9988
+      },
+      "colonnes_mappees": {
+        "benef_nom": "libelle",
+        "montant": "montant",
+        "annee": "annee"
+      },
+      "parquet": "data/canonical/parts/scdl-6a22898d-69fedd52.parquet",
+      "montant": 363662831.0
     },
     {
       "source_id": "scdl-5ae68956-7b0d3fd4",
@@ -6024,99 +6048,6 @@
       "montant": 71706.82
     },
     {
-      "source_id": "scdl-6564bb50-371dc265",
-      "dataset": "TABLEAU DE PUBLICATION DES DONNEES ESSENTIELLES DES SUBVENTIONS ADSB ACCORDEES PAR L'EFS OCPM 2021",
-      "organisation": "Etablissement Français du Sang",
-      "page": "https://www.data.gouv.fr/datasets/tableau-de-publication-des-donnees-essentielles-des-subventions-adsb-accordees-par-lefs-ocpm-2021/",
-      "fichier": "data/raw/scdl/6564bb50-371dc265.csv",
-      "encodage": "utf-8-sig",
-      "lues": 2,
-      "gardees": 2,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_rna": 2,
-        "donor_unattributed": 2
-      },
-      "niveaux": {
-        "inconnu": 2
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Nom association",
-        "benef_id": "Numéro SIRET",
-        "attrib_nom": "Nom ETS attribuant la subvention",
-        "objet": "Objet subvention",
-        "montant": "Montant subvention",
-        "date_conv": "Date convention",
-        "nature": "Nature subvention"
-      },
-      "parquet": "data/canonical/parts/scdl-6564bb50-371dc265.parquet",
-      "montant": 72323.0
-    },
-    {
-      "source_id": "scdl-6802665e-4f379a4c",
-      "dataset": "Tableau des données essentielles des subventions versées par l'Etablissement français du sang Nouvelle-Aquitaine",
-      "organisation": "Etablissement Français du Sang",
-      "page": "https://www.data.gouv.fr/datasets/tableau-des-donnees-essentielles-des-subventions-versees-par-letablissement-francais-du-sang-nouvelle-aquitaine/",
-      "fichier": "data/raw/scdl/6802665e-4f379a4c.csv",
-      "encodage": "utf-8-sig",
-      "lues": 28,
-      "gardees": 28,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_rna": 28,
-        "donor_unattributed": 28,
-        "year_missing": 2
-      },
-      "niveaux": {
-        "inconnu": 28
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Nom association",
-        "benef_id": "Numéro SIRET",
-        "attrib_nom": "Nom ETS Attribuant la subvention",
-        "objet": "Objet Subvention",
-        "montant": "Montant Subvention",
-        "date_conv": "Date convention",
-        "nature": "Nature Subvention"
-      },
-      "parquet": "data/canonical/parts/scdl-6802665e-4f379a4c.parquet",
-      "montant": 699165.82
-    },
-    {
-      "source_id": "scdl-6564baff-26791536",
-      "dataset": "TABLEAU DE PUBLICATION DES DONNEES ESSENTIELLES DES SUBVENTIONS ADSB ACCORDEES PAR L'EFS OCPM 2023     ",
-      "organisation": "Etablissement Français du Sang",
-      "page": "https://www.data.gouv.fr/datasets/tableau-de-publication-des-donnees-essentielles-des-subventions-adsb-accordees-par-lefs-ocpm-2023/",
-      "fichier": "data/raw/scdl/6564baff-26791536.csv",
-      "encodage": "utf-8-sig",
-      "lues": 3,
-      "gardees": 3,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_rna": 3,
-        "donor_unattributed": 3,
-        "no_siret": 1,
-        "year_from_label": 1
-      },
-      "niveaux": {
-        "inconnu": 3
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Nom association",
-        "benef_id": "Numéro SIRET",
-        "attrib_nom": "Nom ETS attribuant la subvention",
-        "objet": "Objet subvention",
-        "montant": "Montant subvention",
-        "date_conv": "Date convention",
-        "nature": "Nature subvention"
-      },
-      "parquet": "data/canonical/parts/scdl-6564baff-26791536.parquet",
-      "montant": 74490.95
-    },
-    {
       "source_id": "scdl-6564bb69-c751bf72",
       "dataset": "TABLEAU DE PUBLICATION DES DONNEES ESSENTIELLES DES SUBVENTIONS ADSB ACCORDEES PAR L'EFS OCPM 2020",
       "organisation": "Etablissement Français du Sang",
@@ -6177,6 +6108,99 @@
       },
       "parquet": "data/canonical/parts/scdl-6564bb32-c2ac3665.parquet",
       "montant": 85867.0
+    },
+    {
+      "source_id": "scdl-6564baff-26791536",
+      "dataset": "TABLEAU DE PUBLICATION DES DONNEES ESSENTIELLES DES SUBVENTIONS ADSB ACCORDEES PAR L'EFS OCPM 2023     ",
+      "organisation": "Etablissement Français du Sang",
+      "page": "https://www.data.gouv.fr/datasets/tableau-de-publication-des-donnees-essentielles-des-subventions-adsb-accordees-par-lefs-ocpm-2023/",
+      "fichier": "data/raw/scdl/6564baff-26791536.csv",
+      "encodage": "utf-8-sig",
+      "lues": 3,
+      "gardees": 3,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 3,
+        "donor_unattributed": 3,
+        "no_siret": 1,
+        "year_from_label": 1
+      },
+      "niveaux": {
+        "inconnu": 3
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Nom association",
+        "benef_id": "Numéro SIRET",
+        "attrib_nom": "Nom ETS attribuant la subvention",
+        "objet": "Objet subvention",
+        "montant": "Montant subvention",
+        "date_conv": "Date convention",
+        "nature": "Nature subvention"
+      },
+      "parquet": "data/canonical/parts/scdl-6564baff-26791536.parquet",
+      "montant": 74490.95
+    },
+    {
+      "source_id": "scdl-6802665e-4f379a4c",
+      "dataset": "Tableau des données essentielles des subventions versées par l'Etablissement français du sang Nouvelle-Aquitaine",
+      "organisation": "Etablissement Français du Sang",
+      "page": "https://www.data.gouv.fr/datasets/tableau-des-donnees-essentielles-des-subventions-versees-par-letablissement-francais-du-sang-nouvelle-aquitaine/",
+      "fichier": "data/raw/scdl/6802665e-4f379a4c.csv",
+      "encodage": "utf-8-sig",
+      "lues": 28,
+      "gardees": 28,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 28,
+        "donor_unattributed": 28,
+        "year_missing": 2
+      },
+      "niveaux": {
+        "inconnu": 28
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Nom association",
+        "benef_id": "Numéro SIRET",
+        "attrib_nom": "Nom ETS Attribuant la subvention",
+        "objet": "Objet Subvention",
+        "montant": "Montant Subvention",
+        "date_conv": "Date convention",
+        "nature": "Nature Subvention"
+      },
+      "parquet": "data/canonical/parts/scdl-6802665e-4f379a4c.parquet",
+      "montant": 699165.82
+    },
+    {
+      "source_id": "scdl-6564bb50-371dc265",
+      "dataset": "TABLEAU DE PUBLICATION DES DONNEES ESSENTIELLES DES SUBVENTIONS ADSB ACCORDEES PAR L'EFS OCPM 2021",
+      "organisation": "Etablissement Français du Sang",
+      "page": "https://www.data.gouv.fr/datasets/tableau-de-publication-des-donnees-essentielles-des-subventions-adsb-accordees-par-lefs-ocpm-2021/",
+      "fichier": "data/raw/scdl/6564bb50-371dc265.csv",
+      "encodage": "utf-8-sig",
+      "lues": 2,
+      "gardees": 2,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 2,
+        "donor_unattributed": 2
+      },
+      "niveaux": {
+        "inconnu": 2
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Nom association",
+        "benef_id": "Numéro SIRET",
+        "attrib_nom": "Nom ETS attribuant la subvention",
+        "objet": "Objet subvention",
+        "montant": "Montant subvention",
+        "date_conv": "Date convention",
+        "nature": "Nature subvention"
+      },
+      "parquet": "data/canonical/parts/scdl-6564bb50-371dc265.parquet",
+      "montant": 72323.0
     },
     {
       "source_id": "scdl-60633162-797a8b5a",
@@ -8979,6 +9003,41 @@
       "montant": 27611384.73
     },
     {
+      "source_id": "scdl-63db7fbf-15be5962",
+      "dataset": "Subventions attribuées en 2018 par la métropole",
+      "organisation": "Métropole d'Aix-Marseille-Provence",
+      "page": "https://www.data.gouv.fr/datasets/subventions-attribuees-en-2018-par-la-metropole/",
+      "fichier": "data/raw/scdl/63db7fbf-15be5962.csv",
+      "encodage": "utf-8-sig",
+      "lues": 625,
+      "gardees": 618,
+      "ecartees": 7,
+      "raisons": {
+        "montant illisible": 7
+      },
+      "drapeaux": {
+        "no_rna": 618,
+        "no_siret": 4,
+        "beneficiary_not_association": 2
+      },
+      "niveaux": {
+        "epci": 618
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Nom bénéficaire",
+        "benef_id": "Id bénéficiaire",
+        "attrib_nom": "Nom attribuant",
+        "objet": "Objet",
+        "montant": "Montant",
+        "date_conv": "Date convention",
+        "annee": "annee",
+        "attrib_id": "Id attribuant",
+        "reference": "Référence décision"
+      },
+      "parquet": "data/canonical/parts/scdl-63db7fbf-15be5962.parquet",
+      "montant": 22290166.53
+    },
+    {
       "source_id": "scdl-63db7fc0-37283c5b",
       "dataset": "Subventions attribuées en 2022 par la métropole",
       "organisation": "Métropole d'Aix-Marseille-Provence",
@@ -9051,41 +9110,6 @@
       },
       "parquet": "data/canonical/parts/scdl-63db7fc0-56bbda54.parquet",
       "montant": 216959356.0
-    },
-    {
-      "source_id": "scdl-63db7fbf-15be5962",
-      "dataset": "Subventions attribuées en 2018 par la métropole",
-      "organisation": "Métropole d'Aix-Marseille-Provence",
-      "page": "https://www.data.gouv.fr/datasets/subventions-attribuees-en-2018-par-la-metropole/",
-      "fichier": "data/raw/scdl/63db7fbf-15be5962.csv",
-      "encodage": "utf-8-sig",
-      "lues": 625,
-      "gardees": 618,
-      "ecartees": 7,
-      "raisons": {
-        "montant illisible": 7
-      },
-      "drapeaux": {
-        "no_rna": 618,
-        "no_siret": 4,
-        "beneficiary_not_association": 2
-      },
-      "niveaux": {
-        "epci": 618
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Nom bénéficaire",
-        "benef_id": "Id bénéficiaire",
-        "attrib_nom": "Nom attribuant",
-        "objet": "Objet",
-        "montant": "Montant",
-        "date_conv": "Date convention",
-        "annee": "annee",
-        "attrib_id": "Id attribuant",
-        "reference": "Référence décision"
-      },
-      "parquet": "data/canonical/parts/scdl-63db7fbf-15be5962.parquet",
-      "montant": 22290166.53
     },
     {
       "source_id": "scdl-613f046e-b5d15346",
@@ -9866,13 +9890,12 @@
       "drapeaux": {
         "no_siret": 4050,
         "no_rna": 4050,
-        "donor_unattributed": 4050,
         "amount_zero": 967,
         "beneficiary_not_association": 32,
         "amount_negative": 9
       },
       "niveaux": {
-        "inconnu": 4050
+        "commune": 4050
       },
       "colonnes_mappees": {
         "benef_nom": "beneficiaire",
@@ -9977,6 +10000,36 @@
       "montant": 4565301.0
     },
     {
+      "source_id": "scdl-62ebdcf3-f6abef6a",
+      "dataset": "Subventions versées par la DILCRAH en 2019",
+      "organisation": "Premier ministre",
+      "page": "https://www.data.gouv.fr/datasets/subventions-versees-par-la-dilcrah-en-2019/",
+      "fichier": "data/raw/scdl/62ebdcf3-f6abef6a.csv",
+      "encodage": "cp1252",
+      "lues": 111,
+      "gardees": 111,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 111,
+        "no_rna": 111,
+        "donor_unattributed": 111,
+        "beneficiary_not_association": 4
+      },
+      "niveaux": {
+        "inconnu": 111
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Nom du bénéficiaire*",
+        "objet": "Objet de la convention",
+        "montant": "Montant total de la subvention*",
+        "date_conv": "Date de convention*",
+        "nature": "Nature de la subvention*"
+      },
+      "parquet": "data/canonical/parts/scdl-62ebdcf3-f6abef6a.parquet",
+      "montant": 4072258.0
+    },
+    {
       "source_id": "scdl-62ecc86f-ef786f44",
       "dataset": "Subventions versées par la DILCRAH en 2020",
       "organisation": "Premier ministre",
@@ -10006,36 +10059,6 @@
       },
       "parquet": "data/canonical/parts/scdl-62ecc86f-ef786f44.parquet",
       "montant": 4222148.0
-    },
-    {
-      "source_id": "scdl-62ebdcf3-f6abef6a",
-      "dataset": "Subventions versées par la DILCRAH en 2019",
-      "organisation": "Premier ministre",
-      "page": "https://www.data.gouv.fr/datasets/subventions-versees-par-la-dilcrah-en-2019/",
-      "fichier": "data/raw/scdl/62ebdcf3-f6abef6a.csv",
-      "encodage": "cp1252",
-      "lues": 111,
-      "gardees": 111,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 111,
-        "no_rna": 111,
-        "donor_unattributed": 111,
-        "beneficiary_not_association": 4
-      },
-      "niveaux": {
-        "inconnu": 111
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Nom du bénéficiaire*",
-        "objet": "Objet de la convention",
-        "montant": "Montant total de la subvention*",
-        "date_conv": "Date de convention*",
-        "nature": "Nature de la subvention*"
-      },
-      "parquet": "data/canonical/parts/scdl-62ebdcf3-f6abef6a.parquet",
-      "montant": 4072258.0
     },
     {
       "source_id": "scdl-62ea9650-246315e1",
@@ -10307,7 +10330,7 @@
         "beneficiary_not_association": 8
       },
       "niveaux": {
-        "epci": 3110
+        "commune": 3110
       },
       "colonnes_mappees": {
         "benef_nom": "Nom tiers engagement",
@@ -10336,7 +10359,7 @@
         "beneficiary_not_association": 8
       },
       "niveaux": {
-        "epci": 3177
+        "commune": 3177
       },
       "colonnes_mappees": {
         "benef_nom": "Nom tiers engagement",
@@ -10366,7 +10389,7 @@
         "amount_zero": 1
       },
       "niveaux": {
-        "epci": 3338
+        "commune": 3338
       },
       "colonnes_mappees": {
         "benef_nom": "Nom tiers engagement",
@@ -10379,63 +10402,116 @@
       "montant": 58166205.21
     },
     {
-      "source_id": "scdl-650e54e9-ad76c418",
-      "dataset": "Subventions aux associations 2020 - Ville de Rennes",
+      "source_id": "scdl-6642d443-b055e6b2",
+      "dataset": "CA-2021- Subvention-aux-associations-Ville de Vezin Le Coquet",
       "organisation": "Rennes Métropole en accès libre",
-      "page": "https://www.data.gouv.fr/datasets/subventions-aux-associations-2020-ville-de-rennes/",
-      "fichier": "data/raw/scdl/650e54e9-ad76c418.csv",
+      "page": "https://www.data.gouv.fr/datasets/ca-2021-subvention-aux-associations-ville-de-vezin-le-coquet/",
+      "fichier": "data/raw/scdl/6642d443-b055e6b2.csv",
       "encodage": "utf-8-sig",
-      "lues": 3236,
-      "gardees": 3236,
+      "lues": 24,
+      "gardees": 24,
       "ecartees": 0,
       "raisons": {},
       "drapeaux": {
-        "no_siret": 3236,
-        "no_rna": 3236,
-        "amount_zero": 3,
-        "beneficiary_not_association": 13
+        "no_siret": 24,
+        "no_rna": 24,
+        "donor_unattributed": 24
       },
       "niveaux": {
-        "epci": 3236
+        "inconnu": 24
       },
       "colonnes_mappees": {
-        "benef_nom": "Nom tiers engagement",
-        "objet": "Objet marché GdA",
-        "montant": "Montant HT liquidation",
-        "annee": "Exercice",
-        "nature": "Nature liquidation"
+        "benef_nom": "LIBELLÉ STRUCTURE DE GESTION",
+        "attrib_nom": "NOM COLLECTIVITÉ",
+        "montant": "RÉALISÉ DE L'ANNÉE",
+        "annee": "EXERCICE"
       },
-      "parquet": "data/canonical/parts/scdl-650e54e9-ad76c418.parquet",
-      "montant": 53440907.92
+      "parquet": "data/canonical/parts/scdl-6642d443-b055e6b2.parquet",
+      "montant": 44578.08
     },
     {
-      "source_id": "scdl-650e54d2-f25c7ad9",
-      "dataset": "Subventions aux associations 2022 - Ville de Rennes",
+      "source_id": "scdl-6642d43d-8141c4e3",
+      "dataset": "CA-2023- Subvention-aux-associations - Ville de Vezin Le Coquet",
       "organisation": "Rennes Métropole en accès libre",
-      "page": "https://www.data.gouv.fr/datasets/subventions-aux-associations-2022-ville-de-rennes/",
-      "fichier": "data/raw/scdl/650e54d2-f25c7ad9.csv",
+      "page": "https://www.data.gouv.fr/datasets/ca-2023-subvention-aux-associations-ville-de-vezin-le-coquet/",
+      "fichier": "data/raw/scdl/6642d43d-8141c4e3.csv",
       "encodage": "utf-8-sig",
-      "lues": 3380,
-      "gardees": 3380,
+      "lues": 22,
+      "gardees": 22,
       "ecartees": 0,
       "raisons": {},
       "drapeaux": {
-        "no_siret": 3380,
-        "no_rna": 3380,
-        "beneficiary_not_association": 8
+        "no_siret": 22,
+        "no_rna": 22,
+        "donor_unattributed": 22
       },
       "niveaux": {
-        "epci": 3380
+        "inconnu": 22
       },
       "colonnes_mappees": {
-        "benef_nom": "Nom tiers engagement",
-        "objet": "Objet marché GdA",
-        "montant": "Montant HT liquidation",
-        "annee": "Exercice",
-        "nature": "Nature liquidation"
+        "benef_nom": "LIBELLÉ STRUCTURE DE GESTION",
+        "attrib_nom": "NOM COLLECTIVITÉ",
+        "montant": "RÉALISÉ DE L'ANNÉE",
+        "annee": "EXERCICE"
       },
-      "parquet": "data/canonical/parts/scdl-650e54d2-f25c7ad9.parquet",
-      "montant": 56536891.69
+      "parquet": "data/canonical/parts/scdl-6642d43d-8141c4e3.parquet",
+      "montant": 51896.0
+    },
+    {
+      "source_id": "scdl-6642d430-013c5b32",
+      "dataset": "CA-2020-Subvention-aux-associations- Ville de Vezin Le Coquet",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2020-subvention-aux-associations-ville-de-vezin-le-coquet/",
+      "fichier": "data/raw/scdl/6642d430-013c5b32.csv",
+      "encodage": "utf-8-sig",
+      "lues": 24,
+      "gardees": 24,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 24,
+        "no_rna": 24,
+        "donor_unattributed": 24
+      },
+      "niveaux": {
+        "inconnu": 24
+      },
+      "colonnes_mappees": {
+        "benef_nom": "LIBELLÉ STRUCTURE DE GESTION",
+        "attrib_nom": "NOM COLLECTIVITÉ",
+        "montant": "RÉALISÉ DE L'ANNÉE",
+        "annee": "EXERCICE"
+      },
+      "parquet": "data/canonical/parts/scdl-6642d430-013c5b32.parquet",
+      "montant": 63180.05
+    },
+    {
+      "source_id": "scdl-6642d42d-766edc10",
+      "dataset": "CA-2022- Subvention-aux-associations - Ville de Vezin Le Coquet",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2022-subvention-aux-associations-ville-de-vezin-le-coquet/",
+      "fichier": "data/raw/scdl/6642d42d-766edc10.csv",
+      "encodage": "utf-8-sig",
+      "lues": 16,
+      "gardees": 16,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 16,
+        "no_rna": 16,
+        "donor_unattributed": 16
+      },
+      "niveaux": {
+        "inconnu": 16
+      },
+      "colonnes_mappees": {
+        "benef_nom": "LIBELLÉ STRUCTURE DE GESTION",
+        "attrib_nom": "NOM COLLECTIVITÉ",
+        "montant": "RÉALISÉ DE L'ANNÉE",
+        "annee": "EXERCICE"
+      },
+      "parquet": "data/canonical/parts/scdl-6642d42d-766edc10.parquet",
+      "montant": 40725.09
     },
     {
       "source_id": "scdl-650e54d1-30b8d017",
@@ -10455,7 +10531,7 @@
         "amount_zero": 36
       },
       "niveaux": {
-        "epci": 3444
+        "commune": 3444
       },
       "colonnes_mappees": {
         "benef_nom": "Nom tiers engagement",
@@ -10466,6 +10542,148 @@
       },
       "parquet": "data/canonical/parts/scdl-650e54d1-30b8d017.parquet",
       "montant": 56027519.29
+    },
+    {
+      "source_id": "scdl-650e54d2-f25c7ad9",
+      "dataset": "Subventions aux associations 2022 - Ville de Rennes",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/subventions-aux-associations-2022-ville-de-rennes/",
+      "fichier": "data/raw/scdl/650e54d2-f25c7ad9.csv",
+      "encodage": "utf-8-sig",
+      "lues": 3380,
+      "gardees": 3380,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 3380,
+        "no_rna": 3380,
+        "beneficiary_not_association": 8
+      },
+      "niveaux": {
+        "commune": 3380
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Nom tiers engagement",
+        "objet": "Objet marché GdA",
+        "montant": "Montant HT liquidation",
+        "annee": "Exercice",
+        "nature": "Nature liquidation"
+      },
+      "parquet": "data/canonical/parts/scdl-650e54d2-f25c7ad9.parquet",
+      "montant": 56536891.69
+    },
+    {
+      "source_id": "scdl-650e54e9-ad76c418",
+      "dataset": "Subventions aux associations 2020 - Ville de Rennes",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/subventions-aux-associations-2020-ville-de-rennes/",
+      "fichier": "data/raw/scdl/650e54e9-ad76c418.csv",
+      "encodage": "utf-8-sig",
+      "lues": 3236,
+      "gardees": 3236,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 3236,
+        "no_rna": 3236,
+        "amount_zero": 3,
+        "beneficiary_not_association": 13
+      },
+      "niveaux": {
+        "commune": 3236
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Nom tiers engagement",
+        "objet": "Objet marché GdA",
+        "montant": "Montant HT liquidation",
+        "annee": "Exercice",
+        "nature": "Nature liquidation"
+      },
+      "parquet": "data/canonical/parts/scdl-650e54e9-ad76c418.parquet",
+      "montant": 53440907.92
+    },
+    {
+      "source_id": "scdl-5c9daad1-5b2c230a",
+      "dataset": "CA 2018 - Subvention aux associations - Ville de Thorigné-Fouillard",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2018-subvention-aux-associations-ville-de-thorigne-fouillard/",
+      "fichier": "data/raw/scdl/5c9daad1-5b2c230a.csv",
+      "encodage": "utf-8-sig",
+      "lues": 52,
+      "gardees": 52,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 52,
+        "no_rna": 52,
+        "donor_unattributed": 52
+      },
+      "niveaux": {
+        "inconnu": 52
+      },
+      "colonnes_mappees": {
+        "benef_nom": "LIBELLÉ STRUCTURE DE GESTION",
+        "attrib_nom": "NOM COLLECTIVITÉ",
+        "montant": "RÉALISÉ DE L'ANNÉE",
+        "annee": "EXERCICE"
+      },
+      "parquet": "data/canonical/parts/scdl-5c9daad1-5b2c230a.parquet",
+      "montant": 343587.04
+    },
+    {
+      "source_id": "scdl-580a575d-1f9c9d2c",
+      "dataset": "CA 2013 - Subventions d'équipement aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2013-subventions-dequipement-aux-associations/",
+      "fichier": "data/raw/scdl/580a575d-1f9c9d2c.csv",
+      "encodage": "utf-8-sig",
+      "lues": 37,
+      "gardees": 37,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 37,
+        "no_rna": 37,
+        "donor_unattributed": 37,
+        "year_from_label": 37
+      },
+      "niveaux": {
+        "inconnu": 37
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé complet tiers",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a575d-1f9c9d2c.parquet",
+      "montant": 7276351.0
+    },
+    {
+      "source_id": "scdl-5a8d617c-f3dad851",
+      "dataset": "BP 2018 - Ville de Rennes - Subventions aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/bp-2018-ville-de-rennes-subventions-aux-associations/",
+      "fichier": "data/raw/scdl/5a8d617c-f3dad851.csv",
+      "encodage": "utf-8-sig",
+      "lues": 362,
+      "gardees": 362,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 362,
+        "no_rna": 362,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 362
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire",
+        "attrib_nom": "Nom Collectivité",
+        "montant": "Budget de l'année",
+        "annee": "Exercice"
+      },
+      "parquet": "data/canonical/parts/scdl-5a8d617c-f3dad851.parquet",
+      "montant": 50201932.0
     },
     {
       "source_id": "scdl-580a5749-c3a7bf50",
@@ -10481,15 +10699,14 @@
       "drapeaux": {
         "no_siret": 401,
         "no_rna": 401,
-        "donor_unattributed": 401,
         "beneficiary_not_association": 2
       },
       "niveaux": {
-        "inconnu": 401
+        "commune": 401
       },
       "colonnes_mappees": {
         "benef_nom": "BENEFICIAIRE",
-        "attrib_nom": "COLLECTIVITE",
+        "attrib_nom": "NOM_COLLECTIVITE",
         "montant": "MONTANT",
         "annee": "EXERCICE"
       },
@@ -10497,30 +10714,202 @@
       "montant": 65294178.0
     },
     {
-      "source_id": "scdl-580a5762-18b198d8",
-      "dataset": "CA 2011- Ville de Rennes - Subventions d'équipement aux associations",
+      "source_id": "scdl-5b4422e8-48cb6ec8",
+      "dataset": "CA 2017 - Ville de Rennes - Subventions aux associations",
       "organisation": "Rennes Métropole en accès libre",
-      "page": "https://www.data.gouv.fr/datasets/ca-2011-ville-de-rennes-subventions-dequipement-aux-associations/",
-      "fichier": "data/raw/scdl/580a5762-18b198d8.csv",
+      "page": "https://www.data.gouv.fr/datasets/ca-2017-ville-de-rennes-subventions-aux-associations/",
+      "fichier": "data/raw/scdl/5b4422e8-48cb6ec8.csv",
       "encodage": "utf-8-sig",
-      "lues": 35,
-      "gardees": 35,
+      "lues": 410,
+      "gardees": 410,
       "ecartees": 0,
       "raisons": {},
       "drapeaux": {
-        "no_siret": 35,
-        "no_rna": 35,
-        "year_from_label": 35
+        "no_siret": 410,
+        "no_rna": 410
       },
       "niveaux": {
-        "epci": 35
+        "commune": 410
       },
       "colonnes_mappees": {
-        "benef_nom": "Bénéficiare",
-        "montant": "CA 2011"
+        "benef_nom": "Libellé structure de gestion",
+        "attrib_nom": "Nom collectivité",
+        "montant": "Réalisé de l'année",
+        "annee": "Exercice"
       },
-      "parquet": "data/canonical/parts/scdl-580a5762-18b198d8.parquet",
-      "montant": 4491737.0
+      "parquet": "data/canonical/parts/scdl-5b4422e8-48cb6ec8.parquet",
+      "montant": 60495896.39
+    },
+    {
+      "source_id": "scdl-58be229a-e0448548",
+      "dataset": "BP 2017 - Ville de Rennes - Subventions aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/bp-2017-ville-de-rennes-subventions-aux-associations/",
+      "fichier": "data/raw/scdl/58be229a-e0448548.csv",
+      "encodage": "utf-8-sig",
+      "lues": 408,
+      "gardees": 408,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 408,
+        "no_rna": 408,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 408
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire",
+        "attrib_nom": "Nom Collectivité",
+        "montant": "Budget de l'année",
+        "annee": "Exercice"
+      },
+      "parquet": "data/canonical/parts/scdl-58be229a-e0448548.parquet",
+      "montant": 63790132.0
+    },
+    {
+      "source_id": "scdl-580a5765-7e723547",
+      "dataset": "CA 2010 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2010-ville-de-rennes-subventions-exceptionnelles-aux-associations/",
+      "fichier": "data/raw/scdl/580a5765-7e723547.csv",
+      "encodage": "utf-8-sig",
+      "lues": 31,
+      "gardees": 16,
+      "ecartees": 15,
+      "raisons": {
+        "montant illisible": 15
+      },
+      "drapeaux": {
+        "no_siret": 16,
+        "no_rna": 16,
+        "year_from_label": 16
+      },
+      "niveaux": {
+        "commune": 16
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire ou objet",
+        "objet": "Bénéficiaire ou objet",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5765-7e723547.parquet",
+      "montant": 921000.0
+    },
+    {
+      "source_id": "scdl-596ff0e6-d2a7cbb5",
+      "dataset": "CA 2016 - Ville de Rennes - Subventions aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2016-ville-de-rennes-subventions-aux-associations/",
+      "fichier": "data/raw/scdl/596ff0e6-d2a7cbb5.csv",
+      "encodage": "utf-8-sig",
+      "lues": 109,
+      "gardees": 20,
+      "ecartees": 89,
+      "raisons": {
+        "sans nom de bénéficiaire": 89
+      },
+      "drapeaux": {
+        "no_siret": 20,
+        "no_rna": 20
+      },
+      "niveaux": {
+        "commune": 20
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé complet tiers",
+        "attrib_nom": "Nom Collectivité",
+        "montant": "Réalisé de l'année",
+        "annee": "Exercice"
+      },
+      "parquet": "data/canonical/parts/scdl-596ff0e6-d2a7cbb5.parquet",
+      "montant": 6407905.0
+    },
+    {
+      "source_id": "scdl-580a575c-58c58627",
+      "dataset": "CA 2014 - Ville de Rennes - Subventions d'équipement aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2014-ville-de-rennes-subventions-dequipement-aux-associations/",
+      "fichier": "data/raw/scdl/580a575c-58c58627.csv",
+      "encodage": "utf-8-sig",
+      "lues": 36,
+      "gardees": 36,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 36,
+        "no_rna": 36,
+        "year_from_label": 36
+      },
+      "niveaux": {
+        "commune": 36
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé complet tiers",
+        "montant": "CA 2014"
+      },
+      "parquet": "data/canonical/parts/scdl-580a575c-58c58627.parquet",
+      "montant": 6189060.0
+    },
+    {
+      "source_id": "scdl-580a572e-95e4f04b",
+      "dataset": "BP 2012 - Ville de Rennes - Subventions d'équipement aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/bp-2012-ville-de-rennes-subventions-dequipement-aux-associations/",
+      "fichier": "data/raw/scdl/580a572e-95e4f04b.csv",
+      "encodage": "utf-8-sig",
+      "lues": 38,
+      "gardees": 37,
+      "ecartees": 1,
+      "raisons": {
+        "sans nom de bénéficiaire": 1
+      },
+      "drapeaux": {
+        "no_siret": 37,
+        "no_rna": 37,
+        "year_from_label": 37
+      },
+      "niveaux": {
+        "commune": 37
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaires",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a572e-95e4f04b.parquet",
+      "montant": 9352270.0
+    },
+    {
+      "source_id": "scdl-580a5731-f8f3a2f4",
+      "dataset": "CA 2009 - Ville de Rennes - Subventions ordinaires aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2009-ville-de-rennes-subventions-ordinaires-aux-associations/",
+      "fichier": "data/raw/scdl/580a5731-f8f3a2f4.csv",
+      "encodage": "utf-8-sig",
+      "lues": 1956,
+      "gardees": 447,
+      "ecartees": 1509,
+      "raisons": {
+        "montant illisible": 1508,
+        "sans nom de bénéficiaire": 1
+      },
+      "drapeaux": {
+        "no_siret": 447,
+        "no_rna": 447,
+        "year_from_label": 447,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 447
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire ou objet",
+        "objet": "Bénéficiaire ou objet",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5731-f8f3a2f4.parquet",
+      "montant": 122891269.0
     },
     {
       "source_id": "scdl-580a573b-7cff56c9",
@@ -10540,7 +10929,7 @@
         "beneficiary_not_association": 3
       },
       "niveaux": {
-        "epci": 367
+        "commune": 367
       },
       "colonnes_mappees": {
         "benef_nom": "Libellé complet tiers",
@@ -10548,6 +10937,118 @@
       },
       "parquet": "data/canonical/parts/scdl-580a573b-7cff56c9.parquet",
       "montant": 47259729.0
+    },
+    {
+      "source_id": "scdl-580a575e-f653d5c4",
+      "dataset": "BP 2014 - Ville de Rennes - Subventions ordinaires aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/bp-2014-ville-de-rennes-subventions-ordinaires-aux-associations/",
+      "fichier": "data/raw/scdl/580a575e-f653d5c4.csv",
+      "encodage": "utf-8-sig",
+      "lues": 368,
+      "gardees": 368,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 368,
+        "no_rna": 368,
+        "year_from_label": 368,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 368
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a575e-f653d5c4.parquet",
+      "montant": 47467712.0
+    },
+    {
+      "source_id": "scdl-5d2e8f82-03b83016",
+      "dataset": "CA 2018 - Ville de Rennes - Subventions aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2018-ville-de-rennes-subventions-aux-associations/",
+      "fichier": "data/raw/scdl/5d2e8f82-03b83016.csv",
+      "encodage": "utf-8-sig",
+      "lues": 407,
+      "gardees": 407,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 407,
+        "no_rna": 407
+      },
+      "niveaux": {
+        "commune": 407
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé structure de gestion",
+        "attrib_nom": "Nom collectivité",
+        "montant": "Réalisé de l'année",
+        "annee": "Exercice"
+      },
+      "parquet": "data/canonical/parts/scdl-5d2e8f82-03b83016.parquet",
+      "montant": 60522335.49
+    },
+    {
+      "source_id": "scdl-5c7fdf9c-b932fc49",
+      "dataset": "BP 2019 - Ville de Rennes - Subventions aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/bp-2019-ville-de-rennes-subventions-aux-associations/",
+      "fichier": "data/raw/scdl/5c7fdf9c-b932fc49.csv",
+      "encodage": "utf-8-sig",
+      "lues": 362,
+      "gardees": 362,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 362,
+        "no_rna": 362,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 362
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire",
+        "attrib_nom": "Nom Collectivité",
+        "montant": "Budget de l'année",
+        "annee": "Exercice"
+      },
+      "parquet": "data/canonical/parts/scdl-5c7fdf9c-b932fc49.parquet",
+      "montant": 50201932.0
+    },
+    {
+      "source_id": "scdl-580a5739-2f2b6fcc",
+      "dataset": "CA 2015 - Ville de Rennes - Subventions aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2015-ville-de-rennes-subventions-aux-associations/",
+      "fichier": "data/raw/scdl/580a5739-2f2b6fcc.csv",
+      "encodage": "utf-8-sig",
+      "lues": 410,
+      "gardees": 407,
+      "ecartees": 3,
+      "raisons": {
+        "sans nom de bénéficiaire": 3
+      },
+      "drapeaux": {
+        "no_siret": 407,
+        "no_rna": 407,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 407
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé complet tiers",
+        "attrib_nom": "Nom Collectivité",
+        "montant": "Réalisé de l'année",
+        "annee": "Exercice"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5739-2f2b6fcc.parquet",
+      "montant": 53983271.92
     },
     {
       "source_id": "scdl-580a572a-6874eb67",
@@ -10566,7 +11067,7 @@
         "year_from_label": 10
       },
       "niveaux": {
-        "epci": 10
+        "commune": 10
       },
       "colonnes_mappees": {
         "benef_nom": "Bénéficiaire",
@@ -10576,59 +11077,328 @@
       "montant": 343969.0
     },
     {
-      "source_id": "scdl-580a575c-58c58627",
-      "dataset": "CA 2014 - Ville de Rennes - Subventions d'équipement aux associations",
+      "source_id": "scdl-580a572e-e106b8ec",
+      "dataset": "BP 2012 - Ville de Rennes - Subventions exceptionnelles aux associations",
       "organisation": "Rennes Métropole en accès libre",
-      "page": "https://www.data.gouv.fr/datasets/ca-2014-ville-de-rennes-subventions-dequipement-aux-associations/",
-      "fichier": "data/raw/scdl/580a575c-58c58627.csv",
+      "page": "https://www.data.gouv.fr/datasets/bp-2012-ville-de-rennes-subventions-exceptionnelles-aux-associations/",
+      "fichier": "data/raw/scdl/580a572e-e106b8ec.csv",
       "encodage": "utf-8-sig",
-      "lues": 36,
-      "gardees": 36,
+      "lues": 5,
+      "gardees": 5,
       "ecartees": 0,
       "raisons": {},
       "drapeaux": {
-        "no_siret": 36,
-        "no_rna": 36,
-        "year_from_label": 36
+        "no_siret": 5,
+        "no_rna": 5,
+        "year_from_label": 5
       },
       "niveaux": {
-        "epci": 36
+        "commune": 5
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaires",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a572e-e106b8ec.parquet",
+      "montant": 380000.0
+    },
+    {
+      "source_id": "scdl-580a5764-7dca93ab",
+      "dataset": "CA 2011 - Ville de Rennes - Subventions ordinaires aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2011-ville-de-rennes-subventions-ordinaires-aux-associations/",
+      "fichier": "data/raw/scdl/580a5764-7dca93ab.csv",
+      "encodage": "utf-8-sig",
+      "lues": 381,
+      "gardees": 381,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 381,
+        "no_rna": 381,
+        "year_from_label": 381,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 381
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire",
+        "montant": "CA 2011"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5764-7dca93ab.parquet",
+      "montant": 43079564.0
+    },
+    {
+      "source_id": "scdl-580a5727-fffdf181",
+      "dataset": "BP 2014 - Ville de Rennes - Subventions d'équipement aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/bp-2014-ville-de-rennes-subventions-dequipement-aux-associations/",
+      "fichier": "data/raw/scdl/580a5727-fffdf181.csv",
+      "encodage": "utf-8-sig",
+      "lues": 43,
+      "gardees": 43,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 43,
+        "no_rna": 43,
+        "year_from_label": 43
+      },
+      "niveaux": {
+        "commune": 43
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5727-fffdf181.parquet",
+      "montant": 11497838.0
+    },
+    {
+      "source_id": "scdl-580a5763-f932b866",
+      "dataset": "BP 2013 - Ville de Rennes - Subventions ordinaires aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/bp-2013-ville-de-rennes-subventions-ordinaires-aux-associations/",
+      "fichier": "data/raw/scdl/580a5763-f932b866.csv",
+      "encodage": "utf-8-sig",
+      "lues": 385,
+      "gardees": 385,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 385,
+        "no_rna": 385,
+        "year_from_label": 385,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 385
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5763-f932b866.parquet",
+      "montant": 45496944.0
+    },
+    {
+      "source_id": "scdl-580a574b-786b3eb0",
+      "dataset": "CA 2013 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2013-ville-de-rennes-subventions-exceptionnelles-aux-associations/",
+      "fichier": "data/raw/scdl/580a574b-786b3eb0.csv",
+      "encodage": "utf-8-sig",
+      "lues": 10,
+      "gardees": 10,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 10,
+        "no_rna": 10,
+        "year_from_label": 10
+      },
+      "niveaux": {
+        "commune": 10
       },
       "colonnes_mappees": {
         "benef_nom": "Libellé complet tiers",
-        "montant": "CA 2014"
+        "montant": "Somme"
       },
-      "parquet": "data/canonical/parts/scdl-580a575c-58c58627.parquet",
-      "montant": 6189060.0
+      "parquet": "data/canonical/parts/scdl-580a574b-786b3eb0.parquet",
+      "montant": 256375.0
     },
     {
-      "source_id": "scdl-5a5ebdef-37e4cf1f",
-      "dataset": "Subventions versées en 2018 aux associations Noyal-Châtillon-sur-Seiche",
+      "source_id": "scdl-580a5767-b6d1c3aa",
+      "dataset": "CA 2009 - Ville de Rennes - Subventions d'équipement aux associations",
       "organisation": "Rennes Métropole en accès libre",
-      "page": "https://www.data.gouv.fr/datasets/subventions-versees-en-2018-aux-associations-noyal-chatillon-sur-seiche/",
-      "fichier": "data/raw/scdl/5a5ebdef-37e4cf1f.csv",
+      "page": "https://www.data.gouv.fr/datasets/ca-2009-ville-de-rennes-subventions-dequipement-aux-associations/",
+      "fichier": "data/raw/scdl/580a5767-b6d1c3aa.csv",
       "encodage": "utf-8-sig",
-      "lues": 56,
-      "gardees": 54,
-      "ecartees": 2,
+      "lues": 161,
+      "gardees": 93,
+      "ecartees": 68,
       "raisons": {
+        "montant illisible": 66,
         "sans nom de bénéficiaire": 2
       },
       "drapeaux": {
-        "no_siret": 54,
-        "no_rna": 54,
-        "year_from_label": 54,
-        "amount_zero": 1
+        "no_siret": 93,
+        "no_rna": 93,
+        "year_from_label": 93,
+        "beneficiary_not_association": 2
       },
       "niveaux": {
-        "epci": 54
+        "commune": 93
       },
       "colonnes_mappees": {
-        "benef_nom": "ASSOCIATIONS",
-        "montant": "Montant 2018"
+        "benef_nom": "Bénéficiaire ou objet",
+        "objet": "Bénéficiaire ou objet",
+        "montant": "Somme"
       },
-      "parquet": "data/canonical/parts/scdl-5a5ebdef-37e4cf1f.parquet",
-      "montant": 59731.12
+      "parquet": "data/canonical/parts/scdl-580a5767-b6d1c3aa.parquet",
+      "montant": 1373897.0
+    },
+    {
+      "source_id": "scdl-580a5762-18b198d8",
+      "dataset": "CA 2011- Ville de Rennes - Subventions d'équipement aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2011-ville-de-rennes-subventions-dequipement-aux-associations/",
+      "fichier": "data/raw/scdl/580a5762-18b198d8.csv",
+      "encodage": "utf-8-sig",
+      "lues": 35,
+      "gardees": 35,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 35,
+        "no_rna": 35,
+        "year_from_label": 35
+      },
+      "niveaux": {
+        "commune": 35
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiare",
+        "montant": "CA 2011"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5762-18b198d8.parquet",
+      "montant": 4491737.0
+    },
+    {
+      "source_id": "scdl-580a5729-0c64a4c2",
+      "dataset": "CA 2012 - Ville de Rennes - Subventions d'équipement aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2012-ville-de-rennes-subventions-dequipement-aux-associations/",
+      "fichier": "data/raw/scdl/580a5729-0c64a4c2.csv",
+      "encodage": "utf-8-sig",
+      "lues": 32,
+      "gardees": 31,
+      "ecartees": 1,
+      "raisons": {
+        "sans nom de bénéficiaire": 1
+      },
+      "drapeaux": {
+        "no_siret": 31,
+        "no_rna": 31,
+        "year_from_label": 31
+      },
+      "niveaux": {
+        "commune": 31
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiare",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5729-0c64a4c2.parquet",
+      "montant": 4563017.0
+    },
+    {
+      "source_id": "scdl-580a5728-085ee0b9",
+      "dataset": "CA 2012 - Ville de Rennes - Subventions ordinaires aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2012-ville-de-rennes-subventions-ordinaires-aux-associations/",
+      "fichier": "data/raw/scdl/580a5728-085ee0b9.csv",
+      "encodage": "utf-8-sig",
+      "lues": 394,
+      "gardees": 394,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 394,
+        "no_rna": 394,
+        "year_from_label": 394,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 394
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5728-085ee0b9.parquet",
+      "montant": 44565040.0
+    },
+    {
+      "source_id": "scdl-580a575d-d43f0845",
+      "dataset": "CA 2013 - Ville de Rennes - Subventions ordinaires aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2013-ville-de-rennes-subventions-ordinaires-aux-associations/",
+      "fichier": "data/raw/scdl/580a575d-d43f0845.csv",
+      "encodage": "utf-8-sig",
+      "lues": 389,
+      "gardees": 389,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 389,
+        "no_rna": 389,
+        "year_from_label": 389,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 389
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé complet tiers",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a575d-d43f0845.parquet",
+      "montant": 45740600.33
+    },
+    {
+      "source_id": "scdl-580a5726-339cf677",
+      "dataset": "BP 2014 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/bp-2014-ville-de-rennes-subventions-exceptionnelles-aux-associations/",
+      "fichier": "data/raw/scdl/580a5726-339cf677.csv",
+      "encodage": "utf-8-sig",
+      "lues": 4,
+      "gardees": 4,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 4,
+        "no_rna": 4,
+        "year_from_label": 4
+      },
+      "niveaux": {
+        "commune": 4
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5726-339cf677.parquet",
+      "montant": 335000.0
+    },
+    {
+      "source_id": "scdl-5f4db959-5896eb29",
+      "dataset": "CA 2019 - Ville de Rennes - Subventions aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2019-ville-de-rennes-subventions-aux-associations/",
+      "fichier": "data/raw/scdl/5f4db959-5896eb29.csv",
+      "encodage": "utf-8-sig",
+      "lues": 369,
+      "gardees": 369,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 369,
+        "no_rna": 369
+      },
+      "niveaux": {
+        "commune": 369
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé structure de gestion",
+        "attrib_nom": "Nom collectivité",
+        "montant": "Réalisé de l'année",
+        "annee": "Exercice"
+      },
+      "parquet": "data/canonical/parts/scdl-5f4db959-5896eb29.parquet",
+      "montant": 50937258.95
     },
     {
       "source_id": "scdl-5bd929ad-5fbd6a75",
@@ -10650,7 +11420,7 @@
         "amount_zero": 1
       },
       "niveaux": {
-        "epci": 54
+        "commune": 54
       },
       "colonnes_mappees": {
         "benef_nom": "ASSOCIATIONS",
@@ -10658,6 +11428,147 @@
       },
       "parquet": "data/canonical/parts/scdl-5bd929ad-5fbd6a75.parquet",
       "montant": 59731.12
+    },
+    {
+      "source_id": "scdl-5a5ebdef-37e4cf1f",
+      "dataset": "Subventions versées en 2018 aux associations Noyal-Châtillon-sur-Seiche",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/subventions-versees-en-2018-aux-associations-noyal-chatillon-sur-seiche/",
+      "fichier": "data/raw/scdl/5a5ebdef-37e4cf1f.csv",
+      "encodage": "utf-8-sig",
+      "lues": 56,
+      "gardees": 54,
+      "ecartees": 2,
+      "raisons": {
+        "sans nom de bénéficiaire": 2
+      },
+      "drapeaux": {
+        "no_siret": 54,
+        "no_rna": 54,
+        "year_from_label": 54,
+        "amount_zero": 1
+      },
+      "niveaux": {
+        "commune": 54
+      },
+      "colonnes_mappees": {
+        "benef_nom": "ASSOCIATIONS",
+        "montant": "Montant 2018"
+      },
+      "parquet": "data/canonical/parts/scdl-5a5ebdef-37e4cf1f.parquet",
+      "montant": 59731.12
+    },
+    {
+      "source_id": "scdl-580a572c-37deca64",
+      "dataset": "CA 2010 - Ville de Rennes - Subventions d'équipement aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2010-ville-de-rennes-subventions-dequipement-aux-associations/",
+      "fichier": "data/raw/scdl/580a572c-37deca64.csv",
+      "encodage": "utf-8-sig",
+      "lues": 142,
+      "gardees": 98,
+      "ecartees": 44,
+      "raisons": {
+        "sans nom de bénéficiaire": 4,
+        "montant illisible": 40
+      },
+      "drapeaux": {
+        "no_siret": 98,
+        "no_rna": 98,
+        "year_from_label": 98
+      },
+      "niveaux": {
+        "commune": 98
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire ou objet",
+        "objet": "Bénéficiaire ou objet",
+        "montant": "Somme",
+        "nature": "Compte nature"
+      },
+      "parquet": "data/canonical/parts/scdl-580a572c-37deca64.parquet",
+      "montant": 3833264.0
+    },
+    {
+      "source_id": "scdl-580a5766-844b6082",
+      "dataset": "BP 2012 - Ville de Rennes - Subventions ordinaires aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/bp-2012-ville-de-rennes-subventions-ordinaires-aux-associations/",
+      "fichier": "data/raw/scdl/580a5766-844b6082.csv",
+      "encodage": "utf-8-sig",
+      "lues": 389,
+      "gardees": 388,
+      "ecartees": 1,
+      "raisons": {
+        "sans nom de bénéficiaire": 1
+      },
+      "drapeaux": {
+        "no_siret": 388,
+        "no_rna": 388,
+        "year_from_label": 388,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 388
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaires",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a5766-844b6082.parquet",
+      "montant": 44048459.0
+    },
+    {
+      "source_id": "scdl-580a574b-0356a47b",
+      "dataset": "CA 2014 - Ville de Rennes - Subventions exceptionnelles aux associations",
+      "organisation": "Rennes Métropole en accès libre",
+      "page": "https://www.data.gouv.fr/datasets/ca-2014-ville-de-rennes-subventions-exceptionnelles-aux-associations/",
+      "fichier": "data/raw/scdl/580a574b-0356a47b.csv",
+      "encodage": "utf-8-sig",
+      "lues": 8,
+      "gardees": 8,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 8,
+        "no_rna": 8,
+        "year_from_label": 8
+      },
+      "niveaux": {
+        "commune": 8
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Libellé complet tiers",
+        "montant": "Somme"
+      },
+      "parquet": "data/canonical/parts/scdl-580a574b-0356a47b.parquet",
+      "montant": 404000.0
+    },
+    {
+      "source_id": "scdl-5eb0adad-96342582",
+      "dataset": "Aides aux entreprises dans le cadre de l'épidémie de COVID-19 en Bretagne",
+      "organisation": "Région Bretagne",
+      "page": "https://www.data.gouv.fr/datasets/aides-aux-entreprises-dans-le-cadre-de-lepidemie-de-covid-19-en-bretagne/",
+      "fichier": "data/raw/scdl/5eb0adad-96342582.csv",
+      "encodage": "utf-8-sig",
+      "lues": 68,
+      "gardees": 68,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 68,
+        "no_rna": 68,
+        "year_missing": 68
+      },
+      "niveaux": {
+        "region": 68
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Nom Région",
+        "montant": "Montant total"
+      },
+      "parquet": "data/canonical/parts/scdl-5eb0adad-96342582.parquet",
+      "montant": 1369393268.0
     },
     {
       "source_id": "scdl-5d36f811-805dabc3",
@@ -10728,32 +11639,6 @@
       },
       "parquet": "data/canonical/parts/scdl-5d36f811-f382371b.parquet",
       "montant": 8062820197.66
-    },
-    {
-      "source_id": "scdl-5eb0adad-96342582",
-      "dataset": "Aides aux entreprises dans le cadre de l'épidémie de COVID-19 en Bretagne",
-      "organisation": "Région Bretagne",
-      "page": "https://www.data.gouv.fr/datasets/aides-aux-entreprises-dans-le-cadre-de-lepidemie-de-covid-19-en-bretagne/",
-      "fichier": "data/raw/scdl/5eb0adad-96342582.csv",
-      "encodage": "utf-8-sig",
-      "lues": 68,
-      "gardees": 68,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 68,
-        "no_rna": 68,
-        "year_missing": 68
-      },
-      "niveaux": {
-        "region": 68
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Nom Région",
-        "montant": "Montant total"
-      },
-      "parquet": "data/canonical/parts/scdl-5eb0adad-96342582.parquet",
-      "montant": 1369393268.0
     },
     {
       "source_id": "scdl-5ff3ae4f-d06c6936",
@@ -11378,6 +12263,34 @@
       "montant": 397000.0
     },
     {
+      "source_id": "scdl-59591ccc-0c82a04b",
+      "dataset": "Aide au développement de la permanence artistique et culturelle 2007-2014",
+      "organisation": "Région Île-de-France",
+      "page": "https://www.data.gouv.fr/datasets/aide-au-developpement-de-la-permanence-artistique-et-culturelle-2007-2014/",
+      "fichier": "data/raw/scdl/59591ccc-0c82a04b.csv",
+      "encodage": "utf-8-sig",
+      "lues": 1765,
+      "gardees": 1765,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 1765,
+        "no_rna": 1765,
+        "beneficiary_not_association": 44
+      },
+      "niveaux": {
+        "region": 1765
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire",
+        "objet": "Objet du dossier",
+        "montant": "Montant voté",
+        "annee": "Exercice de la première décision"
+      },
+      "parquet": "data/canonical/parts/scdl-59591ccc-0c82a04b.parquet",
+      "montant": 86970372.0
+    },
+    {
       "source_id": "scdl-59591cda-98005a3a",
       "dataset": "Aides aux manifestations culturelles 2006-2014",
       "organisation": "Région Île-de-France",
@@ -11407,63 +12320,6 @@
       "montant": 21897778.0
     },
     {
-      "source_id": "scdl-59591cd3-15832dd2",
-      "dataset": "Aides aux réseaux culturels franciliens 2008-2014",
-      "organisation": "Région Île-de-France",
-      "page": "https://www.data.gouv.fr/datasets/aides-aux-reseaux-culturels-franciliens-2008-2014/",
-      "fichier": "data/raw/scdl/59591cd3-15832dd2.csv",
-      "encodage": "utf-8-sig",
-      "lues": 158,
-      "gardees": 158,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 158,
-        "no_rna": 158,
-        "beneficiary_not_association": 1,
-        "amount_zero": 2
-      },
-      "niveaux": {
-        "region": 158
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Bénéficiaire",
-        "objet": "Objet du dossier",
-        "montant": "Montant voté",
-        "annee": "Exercice de la première décision"
-      },
-      "parquet": "data/canonical/parts/scdl-59591cd3-15832dd2.parquet",
-      "montant": 6675500.0
-    },
-    {
-      "source_id": "scdl-59591ccc-0c82a04b",
-      "dataset": "Aide au développement de la permanence artistique et culturelle 2007-2014",
-      "organisation": "Région Île-de-France",
-      "page": "https://www.data.gouv.fr/datasets/aide-au-developpement-de-la-permanence-artistique-et-culturelle-2007-2014/",
-      "fichier": "data/raw/scdl/59591ccc-0c82a04b.csv",
-      "encodage": "utf-8-sig",
-      "lues": 1765,
-      "gardees": 1765,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 1765,
-        "no_rna": 1765,
-        "beneficiary_not_association": 44
-      },
-      "niveaux": {
-        "region": 1765
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Bénéficiaire",
-        "objet": "Objet du dossier",
-        "montant": "Montant voté",
-        "annee": "Exercice de la première décision"
-      },
-      "parquet": "data/canonical/parts/scdl-59591ccc-0c82a04b.parquet",
-      "montant": 86970372.0
-    },
-    {
       "source_id": "scdl-59591ccb-a0efb26f",
       "dataset": "Aide aux festivals de musiques actuelles et amplifiées 2011-2014",
       "organisation": "Région Île-de-France",
@@ -11491,30 +12347,33 @@
       "montant": 5156350.0
     },
     {
-      "source_id": "scdl-59591cc4-b74a754d",
-      "dataset": "Aide aux fonds pour les disquaires indépendants 2011-2013",
+      "source_id": "scdl-59591cd3-15832dd2",
+      "dataset": "Aides aux réseaux culturels franciliens 2008-2014",
       "organisation": "Région Île-de-France",
-      "page": "https://www.data.gouv.fr/datasets/aide-aux-fonds-pour-les-disquaires-independants-2011-2013/",
-      "fichier": "data/raw/scdl/59591cc4-b74a754d.csv",
+      "page": "https://www.data.gouv.fr/datasets/aides-aux-reseaux-culturels-franciliens-2008-2014/",
+      "fichier": "data/raw/scdl/59591cd3-15832dd2.csv",
       "encodage": "utf-8-sig",
-      "lues": 3,
-      "gardees": 3,
+      "lues": 158,
+      "gardees": 158,
       "ecartees": 0,
       "raisons": {},
       "drapeaux": {
-        "no_siret": 3,
-        "no_rna": 3
+        "no_siret": 158,
+        "no_rna": 158,
+        "beneficiary_not_association": 1,
+        "amount_zero": 2
       },
       "niveaux": {
-        "region": 3
+        "region": 158
       },
       "colonnes_mappees": {
         "benef_nom": "Bénéficiaire",
+        "objet": "Objet du dossier",
         "montant": "Montant voté",
         "annee": "Exercice de la première décision"
       },
-      "parquet": "data/canonical/parts/scdl-59591cc4-b74a754d.parquet",
-      "montant": 25000.0
+      "parquet": "data/canonical/parts/scdl-59591cd3-15832dd2.parquet",
+      "montant": 6675500.0
     },
     {
       "source_id": "scdl-595919e8-9808357d",
@@ -11570,6 +12429,32 @@
       "montant": 436991558.0
     },
     {
+      "source_id": "scdl-59591cc4-b74a754d",
+      "dataset": "Aide aux fonds pour les disquaires indépendants 2011-2013",
+      "organisation": "Région Île-de-France",
+      "page": "https://www.data.gouv.fr/datasets/aide-aux-fonds-pour-les-disquaires-independants-2011-2013/",
+      "fichier": "data/raw/scdl/59591cc4-b74a754d.csv",
+      "encodage": "utf-8-sig",
+      "lues": 3,
+      "gardees": 3,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 3,
+        "no_rna": 3
+      },
+      "niveaux": {
+        "region": 3
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire",
+        "montant": "Montant voté",
+        "annee": "Exercice de la première décision"
+      },
+      "parquet": "data/canonical/parts/scdl-59591cc4-b74a754d.parquet",
+      "montant": 25000.0
+    },
+    {
       "source_id": "scdl-5959181d-17df2ad0",
       "dataset": "Aide à la résidence territoriale pour les arts de la rue et les arts du cirque (2013 et 2014)",
       "organisation": "Région Île-de-France",
@@ -11595,6 +12480,33 @@
       },
       "parquet": "data/canonical/parts/scdl-5959181d-17df2ad0.parquet",
       "montant": 195000.0
+    },
+    {
+      "source_id": "scdl-59591816-73912dde",
+      "dataset": "Action culturelle \"Musiques au Lycée\" 2011-2014",
+      "organisation": "Région Île-de-France",
+      "page": "https://www.data.gouv.fr/datasets/action-culturelle-musiques-au-lycee-2011-2014/",
+      "fichier": "data/raw/scdl/59591816-73912dde.csv",
+      "encodage": "utf-8-sig",
+      "lues": 41,
+      "gardees": 41,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 41,
+        "no_rna": 41,
+        "beneficiary_not_association": 5
+      },
+      "niveaux": {
+        "region": 41
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire",
+        "montant": "Montant voté",
+        "annee": "Exercice de la première décision"
+      },
+      "parquet": "data/canonical/parts/scdl-59591816-73912dde.parquet",
+      "montant": 101130.0
     },
     {
       "source_id": "scdl-59591817-77d1190d",
@@ -11623,33 +12535,6 @@
       },
       "parquet": "data/canonical/parts/scdl-59591817-77d1190d.parquet",
       "montant": 638500.0
-    },
-    {
-      "source_id": "scdl-59591816-73912dde",
-      "dataset": "Action culturelle \"Musiques au Lycée\" 2011-2014",
-      "organisation": "Région Île-de-France",
-      "page": "https://www.data.gouv.fr/datasets/action-culturelle-musiques-au-lycee-2011-2014/",
-      "fichier": "data/raw/scdl/59591816-73912dde.csv",
-      "encodage": "utf-8-sig",
-      "lues": 41,
-      "gardees": 41,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 41,
-        "no_rna": 41,
-        "beneficiary_not_association": 5
-      },
-      "niveaux": {
-        "region": 41
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Bénéficiaire",
-        "montant": "Montant voté",
-        "annee": "Exercice de la première décision"
-      },
-      "parquet": "data/canonical/parts/scdl-59591816-73912dde.parquet",
-      "montant": 101130.0
     },
     {
       "source_id": "scdl-59591571-230ae1ad",
@@ -11843,33 +12728,6 @@
       "montant": 21897778.0
     },
     {
-      "source_id": "scdl-53698eb1-c657c338",
-      "dataset": "Aide à la résidence territoriale pour les arts de la rue et les arts du cirque 2013",
-      "organisation": "Région Île-de-France",
-      "page": "https://www.data.gouv.fr/datasets/aide-a-la-residence-territoriale-pour-les-arts-de-la-rue-et-les-arts-du-cirque-2013-idf/",
-      "fichier": "data/raw/scdl/53698eb1-c657c338.csv",
-      "encodage": "utf-8-sig",
-      "lues": 13,
-      "gardees": 13,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 13,
-        "no_rna": 13,
-        "beneficiary_not_association": 2
-      },
-      "niveaux": {
-        "region": 13
-      },
-      "colonnes_mappees": {
-        "benef_nom": "beneficiaire",
-        "montant": "montant_vote",
-        "annee": "exercice_de_la_premiere_decision"
-      },
-      "parquet": "data/canonical/parts/scdl-53698eb1-c657c338.parquet",
-      "montant": 195000.0
-    },
-    {
       "source_id": "scdl-53698eb4-fef3b053",
       "dataset": "Aide à projet « Musiques actuelles et amplifiées » 2011-2014",
       "organisation": "Région Île-de-France",
@@ -11896,6 +12754,33 @@
       },
       "parquet": "data/canonical/parts/scdl-53698eb4-fef3b053.parquet",
       "montant": 638500.0
+    },
+    {
+      "source_id": "scdl-53698eb1-c657c338",
+      "dataset": "Aide à la résidence territoriale pour les arts de la rue et les arts du cirque 2013",
+      "organisation": "Région Île-de-France",
+      "page": "https://www.data.gouv.fr/datasets/aide-a-la-residence-territoriale-pour-les-arts-de-la-rue-et-les-arts-du-cirque-2013-idf/",
+      "fichier": "data/raw/scdl/53698eb1-c657c338.csv",
+      "encodage": "utf-8-sig",
+      "lues": 13,
+      "gardees": 13,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 13,
+        "no_rna": 13,
+        "beneficiary_not_association": 2
+      },
+      "niveaux": {
+        "region": 13
+      },
+      "colonnes_mappees": {
+        "benef_nom": "beneficiaire",
+        "montant": "montant_vote",
+        "annee": "exercice_de_la_premiere_decision"
+      },
+      "parquet": "data/canonical/parts/scdl-53698eb1-c657c338.parquet",
+      "montant": 195000.0
     },
     {
       "source_id": "scdl-53698eb0-a6e5d7c5",
@@ -12143,6 +13028,35 @@
       "montant": 47222976.0
     },
     {
+      "source_id": "scdl-59591532-43857de8",
+      "dataset": "Interventions régionales en faveur du logement locatif social (offre nouvelle - aide à l'opération) - 2010 à 2014",
+      "organisation": "Région Île-de-France",
+      "page": "https://www.data.gouv.fr/datasets/interventions-regionales-en-faveur-du-logement-locatif-social-offre-nouvelle-aide-a-loperation-2010-a-2014/",
+      "fichier": "data/raw/scdl/59591532-43857de8.csv",
+      "encodage": "utf-8-sig",
+      "lues": 2870,
+      "gardees": 2870,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 2870,
+        "no_rna": 2870,
+        "year_missing": 2870,
+        "beneficiary_not_association": 48,
+        "amount_zero": 5
+      },
+      "niveaux": {
+        "region": 2870
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Bénéficiaire",
+        "objet": "Objet du dossier",
+        "montant": "Montant"
+      },
+      "parquet": "data/canonical/parts/scdl-59591532-43857de8.parquet",
+      "montant": 470472049.0
+    },
+    {
       "source_id": "scdl-59591531-2fc0e367",
       "dataset": "Interventions régionales en faveur du logement locatif social (réhabilitation des FTM - aide à l'opération) - 2010 à 2014",
       "organisation": "Région Île-de-France",
@@ -12193,35 +13107,6 @@
       },
       "parquet": "data/canonical/parts/scdl-5959152b-74055e75.parquet",
       "montant": 23525227.0
-    },
-    {
-      "source_id": "scdl-59591532-43857de8",
-      "dataset": "Interventions régionales en faveur du logement locatif social (offre nouvelle - aide à l'opération) - 2010 à 2014",
-      "organisation": "Région Île-de-France",
-      "page": "https://www.data.gouv.fr/datasets/interventions-regionales-en-faveur-du-logement-locatif-social-offre-nouvelle-aide-a-loperation-2010-a-2014/",
-      "fichier": "data/raw/scdl/59591532-43857de8.csv",
-      "encodage": "utf-8-sig",
-      "lues": 2870,
-      "gardees": 2870,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 2870,
-        "no_rna": 2870,
-        "year_missing": 2870,
-        "beneficiary_not_association": 48,
-        "amount_zero": 5
-      },
-      "niveaux": {
-        "region": 2870
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Bénéficiaire",
-        "objet": "Objet du dossier",
-        "montant": "Montant"
-      },
-      "parquet": "data/canonical/parts/scdl-59591532-43857de8.parquet",
-      "montant": 470472049.0
     },
     {
       "source_id": "scdl-59591526-fc4325ce",
@@ -12779,37 +13664,6 @@
       "montant": 3002844.74
     },
     {
-      "source_id": "scdl-688d9da1-0fbb950b",
-      "dataset": "Subventions versées 2021-Blagnac",
-      "organisation": "Toulouse métropole",
-      "page": "https://www.data.gouv.fr/datasets/subventions-versees-2021-blagnac/",
-      "fichier": "data/raw/scdl/688d9da1-0fbb950b.csv",
-      "encodage": "utf-8-sig",
-      "lues": 101,
-      "gardees": 100,
-      "ecartees": 1,
-      "raisons": {
-        "sans nom de bénéficiaire": 1
-      },
-      "drapeaux": {
-        "no_rna": 100,
-        "beneficiary_not_association": 3,
-        "no_siret": 2
-      },
-      "niveaux": {
-        "epci": 100
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Nom bénéficiaire",
-        "benef_id": "N° SIRET",
-        "montant": "Montant ordonnancé",
-        "annee": "Exercice",
-        "nature_benef": "Type bénéficiaire"
-      },
-      "parquet": "data/canonical/parts/scdl-688d9da1-0fbb950b.parquet",
-      "montant": 2948403.5
-    },
-    {
       "source_id": "scdl-688d9e24-0d21f83c",
       "dataset": "Subventions versées 2024-Blagnac",
       "organisation": "Toulouse métropole",
@@ -12839,6 +13693,37 @@
       },
       "parquet": "data/canonical/parts/scdl-688d9e24-0d21f83c.parquet",
       "montant": 2915543.35
+    },
+    {
+      "source_id": "scdl-688d9da1-0fbb950b",
+      "dataset": "Subventions versées 2021-Blagnac",
+      "organisation": "Toulouse métropole",
+      "page": "https://www.data.gouv.fr/datasets/subventions-versees-2021-blagnac/",
+      "fichier": "data/raw/scdl/688d9da1-0fbb950b.csv",
+      "encodage": "utf-8-sig",
+      "lues": 101,
+      "gardees": 100,
+      "ecartees": 1,
+      "raisons": {
+        "sans nom de bénéficiaire": 1
+      },
+      "drapeaux": {
+        "no_rna": 100,
+        "beneficiary_not_association": 3,
+        "no_siret": 2
+      },
+      "niveaux": {
+        "epci": 100
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Nom bénéficiaire",
+        "benef_id": "N° SIRET",
+        "montant": "Montant ordonnancé",
+        "annee": "Exercice",
+        "nature_benef": "Type bénéficiaire"
+      },
+      "parquet": "data/canonical/parts/scdl-688d9da1-0fbb950b.parquet",
+      "montant": 2948403.5
     },
     {
       "source_id": "scdl-68888218-391d903b",
@@ -13350,6 +14235,40 @@
       "montant": 75509862.89
     },
     {
+      "source_id": "scdl-5d8d8c59-c5a463f8",
+      "dataset": "Subventions versées à des organismes 2018 -Ville de Toulouse",
+      "organisation": "Toulouse métropole",
+      "page": "https://www.data.gouv.fr/datasets/subventions-versees-a-des-organismes-2018-ville-de-toulouse/",
+      "fichier": "data/raw/scdl/5d8d8c59-c5a463f8.csv",
+      "encodage": "utf-8-sig",
+      "lues": 1068,
+      "gardees": 1068,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 1068,
+        "year_from_label": 1068,
+        "beneficiary_not_association": 3,
+        "no_siret": 6
+      },
+      "niveaux": {
+        "commune": 1068
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nomBeneficiaire",
+        "benef_id": "idBeneficiaire",
+        "attrib_nom": "nomAttribuant",
+        "objet": "objet",
+        "montant": "montant",
+        "date_conv": "dateConvention",
+        "nature": "nature",
+        "attrib_id": "idAttribuant",
+        "reference": "referenceDecision"
+      },
+      "parquet": "data/canonical/parts/scdl-5d8d8c59-c5a463f8.parquet",
+      "montant": 68889495.68
+    },
+    {
       "source_id": "scdl-5d8d8c13-f77cdd18",
       "dataset": "Subventions versées à des organismes 2018 -Toulouse Métropole",
       "organisation": "Toulouse métropole",
@@ -13384,40 +14303,6 @@
       },
       "parquet": "data/canonical/parts/scdl-5d8d8c13-f77cdd18.parquet",
       "montant": 86804212.66
-    },
-    {
-      "source_id": "scdl-5d8d8c59-c5a463f8",
-      "dataset": "Subventions versées à des organismes 2018 -Ville de Toulouse",
-      "organisation": "Toulouse métropole",
-      "page": "https://www.data.gouv.fr/datasets/subventions-versees-a-des-organismes-2018-ville-de-toulouse/",
-      "fichier": "data/raw/scdl/5d8d8c59-c5a463f8.csv",
-      "encodage": "utf-8-sig",
-      "lues": 1068,
-      "gardees": 1068,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_rna": 1068,
-        "year_from_label": 1068,
-        "beneficiary_not_association": 3,
-        "no_siret": 6
-      },
-      "niveaux": {
-        "commune": 1068
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nomBeneficiaire",
-        "benef_id": "idBeneficiaire",
-        "attrib_nom": "nomAttribuant",
-        "objet": "objet",
-        "montant": "montant",
-        "date_conv": "dateConvention",
-        "nature": "nature",
-        "attrib_id": "idAttribuant",
-        "reference": "referenceDecision"
-      },
-      "parquet": "data/canonical/parts/scdl-5d8d8c59-c5a463f8.parquet",
-      "montant": 68889495.68
     },
     {
       "source_id": "scdl-5d12f0d4-57243a90",
@@ -13680,41 +14565,6 @@
       "montant": 59219701.13
     },
     {
-      "source_id": "scdl-5c36b42e-ffb269a4",
-      "dataset": "Subventions versées à des organismes 2017 - Ville de Toulouse",
-      "organisation": "Toulouse métropole",
-      "page": "https://www.data.gouv.fr/datasets/subventions-versees-a-des-organismes-2017-ville-de-toulouse/",
-      "fichier": "data/raw/scdl/5c36b42e-ffb269a4.csv",
-      "encodage": "utf-8-sig",
-      "lues": 1092,
-      "gardees": 1092,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_rna": 1092,
-        "year_from_label": 1092,
-        "amount_zero": 3,
-        "no_siret": 6,
-        "beneficiary_not_association": 3
-      },
-      "niveaux": {
-        "commune": 1092
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nomBeneficiaire",
-        "benef_id": "idBeneficiaire",
-        "attrib_nom": "nomAttribuant",
-        "objet": "objet",
-        "montant": "montant",
-        "date_conv": "dateConvention",
-        "nature": "nature",
-        "attrib_id": "idAttribuant",
-        "reference": "referenceDecision"
-      },
-      "parquet": "data/canonical/parts/scdl-5c36b42e-ffb269a4.parquet",
-      "montant": 69446400.29
-    },
-    {
       "source_id": "scdl-5c36b427-fd4f78dc",
       "dataset": "Subventions versées à des organismes 2012 -Toulouse Métropole",
       "organisation": "Toulouse métropole",
@@ -13749,6 +14599,41 @@
       },
       "parquet": "data/canonical/parts/scdl-5c36b427-fd4f78dc.parquet",
       "montant": 43364988.12
+    },
+    {
+      "source_id": "scdl-5c36b42e-ffb269a4",
+      "dataset": "Subventions versées à des organismes 2017 - Ville de Toulouse",
+      "organisation": "Toulouse métropole",
+      "page": "https://www.data.gouv.fr/datasets/subventions-versees-a-des-organismes-2017-ville-de-toulouse/",
+      "fichier": "data/raw/scdl/5c36b42e-ffb269a4.csv",
+      "encodage": "utf-8-sig",
+      "lues": 1092,
+      "gardees": 1092,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_rna": 1092,
+        "year_from_label": 1092,
+        "amount_zero": 3,
+        "no_siret": 6,
+        "beneficiary_not_association": 3
+      },
+      "niveaux": {
+        "commune": 1092
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nomBeneficiaire",
+        "benef_id": "idBeneficiaire",
+        "attrib_nom": "nomAttribuant",
+        "objet": "objet",
+        "montant": "montant",
+        "date_conv": "dateConvention",
+        "nature": "nature",
+        "attrib_id": "idAttribuant",
+        "reference": "referenceDecision"
+      },
+      "parquet": "data/canonical/parts/scdl-5c36b42e-ffb269a4.parquet",
+      "montant": 69446400.29
     },
     {
       "source_id": "scdl-5c1debe7-d8f46380",
@@ -13824,33 +14709,6 @@
       }
     },
     {
-      "source_id": "scdl-5959321c-b489359f",
-      "dataset": "Subventions versées à des organismes 2015 - Ville de Toulouse",
-      "organisation": "Toulouse métropole",
-      "page": "https://www.data.gouv.fr/datasets/subventions-versees-a-des-organismes-2015-ville-de-toulouse/",
-      "fichier": "data/raw/scdl/5959321c-b489359f.csv",
-      "encodage": "utf-8-sig",
-      "lues": 1110,
-      "gardees": 1110,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 1110,
-        "no_rna": 1110,
-        "year_from_label": 1110,
-        "beneficiary_not_association": 4
-      },
-      "niveaux": {
-        "epci": 1110
-      },
-      "colonnes_mappees": {
-        "benef_nom": "Nom bénéficiaire",
-        "montant": "Montant versé 2015"
-      },
-      "parquet": "data/canonical/parts/scdl-5959321c-b489359f.parquet",
-      "montant": 57393810.94
-    },
-    {
       "source_id": "scdl-5959321b-b7485227",
       "dataset": "Subventions versées à des tiers - 2014 - Ville de Toulouse",
       "organisation": "Toulouse métropole",
@@ -13877,6 +14735,33 @@
       },
       "parquet": "data/canonical/parts/scdl-5959321b-b7485227.parquet",
       "montant": 114326391.85
+    },
+    {
+      "source_id": "scdl-5959321c-b489359f",
+      "dataset": "Subventions versées à des organismes 2015 - Ville de Toulouse",
+      "organisation": "Toulouse métropole",
+      "page": "https://www.data.gouv.fr/datasets/subventions-versees-a-des-organismes-2015-ville-de-toulouse/",
+      "fichier": "data/raw/scdl/5959321c-b489359f.csv",
+      "encodage": "utf-8-sig",
+      "lues": 1110,
+      "gardees": 1110,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 1110,
+        "no_rna": 1110,
+        "year_from_label": 1110,
+        "beneficiary_not_association": 4
+      },
+      "niveaux": {
+        "epci": 1110
+      },
+      "colonnes_mappees": {
+        "benef_nom": "Nom bénéficiaire",
+        "montant": "Montant versé 2015"
+      },
+      "parquet": "data/canonical/parts/scdl-5959321c-b489359f.parquet",
+      "montant": 57393810.94
     },
     {
       "source_id": "scdl-56b0c2e9-f0158ace",
@@ -14847,38 +15732,6 @@
       "montant": 157626542.35
     },
     {
-      "source_id": "scdl-66dada29-68c4c026",
-      "dataset": "Marseille - Subventions 2022",
-      "organisation": "Ville de Marseille",
-      "page": "https://www.data.gouv.fr/datasets/marseille-subventions-2022/",
-      "fichier": "data/raw/scdl/66dada29-68c4c026.csv",
-      "encodage": "utf-8-sig",
-      "lues": 3132,
-      "gardees": 3132,
-      "ecartees": 0,
-      "raisons": {},
-      "drapeaux": {
-        "no_siret": 3132,
-        "no_rna": 3132,
-        "beneficiary_not_association": 957,
-        "aide_en_nature": 1208
-      },
-      "niveaux": {
-        "commune": 3132
-      },
-      "colonnes_mappees": {
-        "benef_nom": "nomBeneficiaire",
-        "attrib_nom": "nomAttribuant",
-        "montant": "montant",
-        "annee": "anneeAttribution",
-        "nature": "nature",
-        "nature_benef": "typeBeneficiaire",
-        "attrib_id": "idAttribuant"
-      },
-      "parquet": "data/canonical/parts/scdl-66dada29-68c4c026.parquet",
-      "montant": 172514554.62
-    },
-    {
       "source_id": "scdl-66dada2a-9f257cde",
       "dataset": "Marseille - Subventions 2019",
       "organisation": "Ville de Marseille",
@@ -14942,6 +15795,38 @@
       },
       "parquet": "data/canonical/parts/scdl-66dada18-aaf96e5c.parquet",
       "montant": 148108657.06
+    },
+    {
+      "source_id": "scdl-66dada29-68c4c026",
+      "dataset": "Marseille - Subventions 2022",
+      "organisation": "Ville de Marseille",
+      "page": "https://www.data.gouv.fr/datasets/marseille-subventions-2022/",
+      "fichier": "data/raw/scdl/66dada29-68c4c026.csv",
+      "encodage": "utf-8-sig",
+      "lues": 3132,
+      "gardees": 3132,
+      "ecartees": 0,
+      "raisons": {},
+      "drapeaux": {
+        "no_siret": 3132,
+        "no_rna": 3132,
+        "beneficiary_not_association": 957,
+        "aide_en_nature": 1208
+      },
+      "niveaux": {
+        "commune": 3132
+      },
+      "colonnes_mappees": {
+        "benef_nom": "nomBeneficiaire",
+        "attrib_nom": "nomAttribuant",
+        "montant": "montant",
+        "annee": "anneeAttribution",
+        "nature": "nature",
+        "nature_benef": "typeBeneficiaire",
+        "attrib_id": "idAttribuant"
+      },
+      "parquet": "data/canonical/parts/scdl-66dada29-68c4c026.parquet",
+      "montant": 172514554.62
     },
     {
       "source_id": "scdl-67a0093c-da70fb60",

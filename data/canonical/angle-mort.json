@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-23T01:39:49Z",
+ "generated_at": "2026-08-23T12:51:24Z",
  "source": {
   "hote": "journal-officiel-datadila.opendatasoft.com",
   "dataset": "jo_associations",
@@ -908,8 +908,8 @@
    "cle": "territoire_peu_couvert",
    "libelle": "Territoire dont le site connaît moins de 1 % des subventions communales",
    "explication": "Un financeur publie quelque part dans ce département, mais pas celui qui compte : le site y connaît moins d'un centième de ce que les communes déclarent verser. Une association financée par sa commune y est invisible par construction.",
-   "organismes": 3426,
-   "part_pct": 26.5,
+   "organismes": 3365,
+   "part_pct": 26.0,
    "exemples": [
     {
      "nom": "CRECHE PLUME ET BULLE",
@@ -989,8 +989,8 @@
    "cle": "inexplique",
    "libelle": "Aucune explication automatique",
    "explication": "Ni fonds de dotation, ni homonyme ailleurs, ni territoire muet. Deux lectures restent possibles, et AUCUNE DONNÉE PUBLIQUE NE PERMET DE TRANCHER : l'organisme vit de dons privés — le seuil de 153 000 € les compte — ou bien il reçoit de l'argent public que personne ne publie. Ce n'est pas une liste de travail : c'est la mesure de ce qu'on ignore.",
-   "organismes": 4096,
-   "part_pct": 31.7,
+   "organismes": 4157,
+   "part_pct": 32.1,
    "exemples": [
     {
      "nom": "L ETOILE MATER CATHO PROVENCE",
@@ -7441,7 +7441,7 @@
     "2025"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "512788753",
@@ -10813,7 +10813,7 @@
     "2025"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "533692265",
@@ -11257,7 +11257,7 @@
     "2019"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "378100788",
@@ -11977,7 +11977,7 @@
     "2019"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "482522000",
@@ -14929,7 +14929,7 @@
     "2023"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "534652359",
@@ -21217,7 +21217,7 @@
     "2025"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "752533273",
@@ -28429,7 +28429,7 @@
     "2024"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "318786001",
@@ -30013,7 +30013,7 @@
     "2025"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "441929551",
@@ -32269,7 +32269,7 @@
     "2024"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "788035947",
@@ -33373,7 +33373,7 @@
     "2024"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "782508469",
@@ -34093,7 +34093,7 @@
     "2014"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "808835482",
@@ -35497,7 +35497,7 @@
     "2012"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "828698506",
@@ -38017,7 +38017,7 @@
     "2014"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "inexplique"
   },
   {
    "siren": "795067164",
