@@ -68,8 +68,9 @@ def normaliser(fiche, ingested_at):
     entete, lignes, infos = C.read_rows(chemin)
     col = {k: C.trouver_colonne(entete, r) for k, r in ROLES.items()}
 
-    # Voté ou versé : le titre du jeu le dit, et cela vaut pour tout le fichier.
-    mesure = C.measure_of(fiche.get("titre"), os.path.basename(chemin))
+    # Voté ou versé : le titre du jeu le dit — et à défaut, le libellé de la
+    # colonne de montant, qui est le témoin le plus direct (`Mandaté`, `mtsubv`).
+    mesure = C.measure_of(fiche.get("titre"), os.path.basename(chemin), col.get("montant"))
     # Un jeu par exercice, sans colonne d'année : « CA 2013 - Ville de Rennes -
     # Subventions ordinaires aux associations ». Le titre est alors le seul
     # endroit où l'exercice soit écrit.

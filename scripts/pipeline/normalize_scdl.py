@@ -75,8 +75,10 @@ def normaliser_fichier(fiche, fichier, ingested_at):
     col = {k: C.trouver_colonne(entete, r) for k, r in ROLES.items()}
     col["attrib_id"] = C.pick(entete, "idAttribuant", "siret attribuant", "id attribuant")
     col["reference"] = C.pick(entete, "referenceDecision", "reference decision")
-    # Voté ou versé : lu au titre du jeu et au nom du fichier, une fois pour tout.
-    mesure = C.measure_of(fiche.get("titre"), fichier.get("titre"))
+    # Voté ou versé : lu au titre du jeu, au nom du fichier et au libellé de la
+    # colonne de montant, une fois pour tout. La colonne tranche quand le titre
+    # se tait : `Mandaté` porte de l'argent payé.
+    mesure = C.measure_of(fiche.get("titre"), fichier.get("titre"), col.get("montant"))
     # Un fichier par exercice, sans colonne d'année : l'exercice n'est alors
     # écrit que dans le nom du fichier. On le lit une fois pour tout le fichier,
     # du plus précis (le fichier) au plus général (le jeu).

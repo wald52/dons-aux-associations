@@ -1020,6 +1020,20 @@ def _est_exercice(mot):
     return len(mot) == 4 and mot.isdigit() and 1990 <= int(mot) <= 2100
 
 
+# Motifs si généraux qu'ils ne valent QUE si le libellé de colonne se réduit à
+# eux. `associations` désigne la colonne des associations quand c'est tout ce
+# que la colonne s'appelle ; dans « Subv.d'équipement - provision pour
+# associations sportives », le mot n'est qu'un mot d'une phrase — et cette
+# phrase-là est une LIGNE DE DONNÉES que le détecteur d'en-tête a prise pour un
+# en-tête (Ville de Rennes, CA 2017). Sans cette réserve, le correctif qui
+# rouvre Fleury-sur-Orne et Issy-les-Moulineaux fait entrer en même temps deux
+# fichiers dont les « colonnes » n'en sont pas.
+MOTIFS_STRICTS = frozenset({
+    ("associations",), ("organisation",), ("destinataire",), ("destinataires",),
+    ("liborgabenef",),
+})
+
+
 # (motifs retenus, mots disqualifiants)
 ROLES_COLONNES = {
     "beneficiaire": (
@@ -1046,6 +1060,19 @@ ROLES_COLONNES = {
          # connus. Dont une collectivité et une intercommunalité NOUVELLES.
          ("beneficiare",), ("organismes",), ("attributaire",), ("attributaires",),
          ("noms",),
+         # Cinq graphies de plus, relevées dans les jeux ÉCARTÉS des manifestes
+         # du 22/08/2026 et vérifiées SUR LA DONNÉE, pas sur le libellé seul :
+         #   `liborgabenef`   « libellé organisme bénéficiaire », Région
+         #                    Île-de-France, 22 958 versements ;
+         #   `organisation`   Ville de Montreuil ;
+         #   `destinataire(s)` Ville de Saint-Maur-des-Fossés ;
+         #   `associations`   Fleury-sur-Orne, Issy-les-Moulineaux,
+         #                    Noyal-Châtillon-sur-Seiche. Le singulier était
+         #                    reconnu depuis toujours, le pluriel non.
+         # Tous STRICTS (cf. MOTIFS_STRICTS) : ce sont des mots trop courants
+         # pour être cherchés au milieu d'une phrase.
+         ("liborgabenef",), ("organisation",),
+         ("destinataire",), ("destinataires",), ("associations",),
          ("nom",)],
         # « financeur » disqualifie : `organismes_financeurs` est celui qui
         # PAIE. Sans lui, le motif `organismes` lisait le bénéficiaire dans la
@@ -1070,7 +1097,16 @@ ROLES_COLONNES = {
          # seule serait un motif bien trop court — c'est l'exercice accolé qui
          # fait la preuve qu'il s'agit d'un montant.
          ("bp", EXERCICE), ("ca", EXERCICE), ("br", EXERCICE), ("bs", EXERCICE),
-         ("credit", "vote"), ("aide", "montant"), ("subventions",), ("subvention",)],
+         ("credit", "vote"), ("aide", "montant"), ("subventions",), ("subvention",),
+         # EN DERNIER, et c'est le point : `mandate` désigne un montant PAYÉ, à
+         # ne préférer à aucun autre. Grand Paris Sud publie `MONTANT ATTRIBUE`
+         # ET `MANDATE` dans le même fichier — mis en tête, ce motif aurait fait
+         # lire le payé là où l'attribué était disponible.
+         #   `Mandaté`          Département de Maine-et-Loire, 17 756 lignes ;
+         #   `MANDATE`          Grand Paris Sud ;
+         #   `mt_mandate_budg`  GrandSoissons Agglomération ;
+         #   `mtsubv`           Région Île-de-France, avec `liborgabenef`.
+         ("mtsubv",), ("mandate",)],
         ("attribuant", "nom", "objet", "nature", "date", "pourcentage", "taux",
          "nombre", "dossier", "reference", "libelle", "type", "prestation"),
     ),
@@ -1151,7 +1187,16 @@ _MOTS_VERSE = ("compte administratif", "subventions versees", "subventions verse
 
 
 def measure_of(*libelles):
-    """« verse » si le libellé désigne une exécution budgétaire, sinon « attribue »."""
+    """« verse » si le libellé désigne une exécution budgétaire, sinon « attribue ».
+
+    On lui passe le titre du jeu, le nom du fichier, **et le libellé de la
+    colonne de montant**. Cette dernière est le témoin le plus direct qui soit :
+    une colonne qui s'appelle `Mandaté` porte de l'argent PAYÉ, quoi que dise le
+    titre du jeu. Le Département de Maine-et-Loire publie ainsi 17 756
+    mandatements sous un titre qui ne dit que « Subventions aux associations ».
+    Mesuré le 23/08/2026 : la colonne ne fait basculer **aucun** des jeux déjà
+    retenus, elle ne tranche que pour ceux que la phase 11 rouvre.
+    """
     t = " ".join(fold(x or "") for x in libelles)
     return "verse" if any(m in t for m in _MOTS_VERSE) else "attribue"
 
@@ -1172,6 +1217,9 @@ MOTS_AIDE_EN_NATURE = (("total", "aide", "nature"), ("prestations", "nature"),
 def _correspond(mots, motif, disqualifiants):
     if any(d in mots for d in disqualifiants):
         return False
+    # Un motif strict ne vaut que si la colonne ne s'appelle QUE comme lui.
+    if motif in MOTIFS_STRICTS:
+        return list(mots) == list(motif)
     if all(any(_est_exercice(x) for x in mots) if m is EXERCICE else m in mots
            for m in motif):
         return True
@@ -1229,11 +1277,20 @@ def annee_du_libelle(*libelles):
 
 def porte_des_subventions(entete):
     """(vrai/faux, raison) — cet en-tête décrit-il bien des subventions ?"""
-    if not trouver_colonne(entete, "beneficiaire"):
+    benef = trouver_colonne(entete, "beneficiaire")
+    if not benef:
         return False, "aucune colonne de bénéficiaire"
-    if not trouver_colonne(entete, "montant"):
+    montant = trouver_colonne(entete, "montant")
+    if not montant:
         tous = [mots_colonne(c) for c in entete if c]
         if any(all(m in mots for m in motif) for motif in MOTS_AIDE_EN_NATURE for mots in tous):
             return False, "aides en nature (valorisations, pas des versements)"
         return False, "aucune colonne de montant"
+    # Une seule et même colonne ne peut pas être à la fois le bénéficiaire et le
+    # montant. Quand elle l'est, ce n'est pas un en-tête : c'est le titre du
+    # rapport, lu comme une ligne de colonnes — « VILLEMOMBLE - SUBVENTIONS AUX
+    # ASSOCIATIONS - ANNEE 2012 » suivi de deux cellules vides. Le fichier
+    # entrait sans que rien ne le signale.
+    if benef == montant:
+        return False, "en-tête d'une seule colonne (titre du rapport, pas un en-tête)"
     return True, None
