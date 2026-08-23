@@ -864,6 +864,14 @@ def est_un_compte_de_publication(nom):
     return bool(t) and any(m in t for m in _COMPTES_DE_PUBLICATION)
 
 
+# Forme sous laquelle on réécrit un nom nu trouvé au référentiel. « Besançon »
+# est un nom de commune, mais le mot seul ne le dit pas : `donor_level_of` le
+# laisserait en `inconnu` et la couverture ne le verrait jamais. Le préfixe
+# n'invente rien — c'est la catégorie que le référentiel INSEE donne à ce nom.
+_FORME_PAR_NIVEAU = {"communes": "Commune de ", "departements": "Département de ",
+                     "regions": "Région ", "epci": ""}
+
+
 def _noms_du_referentiel():
     global _NOMS_REFERENTIEL
     try:
@@ -871,12 +879,12 @@ def _noms_du_referentiel():
     except NameError:
         pass
     ref = referentiel()
-    noms = set()
+    noms = {}
     for cle in ("communes", "departements", "regions", "epci"):
         for v in ref.get(cle, {}).values():
             n = fold(v.get("nom") or "")
             if len(n) >= 4:
-                noms.add(n)
+                noms.setdefault(n, cle)
     _NOMS_REFERENTIEL = noms
     return noms
 
@@ -906,12 +914,13 @@ def collectivite_du_libelle(*libelles):
                      for k in range(1, 5) for i in range(len(mots) - k + 1)]
         for seg in segments:
             t = fold(seg)
+            porte_sa_forme = False
             for forme in _FORMES_COLLECTIVITE:
                 if t.startswith(forme + " "):
-                    t = t[len(forme) + 1:]
+                    t, porte_sa_forme = t[len(forme) + 1:], True
                     break
             if t in noms:
-                return seg
+                return seg if porte_sa_forme else _FORME_PAR_NIVEAU[noms[t]] + seg
     return None
 
 
