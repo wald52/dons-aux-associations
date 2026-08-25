@@ -4,12 +4,13 @@
  * Bumper CACHE à chaque publication, sinon les visiteurs déjà venus
  * continueraient de voir l'ancienne version.
  */
-const CACHE = "dons-associations-v17";
+const CACHE = "dons-associations-v18";
 const PRECACHE = [
   "./", "./index.html", "./recherche.html", "./commune.html",
   "./couverture.html", "./methode.html", "./assets/css/style.css",
   "./assets/js/commun.js", "./assets/js/lexique.js",
   "./assets/js/index-recherche.js", "./assets/js/suggest.js",
+  "./assets/js/export.js",
   "./assets/js/app.js", "./assets/js/recherche.js",
   "./assets/js/commune.js", "./assets/js/couverture.js",
   "./data/aggregates/meta.json.gz", "./data/aggregates/cube.json.gz",

@@ -14,34 +14,18 @@
 
 import {
   $, el, vider, euros, fmtNombre, pluriel, plier, chargerGz, NIVEAUX,
+  CAS_DANS_LES_TOTAUX, MOTIFS, motifHorsTotaux,
   lireEtat, ecrireEtat, messageEtat, messageErreur, jauge, enregistrerServiceWorker
 } from "./commun.js";
 import * as Index from "./index-recherche.js";
 import * as Lexique from "./lexique.js";
+import * as Export from "./export.js";
 
 var meta = null;
 var stats = null;
 var couverture = null;
 var etat = { q: "", dep: "", cumul: "", dependance: "", a: null };
 var dernierResultat = null;
-
-// Ce que le site refuse d'appeler un don, et pourquoi — dit à l'utilisateur,
-// pas seulement au code.
-var RAISONS_HORS_DON = {
-  prestation: "Prestation facturée par l'association : la collectivité achète un " +
-    "service, il y a une contrepartie. Ce n'est pas un don, donc hors des totaux.",
-  remboursement: "Remboursement de frais ou cotisation d'adhésion : la collectivité " +
-    "rend une avance ou paie sa part. Ce n'est pas un soutien, donc hors des totaux.",
-  nature: "Aide en nature (locaux, personnel mis à disposition), valorisée en euros " +
-    "mais jamais décaissée. Comptée à part pour ne pas gonfler les montants."
-};
-
-var RAISON_AGREGAT = "Ligne agrégée : un total publié par la source, jamais sommé " +
-  "avec les versements individuels — ce serait compter deux fois.";
-var RAISON_PAYE = "Montant déclaré PAYÉ (exécution budgétaire). Affiché à part du " +
-  "voté, jamais additionné avec lui : c'est souvent le même argent.";
-var RAISON_QUARANTAINE = "Montant publié par la source, exclu des totaux : son " +
-  "unité ou sa vraisemblance est douteuse.";
 
 function nomDep(code) {
   if (!code) return null;
@@ -184,11 +168,60 @@ function chercher() {
       " finit de charger, et les résultats se compléteront seuls."));
   }
   hote.appendChild(entete);
+  if (res.source === "complet") hote.appendChild(exportResultats());
 
   var ul = el("ul", "classement");
   res.resultats.forEach(function (f) { ul.appendChild(ligneResultat(f)); });
   hote.appendChild(ul);
   Lexique.poser(hote);
+}
+
+var PLAFOND_EXPORT = 20000;
+
+/** L'export de la liste. Il porte TOUS les résultats, pas les cinquante
+ *  affichés — mais il lui faut un identifiant par ligne, et ceux-ci vivent
+ *  dans des blocs séparés (835 par fichier) pour ne pas alourdir de 2,7 Mo
+ *  chaque recherche. D'où l'avancement pendant qu'ils arrivent. */
+function exportResultats() {
+  var q = plier(etat.q);
+  var filtres = {
+    dep: etat.dep,
+    cumul: etat.cumul ? Number(etat.cumul) : 0,
+    dependance: etat.dependance ? Number(etat.dependance) : 0
+  };
+  var complet = Index.chercherAssociations(q, filtres, PLAFOND_EXPORT);
+  var tronque = complet.total > complet.resultats.length;
+  return Export.blocExport(
+    "Télécharger " + (tronque ? "les " + fmtNombre.format(PLAFOND_EXPORT) + " premières"
+                              : "ces " + fmtNombre.format(complet.total)) + " associations (CSV)",
+    (tronque ? "Au-delà de " + fmtNombre.format(PLAFOND_EXPORT) + " lignes, l'export " +
+       "s'arrête — précisez la recherche pour tout obtenir. " : "") +
+    "Une ligne par association, avec le lien vers sa fiche.",
+    async function (avancement) {
+      var lignes = [];
+      for (var i = 0; i < complet.resultats.length; i++) {
+        var f = complet.resultats[i];
+        var bid = f.bid || await Index.identifiantDuRang(f.rang);
+        lignes.push([
+          f.nom, bid, f.dep || "", nomDep(f.dep) || "",
+          Export.montant(f.montant), f.nbv || "", f.ech || "",
+          (f.echelons || []).map(function (e) { return NIVEAUX[e] || e; }).join(" + "),
+          f.a0 || "", f.a1 || "", f.part == null ? "" : f.part,
+          location.origin + location.pathname + "#a=" + bid
+        ]);
+        if (i % 400 === 0) avancement(i / complet.resultats.length);
+      }
+      return {
+        nom: Export.nomFichier("associations", etat.q || "toutes",
+                               etat.dep ? "dep" + etat.dep : "",
+                               etat.cumul ? etat.cumul + "echelons" : ""),
+        texte: Export.csv(
+          ["nom", "identifiant", "departement_code", "departement",
+           "dons_votes_eur", "nb_versements", "nb_echelons", "echelons",
+           "annee_min", "annee_max", "part_principal_financeur_pct", "lien"],
+          lignes)
+      };
+    });
 }
 
 function montrerCumuls(hote) {
@@ -251,6 +284,7 @@ function lienRetour() {
 }
 
 function dessinerFiche(fiche, b, vers) {
+  ficheCourante = b;
   fiche.appendChild(lienRetour());
   fiche.appendChild(el("h2", null, b.nom));
 
@@ -297,8 +331,7 @@ function dessinerFiche(fiche, b, vers) {
   // veut rien dire.
   var parAn = {}, parDonateur = {};
   vers.forEach(function (v) {
-    if (v.granularite === "aggregate" || v.montant == null) return;
-    if (v.concours !== "don" || v.mesure === "verse") return;
+    if (v.cas !== CAS_DANS_LES_TOTAUX || v.montant == null) return;
     var y = v.annee == null ? "?" : String(v.annee);
     parAn[y] = (parAn[y] || 0) + v.montant;
     var k = v.donateur || "—";
@@ -350,15 +383,7 @@ function dessinerFiche(fiche, b, vers) {
   Lexique.poser(fiche);
 }
 
-function raisonHorsTotaux(v) {
-  if (v.granularite === "aggregate") return ["agregat", RAISON_AGREGAT];
-  if (v.concours && v.concours !== "don") {
-    return [v.concours === "prestation" ? "prestation" : null,
-            RAISONS_HORS_DON[v.concours] || "Ce n'est pas un don."];
-  }
-  if (v.mesure === "verse") return ["paye", RAISON_PAYE];
-  return null;
-}
+var ficheCourante = null;
 
 function tableauVersements(vers) {
   var bloc = el("div", "bloc-versements");
@@ -369,8 +394,8 @@ function tableauVersements(vers) {
   // invisible à l'impression.
   var raisons = {};
   vers.forEach(function (v) {
-    var r = raisonHorsTotaux(v);
-    if (r) raisons[r[1]] = true;
+    var m = motifHorsTotaux(v);
+    if (m) raisons[m] = true;
   });
   var cles = Object.keys(raisons);
   if (cles.length) {
@@ -381,6 +406,18 @@ function tableauVersements(vers) {
     legende.appendChild(ul);
     bloc.appendChild(legende);
   }
+
+  bloc.appendChild(Export.blocExport(
+    "Télécharger les " + fmtNombre.format(vers.length) + " versements (CSV)",
+    "Le fichier porte tous les versements, pas seulement ceux affichés. Chaque " +
+    "montant est dans la colonne de sa catégorie — voté, payé, hors don, " +
+    "agrégat, hors champ — pour qu'aucune somme n'additionne deux choses " +
+    "différentes.",
+    function () {
+      return { nom: Export.nomFichier("versements", ficheCourante.nom,
+                                      ficheCourante.benef_id),
+               texte: Export.csvVersements(vers) };
+    }));
 
   var LIMITE = 300;
   var env = el("div", "table-versements");
@@ -420,12 +457,12 @@ function tableauVersements(vers) {
     else if (v.montant_ecarte != null) {
       m.textContent = "(" + euros(v.montant_ecarte) + ")";
       m.classList.add("ecarte");
-      m.appendChild(el("span", "raison", RAISON_QUARANTAINE));
+      m.appendChild(el("span", "raison", MOTIFS.quarantaine));
     } else m.textContent = "—";
-    var r = raisonHorsTotaux(v);
-    if (r && v.montant != null) {
+    var motif = motifHorsTotaux(v);
+    if (motif && v.montant != null) {
       m.classList.add("ecarte");
-      m.appendChild(el("span", "raison", r[1]));
+      m.appendChild(el("span", "raison", motif));
     }
     tr.appendChild(m);
     tbody.appendChild(tr);

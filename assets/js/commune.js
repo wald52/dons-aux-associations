@@ -26,6 +26,7 @@ import {
 import * as Index from "./index-recherche.js";
 import * as Suggest from "./suggest.js";
 import * as Lexique from "./lexique.js";
+import * as Export from "./export.js";
 
 var fiches = {};
 var denominateur = null;
@@ -174,6 +175,25 @@ function dessinerFiche(code, c, population) {
   env.setAttribute("aria-label", "Détail par exercice");
   env.appendChild(t);
   hote.appendChild(env);
+
+  // Les trois colonnes ne s'additionnent jamais, et le fichier le dit dans le
+  // nom même de ses colonnes : mandaté d'un côté, voté et payé de l'autre.
+  hote.appendChild(Export.blocExport(
+    "Télécharger ce tableau (CSV)",
+    "Le déclaré est un montant mandaté, le connu est très majoritairement voté : " +
+    "les trois colonnes ne s'additionnent jamais.",
+    function () {
+      return {
+        nom: Export.nomFichier("commune", c.n, code),
+        texte: Export.csv(
+          ["exercice", "declare_compte_6574_eur", "connu_du_site_vote_eur",
+           "connu_du_site_paye_eur"],
+          exercices.map(function (a) {
+            return [a, Export.montant(c.d[a]),
+                    Export.montant(c.v[a] || null), Export.montant(c.p[a] || null)];
+          }))
+      };
+    }));
 
   // Les réserves : une par point, pas un pavé de sept cents caractères.
   var reserves = el("div", "points points-reserves");
