@@ -708,3 +708,27 @@ td.source a { color: var(--accent); }
 .note-panneau { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--filet);
   font-size: var(--t-xs); color: var(--ardoise); line-height: 1.5; }
 .note-panneau a { color: var(--accent); }
+
+/* --- exports -------------------------------------------------------------- *
+ * Un bouton discret : l'export sert une minorité de lecteurs, mais il est la
+ * seule façon de sortir un chiffre du site pour le vérifier ailleurs. La note
+ * qui l'accompagne n'est pas décorative — elle dit ce que le fichier contient,
+ * sans quoi l'écart entre les 300 lignes affichées et les 5 321 exportées
+ * passerait pour un défaut. */
+
+.bloc-export {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px;
+  margin: 14px 0 4px; padding-top: 12px; border-top: 1px solid var(--filet);
+}
+.bouton-export {
+  font-size: var(--t-sm); font-weight: 600; padding: 6px 12px;
+  border: 1px solid var(--filet-fort); border-radius: var(--rayon-sm);
+  background: var(--surface); color: var(--encre-douce); white-space: nowrap;
+}
+.bouton-export:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.bouton-export:disabled { opacity: .65; cursor: progress; }
+.note-export {
+  flex: 1; min-width: 220px; font-size: var(--t-xs);
+  color: var(--ardoise); line-height: 1.45;
+}
+@media (max-width: 620px) { .bouton-export { width: 100%; } }

@@ -26,6 +26,7 @@ import {
 import * as Index from "./index-recherche.js";
 import * as Suggest from "./suggest.js";
 import * as Lexique from "./lexique.js";
+import * as Export from "./export.js";
 
 var etat = {
   meta: null, cube: null, carte: null, top: null, denominateur: null,
@@ -472,10 +473,24 @@ async function dessinerPanneau() {
     vider(sousTitre);
     sousTitre.textContent = euros(f.montant_eur) + " reçus · " +
       pluriel(f.lignes, "versement") + " · " + (f.region || "");
-    corps.appendChild(classement(
-      etat.onglet === "beneficiaires" ? f.beneficiaires : f.donateurs,
-      30, etat.onglet === "beneficiaires"));
+    var entrees = etat.onglet === "beneficiaires" ? f.beneficiaires : f.donateurs;
+    corps.appendChild(classement(entrees, 30, etat.onglet === "beneficiaires"));
     if (etat.onglet === "beneficiaires") corps.appendChild(noteNatureDevinee());
+    corps.appendChild(Export.blocExport(
+      "Télécharger ces " + fmtNombre.format(entrees.length) + " lignes (CSV)",
+      "Dons votés uniquement, toutes années confondues — le filtre d'année de " +
+      "la carte ne s'y applique pas.",
+      function () {
+        return {
+          nom: Export.nomFichier("departement", code, etat.onglet),
+          texte: Export.csv(
+            [etat.onglet === "beneficiaires" ? "beneficiaire" : "donateur",
+             "nb_versements", "dons_votes_eur"],
+            entrees.map(function (e) {
+              return [e[0], e[1], Export.montant(e[2])];
+            }))
+        };
+      }));
   } catch (err) {
     vider(sousTitre);
     sousTitre.appendChild(messageErreur("Détail indisponible pour ce département.",

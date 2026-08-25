@@ -199,6 +199,51 @@ sera repris sans modification du code.
 - Prioriser par **population couverte**, pas par nombre de fichiers.
 - Afficher la couverture en permanence dans l'interface.
 
+### Phase 14 — Les exports — **faite le 25/08/2026**
+
+Le dernier maillon : on peut enfin **emporter les chiffres**. Quatre exports
+CSV — la fiche d'une association (tous ses versements, pas les 300 affichés),
+une liste de résultats de recherche avec un lien par ligne, la fiche communale,
+et le détail d'un département.
+
+**La décision qui gouverne le reste : une colonne de montant par catégorie.**
+Le site passe son temps à ne pas additionner ce qui n'est pas de même nature ;
+à l'écran il le dit par un grisé et un motif écrit à côté. Dans un tableur, une
+colonne de nombres est une colonne de nombres, et la première chose qu'on en
+fait est de la sommer. Les exports portent donc `montant_vote_eur`,
+`montant_paye_eur`, `montant_hors_don_eur`, `montant_agrege_eur`,
+`montant_hors_champ_eur` — les cinq cases de `verify.py`, dont une seule est
+remplie par ligne — plus `montant_quarantaine_eur` à part. Sommer une colonne
+est juste par construction.
+
+**Ce que le chantier a révélé, et qui n'était pas dans son énoncé.** Pour que
+l'export range chaque montant dans la bonne case, il fallait connaître la case.
+Le navigateur la recalculait — et ne le pouvait pas : `compte_dans_les_totaux`
+dépend de la nature juridique DÉCLARÉE du bénéficiaire, absente de l'index.
+Mesuré : la fiche de COALLIA affichait **21 492 € de trop**, sur trois lignes
+dont la source déclare un bénéficiaire non associatif. Le verdict voyage
+maintenant avec le versement, comme `concours` avant lui. Les 512 shards ont
+été reconstruits.
+
+Deux autres corrections du même ordre : un montant absent ne devient plus un
+zéro publié (79 066 lignes concernées par la distinction), et la quarantaine
+prime sur la case — sans quoi 39 lignes de la Croix-Rouge sortaient avec une
+valeur publiée et aucune explication.
+
+**Vérification** : le CSV de la Croix-Rouge redonne 1 303 946 183,60 € au
+centime, sur 5 321 lignes, dont aucune ne porte deux montants ni aucun.
+Recoupé indépendamment avec la table canonique via `compte_dans_les_totaux`.
+
+**Trouvé au passage, non corrigé** : le jeu « Subventions aux associations
+votées » de la Ville de Paris publie `Collectivité = "v"` sur ses 15 099
+lignes, vérifié à la source. Toutes ont une jumelle exacte ailleurs :
+**722,4 M€ comptés deux fois**, que la déduplication ne peut pas voir puisque
+le donateur fait partie de la clé. Même schéma que Rennes Métropole en phase 12.
+Le correctif fait baisser un total de tête — c'est un arbitrage de
+l'utilisateur, posé dans `RESTE-A-FAIRE.md` §3b.
+
+---
+
 ### Phase 13 — L'interface — **faite le 23/08/2026**
 
 Le chantier n° 4 de `RESTE-A-FAIRE.md` : « décider ce que devient le site sans

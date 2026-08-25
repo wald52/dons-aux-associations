@@ -478,9 +478,7 @@ collectivité qu'on ne couvre pas. Les trois derniers coûtent zéro couverture
     bénéficiaires — le calcul est le même, le fichier serait du même ordre ;
   - `top.json.gz` n'a pas de dimension annuelle : « les plus gros bénéficiaires
     en 2023 » n'est pas répondable sans un nouvel agrégat ;
-  - il n'y a **aucun export** : ni CSV d'une fiche, ni lien de téléchargement
-    des versements d'une association. C'est probablement le manque le plus
-    utile qui reste pour un journaliste ou un élu.
+  - ~~aucun export~~ — **fait le 25/08/2026**, quatre exports CSV.
 
 - **Le doublon Baule** : 182 lignes, 365 k€. `communes-pays-loire` étiquette
   « Commune de La Baule » ce qui est en réalité **Baule dans le Loiret**. On ne
@@ -494,6 +492,57 @@ collectivité qu'on ne couvre pas. Les trois derniers coûtent zéro couverture
   reconnaissance de colonnes, n'est pas touché.
 - **Le fichier PLF 2024 est vide à la source** (« csv: fichier vide ou non
   tabulaire ») : l'exercice 2022 manque donc au corpus PLF Jaune.
+
+---
+
+### 3b. Le donateur « v » de la Ville de Paris — **722,4 M€ comptés deux fois**
+
+*Trouvé le 25/08/2026 en relisant une fiche à l'écran, mesuré aussitôt. Non
+corrigé : le correctif déplace un total de tête, c'est un arbitrage de
+l'utilisateur.*
+
+Le jeu `scdl-65ea8f56-e87042eb` — « Subventions aux associations votées »,
+publié par la Ville de Paris sur data.gouv.fr et servi par
+`opendata.paris.fr` — porte **`Collectivité = "v"`** sur ses 15 099 lignes.
+Vérifié à la source, l'en-tête et trois lignes :
+
+```
+Numéro de dossier;Année budgétaire;Collectivité;Nom Bénéficiaire;...
+2026_01700;2026;v;A.S PARIS 17;...
+```
+
+**Le défaut est du publieur, pas du pipeline** : le site lit fidèlement ce qui
+est écrit, comme la doctrine l'exige. Mais la conséquence est un double compte,
+et elle est entière :
+
+| Mesure | Valeur |
+|---|---|
+| Lignes concernées | **15 099** (2024-2026) |
+| Montant | **722,4 M€** |
+| Lignes ayant une jumelle EXACTE ailleurs (même bénéficiaire, année, montant, objet) | **15 099, soit 100 %** |
+| Donateur déclaré | `v`, échelon `inconnu` |
+
+La déduplication ne peut pas les voir : `identite_donateur` fait partie de la
+clé métier, et « v » ne se rapproche d'aucun libellé. C'est **exactement le
+schéma de Rennes Métropole en phase 12** — un donateur faux qui empêche deux
+publications du même argent de se rencontrer.
+
+Trois issues possibles, à trancher :
+
+1. **Traiter « v » comme un libellé qui ne nomme personne**, au même titre que
+   « collectivite », « - » ou vide (`_DONOR_PLACEHOLDER` dans `common.py`), et
+   laisser le donateur NON ATTRIBUÉ. Les lignes restent, se dédupliquent avec
+   leurs jumelles, et 722,4 M€ sortent du total. C'est la solution la plus
+   conforme à ce que la phase 12 a décidé pour Rennes.
+2. **Remonter au publieur du portail** (`opendata.paris.fr` → Ville de Paris),
+   comme pour Saint-Maur-des-Fossés. Attribue correctement, mais devine.
+3. **Ne rien faire et le dire**, en l'ajoutant aux anomalies signalées du
+   rapport de qualité.
+
+Attention si l'on retient (1) ou (2) : le total voté du site **baisse de
+722,4 M€**, et c'est une correction, pas une perte — exactement comme les
+1,67 Md€ de la phase 11 et les 227,2 M€ de la phase 12. Il faudra le dire dans
+`CLAUDE.md`, `methode.html` et le commit.
 
 ---
 

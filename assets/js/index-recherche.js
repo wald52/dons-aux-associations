@@ -350,6 +350,10 @@ export async function chargerFiche(bid) {
       granularite: d.gra[shard.gra[j]] || "",
       mesure: d.mes[shard.mes[j]] || "",
       concours: d.con[shard.con[j]] || "",
+      // Le verdict des totaux, calculé par le pipeline. Le navigateur ne le
+      // recalcule pas : il ne le pourrait pas sans la nature juridique
+      // déclarée du bénéficiaire, absente de l'index.
+      cas: (d.cas && d.cas[shard.cas[j]]) || "vote",
       source: d.src[shard.src[j]] || "",
       url: d.url[shard.url[j]] || ""
     });

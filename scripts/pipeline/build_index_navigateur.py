@@ -113,9 +113,43 @@ _BLANCS = re.compile(r"[\r\n\t]+")
 
 def nombre(v):
     """Un montant entier s'écrit sans « .0 ». Sur 2,8 millions de lignes, ces
-    deux caractères pèsent plus que bien des colonnes."""
-    v = round(v or 0.0, 2)
+    deux caractères pèsent plus que bien des colonnes.
+
+    Un montant ABSENT reste absent : le confondre avec un zéro publié ferait
+    disparaître la différence entre « la source n'a rien mis » et « la source a
+    écrit 0 € », qui concerne 79 066 lignes bien réelles."""
+    if v is None:
+        return None
+    v = round(v, 2)
     return int(v) if v == int(v) else v
+
+
+# Les cinq cases de `verify.py` — « toute ligne tombe dans une case et une
+# seule ». L'ordre EST la règle : un agrégat qui serait aussi une prestation
+# reste un agrégat, et c'est ainsi que `build_aggregates.py` les compte.
+CAS = ["vote", "paye", "hors_don", "agrege", "hors_champ"]
+
+
+def cas_du_versement(granularity, measure, kind, kind_provenance, concours):
+    """Dans quelle case tombe ce versement, et donc s'il entre dans les totaux.
+
+    Le verdict voyage AVEC le versement, comme `concours` avant lui, parce que
+    le navigateur ne peut pas le recalculer : la nature juridique déclarée du
+    bénéficiaire n'est pas dans l'index, et l'y mettre pour cela seul serait
+    réimplémenter en JavaScript la règle que `common.py` écrit une fois.
+    Mesuré avant de le faire : sans cette colonne, la fiche de COALLIA
+    affichait 1 097 498 188 € contre 1 097 476 696 € au pipeline — 21 492 €
+    d'écart, trois lignes dont la source DÉCLARE un bénéficiaire non
+    associatif."""
+    if granularity == "aggregate":
+        return "agrege"
+    if concours != "don":
+        return "hors_don"
+    if not C.est_un_don(granularity, kind, kind_provenance, concours):
+        return "hors_champ"
+    if measure == "verse":
+        return "paye"
+    return "vote"
 
 
 def texte(v):
@@ -203,6 +237,7 @@ def main():
         "siren": None, "rna": None, "norm": None,
     })
     natures = []
+    cas = []
     dernier_exercice_donateur = {}
     for i in range(n):
         bid = benef_id(col["beneficiary_siren"][i], col["beneficiary_rna"][i],
@@ -217,9 +252,14 @@ def main():
         nature = C.nature_du_concours(col["purpose_norm"][i],
                                       col["quality_flags"][i])[0]
         natures.append(nature)
-        if C.compte_dans_les_totaux(col["granularity"][i], col["measure"][i],
-                                    col["beneficiary_kind"][i],
-                                    col["beneficiary_kind_provenance"][i], nature):
+        cas.append(cas_du_versement(
+            col["granularity"][i], col["measure"][i], col["beneficiary_kind"][i],
+            col["beneficiary_kind_provenance"][i], nature))
+        # Le cumul suit le VERDICT, pas une seconde lecture de la règle : un
+        # seul point de décision par ligne, donc aucune divergence possible
+        # entre ce que l'index somme et ce que la fiche affichera.
+        # `verify.py` recoupe de son côté avec `compte_dans_les_totaux`.
+        if cas[-1] == "vote":
             g["montant"] += col["amount_eur"][i] or 0.0
             ident = C.identite_donateur(col["donor_name_raw"][i]) or "?"
             g["par_donateur"][ident] += col["amount_eur"][i] or 0.0
@@ -379,12 +419,14 @@ def main():
             "gra": [d_gran.code(col["granularity"][i]) for i in lignes],
             "mes": [d_mesure.code(col["measure"][i]) for i in lignes],
             "con": [d_concours.code(natures[i]) for i in lignes],
+            "cas": [CAS.index(cas[i]) for i in lignes],
             "src": [d_source.code(col["source_label"][i]) for i in lignes],
             "url": [d_url.code(col["source_url"][i]) for i in lignes],
             "dico": {
                 "niv": d_niveau.valeurs, "don": d_donateur.valeurs,
                 "prg": d_programme.valeurs, "gra": d_gran.valeurs,
                 "mes": d_mesure.valeurs, "con": d_concours.valeurs,
+                "cas": CAS,
                 "src": d_source.valeurs, "url": d_url.valeurs,
             },
         }

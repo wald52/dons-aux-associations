@@ -97,6 +97,50 @@ export var NIVEAUX = {
   inconnu: "Donateur non identifié"
 };
 
+// --- ce qui entre dans les totaux, et ce qui n'y entre pas ----------------
+//
+// Cinq cases, et toute ligne tombe dans une et une seule : c'est l'invariant
+// que `verify.py` vérifie à chaque assemblage. Le navigateur ne DÉCIDE pas
+// dans laquelle — le verdict voyage avec le versement, calculé par
+// `cas_du_versement` dans `build_index_navigateur.py`, parce que la nature
+// juridique déclarée du bénéficiaire n'est pas dans l'index. Ici, on ne fait
+// que traduire le verdict en français.
+
+export var CAS_DANS_LES_TOTAUX = "vote";
+
+export var MOTIFS = {
+  paye: "Montant déclaré PAYÉ (exécution budgétaire). Affiché à part du voté, " +
+    "jamais additionné avec lui : c'est souvent le même argent.",
+  agrege: "Ligne agrégée : un total publié par la source, jamais sommé avec les " +
+    "versements individuels — ce serait compter deux fois.",
+  hors_champ: "La source déclare un bénéficiaire qui n'est pas une association " +
+    "(établissement public, entreprise, personne physique). Quand elle le dit " +
+    "elle-même, elle fait foi et la ligne sort des totaux.",
+  prestation: "Prestation facturée par l'association : la collectivité achète un " +
+    "service, il y a une contrepartie. Ce n'est pas un don, donc hors des totaux.",
+  remboursement: "Remboursement de frais ou cotisation d'adhésion : la collectivité " +
+    "rend une avance ou paie sa part. Ce n'est pas un soutien, donc hors des totaux.",
+  nature: "Aide en nature (locaux, personnel mis à disposition), valorisée en euros " +
+    "mais jamais décaissée. Comptée à part pour ne pas gonfler les montants.",
+  quarantaine: "Valeur publiée par la source, exclue de tous les totaux : son unité " +
+    "ou sa vraisemblance est douteuse. Ce n'est pas un euro du site."
+};
+
+/** Le motif, en toutes lettres, pour un versement qui ne compte pas. `null`
+ *  quand il compte. « hors_don » se précise par sa nature de concours, la
+ *  source étant plus utile que la catégorie. */
+export function motifHorsTotaux(v) {
+  // La quarantaine PRIME sur la case. Une ligne du Jaune 2011 tombe dans
+  // « voté » — elle y tomberait si son montant était utilisable — mais son
+  // montant est en quarantaine et n'entre nulle part. Sans cette priorité,
+  // l'export sortait 39 lignes de la Croix-Rouge portant une valeur publiée
+  // et aucune explication.
+  if (v.montant == null && v.montant_ecarte != null) return MOTIFS.quarantaine;
+  if (v.cas === CAS_DANS_LES_TOTAUX) return null;
+  if (v.cas === "hors_don") return MOTIFS[v.concours] || "Ce n'est pas un don.";
+  return MOTIFS[v.cas] || "Hors des totaux du site.";
+}
+
 // --- état d'URL -------------------------------------------------------------
 //
 // Rien n'était partageable : ni un département, ni une année, ni une

@@ -351,6 +351,35 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   portaient la moitié du sens de la fiche et étaient inatteignables au doigt,
   au clavier et à l'impression. Elles sont écrites.
 
+- **Un export est l'endroit où l'on somme ce que le site refuse d'additionner.**
+  À l'écran, un montant hors totaux est grisé avec son motif à côté ; dans un
+  tableur, une colonne de nombres est une colonne de nombres. Les exports
+  portent donc **une colonne de montant par catégorie** — voté, payé, hors don,
+  agrégat, hors champ — dont une seule est remplie par ligne, plus une colonne
+  de quarantaine à part. Sommer une colonne est juste par construction, sommer
+  deux colonnes se voit. Ce sont exactement les cinq cases de `verify.py`
+  (« toute ligne tombe dans une case et une seule ») : l'export reprend
+  l'invariant du pipeline au lieu d'en inventer un autre. Ne jamais y ajouter
+  une colonne `montant_eur` fourre-tout, elle annulerait tout le dispositif.
+
+- **Le navigateur ne peut PAS recalculer la règle des totaux, et il l'a fait
+  pendant toute la phase 13.** `compte_dans_les_totaux` dépend de la nature
+  juridique DÉCLARÉE du bénéficiaire, qui n'est pas dans l'index. La fiche
+  réimplémentait donc une version approchée en JavaScript. Mesuré : COALLIA
+  affichait 1 097 498 188 € contre 1 097 476 696 € au pipeline — **21 492 €
+  d'écart sur trois lignes**. Le verdict voyage maintenant AVEC le versement
+  (colonne `cas`, comme `concours` avant lui), calculé par `cas_du_versement`
+  dans `build_index_navigateur.py`. Corollaire : `build_index_navigateur.py`
+  fait lui-même sa somme d'après ce verdict, pour qu'il n'y ait qu'un seul
+  point de décision par ligne ; `verify.py` recoupe indépendamment avec
+  `compte_dans_les_totaux`.
+
+- **La quarantaine prime sur la case.** Une ligne du Jaune 2011 tombe dans
+  « voté » — elle y tomberait si son montant était utilisable — mais son
+  montant est en quarantaine et n'entre nulle part. Sans cette priorité dans
+  `motifHorsTotaux`, l'export sortait 39 lignes de la Croix-Rouge portant une
+  valeur publiée et aucune explication.
+
 - **Deux géographies opposées ne partagent jamais un écran — la page commune
   aussi.** `commune.html` dit ce que la commune PAIE ; la carte de l'accueil
   dit ce que les associations DOMICILIÉES dans un territoire ont REÇU. Le lien
@@ -1222,6 +1251,18 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       Trois bogues de `build_methode.py` corrigés, dont un total de
       « 80 002 255 770,2 Md€ ». Aucun chiffre n'est plus écrit en dur dans le
       HTML. **49/50 contrôles**, le compte normal hors assemblage complet.
+
+- [x] **Phase 14** — les exports. Quatre exports CSV : la fiche d'une
+      association (**tous** ses versements, pas les 300 affichés), une liste de
+      résultats avec un lien par ligne, la fiche communale, le détail d'un
+      département. Chacun porte **une colonne de montant par catégorie** — les
+      cinq cases de `verify.py` — pour qu'une somme y soit juste par
+      construction. Le chantier a révélé que **le navigateur recalculait la
+      règle des totaux et se trompait** : 21 492 € d'écart sur COALLIA. Le
+      verdict voyage désormais avec le versement. Trouvé au passage et NON
+      corrigé, faute d'être notre arbitrage : la Ville de Paris publie
+      `Collectivité = "v"` sur 15 099 lignes dont **toutes** ont une jumelle
+      exacte ailleurs — **722,4 M€ comptés deux fois** (`RESTE-A-FAIRE.md` §3b).
 
 Détail de chaque phase dans `ROADMAP.md`.
 

@@ -150,6 +150,22 @@ quand le pointeur entre dans le champ, s'y pose ou lui donne le focus : qui
 vient seulement regarder la carte ne le paie jamais, et qui va s'en servir l'a
 avant sa première lettre.
 
+## Après phase 14 — les exports (25/08/2026)
+
+Le module d'export ne coûte rien à qui ne clique pas : il fabrique le fichier
+**au clic**, jamais d'avance. `bench/phase14-accueil.json` :
+
+| Mesure | phase 13 | phase 14 |
+|---|---|---|
+| Octets transférés | 0,22 Mo | **0,23 Mo** |
+| Premier affichage | 0,06 s | **0,08 s** |
+| Données exploitables | 0,59 s | **0,60 s** |
+| Mémoire JS | 3 Mo | **3 Mo** |
+
+Les 0,01 Mo de plus sont `export.js`. La reconstruction des 512 shards de
+fiches, qui portent une colonne de plus (le verdict des totaux), les fait
+passer de 59,1 à 59,4 Mo au total — la fiche médiane reste à 118 Ko.
+
 ## Page recherche (phase 3, architecture retirée)
 
 Coûts mesurés en local, serveur sans gzip (en ligne, le wasm se comprime ~×3) :

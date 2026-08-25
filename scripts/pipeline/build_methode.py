@@ -418,9 +418,27 @@ def main():
 
     <h2>Reproduire ces chiffres</h2>
     <p>Le pipeline est public et reconstructible d'une commande. Chaque ligne du site porte
-       l'identifiant de sa source et sa référence dans le fichier d'origine. Les scripts, la
-       table canonique et le rapport de qualité complet sont dans le
-       <a href="https://github.com/wald52/dons-aux-associations">dépôt du projet</a>.</p>
+       l'identifiant de sa source et sa référence dans le fichier d'origine. Tout est dans le
+       <a href="https://github.com/wald52/dons-aux-associations">dépôt du projet</a> :</p>
+    <ul>
+      <li>la table canonique elle-même, en Parquet partitionné par année —
+        <code>data/canonical/subventions/year=AAAA/</code> ;</li>
+      <li>le rapport de qualité complet, dont ces chiffres sont tirés —
+        <code>data/canonical/quality-report.json</code> ;</li>
+      <li><strong>la règle des totaux, écrite une seule fois</strong> —
+        <code>compte_dans_les_totaux</code> dans <code>scripts/pipeline/common.py</code> ;
+        c'est elle que suivent la carte, les fiches et les exports ;</li>
+      <li>les {nb(50)} contrôles de bout en bout — <code>scripts/pipeline/verify.py</code>.</li>
+    </ul>
+    <div class="encart">
+      <h3>Emporter les chiffres</h3>
+      <p>Chaque fiche d'association, chaque fiche communale, chaque département et chaque
+         liste de résultats se télécharge en CSV. Ces fichiers portent <strong>une colonne de
+         montant par catégorie</strong> — voté, payé, hors don, agrégat, hors champ — plutôt
+         qu'une colonne unique assortie d'un drapeau : sommer une colonne y est juste par
+         construction, et sommer deux colonnes se voit, puisqu'elles ne portent pas le même
+         nom. C'est la même partition que celle vérifiée à chaque assemblage.</p>
+    </div>
   </div>
 
   <footer>
