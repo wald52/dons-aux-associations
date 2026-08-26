@@ -585,6 +585,32 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   soupçon — c'est exactement ce que demande la consigne « ne pas que le public
   se sente trompé ».
 
+- **Le Journal officiel nomme 94,6 % des fondations, et type les trois quarts de
+  tout l'argent associatif.** Mesuré le 26/08/2026 en joignant l'export `dca`
+  (227 738 dépôts) à la table par SIREN **et par RNA** — ce dernier venant de
+  `identifiantAssociationUniteLegale` de SIRENE. Le JO type 31 686 SIREN et
+  18 964 RNA, soit **76,2 % du montant du périmètre associatif** (64,89 Md€ sur
+  85,11). Sur les 705,6 M€ de fondations et fonds de dotation :
+  « Fondations-Fondations d'entreprise » 511,9 M€ (72,5 %), « association loi
+  1901 » 148,9 M€ (21,1 %), fonds de dotation 4,0 M€, fondations partenariales
+  2,7 M€ — et **seulement 4,7 M€, soit 0,7 %, resteraient « type non
+  précisé »**. La consigne de différenciation est donc tenable presque partout.
+  Corollaire cohérent avec la réserve du §5c : **les fonds de dotation ne pèsent
+  que 4,0 M€** dans le site alors que 3 669 déposent leurs comptes — le seuil de
+  153 000 € mélange bien dons privés et argent public.
+
+- **Le JO et l'INSEE se contredisent sur 92 organismes, et aucun des deux ne
+  ment.** 45 organismes que l'INSEE classe fondation (9300) sont déclarés
+  « association loi 1901 » au JO (148,9 M€), et 47 classés association (92xx)
+  y sont déclarés fondation ou fonds (91,3 M€) : **240,2 M€, soit 0,3 % du
+  périmètre**. Les noms disent pourquoi — « FONDATION DE NICE PATRONAGE
+  SAINT-PIERRE ACTES », « FONDATION FALRET », le Mémorial de la Shoah,
+  l'Institut du monde arabe : des organismes qui s'appellent fondation sans en
+  avoir la forme juridique, et l'inverse. **L'INSEE enregistre la FORME
+  JURIDIQUE, le JO le TYPE DÉCLARÉ au dépôt.** Ne pas trancher silencieusement
+  entre les deux : la frontière dedans/dehors reste à l'INSEE, le libellé de
+  famille affiché vient du JO, et ces 92 cas portent la mention des deux.
+
 - **La nature n'est vérifiable que là où il y a un SIREN — 23,1 % du montant
   échappe.** Sur les 120,41 Md€ portés par des lignes « association »,
   92,58 Md€ (76,9 %) ont un SIREN exploitable ; **27,83 Md€ n'ont aucun

@@ -701,7 +701,66 @@ part ne coûte rien au total et retire tout soupçon.
    d'entreprise, fondations partenariales — pour les 31 683 organismes
    au-dessus de 153 000 €, les autres restant « type non précisé ».
 
-#### j. Ce qui reste à trancher
+#### j. Le Journal officiel peut-il nommer les fondations ? — **OUI, à 94,6 %**
+
+C'était le dernier point non mesuré. Fait le 26/08/2026 : l'export `dca` du JO
+(227 738 dépôts) est joint à la table par SIREN **et par RNA**, ce dernier venant
+de `identifiantAssociationUniteLegale` de SIRENE. Le JO type **31 686 SIREN et
+18 964 RNA**.
+
+**Portée générale, bien meilleure qu'attendu** : le JO type **76,2 % du montant**
+du périmètre associatif (64,89 Md€ sur 85,11), pour 38,1 % des lignes. Ce n'est
+donc pas un outil réservé aux fondations : il confirme « association loi 1901 »
+sur les trois quarts de l'argent associatif du site.
+
+**Les fondations et fonds de dotation** — 6 765 lignes, 705,6 M€,
+357 organismes :
+
+| type déclaré | lignes | montant | part |
+|---|---|---|---|
+| Fondations-Fondations d'entreprise | 4 955 | 511,9 M€ | **72,5 %** |
+| Associations loi du 1er juillet 1901 *(le JO contredit l'INSEE)* | 970 | 148,9 M€ | 21,1 % |
+| *(non déposé)* libellé « fondation » | 539 | 32,7 M€ | 4,6 % |
+| Fonds de dotation | 73 | 4,0 M€ | 0,6 % |
+| Fondations partenariales | 111 | 2,7 M€ | 0,4 % |
+| **TYPE NON PRÉCISÉ** | 97 | **4,7 M€** | **0,7 %** |
+
+- **94,6 % du montant est nommé précisément** par une déclaration du JO ;
+- 4,7 % ne le serait que par le libellé du nom, donc par devinette ;
+- **0,7 % — 4,7 M€ — resterait « type non précisé »**.
+
+La consigne « bien les différencier » est donc tenable presque partout, et le
+trou résiduel est assez petit pour être dit sans gêne.
+
+*Résultat secondaire notable* : les **fonds de dotation ne pèsent que 4,0 M€**
+dans le site, alors qu'ils sont 3 669 à déposer leurs comptes. C'est cohérent
+avec la réserve déjà écrite au §5c — le seuil de 153 000 € mélange dons privés
+et argent public, et les fonds de dotation vivent surtout de dons privés.
+
+#### k. Quand le JO et l'INSEE se contredisent — 0,3 % du périmètre
+
+Les deux registres divergent, dans les deux sens, et sur peu :
+
+| | organismes | montant |
+|---|---|---|
+| INSEE dit fondation (9300), le JO dit association loi 1901 | 45 | 148,9 M€ |
+| INSEE dit association (92xx), le JO dit fondation ou fonds | 47 | 91,3 M€ |
+| **Total de la divergence** | **92** | **240,2 M€ = 0,3 %** |
+
+Les noms disent pourquoi : « FONDATION DE NICE PATRONAGE SAINT-PIERRE ACTES »,
+« FONDATION FALRET », « FONDATION ARALIS », « Institut du monde arabe »,
+« Mémorial de la Shoah ». **Des organismes qui s'appellent « fondation » sans
+en avoir la forme juridique, et l'inverse.** Aucun des deux registres ne ment :
+l'INSEE enregistre la FORME JURIDIQUE, le JO le TYPE DÉCLARÉ au dépôt.
+
+Proposition, à valider — elle ne bloque rien tant qu'on ne code pas : la
+**frontière** (dedans / dehors) reste à l'INSEE, comme décidé ; le **libellé de
+famille affiché** vient du JO quand il existe, puisque c'est l'organisme
+lui-même qui l'a déclaré en déposant ses comptes ; et les 92 cas divergents
+portent la mention des deux, plutôt qu'un arbitrage silencieux. 240 M€ sur
+85,11 Md€ ne justifient pas de trancher à la place des registres.
+
+#### l. Ce qui reste à trancher
 
 Trois options, à trancher avant tout code :
 
