@@ -1220,6 +1220,31 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   Élargir la découverte au mot « aide » sans `MOTS_CATALOGUE_DE_DISPOSITIFS`
   aurait faussé le total d'un facteur deux.
 
+- **Le RNA et le SIREN d'une même ligne ne désignent pas toujours la même
+  personne morale.** 384 organismes, 3 680 lignes, 694,5 M€ où le numéro publié
+  diffère de celui que SIRENE attache au SIREN — **97,4 % viennent du PLF
+  Jaune**. Analysé le 26/08/2026 : dans **69,3 %** des cas le numéro publié
+  n'existe dans AUCUN registre, ni SIRENE ni le Journal officiel ; dans 30,7 %
+  il désigne un autre organisme, le plus souvent une **antenne locale de la même
+  fédération** — le Secours populaire de Morsang au lieu du national, l'UFOLEP
+  Nièvre au lieu de la Fédération des œuvres laïques. L'hypothèse rassurante
+  d'une renumérotation a été testée : **zéro cas**. Le site garde le numéro de la
+  source, affiche celui de l'INSEE à part, et signale
+  (`rna_contredit_par_sirene`). Ne pas réécrire un identifiant publié par un
+  ministère.
+
+- **Le champ « type » du Journal officiel n'est PAS la forme juridique** : c'est
+  la case sous laquelle les comptes ont été déposés, et le dépôt d'une fondation
+  se range couramment dans le bac « associations » du JOAFE. Mesuré : les deux
+  registres concordent sur **99,4 %** des 18 419 organismes qu'ils typent tous
+  deux, mais les 104 divergences pèsent 485,9 M€ et les plus grosses donnent
+  raison à l'INSEE — l'Institut du monde arabe (67,6 M€), la Cité internationale
+  universitaire (66,4), le Mémorial de la Shoah (28,6), la Fondation Charles de
+  Gaulle (15,6) sont des fondations que le JO déclare « association loi 1901 ».
+  D'où la règle : **la forme vient de l'INSEE, le JO n'affine qu'à l'intérieur
+  des fondations, il ne renverse jamais.** Sans elle, 375,7 M€ auraient été
+  réétiquetés sur la foi d'un champ qui ne dit pas ce qu'on croit.
+
 - **Les CSV bruts sont désindexés** (`data/*.csv` dans `.gitignore`). Ils sont
   re-téléchargeables, URLs dans `SOURCES.md`, et leurs données sont déjà dans
   `data/sources/`. Ne pas les recommiter.

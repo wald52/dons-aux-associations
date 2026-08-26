@@ -785,6 +785,88 @@ Trois options, à trancher avant tout code :
 **Rien n'est engagé** : la mesure est faite, le correctif est identifié, la
 décision n'est pas la nôtre.
 
+### 1i. Quand deux registres se contredisent — **analysé le 26/08/2026**
+
+La phase 15 fait cohabiter trois sources d'identité : ce que la source publie,
+ce que SIRENE enregistre, ce que le Journal officiel déclare. Elles ne disent
+pas toujours la même chose. Les deux divergences sont **mesurées, leurs causes
+nommées, et rien n'est corrigé** — comme partout ici, on signale.
+
+#### a. Le RNA — 384 organismes, 3 680 lignes, 694,5 M€
+
+Le numéro publié par la source et celui que SIRENE attache au même SIREN
+diffèrent. **97,4 % viennent du PLF Jaune** : c'est un défaut d'une source, pas
+un phénomène général.
+
+| Cause | Organismes | Montant |
+|---|---|---|
+| **A. Le numéro publié n'existe dans aucun registre** | **266 (69,3 %)** | 502,9 M€ |
+| … dont format valide, inconnu de SIRENE *et* du JO | 249 | 479,5 M€ |
+| … dont connu du JO, absent de SIRENE | 17 | 23,4 M€ |
+| **C. Le numéro désigne une AUTRE personne morale** | **118 (30,7 %)** | 191,5 M€ |
+| … antenne locale ou structure affiliée (≥ 2 mots communs) | 56 | 53,9 M€ |
+| … parenté probable (1 mot commun) | 31 | 39,9 M€ |
+| … aucun mot commun | 31 | 97,8 M€ |
+
+**Le cas anodin n'existe pas.** L'hypothèse la plus rassurante — deux numéros
+successifs pour un même organisme, après renumérotation — a été testée : **zéro
+cas**. Les deux causes sont de vrais défauts du numéro publié.
+
+Le cas C se lit tout seul : la source donne le RNA d'une antenne locale quand le
+SIREN est celui du siège. « SECOURS POPULAIRE FRANCAIS » porte le RNA du Secours
+populaire de Morsang-sur-Orge ; « FEDER OEUVRES LAIQUES NIEVRE » celui de
+l'UFOLEP Nièvre ; les CEMEA nationaux celui de leur union régionale
+Nord-Pas-de-Calais. **Le RNA et le SIREN d'une même ligne ne désignent pas la
+même personne morale.**
+
+*Réserve de méthode* : le tri « aucun mot commun » sur-compte. Il classe ainsi
+« OFFICE CENTRAL COOPERATION ECOLE » face à « UNION REGIONALE OCCE LANGUEDOC
+ROUSSILLON », qui sont manifestement parents — le sigle ne partage aucun mot
+avec le nom développé. Les 97,8 M€ de cette ligne sont donc un MAJORANT du
+« sans lien apparent ».
+
+**Ce que le site en fait** : il garde le numéro de la source, affiche celui de
+l'INSEE à part, et signale la divergence dans le rapport de qualité
+(`rna_contredit_par_sirene`). Réécrire un identifiant publié par un ministère
+n'est pas son rôle.
+
+**Ce qui reste à trancher, et qui n'est pas notre arbitrage** : la fiche montre
+aujourd'hui le numéro de la SOURCE quand les deux divergent. L'analyse plaide
+pour l'inverse — dans 69,3 % des cas le numéro publié ne désigne rien, et celui
+de l'INSEE est rattaché au SIREN qui sert déjà à identifier le bénéficiaire,
+donc cohérent par construction. Changer l'ordre d'affichage est une entorse à
+« fidélité maximale à la source » : à l'utilisateur de dire.
+
+#### b. La forme juridique — 104 organismes, 485,9 M€
+
+L'INSEE et le Journal officiel ne rangent pas ces organismes dans la même
+famille. **Et c'est marginal : les deux registres concordent sur 99,4 % des
+18 419 organismes que tous deux typent** (18 316).
+
+Les divergences sont symétriques — 52 organismes que l'INSEE dit association et
+le JO fondation (110,2 M€), 51 l'inverse (375,7 M€) — et **le nom ne tranche
+pas** : 68 des 104 portent un nom qui ne dit rien de leur forme.
+
+Mais les plus gros tranchent, eux :
+
+| Montant | INSEE | JO | Organisme |
+|---|---|---|---|
+| 67,6 M€ | fondation | association 1901 | Institut du monde arabe |
+| 66,4 M€ | fondation | association 1901 | Cité internationale universitaire de Paris |
+| 52,9 M€ | fondation | association 1901 | Fondation Patronage Saint-Pierre-Actes |
+| 28,6 M€ | fondation | association 1901 | Mémorial de la Shoah |
+| 15,6 M€ | fondation | association 1901 | Fondation Charles de Gaulle |
+
+**Ce sont des fondations, et l'INSEE a raison.** Le champ du JO n'est pas la
+forme juridique : c'est **la case sous laquelle les comptes ont été déposés**,
+et le dépôt d'une fondation se range couramment dans le bac « associations » du
+JOAFE. C'est ce qui justifie après coup la règle posée en phase 15 : **la forme
+vient de l'INSEE, le JO n'affine qu'à l'intérieur des fondations, il ne
+renverse jamais.** Sans elle, ces 375,7 M€ auraient été réétiquetés
+« association loi 1901 » sur la foi d'un champ qui ne dit pas ce qu'on croyait.
+
+Signalé dans le rapport sous `forme_juridique_contredite_par_le_jo`.
+
 ## 2. Les anomalies connues
 
 Toutes signalées dans le rapport de qualité, aucune corrigée en douce.

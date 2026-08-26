@@ -405,6 +405,75 @@ def anomalies(table, report):
                             "effacerait des associations réelles."),
         })
 
+    # DEUX REGISTRES QUI SE CONTREDISENT (phase 15). Rien n'est corrigé ici : on
+    # mesure, on nomme la cause, et on laisse la donnée telle quelle. Les deux
+    # signalements ci-dessous ont été instruits le 26/08/2026, et leurs causes
+    # sont écrites — une liste de noms à éplucher n'aurait pas été un livrable.
+    rna_site = table.column("beneficiary_rna").to_pylist()
+    rna_insee = table.column("beneficiary_rna_insee").to_pylist()
+    type_jo = table.column("beneficiary_type_jo").to_pylist()
+    fam_col = table.column("beneficiary_family").to_pylist()
+    siren_a = table.column("beneficiary_siren").to_pylist()
+
+    couples = {}
+    for i in range(len(y)):
+        if rna_site[i] and rna_insee[i] and rna_site[i] != rna_insee[i]:
+            cle = siren_a[i] or (rna_site[i], rna_insee[i])
+            d = couples.setdefault(cle, [0, 0.0, bn[i]])
+            d[0] += 1
+            d[1] += a[i] or 0
+    if couples:
+        out.append({
+            "type": "rna_contredit_par_sirene",
+            "organismes": len(couples),
+            "rows": sum(v[0] for v in couples.values()),
+            "amount_eur": round(sum(v[1] for v in couples.values()), 2),
+            "commentaire": ("Le RNA publié par la source et celui que SIRENE attache "
+                            "au même SIREN ne sont pas le même numéro. Instruit le "
+                            "26/08/2026 sur 384 couples : dans 69,3 % des cas le "
+                            "numéro publié n'existe dans AUCUN registre, dans 30,7 % "
+                            "il désigne une autre personne morale — le plus souvent "
+                            "une antenne locale de la même fédération (le Secours "
+                            "populaire de Morsang au lieu du national). 97,4 % "
+                            "viennent du PLF Jaune. Le site garde le numéro de la "
+                            "source et affiche celui de l'INSEE à part : réécrire un "
+                            "identifiant publié par un ministère n'est pas son rôle."),
+        })
+
+    formes = {}
+    for i in range(len(y)):
+        if not (cj_a[i] and type_jo[i] and fam_col[i]):
+            continue
+        mots = C._mots_du_type_jo(type_jo[i])
+        jo_fondation = mots[:1] in (("fondations",), ("fonds",))
+        insee_fondation = cj_a[i] == 9300
+        if jo_fondation != insee_fondation:
+            # Clé sur le SIREN, pas sur le nom : un même organisme paraît sous
+            # plusieurs graphies, et compter des libellés donnerait 233 là où il
+            # y a 103 personnes morales.
+            d = formes.setdefault(siren_a[i] or bn[i] or "?", [0, 0.0, insee_fondation])
+            d[0] += 1
+            d[1] += a[i] or 0
+    if formes:
+        out.append({
+            "type": "forme_juridique_contredite_par_le_jo",
+            "organismes": len(formes),
+            "rows": sum(v[0] for v in formes.values()),
+            "amount_eur": round(sum(v[1] for v in formes.values()), 2),
+            "commentaire": ("L'INSEE et le Journal officiel ne rangent pas ces "
+                            "organismes dans la même famille. Mesuré le 26/08/2026 : "
+                            "les deux registres concordent sur 99,4 % des 18 419 "
+                            "organismes typés par les deux, et les divergences sont "
+                            "symétriques. Les plus gros — Institut du monde arabe, "
+                            "Cité internationale universitaire, Mémorial de la Shoah, "
+                            "Fondation Charles de Gaulle — sont bien des fondations : "
+                            "c'est l'INSEE qui dit la FORME JURIDIQUE, quand le JO ne "
+                            "dit que la case sous laquelle les comptes ont été "
+                            "déposés. D'où la règle du site : la forme vient de "
+                            "l'INSEE, le JO ne fait qu'affiner à l'intérieur des "
+                            "fondations, il ne renverse jamais."),
+        })
+
     rej = table.column("amount_rejected_eur").to_pylist()
     impl = [i for i in range(len(rej)) if rej[i] is not None]
     if impl:

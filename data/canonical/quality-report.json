@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T16:40:45Z",
+  "generated_at": "2026-08-26T18:33:34Z",
   "parts": [
     "data/canonical/parts/legacy-agglo-grand-chambery.parquet",
     "data/canonical/parts/legacy-agglo-lorient.parquet",
@@ -16347,6 +16347,20 @@
         ]
       ],
       "commentaire": "Bénéficiaires comptés comme associations parce que la source ne dit pas le contraire, jamais parce qu'elle l'affirme. La liste demande un œil humain : on y trouve des sociétés (SNCF Voyageurs), des opérateurs publics (Centre national du cinéma) et des organismes internationaux. Rien n'est retiré — deviner une exclusion effacerait des associations réelles."
+    },
+    {
+      "type": "rna_contredit_par_sirene",
+      "organismes": 384,
+      "rows": 3680,
+      "amount_eur": 694451542.25,
+      "commentaire": "Le RNA publié par la source et celui que SIRENE attache au même SIREN ne sont pas le même numéro. Instruit le 26/08/2026 sur 384 couples : dans 69,3 % des cas le numéro publié n'existe dans AUCUN registre, dans 30,7 % il désigne une autre personne morale — le plus souvent une antenne locale de la même fédération (le Secours populaire de Morsang au lieu du national). 97,4 % viennent du PLF Jaune. Le site garde le numéro de la source et affiche celui de l'INSEE à part : réécrire un identifiant publié par un ministère n'est pas son rôle."
+    },
+    {
+      "type": "forme_juridique_contredite_par_le_jo",
+      "organismes": 104,
+      "rows": 3235,
+      "amount_eur": 485884410.07,
+      "commentaire": "L'INSEE et le Journal officiel ne rangent pas ces organismes dans la même famille. Mesuré le 26/08/2026 : les deux registres concordent sur 99,4 % des 18 419 organismes typés par les deux, et les divergences sont symétriques. Les plus gros — Institut du monde arabe, Cité internationale universitaire, Mémorial de la Shoah, Fondation Charles de Gaulle — sont bien des fondations : c'est l'INSEE qui dit la FORME JURIDIQUE, quand le JO ne dit que la case sous laquelle les comptes ont été déposés. D'où la règle du site : la forme vient de l'INSEE, le JO ne fait qu'affiner à l'intérieur des fondations, il ne renverse jamais."
     },
     {
       "type": "montants_invraisemblables_exclus",
