@@ -393,11 +393,18 @@ le mot « subvention », **et tous au pluriel**. Or :
 | Opendatasoft : jeux appariés, 46 portails joignables | 602 → **1 311** |
 | … jeux inédits / retenus | **708** / **87** (279 837 lignes annoncées) |
 
-**Apport net, une fois les garde-fous posés et les doublons connus déduits :**
+> **AVERTISSEMENT AJOUTÉ APRÈS COUP — le tableau ci-dessous compte des lignes
+> DE FORME SUBVENTIONNELLE, pas des dons à des associations.** La distinction
+> est tout le sujet du site, et elle a été mesurée au §1h : sur ces jeux
+> inédits, **6,0 % du montant seulement va à une association**. Le « 17,34 Md€ »
+> qui suit ne doit jamais être cité comme un apport de dons associatifs — il
+> vaut **878 M€** une fois la nature juridique des bénéficiaires vérifiée.
+
+**Apport brut, une fois les garde-fous posés et les doublons connus déduits :**
 
 | | jeux | lignes | montant |
 |---|---|---|---|
-| **Apport net** | **105** | **151 520** | **17,34 Md€** |
+| **Apport brut** (forme subventionnelle, nature non vérifiée) | **105** | **151 520** | **17,34 Md€** |
 | Catalogues de dispositifs — rejetés | 2 | 2 936 | 183,67 Md€ |
 | PLF Jaune — déjà ingéré par `fetch_plf_jaune` | 2 | 187 935 | 16,24 Md€ |
 | Investissements industriels, pas des subventions | 1 | 102 | 11,30 Md€ |
@@ -423,7 +430,8 @@ Opendatasoft).
 ce qui n'a pas été tenté ici — c'est un assemblage complet, et il déplacera les
 totaux affichés.
 
-**Trois arbitrages métier avant de rejouer**, qui ne sont pas les nôtres :
+**Trois arbitrages métier avant de rejouer**, qui ne sont pas les nôtres — et
+que le §1h rend beaucoup plus tranchants qu'ils ne le paraissaient ici :
 
 1. **L'ADEME** — 39 434 lignes, 11,21 Md€, 2021-2026, 99,3 % avec un
    identifiant valide. Mais l'ADEME finance surtout des entreprises et des
@@ -466,6 +474,123 @@ totaux affichés.
   `q="projet sportif fédéral"` → 0). C'est une absence de publication, comme
   Nice ou Montpellier, et c'est à ce titre qu'elle doit être dite — pas un
   défaut de moissonnage à corriger.
+
+### 1h. La nature du bénéficiaire — **le vrai manque, et il est DANS le site**
+
+Mesuré le 26/08/2026, après une remise en cause de l'utilisateur : « je cherche
+les dons aux associations et uniquement cela ». Le §1f n'avait pas vérifié la
+nature juridique des bénéficiaires. Une fois vérifiée, il change de sens, et
+l'audit trouve bien plus grave que ce qu'il cherchait.
+
+**Méthode.** `recherche-entreprises.api.gouv.fr` rend la **catégorie juridique
+INSEE** d'un SIREN. `92xx` = association, `93xx` = fondation, `7xxx` = personne
+morale de droit public, le reste = privé lucratif. On interroge, par jeu, les
+SIREN qui portent le plus d'argent — ce sont eux qui décident du total — et on
+somme par catégorie. Rien n'est deviné : c'est l'INSEE qui déclare.
+
+#### a. Les jeux inédits du §1f rapportent 878 M€, pas 17,34 Md€
+
+| | montant | part associative |
+|---|---|---|
+| 37 jeux instruits (les autres n'ont aucun SIREN) | 14,69 Md€ | **6,0 %**, soit **878 M€** |
+| … dont « Les aides financières de l'ADEME » | 11,21 Md€ | **1,1 %** — 71,2 % entreprises, 27,5 % droit public |
+| … dont « Aides financières de la Région Î-d-F aux entreprises » | 1,24 Md€ | **0,1 %** |
+| Les mêmes jeux, ADEME et aides aux entreprises retirées | 2,24 Md€ | **37,5 %**, soit **838 M€** |
+
+**L'ADEME est donc à écarter**, et c'est un résultat, pas un échec : elle entre
+proprement au validateur, elle publie un SCDL exemplaire, et elle ne finance
+pas des associations. L'y faire entrer aurait ajouté **11,1 Md€ d'argent non
+associatif** à un site qui en affiche 148,40 en tout.
+
+Ce qui reste vaut d'être pris, et se lit par jeu :
+
+| part associative | montant du jeu | source |
+|---|---|---|
+| **96,4 %** | 185,5 M€ | Ministère de la Culture — aides déconcentrées au spectacle vivant |
+| **86,9 %** | 15,5 M€ | Département de la Savoie |
+| **81,3 %** | 47,6 M€ | Ville de Toulouse (Toulouse Métropole) |
+| **68,7 %** | 23,2 M€ | Ville de Grenoble |
+| **65,9 %** | 8,2 M€ | Grand Paris Sud |
+| 95 % et plus | ~2 M€ pièce | Montbéliard, Fougères, Saint-Claude, aides nationales à la création |
+| 17,0 % | 732,7 M€ | Région Bourgogne-Franche-Comté — **78,7 M€ associatifs, et une région de plus** |
+
+#### b. Et le site compte déjà ~17 Md€ qui ne sont pas des dons aux associations
+
+C'est la trouvaille de cet audit, et elle ne porte pas sur de nouvelles sources.
+
+`CLAUDE.md` note depuis la phase 6 que **49,88 Md€ sont comptés « association »
+sur une devinette**, et que la liste des vingt plus gros contient SNCF
+Voyageurs, l'AFP et le CNC — en concluant « c'est un arbitrage métier, pas un
+correctif ». C'est resté non chiffré. Ça ne l'est plus :
+
+| | |
+|---|---|
+| Lignes « association DEVINÉE » portant un SIREN exploitable | **740 835** |
+| Montant | **40,89 Md€** |
+| SIREN distincts | **103 879** |
+| Échantillon interrogé (les 2 500 SIREN les plus gros) | **29,69 Md€ = 72,6 %** |
+| **Réellement associatif** | **42,7 %** |
+| **NON associatif** | **57,2 %**, soit **~17,0 Md€** |
+
+Le détail du non-associatif : **28,6 % d'entreprises** — SNCF Voyageurs
+1 419,6 M€, SNCF Mobilités 904,5 M€, Pass Culture 781,3 M€, l'AFP 697,3 M€,
+SNCF Réseau 566,7 M€, le Centre national de la musique 375,0 M€ — et **28,2 %
+de personnes morales de droit public** : l'ASP 591,6 M€, le CNC 428,0 M€,
+Mégalis Bretagne 405,4 M€, France Travail 259,8 M€, le CNOUS 206,7 M€.
+
+*Réserve de méthode, à ne pas escamoter* : l'échantillon prend les SIREN par
+montant décroissant. Les très gros bénéficiaires sont justement ceux qui ont le
+plus de chances de ne pas être des associations. Les **11,2 Md€ non interrogés**
+(la traîne) sont donc vraisemblablement plus associatifs que 42,7 %. Le chiffre
+de 17,0 Md€ vaut pour la portion mesurée ; il n'est pas extrapolable tel quel à
+l'ensemble.
+
+#### c. Le correctif existe, il est ouvert, et il ne devine rien
+
+**SIRENE — `StockUniteLegale`, format Parquet, 705 Mo, Licence Ouverte 2.0**,
+sur data.gouv.fr, millésime du 1ᵉʳ août 2026. Vérifié en le lisant :
+**29 922 486 unités légales, dont 1 513 037 associations** (9220 déclarée,
+9260 droit local d'Alsace-Moselle, 9223 groupement d'employeurs, 9230 reconnue
+d'utilité publique…). Colonnes utiles : `siren`, `denominationUniteLegale`,
+`categorieJuridiqueUniteLegale`. **DuckDB le lit en HTTP Range sans le
+télécharger**, donc le dépôt n'a pas à grossir.
+
+C'est exactement le geste que le projet s'autorise : la nature juridique
+cesserait d'être DEVINÉE pour devenir DÉCLARÉE — par l'INSEE. La règle
+d'asymétrie de `beneficiary_kind_provenance` (« exclure à tort efface une
+association réelle ») a été écrite parce qu'on n'avait que le nom pour deviner.
+Avec le SIREN et l'INSEE, on ne devine plus, et l'asymétrie n'a plus lieu
+d'être sur les 740 835 lignes concernées.
+
+*Le RNA ne convient PAS pour cela, et c'est mesuré* : le
+`rna_import_20260801` du ministère de l'Intérieur ne remplit **jamais** sa
+colonne `siret` (0 sur 3 312 dans l'Allier). Il ne peut pas servir de pont
+SIREN → association. C'est SIRENE ou rien.
+
+#### d. Ce que ça implique, et qui décide
+
+Brancher SIRENE ferait **baisser le total voté du site**, peut-être de plus de
+10 %. C'est une correction, pas une perte — le même mouvement que la phase 11,
+qui a fait baisser le total de 1,34 Md€ en gagnant 23 sources. Mais l'ampleur
+et le choix de la frontière (les fondations comptent-elles ? les fondations
+d'entreprise ? les groupements d'employeurs ? les associations syndicales ?)
+sont **des arbitrages métier, pas des correctifs**, et ils reviennent à
+l'utilisateur.
+
+Trois options, à trancher avant tout code :
+
+1. **Exclure des totaux** ce que l'INSEE déclare non associatif, comme le site
+   le fait déjà quand la SOURCE déclare la nature. Cohérent avec la doctrine
+   existante ; fait baisser le total d'environ 17 Md€ sur la portion mesurée.
+2. **Afficher à part**, comme le payé à côté du voté : « dons aux associations »
+   et « autres bénéficiaires publics de subventions », jamais additionnés.
+   Ne perd aucune donnée et rend l'écart lisible.
+3. **Ne rien changer aux totaux, mais marquer chaque ligne** de sa catégorie
+   juridique INSEE et le dire dans la fiche et l'export. Le moins engageant,
+   et déjà bien plus honnête qu'aujourd'hui.
+
+**Rien n'est engagé** : la mesure est faite, le correctif est identifié, la
+décision n'est pas la nôtre.
 
 ## 2. Les anomalies connues
 

@@ -510,13 +510,41 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   dont un « 911671485 » à 911,7 M€. La source a recopié le SIREN ou le RNA dans
   la colonne du nom. Signalé (`nom_de_beneficiaire_numerique`), pas corrigé.
 
-- **49,88 Md€ sont comptés comme « association » sur une DEVINETTE.** Quand la
-  source ne déclare pas la nature juridique, le défaut est « association » —
-  c'est le bon côté où se tromper, et c'est assumé. Mais la liste des vingt plus
-  gros (`nature_devinee_gros_montants`) contient SNCF Voyageurs, SNCF Réseau,
-  l'AFP, le CNC et l'Association internationale de développement. Ne pas
-  « corriger » sur le nom : ce serait deviner une exclusion, et effacer des
-  associations réelles. C'est un arbitrage métier, pas un correctif.
+- **49,88 Md€ sont comptés comme « association » sur une DEVINETTE — et c'est
+  faux à 57 % là où on a pu le vérifier.** Quand la source ne déclare pas la
+  nature juridique, le défaut est « association ». Ne pas « corriger » sur le
+  NOM : ce serait deviner une exclusion, et effacer des associations réelles.
+  **Mais on n'est plus obligé de deviner.** Mesuré le 26/08/2026 : 740 835 de
+  ces lignes, soit **40,89 Md€ et 103 879 SIREN distincts**, portent un SIREN
+  exploitable. En interrogeant la catégorie juridique INSEE des 2 500 SIREN les
+  plus gros — 29,69 Md€, 72,6 % du montant — on trouve **42,7 % d'associations
+  et 57,2 % qui n'en sont pas**, soit environ **17,0 Md€** : SNCF Voyageurs
+  (1 419,6 M€), SNCF Mobilités (904,5), Pass Culture (781,3), l'AFP (697,3),
+  SNCF Réseau (566,7), le CNM (375,0), l'ASP (591,6), le CNC (428,0), Mégalis
+  Bretagne (405,4), France Travail (259,8).
+  Réserve : l'échantillon prend les SIREN par montant décroissant, donc les plus
+  susceptibles de n'être pas des associations ; la traîne non interrogée
+  (11,2 Md€) est vraisemblablement plus associative. Le chiffre vaut pour la
+  portion mesurée, il ne s'extrapole pas tel quel.
+  **Le correctif existe et ne devine rien** : SIRENE `StockUniteLegale` en
+  Parquet (705 Mo, Licence Ouverte, 29 922 486 unités légales dont **1 513 037
+  associations**) donne `categorieJuridiqueUniteLegale` par SIREN, et DuckDB le
+  lit en HTTP Range sans le télécharger. Le **RNA ne convient pas** : son
+  fichier `import` ne remplit jamais la colonne `siret` (0 sur 3 312 dans
+  l'Allier), il ne fait pas le pont SIREN → association.
+  Reste un arbitrage métier — où placer la frontière, et faut-il exclure des
+  totaux ou afficher à part. Cf. `RESTE-A-FAIRE.md` §1h.
+
+- **Une ligne « de forme subventionnelle » n'est pas un don à une association,
+  et l'écart est d'un ordre de grandeur.** Les 105 jeux inédits ouverts par
+  l'élargissement du vocabulaire pèsent 17,34 Md€ ; leur part réellement
+  associative, vérifiée à l'INSEE, est de **6,0 %, soit 878 M€**. « Les aides
+  financières de l'ADEME » — 11,21 Md€, SCDL exemplaire, retenu sans réserve
+  par `porte_des_subventions` — est associatif à **1,1 %** : 71,2 %
+  d'entreprises, 27,5 % de personnes morales de droit public. Un fichier peut
+  être parfait au regard du schéma ET hors sujet au regard du site. Ne jamais
+  annoncer un apport de moissonnage sans avoir vérifié la nature des
+  bénéficiaires.
 
 - **Le compte administratif ne parle pas que d'associations.** Celui de Paris
   donne 5,5 Md€ à des établissements publics, 2,1 Md€ à des entreprises et
