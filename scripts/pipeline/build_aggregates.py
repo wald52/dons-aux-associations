@@ -58,6 +58,7 @@ def main():
         "donor_level", "donor_name_raw", "amount_eur", "year", "granularity",
         "measure", "beneficiary_kind", "beneficiary_kind_provenance",
         "source_id", "quality_flags", "purpose_norm",
+        "beneficiary_legal_category", "beneficiary_family",
     ])
     n = table.num_rows
     dep = table.column("beneficiary_dep_code").to_pylist()
@@ -71,6 +72,9 @@ def main():
     mesure = table.column("measure").to_pylist()
     bkind = table.column("beneficiary_kind").to_pylist()
     bkprov = table.column("beneficiary_kind_provenance").to_pylist()
+    # Phase 15 : le verdict de l'INSEE. NULL quand on ne sait pas, et ne pas
+    # savoir n'est pas un « non » — cf. `est_associatif` dans common.py.
+    bcj = table.column("beneficiary_legal_category").to_pylist()
 
     purpose = table.column("purpose_norm").to_pylist()
     flags = table.column("quality_flags").to_pylist()
@@ -84,7 +88,8 @@ def main():
     # quand la collectivité publie les deux, et la seule trace qu'on ait quand
     # elle ne publie que ses paiements.
     concours = [C.nature_du_concours(purpose[i], flags[i])[0] for i in range(n)]
-    don = [C.est_un_don(gran[i], bkind[i], bkprov[i], concours[i]) for i in range(n)]
+    don = [C.est_un_don(gran[i], bkind[i], bkprov[i], concours[i], bcj[i])
+           for i in range(n)]
     sommable = [don[i] and mesure[i] != "verse" for i in range(n)]
     paye = [don[i] and mesure[i] == "verse" for i in range(n)]
 

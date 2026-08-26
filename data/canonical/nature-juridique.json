@@ -1,0 +1,72 @@
+{
+ "genere_le": "2026-08-26T16:37:27Z",
+ "referentiel": "data/referentiel/nature-beneficiaires.parquet",
+ "frontiere": "associations INSEE 92xx + fondations 9300 — décision de l'utilisateur du 26/08/2026",
+ "lignes": 2811070,
+ "verdict": {
+  "associatif": 1595050,
+  "NON associatif": 434180,
+  "non vérifié": 781840
+ },
+ "montant_vote_par_verdict": {
+  "associatif": 85106516687.06,
+  "NON associatif": 37680800263.46,
+  "non vérifié": 25608092580.9
+ },
+ "total_vote_avant_regle": 148395409531.42,
+ "total_vote_apres_regle": 110714609267.96,
+ "familles": {
+  "association déclarée": {
+   "lignes": 1337855,
+   "montant": 79100090398.42
+  },
+  "nature non vérifiée": {
+   "lignes": 611836,
+   "montant": 25608092580.9
+  },
+  "association reconnue d'utilité publique": {
+   "lignes": 19393,
+   "montant": 3012486110.31
+  },
+  "association de droit local (Alsace-Moselle)": {
+   "lignes": 37920,
+   "montant": 2059361322.94
+  },
+  "fondation ou fondation d'entreprise": {
+   "lignes": 4955,
+   "montant": 511898744.77
+  },
+  "fondation ou fonds de dotation": {
+   "lignes": 1626,
+   "montant": 186991334.82
+  },
+  "association d'insertion": {
+   "lignes": 1644,
+   "montant": 118568718.95
+  },
+  "groupement d'employeurs": {
+   "lignes": 2226,
+   "montant": 56230353.96
+  },
+  "congrégation": {
+   "lignes": 272,
+   "montant": 26761077.18
+  },
+  "association intermédiaire": {
+   "lignes": 1393,
+   "montant": 25689971.7
+  },
+  "fonds de dotation": {
+   "lignes": 73,
+   "montant": 4005864.0
+  },
+  "fondation partenariale": {
+   "lignes": 111,
+   "montant": 2747958.43
+  },
+  "association d'avocats": {
+   "lignes": 171,
+   "montant": 1684831.58
+  }
+ }
+}

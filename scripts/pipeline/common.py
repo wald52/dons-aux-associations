@@ -690,6 +690,14 @@ CANONICAL_SCHEMA = pa.schema([
     ("purpose_raw", pa.string()), ("purpose_norm", pa.string()),
     ("granularity", pa.string()), ("measure", pa.string()),
     ("beneficiary_kind_provenance", pa.string()), ("is_convention", pa.bool_()),
+    # Phase 15 — la nature juridique cesse d'être devinée là où l'INSEE la
+    # déclare. `beneficiary_kind` et sa provenance ne sont PAS retouchés : ce que
+    # la source a dit reste ce que la source a dit, et le verdict de l'INSEE
+    # voyage à côté. On peut donc toujours voir qui s'est trompé.
+    ("beneficiary_legal_category", pa.int32()),
+    ("beneficiary_is_associatif", pa.bool_()),
+    ("beneficiary_family", pa.string()),
+    ("beneficiary_type_jo", pa.string()),
     ("quality_flags", pa.list_(pa.string())), ("confidence", pa.string()),
     ("source_id", pa.string()), ("source_label", pa.string()), ("source_url", pa.string()),
     ("source_row_ref", pa.string()), ("source_family", pa.string()),
@@ -787,6 +795,107 @@ def _nature_de_l_objet(purpose_norm):
     return "don", "defaut"
 
 
+# ---------------------------- la nature juridique du bénéficiaire ------------
+#
+# Jusqu'à la phase 15, la nature du bénéficiaire n'était connue que si la SOURCE
+# la déclarait ; sinon on la DEVINAIT, et le défaut était « association ». Le
+# prix mesuré le 26/08/2026 : sur les 148,40 Md€ votés, **37,68 Md€ allaient à
+# des bénéficiaires qui ne sont pas des associations** — SNCF Voyageurs, l'AFP,
+# le Pass Culture, l'ASP, le CNC, France Travail, jusqu'au musée du Louvre.
+#
+# On ne devine plus là où l'INSEE déclare. `categorieJuridiqueUniteLegale` de
+# SIRENE donne la forme juridique de toute personne morale immatriculée, et
+# `data/referentiel/nature-beneficiaires.parquet` en porte l'extrait utile.
+#
+# La frontière est celle arrêtée par l'utilisateur le 26/08/2026 : les
+# associations `92xx` — groupements d'employeurs et associations d'utilité
+# publique compris — PLUS les fondations `9300`, qui couvrent les fondations
+# d'entreprise et les fonds de dotation.
+def est_associatif(categorie_juridique):
+    """Vrai / faux / None quand l'INSEE ne dit rien (SIREN absent ou manquant).
+
+    None n'est PAS un « non » : c'est l'aveu qu'on ne sait pas, et il vaut
+    23,1 % du montant. Ces lignes restent comptées et sont marquées comme non
+    vérifiées — exclure à tort effacerait des milliers de petites associations
+    communales qui n'ont jamais eu de SIRET publié.
+    """
+    if categorie_juridique is None:
+        return None
+    cj = int(categorie_juridique)
+    return (9200 <= cj <= 9299) or cj == 9300
+
+
+# Le libellé de famille montré au lecteur. La consigne de l'utilisateur est
+# explicite : ces familles comptent toutes, mais elles doivent être
+# DIFFÉRENCIÉES à l'affichage, « pour ne pas que le public se sente trompé ».
+# Un total unique mêlant une association de quartier et un fonds de dotation
+# d'entreprise serait exact et malhonnête.
+FAMILLES_JURIDIQUES = {
+    9230: "association reconnue d'utilité publique",
+    9260: "association de droit local (Alsace-Moselle)",
+    9223: "groupement d'employeurs",
+    9221: "association d'insertion",
+    9222: "association intermédiaire",
+    9224: "association d'avocats",
+    9240: "congrégation",
+    9300: "fondation ou fonds de dotation",
+}
+FAMILLE_PAR_DEFAUT = "association déclarée"
+FAMILLE_NON_VERIFIEE = "nature non vérifiée"
+
+# Le Journal officiel affine ce que l'INSEE confond. Vérifié le 26/08/2026 : les
+# 5 621 unités du code 9300 mélangent fondations, fondations d'entreprise et
+# fonds de dotation, que la catégorie juridique ne sépare pas. Le JO, lui, porte
+# le type DÉCLARÉ au dépôt des comptes, et il couvre 94,6 % du montant des 9300.
+#
+# L'appariement se fait sur les MOTS, pas sur la chaîne pliée : `fold` conserve
+# l'apostrophe et le trait d'union, si bien qu'une clé écrite « fondations
+# fondations d entreprise » ne rencontrait jamais le libellé réel du JO,
+# « Fondations-Fondations d'entreprise ». Bogue attrapé le 26/08/2026 — il
+# laissait 4 955 lignes de fondations d'entreprise sous le libellé générique,
+# c'est-à-dire exactement la différenciation que la consigne demande.
+_AFFINEMENTS_JO = {
+    ("fonds", "de", "dotation"): "fonds de dotation",
+    ("fondations", "partenariales"): "fondation partenariale",
+    ("fondations", "fondations", "d", "entreprise"): "fondation ou fondation d'entreprise",
+}
+
+
+def _mots_du_type_jo(libelle):
+    """Les mots d'un libellé du JO, ponctuation ramenée à des séparateurs."""
+    plie = fold(libelle or "")
+    for c in "-'’/,.":
+        plie = plie.replace(c, " ")
+    return tuple(m for m in plie.split() if m)
+
+
+def famille_du_beneficiaire(categorie_juridique, type_jo=None):
+    """Famille affichée, ou None si le bénéficiaire est hors du périmètre.
+
+    L'INSEE donne la forme juridique — complète et stable. Le JO n'affine qu'À
+    L'INTÉRIEUR de la famille (une fondation devient fonds de dotation ou
+    fondation d'entreprise) : il ne la CHANGE jamais.
+
+    C'est délibéré. Les deux registres se contredisent sur 92 organismes et
+    240,2 M€ — « FONDATION DE NICE PATRONAGE SAINT-PIERRE ACTES » et « FONDATION
+    FALRET » s'appellent fondation sans en avoir la forme, le Mémorial de la
+    Shoah et l'Institut du monde arabe l'inverse. Aucun des deux ne ment :
+    l'INSEE enregistre la FORME JURIDIQUE, le JO le TYPE DÉCLARÉ. On ne tranche
+    donc pas à leur place — les deux voyagent, `beneficiary_type_jo` garde le
+    libellé du JO tel quel, et l'affichage montre la divergence.
+    """
+    associatif = est_associatif(categorie_juridique)
+    if associatif is None:
+        return FAMILLE_NON_VERIFIEE
+    if not associatif:
+        return None
+    cj = int(categorie_juridique)
+    famille = FAMILLES_JURIDIQUES.get(cj, FAMILLE_PAR_DEFAUT)
+    if cj == 9300 and type_jo:
+        famille = _AFFINEMENTS_JO.get(_mots_du_type_jo(type_jo), famille)
+    return famille
+
+
 # Ce qui entre dans les totaux affichés du site, défini UNE SEULE FOIS — comme
 # le schéma et la clé métier — pour qu'aucun script ne puisse compter autrement
 # qu'un autre.
@@ -801,13 +910,29 @@ def _nature_de_l_objet(purpose_norm):
 #
 # Rien n'est jeté pour autant : ces lignes restent dans la table canonique et
 # restent consultables. Elles ne sont simplement pas sommées ici.
-def est_un_don(granularity, kind, kind_provenance, concours):
-    """Ligne retenue comme don individuel à une association — voté OU payé."""
+def est_un_don(granularity, kind, kind_provenance, concours,
+               categorie_juridique=None):
+    """Ligne retenue comme don individuel à une association — voté OU payé.
+
+    `categorie_juridique` est le verdict de l'INSEE (phase 15). Il est FACULTATIF
+    et vaut None quand on ne l'a pas : les appels qui l'ignorent gardent donc
+    l'ancien comportement, et une ligne dont le bénéficiaire n'a pas de SIREN
+    reste comptée. C'est voulu — cf. `est_associatif`.
+    """
     if granularity == "aggregate":
+        return False
+    # L'INSEE prime, décision de l'utilisateur du 26/08/2026 : une colonne de
+    # tableur remplie par un agent vaut moins que le registre national des
+    # personnes morales. Portée mesurée de la contradiction : 733 lignes,
+    # 0,10 Md€ — faire primer l'INSEE ne renverse presque rien.
+    associatif = est_associatif(categorie_juridique)
+    if associatif is False:
         return False
     # Une nature seulement DEVINÉE ne suffit pas à exclure : se tromper en
     # excluant efface une association réelle, se tromper en incluant laisse une
     # ligne de trop qui reste visible et corrigeable. On penche du bon côté.
+    # Cette asymétrie ne vaut plus quand l'INSEE a tranché ci-dessus : elle
+    # avait été écrite parce qu'on n'avait que le nom pour deviner.
     if kind_provenance == "declared" and kind not in (None, "association"):
         return False
     return concours == "don"
@@ -823,8 +948,10 @@ def est_un_don(granularity, kind, kind_provenance, concours):
 #
 # On ne choisit donc plus : le site affiche DEUX totaux côte à côte, et
 # `compte_dans_les_totaux` reste le total par défaut — les dons votés.
-def compte_dans_les_totaux(granularity, measure, kind, kind_provenance, concours):
-    return measure != "verse" and est_un_don(granularity, kind, kind_provenance, concours)
+def compte_dans_les_totaux(granularity, measure, kind, kind_provenance, concours,
+                           categorie_juridique=None):
+    return measure != "verse" and est_un_don(granularity, kind, kind_provenance,
+                                             concours, categorie_juridique)
 
 
 # Les mêmes règles, pour les scripts qui interrogent le Parquet en SQL.
@@ -835,7 +962,10 @@ SQL_EST_UN_DON = (
     "granularity IS DISTINCT FROM 'aggregate' "
     "AND NOT (beneficiary_kind_provenance = 'declared' "
     "         AND beneficiary_kind IS NOT NULL "
-    "         AND beneficiary_kind <> 'association')"
+    "         AND beneficiary_kind <> 'association') "
+    # Le verdict de l'INSEE, quand la colonne existe. `IS NOT FALSE` laisse
+    # passer le NULL : ne pas savoir n'est pas un « non ».
+    "AND (beneficiary_is_associatif IS DISTINCT FROM FALSE)"
 )
 SQL_COMPTE_DANS_LES_TOTAUX = (
     SQL_EST_UN_DON + " AND measure IS DISTINCT FROM 'verse'"

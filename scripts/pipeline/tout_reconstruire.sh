@@ -15,6 +15,18 @@ python3 scripts/pipeline/normalize_ods.py       | tail -3
 etape "table canonique"
 python3 scripts/pipeline/build_canonical.py | tail -20
 
+# La nature juridique du bénéficiaire vient APRÈS l'assemblage : elle s'appuie
+# sur les SIREN présents dans la table finale, et le référentiel ne documente
+# que ceux-là (4,8 Mo au lieu des 705 du fichier SIRENE complet).
+#
+# `refresh_rapport.py` repasse ENSUITE, parce que `build_canonical.py` a écrit
+# son rapport avant que le verdict de l'INSEE n'existe : sans lui, le rapport
+# annoncerait le total d'avant la règle, et `verify.py` le verrait.
+etape "nature juridique des bénéficiaires"
+python3 scripts/pipeline/fetch_nature_beneficiaires.py | tail -6
+python3 scripts/pipeline/enrich_nature.py   | tail -20
+python3 scripts/pipeline/refresh_rapport.py | tail -4
+
 etape "ce que le site sert"
 python3 scripts/pipeline/build_carte.py       | tail -2
 python3 scripts/pipeline/build_aggregates.py  | tail -3

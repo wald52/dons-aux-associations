@@ -288,7 +288,8 @@ def connu_du_site():
         columns=["donor_level", "donor_name_norm", "donor_name_raw", "donor_siren",
                  "year", "amount_eur", "granularity", "measure",
                  "beneficiary_kind", "beneficiary_kind_provenance",
-                 "purpose_norm", "quality_flags"])
+                 "purpose_norm", "quality_flags",
+                 "beneficiary_legal_category"])
     cols = {c: t.column(c).to_pylist() for c in t.column_names}
 
     ref = C.referentiel()
@@ -330,7 +331,8 @@ def connu_du_site():
             continue
         nature = C.nature_du_concours(cols["purpose_norm"][i], cols["quality_flags"][i])[0]
         est_don = C.est_un_don(cols["granularity"][i], cols["beneficiary_kind"][i],
-                               cols["beneficiary_kind_provenance"][i], nature)
+                               cols["beneficiary_kind_provenance"][i], nature,
+                               cols["beneficiary_legal_category"][i])
         if not est_don:
             continue
         montant = cols["amount_eur"][i] or 0.0

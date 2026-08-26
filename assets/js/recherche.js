@@ -295,6 +295,36 @@ function dessinerFiche(fiche, b, vers) {
   fiche.appendChild(el("p", "sous-titre", ident.join(" · ") ||
     "Sans identifiant national — reconnue par son nom et son département."));
 
+  // La FAMILLE JURIDIQUE, écrite en toutes lettres sous le nom. Une fondation
+  // d'entreprise et une association de quartier comptent toutes deux dans les
+  // totaux du site, mais ce ne sont pas la même chose : les afficher sans le
+  // dire serait exact et trompeur.
+  if (b.famille) {
+    var hors = b.famille.indexOf("hors périmètre") === 0;
+    var inconnue = b.famille === "nature non vérifiée";
+    var fam = el("p", "famille-juridique" + (hors ? " hors-perimetre" : ""));
+    fam.appendChild(el("span", "puce-famille" +
+      (hors ? " hors" : inconnue ? " incertaine" : "")));
+    if (hors) {
+      fam.appendChild(document.createTextNode(
+        "Ce bénéficiaire n'est ni une association ni une fondation."));
+      fam.appendChild(el("span", "precision",
+        " Le répertoire SIRENE de l'INSEE lui donne une autre forme juridique — " +
+        "entreprise, établissement public, syndicat. Ses montants restent " +
+        "consultables mais ne comptent dans aucun total du site."));
+    } else if (inconnue) {
+      fam.appendChild(document.createTextNode("Forme juridique non vérifiée"));
+      fam.appendChild(el("span", "precision",
+        " — ce bénéficiaire n'a pas d'identifiant qui permette de la vérifier ; " +
+        "ses versements restent comptés."));
+    } else {
+      fam.appendChild(document.createTextNode("Forme juridique : " + b.famille));
+      fam.appendChild(el("span", "precision",
+        " — d'après le répertoire SIRENE de l'INSEE"));
+    }
+    fiche.appendChild(fam);
+  }
+
   var stats = el("div", "compteurs");
   var cases = [
     [euros(b.montant), "reçus au total"],

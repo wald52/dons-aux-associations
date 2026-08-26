@@ -95,6 +95,10 @@ COLS = [
     "measure", "beneficiary_kind_provenance",
     "purpose_raw", "purpose_norm", "source_label", "source_url",
     "quality_flags",
+    # Phase 15 — le verdict de l'INSEE et la famille juridique affichée. La
+    # famille voyage jusqu'à la fiche : c'est elle qui tient la consigne
+    # « bien les différencier pour ne pas que le public se sente trompé ».
+    "beneficiary_legal_category", "beneficiary_family",
 ]
 
 # Ordre figé des échelons : l'index sert un MASQUE de bits, pas une liste de
@@ -127,10 +131,21 @@ def nombre(v):
 # Les cinq cases de `verify.py` — « toute ligne tombe dans une case et une
 # seule ». L'ordre EST la règle : un agrégat qui serait aussi une prestation
 # reste un agrégat, et c'est ainsi que `build_aggregates.py` les compte.
-CAS = ["vote", "paye", "hors_don", "agrege", "hors_champ"]
+# `hors_champ` et `hors_champ_insee` disent tous deux « le bénéficiaire n'est
+# pas une association », mais PAS sur la même autorité, et le lecteur a droit à
+# la différence : dans un cas c'est le publieur qui l'écrit, dans l'autre c'est
+# le registre national des personnes morales qui le déclare alors que le
+# publieur, lui, ne disait rien.
+CAS = ["vote", "paye", "hors_don", "agrege", "hors_champ", "hors_champ_insee"]
+
+# La famille affichée pour un bénéficiaire que l'INSEE documente et qui n'est
+# NI une association NI une fondation. Ce n'est pas une famille du périmètre :
+# c'est la phrase qui explique pourquoi ses montants sont gris.
+HORS_PERIMETRE = "hors périmètre — ni association ni fondation"
 
 
-def cas_du_versement(granularity, measure, kind, kind_provenance, concours):
+def cas_du_versement(granularity, measure, kind, kind_provenance, concours,
+                     categorie_juridique=None):
     """Dans quelle case tombe ce versement, et donc s'il entre dans les totaux.
 
     Le verdict voyage AVEC le versement, comme `concours` avant lui, parce que
@@ -145,7 +160,10 @@ def cas_du_versement(granularity, measure, kind, kind_provenance, concours):
         return "agrege"
     if concours != "don":
         return "hors_don"
-    if not C.est_un_don(granularity, kind, kind_provenance, concours):
+    if C.est_associatif(categorie_juridique) is False:
+        return "hors_champ_insee"
+    if not C.est_un_don(granularity, kind, kind_provenance, concours,
+                        categorie_juridique):
         return "hors_champ"
     if measure == "verse":
         return "paye"
@@ -230,7 +248,7 @@ def main():
     ids = []
     groups = collections.defaultdict(lambda: {
         "noms": collections.Counter(), "deps": collections.Counter(),
-        "kinds": collections.Counter(),
+        "kinds": collections.Counter(), "familles": collections.Counter(),
         "n": 0, "montant": 0.0, "ecarte": 0.0, "annees": set(),
         "echelons": set(), "donateurs": set(),
         "par_donateur": collections.Counter(),
@@ -248,13 +266,22 @@ def main():
         if col["beneficiary_dep_code"][i]:
             g["deps"][col["beneficiary_dep_code"][i]] += 1
         g["kinds"][col["beneficiary_kind"][i]] += 1
+        if col["beneficiary_family"][i]:
+            g["familles"][col["beneficiary_family"][i]] += 1
+        elif col["beneficiary_legal_category"][i] is not None:
+            # Le bénéficiaire EST documenté, et l'INSEE dit qu'il n'est pas une
+            # association. Rester muet serait le pire des cas : quelqu'un qui
+            # cherche « SNCF Voyageurs » verrait ses montants grisés sans
+            # savoir pourquoi. On le dit donc, en toutes lettres.
+            g["familles"][HORS_PERIMETRE] += 1
         g["n"] += 1
         nature = C.nature_du_concours(col["purpose_norm"][i],
                                       col["quality_flags"][i])[0]
         natures.append(nature)
         cas.append(cas_du_versement(
             col["granularity"][i], col["measure"][i], col["beneficiary_kind"][i],
-            col["beneficiary_kind_provenance"][i], nature))
+            col["beneficiary_kind_provenance"][i], nature,
+            col["beneficiary_legal_category"][i]))
         # Le cumul suit le VERDICT, pas une seconde lecture de la règle : un
         # seul point de décision par ligne, donc aucune divergence possible
         # entre ce que l'index somme et ce que la fiche affichera.
@@ -299,6 +326,11 @@ def main():
             "siren": g["siren"], "rna": g["rna"],
             "dep": g["deps"].most_common(1)[0][0] if g["deps"] else None,
             "kind": g["kinds"].most_common(1)[0][0],
+            # La famille juridique, telle qu'elle sera AFFICHÉE. Consigne de
+            # l'utilisateur du 26/08/2026 : ces familles comptent toutes, mais
+            # elles doivent être différenciées, « pour ne pas que le public se
+            # sente trompé ».
+            "famille": g["familles"].most_common(1)[0][0] if g["familles"] else "",
             "nbv": g["n"],
             "montant": round(g["montant"], 2),
             "ecarte": round(g["ecarte"], 2) or None,
@@ -406,7 +438,8 @@ def main():
                         resume[b]["a0"] or 0, resume[b]["a1"] or 0,
                         resume[b]["ech"], resume[b]["echelons"], resume[b]["nbd"],
                         resume[b]["principal"] or "", resume[b]["part"],
-                        resume[b]["publient_jusqu_a"] or 0] for b in bids],
+                        resume[b]["publient_jusqu_a"] or 0,
+                        resume[b]["famille"]] for b in bids],
             "y": [col["year"][i] or 0 for i in lignes],
             "m": [nombre(col["amount_eur"][i]) for i in lignes],
             # Creux : 30 255 lignes sur 2,8 millions portent un montant écarté.

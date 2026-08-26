@@ -141,11 +141,13 @@ def main():
     bkind = table.column("beneficiary_kind").to_pylist()
     bkprov = table.column("beneficiary_kind_provenance").to_pylist()
     purpose = table.column("purpose_norm").to_pylist()
+    # Phase 15 : le verdict de l'INSEE entre dans la règle des totaux.
+    bcj = table.column("beneficiary_legal_category").to_pylist()
     concours = [C.nature_du_concours(purpose[i], flags[i])[0] for i in range(n)]
     recomputed = round(sum(
         amt[i] or 0 for i in range(n)
         if C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i],
-                                    concours[i])), 2)
+                                    concours[i], bcj[i])), 2)
     check("total individuel reproductible",
           abs(recomputed - report["amount_individual_eur"]) < 1,
           f"{recomputed:,.0f} € = rapport")
@@ -207,9 +209,9 @@ def main():
             return lignes, round(montant)
 
         n_vote, m_vote = cumul(lambda i: C.compte_dans_les_totaux(
-            gran[i], mesure[i], bkind[i], bkprov[i], concours[i]))
+            gran[i], mesure[i], bkind[i], bkprov[i], concours[i], bcj[i]))
         n_paye, m_paye = cumul(lambda i: mesure[i] == "verse" and C.est_un_don(
-            gran[i], bkind[i], bkprov[i], concours[i]))
+            gran[i], bkind[i], bkprov[i], concours[i], bcj[i]))
         check("agrégats : dons votés = table canonique",
               tot.get("dons_votes", {}).get("montant_eur") == m_vote
               and tot.get("dons_votes", {}).get("lignes") == n_vote,
@@ -226,7 +228,7 @@ def main():
         n_hors_champ = sum(
             1 for i in range(n)
             if gran[i] != "aggregate" and concours[i] == "don"
-            and not C.est_un_don(gran[i], bkind[i], bkprov[i], concours[i]))
+            and not C.est_un_don(gran[i], bkind[i], bkprov[i], concours[i], bcj[i]))
         check("toute ligne tombe dans une case et une seule",
               n_vote + n_paye + hors + n_agg + n_hors_champ == n,
               f"{n_vote:,} votés + {n_paye:,} payés + {hors:,} hors don "
@@ -257,7 +259,7 @@ def main():
         somme_can = sum(
             amt[i] or 0 for i in range(n)
             if C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i], bkprov[i],
-                                        concours[i]))
+                                        concours[i], bcj[i]))
         # L'index sert des entiers : l'écart admis est d'un euro par
         # bénéficiaire, pas d'un euro en tout.
         check("index : montants = table canonique",
@@ -298,6 +300,46 @@ def main():
               f"{vrows:,} versements répartis")
         check("index : aucun bénéficiaire orphelin", orphelins == 0)
         check("index : total des shards = table canonique", vrows == n)
+
+    # 10 bis. La nature juridique du bénéficiaire (phase 15) ----------------
+    #
+    # Le site ne devine plus « association » là où l'INSEE déclare autre chose.
+    # Trois choses peuvent mal tourner, et chacune a son contrôle : que le
+    # verdict diverge du référentiel, qu'une ligne écartée reste sommée, ou
+    # qu'un bénéficiaire retenu se retrouve sans famille à afficher — ce
+    # dernier viderait la différenciation que la consigne exige.
+    bfam = table.column("beneficiary_family").to_pylist()
+    basso = table.column("beneficiary_is_associatif").to_pylist()
+    bsiren = table.column("beneficiary_siren").to_pylist()
+
+    ref_nature = os.path.join(ROOT, "data", "referentiel", "nature-beneficiaires.parquet")
+    if os.path.exists(ref_nature):
+        import pyarrow.parquet as _pq
+        rt = _pq.read_table(ref_nature)
+        attendu = dict(zip(rt.column("siren").to_pylist(),
+                           rt.column("categorie_juridique").to_pylist()))
+        divergents = sum(1 for i in range(n)
+                         if bsiren[i] in attendu and bcj[i] != attendu[bsiren[i]])
+        check("nature juridique : la table dit ce que dit le référentiel",
+              divergents == 0, f"{len(attendu):,} SIREN documentés")
+
+    # Une ligne que l'INSEE déclare non associative ne doit PLUS peser dans les
+    # totaux. C'est l'invariant de la phase, et le seul qui garde les 37,68 Md€
+    # dehors.
+    fuite = sum(1 for i in range(n)
+                if basso[i] is False
+                and C.compte_dans_les_totaux(gran[i], mesure[i], bkind[i],
+                                             bkprov[i], concours[i], bcj[i]))
+    m_dehors = sum(amt[i] or 0 for i in range(n) if basso[i] is False)
+    check("nature juridique : rien de non associatif dans les totaux",
+          fuite == 0, f"{m_dehors / 1e9:,.2f} Md€ tenus dehors")
+
+    # Toute ligne porte une famille, y compris « nature non vérifiée » : c'est
+    # elle que la fiche affiche. Une famille vide serait un trou d'affichage.
+    sans_famille = sum(1 for i in range(n) if basso[i] is not False and not bfam[i])
+    check("nature juridique : chaque bénéficiaire retenu a une famille affichable",
+          sans_famille == 0,
+          f"{len(set(f for f in bfam if f))} familles distinctes")
 
     # 11. Dénominateur, angle mort et totaux de contrôle (phase 10) ----------
     #

@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-08-23T12:51:24Z",
+ "generated_at": "2026-08-26T17:00:27Z",
  "source": {
   "hote": "journal-officiel-datadila.opendatasoft.com",
   "dataset": "jo_associations",
   "url": "https://journal-officiel-datadila.opendatasoft.com/explore/dataset/jo_associations/",
   "licence": "Licence Ouverte 2.0",
-  "moissonne_le": "2026-08-23T00:26:51Z",
+  "moissonne_le": "2026-08-26T16:55:02Z",
   "seuil_legal_eur": 153000,
   "fondement": "art. L612-4 et D612-5 du code de commerce"
  },
@@ -14,13 +14,13 @@
   "L'appariement se fait sur les identifiants légaux (SIREN, RNA), jamais sur le nom : deux organismes homonymes ne sont pas confondus, mais un bénéficiaire du site dépourvu d'identifiant ne peut pas être reconnu.",
   "Un organisme reconnu ne l'est pas forcément pour le bon exercice : le croisement porte sur l'identité, pas sur l'année."
  ],
- "depots": 227586,
+ "depots": 227741,
  "depots_sans_siren": 561,
- "organismes": 31683,
- "reconnus": 18746,
- "reconnus_par_siren": 18598,
- "reconnus_par_rna_seul": 148,
- "non_reconnus": 12937,
+ "organismes": 31696,
+ "reconnus": 18753,
+ "reconnus_par_siren": 18604,
+ "reconnus_par_rna_seul": 149,
+ "non_reconnus": 12943,
  "part_non_reconnus_pct": 40.8,
  "index_du_site": {
   "siren": 216052,
@@ -89,8 +89,8 @@
   },
   "13": {
    "organismes": 1506,
-   "reconnus": 917,
-   "part_reconnus_pct": 60.9
+   "reconnus": 918,
+   "part_reconnus_pct": 61.0
   },
   "14": {
    "organismes": 301,
@@ -188,9 +188,9 @@
    "part_reconnus_pct": 69.0
   },
   "33": {
-   "organismes": 873,
+   "organismes": 875,
    "reconnus": 569,
-   "part_reconnus_pct": 65.2
+   "part_reconnus_pct": 65.0
   },
   "34": {
    "organismes": 518,
@@ -198,9 +198,9 @@
    "part_reconnus_pct": 56.9
   },
   "35": {
-   "organismes": 499,
+   "organismes": 500,
    "reconnus": 355,
-   "part_reconnus_pct": 71.1
+   "part_reconnus_pct": 71.0
   },
   "36": {
    "organismes": 50,
@@ -248,9 +248,9 @@
    "part_reconnus_pct": 72.7
   },
   "45": {
-   "organismes": 262,
-   "reconnus": 174,
-   "part_reconnus_pct": 66.4
+   "organismes": 263,
+   "reconnus": 175,
+   "part_reconnus_pct": 66.5
   },
   "46": {
    "organismes": 83,
@@ -358,13 +358,13 @@
    "part_reconnus_pct": 58.8
   },
   "67": {
-   "organismes": 509,
-   "reconnus": 297,
-   "part_reconnus_pct": 58.3
+   "organismes": 510,
+   "reconnus": 298,
+   "part_reconnus_pct": 58.4
   },
   "68": {
-   "organismes": 318,
-   "reconnus": 165,
+   "organismes": 320,
+   "reconnus": 166,
    "part_reconnus_pct": 51.9
   },
   "69": {
@@ -383,9 +383,9 @@
    "part_reconnus_pct": 58.6
   },
   "72": {
-   "organismes": 208,
-   "reconnus": 122,
-   "part_reconnus_pct": 58.7
+   "organismes": 209,
+   "reconnus": 123,
+   "part_reconnus_pct": 58.9
   },
   "73": {
    "organismes": 230,
@@ -398,9 +398,9 @@
    "part_reconnus_pct": 55.8
   },
   "75": {
-   "organismes": 4696,
-   "reconnus": 2172,
-   "part_reconnus_pct": 46.3
+   "organismes": 4699,
+   "reconnus": 2173,
+   "part_reconnus_pct": 46.2
   },
   "76": {
    "organismes": 461,
@@ -483,13 +483,13 @@
    "part_reconnus_pct": 60.2
   },
   "92": {
-   "organismes": 981,
+   "organismes": 982,
    "reconnus": 433,
    "part_reconnus_pct": 44.1
   },
   "93": {
-   "organismes": 654,
-   "reconnus": 432,
+   "organismes": 655,
+   "reconnus": 433,
    "part_reconnus_pct": 66.1
   },
   "94": {
@@ -555,12 +555,12 @@
  },
  "par_type": {
   "Associations loi du 1er juillet 1901": {
-   "organismes": 26843,
-   "reconnus": 18232
+   "organismes": 26851,
+   "reconnus": 18238
   },
   "Fonds de dotation": {
-   "organismes": 3669,
-   "reconnus": 127
+   "organismes": 3674,
+   "reconnus": 128
   },
   "Fondations-Fondations d'entreprise": {
    "organismes": 720,
@@ -584,8 +584,8 @@
    "cle": "nom_et_departement",
    "libelle": "Reconnu par son nom et son département, sans identifiant commun",
    "explication": "Le site connaît un bénéficiaire du même nom normalisé dans le même département. C'est la règle d'identité que le site s'applique déjà à lui-même quand une source ne donne pas de SIREN.",
-   "organismes": 157,
-   "part_pct": 1.2,
+   "organismes": 166,
+   "part_pct": 1.3,
    "exemples": [
     {
      "nom": "MAISON FAMILIALE RURALE",
@@ -654,9 +654,9 @@
      "type": "Associations loi du 1er juillet 1901"
     },
     {
-     "nom": "ASSOCIATION SAINT JOSEPH",
-     "departement": "81",
-     "depots": 15,
+     "nom": "ASSOCIATION SAINTE VICTOIRE",
+     "departement": "13",
+     "depots": 20,
      "type": "Associations loi du 1er juillet 1901"
     }
    ]
@@ -665,7 +665,7 @@
    "cle": "financement_prive",
    "libelle": "Fonds de dotation ou fondation — vit de dons privés",
    "explication": "Un fonds de dotation dépose ses comptes quel que soit son financement : le seuil de 153 000 € compte les DONS autant que les subventions. Qu'il soit absent d'un site de subventions publiques est normal, pas une lacune.",
-   "organismes": 3967,
+   "organismes": 3968,
    "part_pct": 30.7,
    "exemples": [
     {
@@ -827,7 +827,7 @@
    "cle": "territoire_sans_financeur",
    "libelle": "Aucun financeur ne publie sur ce territoire",
    "explication": "Ni la commune, ni l'intercommunalité, ni le département, ni la région de cet organisme ne publient de subventions exploitables. Son absence n'apprend rien sur lui : elle redit la lacune de couverture.",
-   "organismes": 755,
+   "organismes": 754,
    "part_pct": 5.8,
    "exemples": [
     {
@@ -908,7 +908,7 @@
    "cle": "territoire_peu_couvert",
    "libelle": "Territoire dont le site connaît moins de 1 % des subventions communales",
    "explication": "Un financeur publie quelque part dans ce département, mais pas celui qui compte : le site y connaît moins d'un centième de ce que les communes déclarent verser. Une association financée par sa commune y est invisible par construction.",
-   "organismes": 3365,
+   "organismes": 3362,
    "part_pct": 26.0,
    "exemples": [
     {
@@ -1090,8 +1090,8 @@
    "reconnus": 390
   },
   "2011": {
-   "organismes": 741,
-   "reconnus": 425
+   "organismes": 740,
+   "reconnus": 424
   },
   "2012": {
    "organismes": 652,
@@ -1114,44 +1114,44 @@
    "reconnus": 493
   },
   "2017": {
-   "organismes": 802,
-   "reconnus": 467
+   "organismes": 801,
+   "reconnus": 466
   },
   "2018": {
    "organismes": 820,
    "reconnus": 505
   },
   "2019": {
-   "organismes": 857,
-   "reconnus": 510
+   "organismes": 855,
+   "reconnus": 509
   },
   "2020": {
-   "organismes": 1187,
-   "reconnus": 712
+   "organismes": 1186,
+   "reconnus": 711
   },
   "2021": {
-   "organismes": 1488,
-   "reconnus": 860
+   "organismes": 1486,
+   "reconnus": 858
   },
   "2022": {
-   "organismes": 1735,
-   "reconnus": 1020
+   "organismes": 1730,
+   "reconnus": 1016
   },
   "2023": {
-   "organismes": 2445,
-   "reconnus": 1375
+   "organismes": 2437,
+   "reconnus": 1369
   },
   "2024": {
-   "organismes": 5898,
-   "reconnus": 3613
+   "organismes": 5799,
+   "reconnus": 3555
   },
   "2025": {
-   "organismes": 9251,
-   "reconnus": 5631
+   "organismes": 9381,
+   "reconnus": 5711
   },
   "2026": {
-   "organismes": 54,
-   "reconnus": 15
+   "organismes": 56,
+   "reconnus": 16
   }
  },
  "non_reconnus_deposant_au_moins_8_exercices": [
@@ -1378,6 +1378,18 @@
    "depots": 21,
    "exercices": [
     "2008",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "territoire_peu_couvert"
+  },
+  {
+   "siren": "783166820",
+   "nom": "ASSOC DIOCESAINE FREJUS TOULON",
+   "departement": "83",
+   "depots": 21,
+   "exercices": [
+    "2006",
     "2025"
    ],
    "type": "Associations loi du 1er juillet 1901",
@@ -2020,18 +2032,6 @@
    "cause": "territoire_peu_couvert"
   },
   {
-   "siren": "783166820",
-   "nom": "ASSOC DIOCESAINE FREJUS TOULON",
-   "departement": "83",
-   "depots": 20,
-   "exercices": [
-    "2006",
-    "2024"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
-  },
-  {
    "siren": "407650175",
    "nom": "ASSOC DROIT DE NAITRE",
    "departement": "92",
@@ -2054,6 +2054,18 @@
    ],
    "type": "Associations loi du 1er juillet 1901",
    "cause": "inexplique"
+  },
+  {
+   "siren": "380161463",
+   "nom": "ASSOCIATION DE MAINTIEN A DOMICILE VELIZIENNE",
+   "departement": "78",
+   "depots": 20,
+   "exercices": [
+    "2006",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "territoire_peu_couvert"
   },
   {
    "siren": "411767528",
@@ -2920,6 +2932,18 @@
    "cause": "nom_connu_ailleurs"
   },
   {
+   "siren": "453859019",
+   "nom": "MAISON DE L'HABITAT",
+   "departement": "45",
+   "depots": 20,
+   "exercices": [
+    "2006",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "nom_connu_ailleurs"
+  },
+  {
    "siren": "780862199",
    "nom": "MAISON DE RETRAITE ST FRANCOIS",
    "departement": "50",
@@ -3160,6 +3184,18 @@
    "cause": "territoire_peu_couvert"
   },
   {
+   "siren": "782370472",
+   "nom": "ACCUEIL SAINTE ELISABETH",
+   "departement": "64",
+   "depots": 19,
+   "exercices": [
+    "2005",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "inexplique"
+  },
+  {
    "siren": "432673093",
    "nom": "AEP DE L'INSTITUT ST JOSEPH",
    "departement": "11",
@@ -3355,18 +3391,6 @@
    "siren": "323193177",
    "nom": "ASSOCIATION CULTUELLE MONASTERE SAINTE-MADELEINE DU BARROUX",
    "departement": "84",
-   "depots": 19,
-   "exercices": [
-    "2006",
-    "2024"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
-  },
-  {
-   "siren": "380161463",
-   "nom": "ASSOCIATION DE MAINTIEN A DOMICILE VELIZIENNE",
-   "departement": "78",
    "depots": 19,
    "exercices": [
     "2006",
@@ -3598,6 +3622,18 @@
    "depots": 19,
    "exercices": [
     "2007",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "territoire_peu_couvert"
+  },
+  {
+   "siren": "381187657",
+   "nom": "COMITE D ACTION SOCIALE ET DE LOISIRS",
+   "departement": "17",
+   "depots": 19,
+   "exercices": [
+    "2006",
     "2025"
    ],
    "type": "Associations loi du 1er juillet 1901",
@@ -4384,18 +4420,6 @@
    "cause": "territoire_peu_couvert"
   },
   {
-   "siren": "782370472",
-   "nom": "ACCUEIL SAINTE ELISABETH",
-   "departement": "64",
-   "depots": 18,
-   "exercices": [
-    "2005",
-    "2023"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "inexplique"
-  },
-  {
    "siren": "775598998",
    "nom": "AGENCE DE DEVELOPPEMENT TOURISTIQUE",
    "departement": "41",
@@ -4864,18 +4888,6 @@
    "cause": "inexplique"
   },
   {
-   "siren": "381187657",
-   "nom": "COMITE D ACTION SOCIALE ET DE LOISIRS",
-   "departement": "17",
-   "depots": 18,
-   "exercices": [
-    "2006",
-    "2024"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
-  },
-  {
    "siren": "314291774",
    "nom": "COMITE DE GESTION DES OEUVRES SOCIALES HOSPITALIERES DE LA MARTINIQUE",
    "departement": "972",
@@ -5342,18 +5354,6 @@
    ],
    "type": "Associations loi du 1er juillet 1901",
    "cause": "inexplique"
-  },
-  {
-   "siren": "453859019",
-   "nom": "MAISON DE L'HABITAT",
-   "departement": "45",
-   "depots": 18,
-   "exercices": [
-    "2006",
-    "2023"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "nom_connu_ailleurs"
   },
   {
    "siren": "388118549",
@@ -6568,6 +6568,18 @@
    "cause": "financement_prive"
   },
   {
+   "siren": "522942184",
+   "nom": "FONDS TERTON SOGYAL",
+   "departement": "34",
+   "depots": 17,
+   "exercices": [
+    "2009",
+    "2025"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
    "siren": "509953089",
    "nom": "INITIATIVE SAINT QUENTIN EN YVELINES",
    "departement": "78",
@@ -6866,6 +6878,18 @@
    ],
    "type": "Associations loi du 1er juillet 1901",
    "cause": "territoire_peu_couvert"
+  },
+  {
+   "siren": "509198917",
+   "nom": "RESEAU ONCOLEMAN",
+   "departement": "74",
+   "depots": 17,
+   "exercices": [
+    "2009",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "territoire_sans_financeur"
   },
   {
    "siren": "480629336",
@@ -7549,7 +7573,7 @@
     "2024"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "nom_connu_ailleurs"
   },
   {
    "siren": "480623099",
@@ -8308,18 +8332,6 @@
    "cause": "financement_prive"
   },
   {
-   "siren": "522942184",
-   "nom": "FONDS TERTON SOGYAL",
-   "departement": "34",
-   "depots": 16,
-   "exercices": [
-    "2009",
-    "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
    "siren": "330346586",
    "nom": "FONGECIF-AUVERGNE",
    "departement": "63",
@@ -8678,18 +8690,6 @@
    ],
    "type": "Associations loi du 1er juillet 1901",
    "cause": "territoire_peu_couvert"
-  },
-  {
-   "siren": "509198917",
-   "nom": "RESEAU ONCOLEMAN",
-   "departement": "74",
-   "depots": 16,
-   "exercices": [
-    "2009",
-    "2024"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_sans_financeur"
   },
   {
    "siren": "351778287",
@@ -9124,6 +9124,18 @@
    "cause": "inexplique"
   },
   {
+   "siren": "522208222",
+   "nom": "ASSOCIATION 3C DES 3 CAPS",
+   "departement": "62",
+   "depots": 15,
+   "exercices": [
+    "2009",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "territoire_peu_couvert"
+  },
+  {
    "siren": "420729469",
    "nom": "ASSOCIATION CRECHE SAINTE ELISABETH",
    "departement": "65",
@@ -9328,6 +9340,18 @@
    "cause": "nom_connu_ailleurs"
   },
   {
+   "siren": "775615321",
+   "nom": "ASSOCIATION LES MAISONS HOSPITALIÈRES",
+   "departement": "54",
+   "depots": 15,
+   "exercices": [
+    "2009",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "inexplique"
+  },
+  {
    "siren": "502518491",
    "nom": "ASSOCIATION REGIONALE BREIZH HANDICAP",
    "departement": "35",
@@ -9349,7 +9373,7 @@
     "2023"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "nom_et_departement"
+   "cause": "nom_connu_ailleurs"
   },
   {
    "siren": "337515001",
@@ -11392,18 +11416,6 @@
    "cause": "inexplique"
   },
   {
-   "siren": "522208222",
-   "nom": "ASSOCIATION 3C DES 3 CAPS",
-   "departement": "62",
-   "depots": 14,
-   "exercices": [
-    "2009",
-    "2024"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
-  },
-  {
    "siren": "329556328",
    "nom": "ASSOCIATION ACTION JEUNES",
    "departement": "92",
@@ -11560,6 +11572,18 @@
    "cause": "territoire_peu_couvert"
   },
   {
+   "siren": "776003121",
+   "nom": "ASSOCIATION EDUCATIVE LA PINEDE",
+   "departement": "34",
+   "depots": 14,
+   "exercices": [
+    "2006",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "territoire_peu_couvert"
+  },
+  {
    "siren": "399369875",
    "nom": "ASSOCIATION EOLLIS",
    "departement": "59",
@@ -11615,18 +11639,6 @@
    "exercices": [
     "2010",
     "2023"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "inexplique"
-  },
-  {
-   "siren": "775615321",
-   "nom": "ASSOCIATION LES MAISONS HOSPITALIÈRES",
-   "departement": "54",
-   "depots": 14,
-   "exercices": [
-    "2009",
-    "2024"
    ],
    "type": "Associations loi du 1er juillet 1901",
    "cause": "inexplique"
@@ -12700,6 +12712,18 @@
    "cause": "financement_prive"
   },
   {
+   "siren": "532903952",
+   "nom": "FONDS DE DOTATION LA PROVIDENCE",
+   "departement": "49",
+   "depots": 14,
+   "exercices": [
+    "2010",
+    "2025"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
    "siren": "803010271",
    "nom": "FONDS DE DOTATION LANDREVILLE PATRIMOINE ET CULTURE",
    "departement": "10",
@@ -12763,6 +12787,18 @@
    "siren": "795239250",
    "nom": "FONDS DE DOTATION LES PARTAGEURS",
    "departement": "75",
+   "depots": 14,
+   "exercices": [
+    "2013",
+    "2025"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
+   "siren": "790672745",
+   "nom": "FONDS DE DOTATION MONTPELLIER RUGBY",
+   "departement": "34",
    "depots": 14,
    "exercices": [
     "2013",
@@ -13141,7 +13177,7 @@
     "2025"
    ],
    "type": "Fonds de dotation",
-   "cause": "nom_et_departement"
+   "cause": "financement_prive"
   },
   {
    "siren": "537674079",
@@ -14260,18 +14296,6 @@
    "cause": "territoire_peu_couvert"
   },
   {
-   "siren": "776003121",
-   "nom": "ASSOCIATION EDUCATIVE LA PINEDE",
-   "departement": "34",
-   "depots": 13,
-   "exercices": [
-    "2006",
-    "2024"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
-  },
-  {
    "siren": "331049049",
    "nom": "ASSOCIATION EMMAUS DE ROANNE MABLY",
    "departement": "42",
@@ -15304,6 +15328,18 @@
    "cause": "financement_prive"
   },
   {
+   "siren": "812809226",
+   "nom": "FONDS DE DOTATION ASSAMI",
+   "departement": "13",
+   "depots": 13,
+   "exercices": [
+    "2014",
+    "2025"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
    "siren": "751821711",
    "nom": "FONDS DE DOTATION AVISO",
    "departement": "92",
@@ -15592,18 +15628,6 @@
    "cause": "financement_prive"
   },
   {
-   "siren": "532903952",
-   "nom": "FONDS DE DOTATION LA PROVIDENCE",
-   "departement": "49",
-   "depots": 13,
-   "exercices": [
-    "2010",
-    "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
    "siren": "798847232",
    "nom": "FONDS DE DOTATION LA VIE ASSUREE",
    "departement": "972",
@@ -15635,18 +15659,6 @@
    "exercices": [
     "2013",
     "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
-   "siren": "790672745",
-   "nom": "FONDS DE DOTATION MONTPELLIER RUGBY",
-   "departement": "34",
-   "depots": 13,
-   "exercices": [
-    "2013",
-    "2025"
    ],
    "type": "Fonds de dotation",
    "cause": "financement_prive"
@@ -17656,6 +17668,18 @@
    "cause": "financement_prive"
   },
   {
+   "siren": "824254494",
+   "nom": "BRETAGNE ATLANTIQUE AMBITION - BAA",
+   "departement": "35",
+   "depots": 12,
+   "exercices": [
+    "2014",
+    "2025"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
    "siren": "422181552",
    "nom": "BUHEZ NEVEZ",
    "departement": "56",
@@ -18370,18 +18394,6 @@
    "depots": 12,
    "exercices": [
     "2013",
-    "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
-   "siren": "812809226",
-   "nom": "FONDS DE DOTATION ASSAMI",
-   "departement": "13",
-   "depots": 12,
-   "exercices": [
-    "2014",
     "2024"
    ],
    "type": "Fonds de dotation",
@@ -19526,6 +19538,18 @@
    ],
    "type": "Associations loi du 1er juillet 1901",
    "cause": "nom_connu_ailleurs"
+  },
+  {
+   "siren": "382158640",
+   "nom": "LA CASE ZOUZOU",
+   "departement": "974",
+   "depots": 12,
+   "exercices": [
+    "2014",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "territoire_peu_couvert"
   },
   {
    "siren": "478079494",
@@ -21616,18 +21640,6 @@
    "cause": "inexplique"
   },
   {
-   "siren": "824254494",
-   "nom": "BRETAGNE ATLANTIQUE AMBITION - BAA",
-   "departement": "35",
-   "depots": 11,
-   "exercices": [
-    "2014",
-    "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
    "siren": "316100486",
    "nom": "C.O.L.E.A.C.P.",
    "departement": "94",
@@ -23140,6 +23152,18 @@
    "cause": "financement_prive"
   },
   {
+   "siren": "811739291",
+   "nom": "FONDS DE DOTATION TERRE DE CULTURES",
+   "departement": "75",
+   "depots": 11,
+   "exercices": [
+    "2013",
+    "2023"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
    "siren": "824153902",
    "nom": "FONDS DE DOTATION VACANCES DU COEUR",
    "departement": "59",
@@ -23195,6 +23219,18 @@
    "exercices": [
     "2014",
     "2024"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
+   "siren": "831165238",
+   "nom": "FONDS L'ENVOL",
+   "departement": "59",
+   "depots": 11,
+   "exercices": [
+    "2016",
+    "2025"
    ],
    "type": "Fonds de dotation",
    "cause": "financement_prive"
@@ -23570,18 +23606,6 @@
    ],
    "type": "Fonds de dotation",
    "cause": "financement_prive"
-  },
-  {
-   "siren": "382158640",
-   "nom": "LA CASE ZOUZOU",
-   "departement": "974",
-   "depots": 11,
-   "exercices": [
-    "2014",
-    "2024"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
   },
   {
    "siren": "807473376",
@@ -24206,6 +24230,18 @@
    ],
    "type": "Fonds de dotation",
    "cause": "financement_prive"
+  },
+  {
+   "siren": "334313863",
+   "nom": "SESAME AUTISME FRANCHE COMTE",
+   "departement": "25",
+   "depots": 11,
+   "exercices": [
+    "2009",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "inexplique"
   },
   {
    "siren": "332088939",
@@ -24988,6 +25024,18 @@
    "cause": "inexplique"
   },
   {
+   "siren": "789257375",
+   "nom": "ASSO DE SANTE D EDUCATION ET DE PREVENTION SUR LES TERRITOIRES DE PACA",
+   "departement": "13",
+   "depots": 10,
+   "exercices": [
+    "2017",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "inexplique"
+  },
+  {
    "siren": "338846009",
    "nom": "ASSO LA RIBAMBELLE CRECHE PARENTALE",
    "departement": "04",
@@ -25153,7 +25201,7 @@
     "2025"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "nom_connu_ailleurs"
+   "cause": "inexplique"
   },
   {
    "siren": "503426223",
@@ -25429,7 +25477,7 @@
     "2019"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_sans_financeur"
+   "cause": "nom_connu_ailleurs"
   },
   {
    "siren": "435319215",
@@ -27112,18 +27160,6 @@
    "cause": "financement_prive"
   },
   {
-   "siren": "811739291",
-   "nom": "FONDS DE DOTATION TERRE DE CULTURES",
-   "departement": "75",
-   "depots": 10,
-   "exercices": [
-    "2013",
-    "2022"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
    "siren": "842353534",
    "nom": "FONDS DE DOTATION THERESE CORNILLE",
    "departement": "75",
@@ -27208,13 +27244,13 @@
    "cause": "financement_prive"
   },
   {
-   "siren": "831165238",
-   "nom": "FONDS L'ENVOL",
-   "departement": "59",
+   "siren": "804192185",
+   "nom": "FONDS FHF POUR LA RECHERCHE ET L'INNOVATION",
+   "departement": "75",
    "depots": 10,
    "exercices": [
-    "2016",
-    "2024"
+    "2015",
+    "2025"
    ],
    "type": "Fonds de dotation",
    "cause": "financement_prive"
@@ -28420,18 +28456,6 @@
    "cause": "inexplique"
   },
   {
-   "siren": "334313863",
-   "nom": "SESAME AUTISME FRANCHE COMTE",
-   "departement": "25",
-   "depots": 10,
-   "exercices": [
-    "2009",
-    "2024"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "inexplique"
-  },
-  {
    "siren": "318786001",
    "nom": "SOC FRANCAISE DE GERIATRIE ET GERONTOLOGIE",
    "departement": "92",
@@ -29248,18 +29272,6 @@
    "cause": "inexplique"
   },
   {
-   "siren": "789257375",
-   "nom": "ASSO DE SANTE D EDUCATION ET DE PREVENTION SUR LES TERRITOIRES DE PACA",
-   "departement": "13",
-   "depots": 9,
-   "exercices": [
-    "2017",
-    "2024"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "inexplique"
-  },
-  {
    "siren": "442143426",
    "nom": "ASSOC DEPISTAGE CANCER  ADOC 11",
    "departement": "11",
@@ -30001,7 +30013,7 @@
     "2022"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
+   "cause": "nom_connu_ailleurs"
   },
   {
    "siren": "825258924",
@@ -31924,6 +31936,18 @@
    "cause": "financement_prive"
   },
   {
+   "siren": "830380077",
+   "nom": "FONDS DE DOTATION TRANSMETTRE",
+   "departement": "01",
+   "depots": 9,
+   "exercices": [
+    "2017",
+    "2025"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
    "siren": "839395795",
    "nom": "FONDS DE DOTATION UFC-QUE CHOISIR",
    "departement": "75",
@@ -32039,18 +32063,6 @@
    "exercices": [
     "2017",
     "2025"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
-   "siren": "804192185",
-   "nom": "FONDS FHF POUR LA RECHERCHE ET L'INNOVATION",
-   "departement": "75",
-   "depots": 9,
-   "exercices": [
-    "2015",
-    "2024"
    ],
    "type": "Fonds de dotation",
    "cause": "financement_prive"
@@ -35941,7 +35953,7 @@
     "2015"
    ],
    "type": "Associations loi du 1er juillet 1901",
-   "cause": "nom_connu_ailleurs"
+   "cause": "territoire_peu_couvert"
   },
   {
    "siren": "487449035",
@@ -36640,6 +36652,18 @@
    "cause": "financement_prive"
   },
   {
+   "siren": "894756824",
+   "nom": "FONDS DE DOTATION D D",
+   "departement": "84",
+   "depots": 8,
+   "exercices": [
+    "2020",
+    "2025"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
    "siren": "849978242",
    "nom": "FONDS DE DOTATION DE L'ABBAYE DE FAREMOUTIERS",
    "departement": "77",
@@ -36958,6 +36982,18 @@
    "depots": 8,
    "exercices": [
     "2020",
+    "2025"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
+   "siren": "999999899",
+   "nom": "FONDS DE DOTATION FONTENAY SOLIDAIRE",
+   "departement": "94",
+   "depots": 8,
+   "exercices": [
+    "2018",
     "2025"
    ],
    "type": "Fonds de dotation",
@@ -37732,18 +37768,6 @@
    "cause": "financement_prive"
   },
   {
-   "siren": "830380077",
-   "nom": "FONDS DE DOTATION TRANSMETTRE",
-   "departement": "01",
-   "depots": 8,
-   "exercices": [
-    "2017",
-    "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
    "siren": "838755940",
    "nom": "FONDS DE DOTATION UN FONDS POUR AGIR ENSEMBLE",
    "departement": "75",
@@ -37918,6 +37942,18 @@
    "depots": 8,
    "exercices": [
     "2019",
+    "2025"
+   ],
+   "type": "Fonds de dotation",
+   "cause": "financement_prive"
+  },
+  {
+   "siren": "839987286",
+   "nom": "FONDS OBERKAMPF",
+   "departement": "78",
+   "depots": 8,
+   "exercices": [
+    "2018",
     "2025"
    ],
    "type": "Fonds de dotation",
@@ -38822,6 +38858,18 @@
    ],
    "type": "Associations loi du 1er juillet 1901",
    "cause": "territoire_peu_couvert"
+  },
+  {
+   "siren": "839538410",
+   "nom": "OFFICE DE TOURISME COMMUNAUTAIRE CAGIRE GARONNE SALAT",
+   "departement": "31",
+   "depots": 8,
+   "exercices": [
+    "2018",
+    "2025"
+   ],
+   "type": "Associations loi du 1er juillet 1901",
+   "cause": "inexplique"
   },
   {
    "siren": "776447161",

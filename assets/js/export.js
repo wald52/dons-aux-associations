@@ -118,16 +118,28 @@ export function blocExport(libelle, note, fabrique) {
   return bloc;
 }
 
-// --- versements : les cinq colonnes de montants -----------------------------
+// --- versements : une colonne de montant par catégorie ----------------------
+//
+// L'ordre de `CASES` et celui des colonnes `montant_*` DOIVENT correspondre :
+// une case ajoutée d'un seul côté rangerait les montants dans la mauvaise
+// colonne sans que rien ne le signale.
+//
+// `montant_hors_champ_insee_eur` est né avec la phase 15. Il tient à part ce
+// que le registre SIRENE écarte — une entreprise, un établissement public —
+// de ce que la SOURCE elle-même déclarait hors champ. Les deux sortent des
+// totaux, mais pas sur la même autorité, et un tableur doit pouvoir les
+// distinguer comme l'écran le fait.
 
 var COLONNES_VERSEMENTS = [
   "annee", "donateur", "echelon", "programme", "objet",
   "montant_vote_eur", "montant_paye_eur", "montant_hors_don_eur",
-  "montant_agrege_eur", "montant_hors_champ_eur", "montant_quarantaine_eur",
+  "montant_agrege_eur", "montant_hors_champ_eur",
+  "montant_hors_champ_insee_eur", "montant_quarantaine_eur",
   "motif_hors_totaux", "nature_du_concours", "source", "url_source"
 ];
 
-var CASES = ["vote", "paye", "hors_don", "agrege", "hors_champ"];
+var CASES = ["vote", "paye", "hors_don", "agrege", "hors_champ",
+             "hors_champ_insee"];
 
 /** Une ligne de versement, son montant rangé dans la seule colonne qui lui
  *  revient. Le montant en quarantaine est à part : ce n'est pas un euro du

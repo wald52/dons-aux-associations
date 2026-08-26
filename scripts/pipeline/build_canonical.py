@@ -148,6 +148,13 @@ def quality_report(table, dedup_stats, part_files):
     # se recalcule partout depuis la même fonction de `common.py`.
     concours = [C.nature_du_concours(purpose[i], flags[i])[0]
                 for i in range(table.num_rows)]
+    # Phase 15 — le verdict de l'INSEE. Il n'existe qu'APRÈS `enrich_nature.py` :
+    # au premier assemblage la colonne est encore vide, et la règle retombe
+    # alors sur « on ne sait pas », qui compte la ligne. C'est le bon défaut, et
+    # c'est pourquoi `refresh_rapport.py` doit repasser après l'enrichissement.
+    bcj = (table.column("beneficiary_legal_category").to_pylist()
+           if "beneficiary_legal_category" in table.column_names
+           else [None] * table.num_rows)
 
     per_source = collections.defaultdict(lambda: {
         "rows": 0, "amount_individual": 0.0, "amount_aggregate": 0.0,
@@ -160,7 +167,7 @@ def quality_report(table, dedup_stats, part_files):
         if gran[i] == "aggregate":
             d["amount_aggregate"] += amt[i] or 0
         elif not C.compte_dans_les_totaux(gran[i], mesure[i], kind[i], kind_prov[i],
-                                          concours[i]):
+                                          concours[i], bcj[i]):
             # Écartée des totaux, jamais de la table : elle reste consultable.
             d["amount_not_summed"] += amt[i] or 0
             d["rows_not_summed"] += 1
@@ -197,17 +204,17 @@ def quality_report(table, dedup_stats, part_files):
         # `amount_eur` est nul pour les valeurs qui ne sont pas des montants :
         # une somme simple est donc juste, sans filtre à ne pas oublier.
         "amount_individual_eur": round(sum(
-            a or 0 for a, g, m, k, kp, co in zip(amt, gran, mesure, kind, kind_prov, concours)
-            if C.compte_dans_les_totaux(g, m, k, kp, co)), 2),
+            a or 0 for a, g, m, k, kp, co, cj in zip(amt, gran, mesure, kind, kind_prov, concours, bcj)
+            if C.compte_dans_les_totaux(g, m, k, kp, co, cj)), 2),
         "amount_aggregate_eur": round(sum(a or 0 for a, g in zip(amt, gran) if g == "aggregate"), 2),
         # Individuelles mais non sommées : exécution budgétaire déjà comptée au
         # vote, ou bénéficiaire que la source déclare hors du champ associatif.
         "amount_not_summed_eur": round(sum(
-            a or 0 for a, g, m, k, kp, co in zip(amt, gran, mesure, kind, kind_prov, concours)
-            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp, co)), 2),
+            a or 0 for a, g, m, k, kp, co, cj in zip(amt, gran, mesure, kind, kind_prov, concours, bcj)
+            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp, co, cj)), 2),
         "rows_not_summed": sum(
-            1 for g, m, k, kp, co in zip(gran, mesure, kind, kind_prov, concours)
-            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp, co)),
+            1 for g, m, k, kp, co, cj in zip(gran, mesure, kind, kind_prov, concours, bcj)
+            if g != "aggregate" and not C.compte_dans_les_totaux(g, m, k, kp, co, cj)),
         # Les quatre natures de concours, dont une seule est un don.
         "by_concours": {
             nat: {"rows": sum(1 for c in concours if c == nat),
@@ -304,10 +311,13 @@ def anomalies(table, report):
     kind_a = table.column("beneficiary_kind").to_pylist()
     prov_a = table.column("beneficiary_kind_provenance").to_pylist()
     me = table.column("measure").to_pylist()
+    cj_a = (table.column("beneficiary_legal_category").to_pylist()
+            if "beneficiary_legal_category" in table.column_names
+            else [None] * table.num_rows)
     familles = collections.defaultdict(lambda: [set(), set(), 0, 0.0])
     for i in range(len(y)):
         nat = C.nature_du_concours(po[i], fl[i])[0]
-        if not C.compte_dans_les_totaux(g[i], me[i], kind_a[i], prov_a[i], nat):
+        if not C.compte_dans_les_totaux(g[i], me[i], kind_a[i], prov_a[i], nat, cj_a[i]):
             continue
         if not a[i] or a[i] <= 0:
             continue
@@ -351,7 +361,7 @@ def anomalies(table, report):
     m_num = 0.0
     for i in range(len(y)):
         nat = C.nature_du_concours(po[i], fl[i])[0]
-        if not C.compte_dans_les_totaux(g[i], me[i], kind_a[i], prov_a[i], nat):
+        if not C.compte_dans_les_totaux(g[i], me[i], kind_a[i], prov_a[i], nat, cj_a[i]):
             continue
         if bn[i] and numerique.match(bn[i]):
             n_num += 1
@@ -375,7 +385,7 @@ def anomalies(table, report):
     par_benef = collections.defaultdict(float)
     for i in range(len(y)):
         nat = C.nature_du_concours(po[i], fl[i])[0]
-        if not C.compte_dans_les_totaux(g[i], me[i], kind_a[i], prov_a[i], nat):
+        if not C.compte_dans_les_totaux(g[i], me[i], kind_a[i], prov_a[i], nat, cj_a[i]):
             continue
         if prov_a[i] == "guessed" and kind_a[i] == "association" and bn[i]:
             par_benef[bn[i]] += a[i] or 0

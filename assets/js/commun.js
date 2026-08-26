@@ -116,6 +116,10 @@ export var MOTIFS = {
   hors_champ: "La source déclare un bénéficiaire qui n'est pas une association " +
     "(établissement public, entreprise, personne physique). Quand elle le dit " +
     "elle-même, elle fait foi et la ligne sort des totaux.",
+  hors_champ_insee: "Le répertoire SIRENE de l'INSEE déclare pour ce bénéficiaire " +
+    "une forme juridique qui n'est ni une association ni une fondation — " +
+    "entreprise, établissement public, syndicat. La source, elle, ne disait rien : " +
+    "le site comptait ce versement par défaut, il ne le compte plus.",
   prestation: "Prestation facturée par l'association : la collectivité achète un " +
     "service, il y a une contrepartie. Ce n'est pas un don, donc hors des totaux.",
   remboursement: "Remboursement de frais ou cotisation d'adhésion : la collectivité " +

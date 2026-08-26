@@ -345,6 +345,57 @@ dès la deuxième semaine plutôt qu'au bout de deux mois.
 
 ---
 
+## Phase 15 — La nature juridique du bénéficiaire (26/08/2026)
+
+**Le problème.** Depuis la phase 6, le site classait « association » tout
+bénéficiaire dont la source ne déclarait rien. `CLAUDE.md` le notait — 49,88 Md€
+sur une devinette, avec SNCF Voyageurs et l'AFP dans la liste — en concluant que
+c'était « un arbitrage métier, pas un correctif ». Ce n'était pas chiffré.
+
+**La mesure.** SIRENE (`StockUniteLegale`, Licence Ouverte) donne la catégorie
+juridique de toute personne morale. Jointe à la table : sur les 148,40 Md€
+votés, **85,11 Md€ vont bien à des associations ou des fondations, 37,68 Md€
+n'y vont pas, et 25,61 Md€ n'ont aucun identifiant qui permette de trancher.**
+
+**La frontière**, arrêtée par l'utilisateur : associations `92xx` — groupements
+d'employeurs et associations d'utilité publique compris — **plus** les
+fondations `9300`, fondations d'entreprise et fonds de dotation inclus. Avec la
+consigne de les DIFFÉRENCIER à l'affichage, « pour ne pas que le public se
+sente trompé ».
+
+**Ce qui a été construit.**
+
+| | |
+|---|---|
+| `fetch_nature_beneficiaires.py` | référentiel de 215 223 SIREN, **4,8 Mo** — SIRENE lu en HTTP Range, jamais téléchargé (705 Mo) |
+| `enrich_nature.py` | quatre colonnes posées sur 2 811 070 lignes, en 52 s |
+| Règle | `est_associatif` et `famille_du_beneficiaire` dans `common.py`, écrites une seule fois |
+| Affichage | 13 familles distinctes sous le nom, en toutes lettres |
+| Nouveau cas | `hors_champ_insee`, distinct de `hors_champ` |
+| Export | sixième colonne, `montant_hors_champ_insee_eur` |
+| Contrôles | **52/53**, dont trois nouveaux |
+
+**Trois choix de méthode qui méritent d'être retenus.**
+
+1. **Rien n'est retouché.** `beneficiary_kind` et sa provenance gardent ce que
+   la source disait ou ce que le pipeline devinait ; le verdict de l'INSEE
+   voyage à côté. On peut donc toujours voir qui s'était trompé.
+2. **Ne pas savoir n'est pas un « non ».** Les 25,61 Md€ sans identifiant
+   restent comptés et portent « nature non vérifiée ». Les exclure effacerait
+   des milliers de petites associations communales qui n'ont jamais eu de SIRET
+   publié.
+3. **Le JO affine, il ne renverse pas.** L'INSEE confond fondation, fondation
+   d'entreprise et fonds de dotation dans un seul code ; le Journal officiel
+   nomme précisément **94,6 %** du montant des fondations. Mais les deux
+   registres se contredisent sur 92 organismes et 240,2 M€ — la Fondation
+   Falret, le Mémorial de la Shoah — et aucun ne ment : l'INSEE enregistre la
+   FORME JURIDIQUE, le JO le TYPE DÉCLARÉ. La frontière reste à l'INSEE, le
+   libellé vient du JO, et les deux voyagent.
+
+**Le total voté baisse de 25,4 %, et c'est une correction** — le même mouvement
+que la phase 11, qui avait fait baisser le total de 1,34 Md€ en gagnant
+23 sources.
+
 ## Phase 6a — FAITE (20/08/2026)
 
 Les deux premiers gisements ci-dessous ont été exploités. Résultat mesuré :

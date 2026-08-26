@@ -475,7 +475,15 @@ que le §1h rend beaucoup plus tranchants qu'ils ne le paraissaient ici :
   Nice ou Montpellier, et c'est à ce titre qu'elle doit être dite — pas un
   défaut de moissonnage à corriger.
 
-### 1h. La nature du bénéficiaire — **le vrai manque, et il est DANS le site**
+### 1h. La nature du bénéficiaire — **FAIT (phase 15, 26/08/2026)**
+
+> **CE CHANTIER EST FAIT.** Tout ce qui suit est le dossier qui l'a instruit ;
+> il reste ici parce que les mesures et les réserves valent d'être relues, mais
+> le correctif est en place : `fetch_nature_beneficiaires.py`,
+> `enrich_nature.py`, quatre colonnes canoniques, la famille affichée sur la
+> fiche, un sixième montant à l'export et trois contrôles dans `verify.py`.
+> **Le total voté est passé de 148,40 à 110,71 Md€.** Ce qui reste ouvert est
+> au §1g (Normandie, portails CKAN, agences de l'eau).
 
 Mesuré le 26/08/2026, après une remise en cause de l'utilisateur : « je cherche
 les dons aux associations et uniquement cela ». Le §1f n'avait pas vérifié la

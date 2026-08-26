@@ -732,3 +732,32 @@ td.source a { color: var(--accent); }
   color: var(--ardoise); line-height: 1.45;
 }
 @media (max-width: 620px) { .bouton-export { width: 100%; } }
+
+/* --- famille juridique du bénéficiaire (phase 15) -------------------------
+   Une fondation d'entreprise et une association de quartier comptent toutes
+   deux dans les totaux, mais ce ne sont pas la même chose. La consigne est de
+   les différencier « pour ne pas que le public se sente trompé » : la forme
+   juridique s'écrit donc sous le nom, jamais dans un attribut `title`.
+   La pastille ne porte l'information qu'EN PLUS du texte — elle ne la porte
+   jamais seule, même règle que les couleurs de la carte de couverture. */
+.famille-juridique {
+  margin: -.35rem 0 .9rem;
+  font-size: .92rem;
+  color: var(--texte-doux, #555);
+  display: flex;
+  align-items: baseline;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+.puce-famille {
+  width: .55rem; height: .55rem; border-radius: 50%;
+  background: var(--accent, #1d4e89);
+  flex: 0 0 auto;
+}
+.puce-famille.incertaine {
+  background: transparent;
+  border: 1px dashed var(--texte-doux, #888);
+}
+.famille-juridique .precision { color: var(--texte-doux, #777); font-size: .86rem; }
+.puce-famille.hors { background: var(--gris-hors, #9a9a9a); }
+.famille-juridique.hors-perimetre { color: var(--texte, #333); }

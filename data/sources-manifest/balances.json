@@ -1,6 +1,6 @@
 {
  "family": "balances",
- "fetched_at": "2026-08-23T00:30:44Z",
+ "fetched_at": "2026-08-26T16:54:34Z",
  "hote": "data.economie.gouv.fr",
  "filtre": "startswith(compte,'6574')",
  "licence": "Licence Ouverte 2.0",

@@ -309,9 +309,12 @@ export async function identifiantDuRang(rang) {
 // --- fiches -----------------------------------------------------------------
 
 var shards = {};
+// L'ordre est celui que `build_index_navigateur.py` écrit, et les deux DOIVENT
+// rester identiques : une clé ajoutée d'un seul côté décale silencieusement
+// toutes les suivantes.
 var CLES_RESUME = ["nom", "siren", "rna", "dep", "kind", "nbv", "montant",
   "ecarte", "a0", "a1", "ech", "echelons", "nbd", "principal", "part",
-  "publient_jusqu_a"];
+  "publient_jusqu_a", "famille"];
 
 /** Tout ce qu'il faut pour afficher une association : son résumé ET ses
  *  versements ligne à ligne, en une requête d'environ 120 Ko. */

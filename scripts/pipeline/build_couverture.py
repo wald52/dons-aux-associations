@@ -54,7 +54,8 @@ def donateurs_connus():
         columns=["donor_level", "donor_name_norm", "donor_name_raw", "donor_siren",
                  "amount_eur", "granularity", "measure",
                  "beneficiary_kind", "beneficiary_kind_provenance",
-                 "purpose_norm", "quality_flags"])
+                 "purpose_norm", "quality_flags",
+                 "beneficiary_legal_category"])
     lvl = t.column("donor_level").to_pylist()
     norm = t.column("donor_name_norm").to_pylist()
     brut = t.column("donor_name_raw").to_pylist()
@@ -66,6 +67,7 @@ def donateurs_connus():
     bkprov = t.column("beneficiary_kind_provenance").to_pylist()
     purpose = t.column("purpose_norm").to_pylist()
     qflags = t.column("quality_flags").to_pylist()
+    bcj = t.column("beneficiary_legal_category").to_pylist()
 
     par_niveau = {n: {"noms": collections.defaultdict(lambda: [0, 0.0]),
                       "siren": set()} for n in NIVEAUX}
@@ -75,7 +77,7 @@ def donateurs_connus():
         cle = norm[i] or C.normalize_name(brut[i] or "")
         nature = C.nature_du_concours(purpose[i], qflags[i])[0]
         montant = (amt[i] or 0.0) if C.compte_dans_les_totaux(
-            gran[i], mesure[i], bkind[i], bkprov[i], nature) else 0.0
+            gran[i], mesure[i], bkind[i], bkprov[i], nature, bcj[i]) else 0.0
         if cible is None:
             c = hors[lvl[i]]
             c[0] += 1

@@ -1,0 +1,27 @@
+{
+ "genere_le": "2026-08-26T16:36:20Z",
+ "sirene": {
+  "jeu": "base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret",
+  "ressource": "Sirene : Fichier StockUniteLegale - 01 août 2026 (format parquet)",
+  "url": "https://static.data.gouv.fr/resources/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/20260801-073937/stock-stockunitelegale-parquet.parquet",
+  "licence": "Licence Ouverte 2.0",
+  "siren_demandes": 216052,
+  "siren_retrouves": 215223
+ },
+ "journal_officiel": {
+  "hote": "journal-officiel-datadila.opendatasoft.com",
+  "jeu": "jo_associations",
+  "filtre": "source='dca'",
+  "licence": "Licence Ouverte 2.0",
+  "depots": 227741,
+  "siren_types": 31686,
+  "rna_types": 18964,
+  "apparies_par_siren": 18589,
+  "apparies_par_rna": 75
+ },
+ "frontiere": "associations INSEE 92xx (groupements d'employeurs et associations d'utilité publique compris) + fondations 9300 (fondations d'entreprise et fonds de dotation) — décision de l'utilisateur du 26/08/2026",
+ "associatifs": 164375,
+ "non_associatifs": 50848,
+ "sans_verdict": 0,
+ "octets": 4762555
+}

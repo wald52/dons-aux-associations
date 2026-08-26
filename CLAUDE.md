@@ -60,8 +60,13 @@ maintenant un index précalculé : **6,06 Mo au total, champ utilisable en
 association s'ouvre avec **une seule requête de ~120 Ko**, sans charger l'index.
 Détail et méthode dans `MESURE-PERF.md`.
 
-Données : **698 sources**, **148,40 Md€ de dons VOTÉS** et **10,43 Md€ de dons
-PAYÉS** affichés côte à côte et jamais additionnés ; 1,57 Md€ ingérés mais hors
+Données : **698 sources**, **110,71 Md€ de dons VOTÉS** et 10,43 Md€ de dons
+PAYÉS affichés côte à côte et jamais additionnés. *Le total voté a BAISSÉ de
+37,68 Md€ en phase 15, et c'est une correction* : le site comptait « association »
+tout bénéficiaire dont la source ne disait rien, et SIRENE montre que 25,4 % du
+montant allait à des entreprises et des établissements publics — SNCF Voyageurs,
+l'AFP, le Pass Culture, l'ASP, le CNC, France Travail, le musée du Louvre.
+Anciens repères, pour mémoire : 148,40 Md€ votés ; 1,57 Md€ ingérés mais hors
 des totaux parce que ce ne sont pas des dons (prestations facturées,
 remboursements, aides en nature), 2,08 Md€ de lignes agrégées, et la quarantaine
 d'unité. 427 451 bénéficiaires résolus, dont **9 566 cumulent au moins trois
@@ -1415,6 +1420,28 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       Trois bogues de `build_methode.py` corrigés, dont un total de
       « 80 002 255 770,2 Md€ ». Aucun chiffre n'est plus écrit en dur dans le
       HTML. **49/50 contrôles**, le compte normal hors assemblage complet.
+
+- [x] **Phase 15** — la nature juridique du bénéficiaire. Le site ne devine plus
+      « association » là où un registre déclare. `fetch_nature_beneficiaires.py`
+      construit `data/referentiel/nature-beneficiaires.parquet` — **4,8 Mo pour
+      215 223 SIREN**, extraits de SIRENE (`StockUniteLegale`, 705 Mo lus en HTTP
+      Range, jamais téléchargés) et du Journal officiel ; `enrich_nature.py` pose
+      quatre colonnes sur les 2 811 070 lignes sans retoucher `beneficiary_kind`,
+      pour qu'on puisse toujours voir qui s'était trompé.
+      **Le total voté passe de 148,40 à 110,71 Md€** : 37,68 Md€ sortent, avec
+      leur motif, et restent consultables. 25,61 Md€ n'ont aucun identifiant,
+      restent comptés, et sont marqués « nature non vérifiée » — ne pas savoir
+      n'est pas un « non ».
+      La frontière est celle de l'utilisateur : associations `92xx` **plus**
+      fondations `9300`, avec la consigne de les DIFFÉRENCIER. Treize familles
+      distinctes s'affichent donc sous le nom, en toutes lettres, et le
+      Journal officiel nomme **94,6 %** des fondations là où l'INSEE les confond
+      dans un seul code. Un bénéficiaire hors périmètre le dit lui aussi :
+      « ni association ni fondation », plutôt qu'un montant gris sans explication.
+      Nouveau cas `hors_champ_insee`, distinct de `hors_champ` — dans un cas le
+      publieur l'écrit, dans l'autre c'est le registre national qui le déclare
+      alors que le publieur se taisait. Sixième colonne dans les exports.
+      **52/53 contrôles**, dont trois nouveaux.
 
 - [x] **Phase 14** — les exports. Quatre exports CSV : la fiche d'une
       association (**tous** ses versements, pas les 300 affichés), une liste de
