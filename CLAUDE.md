@@ -532,8 +532,35 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   lit en HTTP Range sans le télécharger. Le **RNA ne convient pas** : son
   fichier `import` ne remplit jamais la colonne `siret` (0 sur 3 312 dans
   l'Allier), il ne fait pas le pont SIREN → association.
-  Reste un arbitrage métier — où placer la frontière, et faut-il exclure des
-  totaux ou afficher à part. Cf. `RESTE-A-FAIRE.md` §1h.
+  **La frontière est tranchée (utilisateur, 26/08/2026)** : comptent les
+  associations `92xx` — groupements d'employeurs `9223` et associations d'utilité
+  publique `9230` compris — **plus les fondations `9300`**, qui couvrent les
+  fondations d'entreprise et les fonds de dotation. Avec la consigne expresse de
+  les **différencier à l'affichage**, « pour ne pas que le public se sente
+  trompé » : un total unique mêlant une association de quartier et un fonds de
+  dotation d'entreprise serait exact et malhonnête. Les codes limitrophes ne
+  pèsent rien, c'est mesuré (congrégations 5,0 M€, mutuelles 2,2 M€, comités
+  d'entreprise 3,1 M€), et les associations d'avocats `9224` — des cabinets —
+  aucun euro. Reste à trancher le SORT des 57,3 % hors périmètre. Cf.
+  `RESTE-A-FAIRE.md` §1h.
+
+- **L'INSEE ne distingue pas fondation, fondation d'entreprise et fonds de
+  dotation : le Journal officiel, si.** Le code `9300` de SIRENE mélange les
+  trois — 5 621 unités qui se répartissent au SEUL libellé en 2 946 « fonds de
+  dotation », 675 « fondation », 300 « fondation d'entreprise » et 1 700 autres.
+  Pour honorer la consigne de différenciation, la source est
+  `angle-mort.json`, déjà moissonnée, qui porte le type déclaré au JO — mais
+  seulement pour les 31 683 organismes au-dessus de 153 000 €.
+  **Et SIRENE porte le RNA** : `identifiantAssociationUniteLegale` est rempli
+  pour 1 100 411 des 1 513 037 associations `92xx` (72,7 %). C'est le pont
+  SIREN → RNA que le fichier du ministère de l'Intérieur ne donne pas, et il
+  remplirait `beneficiary_rna`, vide à 73,3 %.
+
+- **La nature n'est vérifiable que là où il y a un SIREN — 23,1 % du montant
+  échappe.** Sur les 120,41 Md€ portés par des lignes « association »,
+  92,58 Md€ (76,9 %) ont un SIREN exploitable ; **27,83 Md€ n'ont aucun
+  identifiant** et resteront une devinette quoi qu'on branche. Ne jamais
+  présenter un site branché sur SIRENE comme « vérifié » sans dire cette part.
 
 - **Une ligne « de forme subventionnelle » n'est pas un don à une association,
   et l'écart est d'un ordre de grandeur.** Les 105 jeux inédits ouverts par

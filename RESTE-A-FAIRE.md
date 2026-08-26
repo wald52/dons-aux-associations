@@ -577,6 +577,53 @@ d'entreprise ? les groupements d'employeurs ? les associations syndicales ?)
 sont **des arbitrages métier, pas des correctifs**, et ils reviennent à
 l'utilisateur.
 
+#### e. La frontière est TRANCHÉE (utilisateur, 26/08/2026)
+
+**Comptent comme dons aux associations** : les associations (INSEE `92xx`, ce
+qui inclut les **groupements d'employeurs** `9223`, les associations reconnues
+d'utilité publique `9230`, les associations de droit local d'Alsace-Moselle
+`9260`, les entreprises d'insertion `9221` et les associations intermédiaires
+`9222`), **plus les fondations** (`9300`, qui couvre aussi les **fondations
+d'entreprise** et les **fonds de dotation**).
+
+**Consigne qui accompagne la décision, et qui n'est pas négociable** : ces
+familles doivent être **différenciées à l'affichage**, « pour ne pas que le
+public se sente trompé ». Un total unique qui mélangerait une association de
+quartier et un fonds de dotation d'entreprise serait exact et malhonnête.
+
+Effet mesuré de cette frontière sur l'échantillon des 2 500 plus gros SIREN
+devinés (29,69 Md€) : **42,7 % dedans, 57,3 % dehors**.
+
+*Les codes limitrophes ne changent rien, c'est mesuré* — et c'est ce qui rend
+la frontière sûre : congrégations `9240` 5,0 M€, entreprises d'insertion
+`9221` 23,5 M€, associations intermédiaires `9222` 15,1 M€. Hors périmètre et
+tout aussi légers : groupements de coopération sociale `9970` 13,8 M€, autre
+personne morale de droit privé `9900` 3,9 M€, comités d'entreprise `8310`
+3,1 M€, mutuelles `8210` 2,2 M€, syndicats professionnels `84xx` ~25 M€.
+Les associations d'avocats `9224` — qui sont des cabinets — ne portent **aucun
+euro** dans le corpus. Aucun de ces codes ne mérite un débat.
+
+#### f. Différencier : ce que l'INSEE sait faire, et ce qu'il ne sait pas
+
+**Il ne sait pas séparer fondation, fondation d'entreprise et fonds de
+dotation.** Vérifié dans SIRENE : les 5 621 unités du code `9300` se
+répartissent, *au libellé seulement*, en 2 946 « FONDS DE DOTATION », 675
+« FONDATION », 300 « FONDATION D'ENTREPRISE » et 1 700 autres libellés. La
+catégorie juridique les confond ; seul le nom les distingue, et mal.
+
+**Le Journal officiel, lui, sait** — et le site l'a déjà moissonné
+(`angle-mort.json`) : il déclare `Associations loi du 1er juillet 1901`
+(26 843), `Fonds de dotation` (3 669), `Fondations-Fondations d'entreprise`
+(720), `Fondations partenariales` (20). Mais il ne couvre que les organismes
+au-dessus de 153 000 €, soit 31 683 en tout.
+
+**Et SIRENE porte le RNA** : la colonne `identifiantAssociationUniteLegale` est
+remplie pour **1 100 411 des 1 513 037 associations `92xx` (72,7 %)**. C'est le
+pont SIREN → RNA que le fichier RNA du ministère de l'Intérieur ne fournit pas.
+Il remplirait au passage la colonne `beneficiary_rna` du site, vide à 73,3 %.
+
+#### g. Ce qui reste à trancher
+
 Trois options, à trancher avant tout code :
 
 1. **Exclure des totaux** ce que l'INSEE déclare non associatif, comme le site
