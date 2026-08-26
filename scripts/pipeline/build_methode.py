@@ -296,7 +296,13 @@ def main():
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
 <title>Sources &amp; méthode — Dons publics aux associations</title>
 <meta name="description" content="D'où viennent les chiffres, ce que la déduplication retire, quels montants sont mis en quarantaine et pourquoi.">
-<link rel="icon" href="data:,">
+<link rel="icon" href="assets/icones/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icones/icone-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="assets/icones/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161d26" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-title" content="Dons associations">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

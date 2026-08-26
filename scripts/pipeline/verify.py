@@ -453,6 +453,84 @@ def main():
               f"{len(communs)} exercices comparés"
               + (f", inversions : {inversions[:5]}" if inversions else ""))
 
+    # 12. L'application installable (phase 16) --------------------------------
+    # Rien ici ne touche aux données : ce sont les quatre pièces qui font qu'un
+    # visiteur peut poser le site sur son écran d'accueil, et dont l'absence ne
+    # produit AUCUNE erreur visible — le navigateur se contente de ne pas
+    # proposer l'installation.
+    import re
+
+    manifeste_chemin = os.path.join(ROOT, "manifest.webmanifest")
+    if not os.path.exists(manifeste_chemin):
+        check("manifeste : présent", False, "manifest.webmanifest absent")
+    else:
+        man = json.load(open(manifeste_chemin, encoding="utf-8"))
+        requis = ["name", "start_url", "scope", "display", "icons",
+                  "background_color", "theme_color"]
+        manquants = [c for c in requis if not man.get(c)]
+        check("manifeste : champs requis", not manquants,
+              f"manquants : {manquants}" if manquants else f"{len(requis)} champs")
+
+        # Le site est publié sous un sous-chemin (`/dons-aux-associations/` sur
+        # GitHub Pages) : une adresse absolue pointerait à la racine du domaine.
+        absolus = [c for c in ("start_url", "scope") if str(man.get(c, "")).startswith("/")]
+        check("manifeste : adresses relatives", not absolus,
+              f"absolues : {absolus}" if absolus else "start_url et scope relatifs")
+
+        def taille_png(chemin):
+            """Largeur et hauteur lues dans l'en-tête IHDR, sans dépendance."""
+            with open(chemin, "rb") as fh:
+                tete = fh.read(24)
+            if tete[:8] != b"\x89PNG\r\n\x1a\n":
+                return None
+            return (int.from_bytes(tete[16:20], "big"), int.from_bytes(tete[20:24], "big"))
+
+        soucis, dims = [], set()
+        for ico in man.get("icons", []):
+            chemin = os.path.join(ROOT, ico["src"])
+            if not os.path.exists(chemin):
+                soucis.append(f"{ico['src']} absente")
+                continue
+            mesure = taille_png(chemin)
+            if mesure is None:
+                soucis.append(f"{ico['src']} n'est pas un PNG")
+            elif f"{mesure[0]}x{mesure[1]}" != ico.get("sizes"):
+                soucis.append(f"{ico['src']} mesure {mesure[0]}x{mesure[1]}, annoncée {ico.get('sizes')}")
+            else:
+                dims.add(mesure[0])
+        check("manifeste : icônes présentes et à la taille annoncée",
+              not soucis and {192, 512} <= dims,
+              "; ".join(soucis) if soucis else f"{len(man.get('icons', []))} icônes, tailles {sorted(dims)}")
+
+        # Sans icône `maskable`, Android rogne l'icône dans son propre gabarit
+        # et coupe la marque.
+        check("manifeste : une icône masquable",
+              any("maskable" in i.get("purpose", "") for i in man.get("icons", [])))
+
+    # `addAll` est atomique : un seul chemin faux et l'installation du service
+    # worker échoue en entier. Le site continue de s'afficher, mais il n'a plus
+    # ni hors-ligne ni installation — une panne parfaitement silencieuse.
+    sw = open(os.path.join(ROOT, "sw.js"), encoding="utf-8").read()
+    bloc = re.search(r"const PRECACHE = \[(.*?)\];", sw, re.S)
+    if not bloc:
+        check("service worker : liste de préchargement lisible", False)
+    else:
+        chemins = re.findall(r'"([^"]+)"', bloc.group(1))
+        absents = [c for c in chemins
+                   if c != "./" and not os.path.exists(os.path.join(ROOT, c[2:]))]
+        check("service worker : tous les fichiers préchargés existent",
+              not absents and len(chemins) > 10,
+              f"absents : {absents}" if absents else f"{len(chemins)} fichiers")
+
+    # `methode.html` étant ENGENDRÉE, elle perdrait le lien à la prochaine
+    # publication si `build_methode.py` ne le portait pas lui aussi.
+    pages = sorted(glob.glob(os.path.join(ROOT, "*.html")))
+    sans_lien = [os.path.basename(p) for p in pages
+                 if 'rel="manifest"' not in open(p, encoding="utf-8").read()]
+    check("pages : toutes déclarent le manifeste",
+          not sans_lien and len(pages) >= 5,
+          f"sans lien : {sans_lien}" if sans_lien else f"{len(pages)} pages")
+
     print()
     failed = [r for r in results if not r[1]]
     print(f"  {len(results) - len(failed)}/{len(results)} contrôles passés")

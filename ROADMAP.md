@@ -345,6 +345,59 @@ dès la deuxième semaine plutôt qu'au bout de deux mois.
 
 ---
 
+## Phase 16 — L'application installable (26/08/2026)
+
+**Le problème.** Le site avait déjà un service worker depuis la phase 2, et il
+lui manquait quatre pièces pour être une application que l'on pose sur son
+écran d'accueil : un manifeste, des icônes, la déclaration de ce manifeste dans
+les pages, et un repli hors ligne pour les adresses inconnues. Aucune de ces
+absences ne produit d'erreur : le navigateur se contente de ne pas proposer
+l'installation, en silence.
+
+**Ce qui a été fait.**
+
+- **`manifest.webmanifest`** — nom, description, `start_url` et `scope`
+  RELATIFS (le site est publié sous `…/dons-aux-associations/`, pas à la racine
+  d'un domaine), couleurs reprises de `style.css`, et trois raccourcis :
+  « Chercher une association », « Ma commune », « Ce qu'on ne sait pas ».
+- **`scripts/build_icones.py`** — les icônes sont TRACÉES depuis les couleurs du
+  site, jamais dessinées à la main, pour qu'un changement de teinte ne laisse pas
+  derrière lui une icône qui dit l'ancienne. Cinq tailles, dont une **masquable**
+  (Android rogne l'icône dans son propre gabarit : hors de la zone sûre des 80 %,
+  la marque est coupée) et une **opaque** pour iOS, qui noircit la transparence.
+- **Les cinq pages** déclarent le manifeste, les icônes et deux `theme-color`,
+  clair et sombre — `build_methode.py` compris, sans quoi `methode.html`, qui est
+  engendrée, perdrait le lien à la publication suivante.
+- **Le service worker** rend l'accueil quand une navigation échoue. Installée,
+  l'application n'a pas de barre d'adresse : la page d'erreur du navigateur s'y
+  afficherait sans rien pour en sortir.
+
+**Le coût, mesuré** (`bench/phase16-accueil.json`) : **+1,4 Ko** sur le premier
+écran — l'icône de 32 px, qui remplace un `data:,` sans contenu. Les grandes
+icônes (57 Ko) ne sont PAS préchargées : le navigateur ne les demande qu'au
+moment d'installer, et personne d'autre ne doit les payer. Le dénominateur
+(5 Ko), lui, entre au préchargement : l'accueil le charge de toute façon, et
+sans lui la page ne saurait pas dire hors ligne ce qui lui manque.
+
+**Vérifié hors ligne pour de bon** — le serveur est tué, pas simulé — dans un
+Chromium servi depuis un SOUS-CHEMIN, comme GitHub Pages :
+`node scripts/bench/verifier_pwa.js`. Les cinq pages s'ouvrent, l'accueil trace
+ses 101 départements avec ses données, une adresse inconnue retombe sur
+l'accueil, et **aucune requête n'échoue**. Six contrôles de plus dans
+`verify.py` (59 en tout) tiennent le versant statique : manifeste complet,
+adresses relatives, icônes à la taille annoncée, icône masquable présente,
+fichiers préchargés existants, manifeste déclaré par toutes les pages.
+
+**Ce qui reste ouvert, et qui est un arbitrage.** Installée en mode
+`standalone`, l'application n'a plus de barre d'adresse — et tout le site est
+bâti sur des adresses partageables (`#a`, `#insee`, `#dep`…). Le manifeste
+demande donc `minimal-ui` en premier choix, que Chrome sur Android honore en
+gardant l'adresse visible ; iOS l'ignore et ouvre en `standalone`. Y répondre
+vraiment demanderait un bouton « copier le lien » dans les pages : c'est une
+décision d'interface, pas un correctif.
+
+---
+
 ## Phase 15 — La nature juridique du bénéficiaire (26/08/2026)
 
 **Le problème.** Depuis la phase 6, le site classait « association » tout
