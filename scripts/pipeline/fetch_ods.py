@@ -106,8 +106,21 @@ PORTAILS = [
     ("data.bourgesplus.fr", "Bourges Plus"),
 ]
 
+# Les trois premières lignes ne cherchaient que le mot « subvention ». Un
+# publieur qui dit « aide » ou « soutien » n'était atteint par aucune — le même
+# angle mort de vocabulaire que du côté data.gouv.fr (cf. DECOUVERTE dans
+# `fetch_scdl.py`).
+#
+# Mesuré le 26/08/2026 sur les 47 portails, 46 joignables : les trois
+# recherches d'origine apparient 602 jeux, les six ci-dessous 1 311. Sur les
+# **708 jeux inédits** ainsi atteints, **87 sont retenus par
+# `porte_des_subventions`** — 279 837 lignes annoncées par les catalogues,
+# dont trois jeux de la Région Réunion, qui n'est couverte par rien
+# aujourd'hui.
 RECHERCHES = ['search(title,"subvention")', 'search(title,"subventions")',
-              'search(dataset_id,"subvention")']
+              'search(dataset_id,"subvention")',
+              'search(title,"aide")', 'search(title,"aides")',
+              'search(title,"soutien")', 'search(dataset_id,"aide")']
 
 # Le fédérateur Opendatasoft est international : il sert aussi des portails
 # belges, suisses ou canadiens. Ce site cartographie les subventions publiques

@@ -370,6 +370,103 @@ sur 1 920 lignes. Aucun choix de colonne unique n'est défendable.
 
 ---
 
+### 1f. Le vocabulaire de la découverte — **MESURÉ le 26/08/2026, et ça change l'échelle**
+
+Le §1a concluait que les deux canaux de moissonnage étaient épuisés, et le §1b
+en tirait que « le plafond de couverture est celui d'aujourd'hui ». **Les deux
+étaient faux, pour une raison qui n'est ni la source ni le format : le
+vocabulaire des angles de découverte.**
+
+Les six angles data.gouv.fr et les trois recherches Opendatasoft portaient tous
+le mot « subvention », **et tous au pluriel**. Or :
+
+| Mesure (26/08/2026) | Valeur |
+|---|---|
+| `q=subvention` sur data.gouv.fr | **684** jeux |
+| `q=subventions` — l'angle utilisé | 545 |
+| `q=données essentielles subvention` | **74** |
+| `q=données essentielles subventions` — l'angle utilisé | 32 |
+| Union des 6 angles d'origine | 665 jeux |
+| Union des 15 angles élargis | **1 279** |
+| Jeux jamais vus par le moissonneur | **699** |
+| … retenus par `porte_des_subventions` | **115**, de 47 organisations |
+| Opendatasoft : jeux appariés, 46 portails joignables | 602 → **1 311** |
+| … jeux inédits / retenus | **708** / **87** (279 837 lignes annoncées) |
+
+**Apport net, une fois les garde-fous posés et les doublons connus déduits :**
+
+| | jeux | lignes | montant |
+|---|---|---|---|
+| **Apport net** | **105** | **151 520** | **17,34 Md€** |
+| Catalogues de dispositifs — rejetés | 2 | 2 936 | 183,67 Md€ |
+| PLF Jaune — déjà ingéré par `fetch_plf_jaune` | 2 | 187 935 | 16,24 Md€ |
+| Investissements industriels, pas des subventions | 1 | 102 | 11,30 Md€ |
+| AFD — aide internationale | 2 | 9 030 | 7,42 Md€ |
+| Montant moyen > 5 M€/ligne — à instruire | 1 | 164 | 29,40 Md€ |
+
+Le montant net est **avant déduplication**, qui en retirera une part inconnue :
+le fédérateur Opendatasoft republie une partie de ce que data.gouv.fr sert
+déjà.
+
+**Ce que ça ouvre en couverture.** Absents de la table canonique, vérifié par
+requête sur `donor_name_raw` : la **Commune de Saint-Claude** (5 exercices),
+**Tourcoing**, **Fougères**, **Saint-Loubès**, **Comines**, le **Conseil
+départemental d'Eure-et-Loir**, **Le Grand Charolais**, la **CC du Golfe de
+Saint-Tropez**, **CALITOM**, l'**ADEME** et l'**ASP**. Et deux régions qui n'ont
+aujourd'hui aucune donnée : la **Bourgogne-Franche-Comté** (6 127 lignes,
+732,7 M€, SCDL parfait, aucun tag) et la **Réunion** (3 jeux côté
+Opendatasoft).
+
+**Fait dans cette phase** : les angles sont élargis dans `fetch_scdl.py`
+(6 → 15) et `fetch_ods.py` (3 → 7), et deux garde-fous sont posés dans
+`common.py`. **Reste à faire** : rejouer les moissonnages et toute la chaîne,
+ce qui n'a pas été tenté ici — c'est un assemblage complet, et il déplacera les
+totaux affichés.
+
+**Trois arbitrages métier avant de rejouer**, qui ne sont pas les nôtres :
+
+1. **L'ADEME** — 39 434 lignes, 11,21 Md€, 2021-2026, 99,3 % avec un
+   identifiant valide. Mais l'ADEME finance surtout des entreprises et des
+   collectivités, et sa source ne DÉCLARE pas la nature juridique : le défaut
+   « association » de `beneficiary_kind` s'appliquerait, et le piège des
+   « 49,88 Md€ comptés association sur une devinette » s'aggraverait d'autant.
+   L'entrée est propre, la lecture ne l'est pas.
+2. **Le Département de l'Indre** — 29,40 Md€ sur 164 lignes, soit 179 M€ par
+   ligne. Même signature que Lyon et Boulogne-Billancourt. À instruire avant
+   d'ingérer, et sans doute à mettre en quarantaine d'unité.
+3. **Les aides aux entreprises** (Région Île-de-France, plan de relance) sont
+   de vrais versements, mais pas à des associations. Les ingérer suppose de
+   décider si le site les affiche hors totaux, comme les prestations facturées,
+   ou pas du tout.
+
+### 1g. Ce qui reste ouvert après cette mesure
+
+- **La Région Normandie publie 8 millésimes que rien ne lit.** Ses jeux
+  data.gouv.fr pointent vers `opendata.normandie.fr` en tant que **ArcGIS
+  Hub** ; le portail a depuis migré vers Drupal / data4citizen et toutes les
+  adresses enregistrées rendent du HTML. C'est le piège de l'« adresse
+  périmée » (§ Grenoble), sur une famille de portails que le pipeline ne sait
+  pas lire. Une région entière est derrière.
+- **ArcGIS Hub et les portails CKAN / OneGeo ne sont balayés par personne.**
+  `datasud.fr` (PACA), `datacat.datalocale.fr` (Nouvelle-Aquitaine),
+  `opendata.lillemetropole.fr` (dataMEL) répondent, mais avec des API que ni
+  `fetch_scdl.py` ni `fetch_ods.py` ne parlent. PACA et la Nouvelle-Aquitaine
+  sont deux des douze régions sans données.
+- **Les opérateurs de l'État n'ont jamais été cherchés en tant que tels.** Une
+  seule agence de l'eau sur six est dans la table — Artois-Picardie, 9 171
+  lignes, 1,02 Md€ — alors que les six versent aux associations
+  environnementales. L'ADEME, mesurée ci-dessus, n'y était pas du tout.
+  Chercher par ÉCHELON manquant, comme la phase 9 a cherché par collectivité
+  manquante.
+  *Contre-exemple à retenir, vérifié le 26/08/2026* : le sport n'est PAS un
+  gisement. Le CNDS n'est dans la table que pour **le seul exercice 2015**
+  (52 182 lignes), qui est aussi le seul qu'il ait publié ; et l'**Agence
+  nationale du sport**, qui lui a succédé en 2019, n'a **aucune organisation ni
+  aucun jeu sur data.gouv.fr** (`q="agence nationale du sport"` → 0,
+  `q="projet sportif fédéral"` → 0). C'est une absence de publication, comme
+  Nice ou Montpellier, et c'est à ce titre qu'elle doit être dite — pas un
+  défaut de moissonnage à corriger.
+
 ## 2. Les anomalies connues
 
 Toutes signalées dans le rapport de qualité, aucune corrigée en douce.

@@ -1356,6 +1356,56 @@ MOTS_AIDE_EN_NATURE = (("total", "aide", "nature"), ("prestations", "nature"),
                        ("avantages", "nature"), ("avantage", "nature"))
 
 
+# Colonnes qui trahissent un MARCHÉ PUBLIC. Les données essentielles de la
+# commande publique ont la même forme qu'une subvention — un attributaire, un
+# montant — et `porte_des_subventions` les acceptait : mesuré le 26/08/2026 sur
+# les en-têtes de Nice, Nantes, du Doubs et de l'Hérault, le titulaire du marché
+# était lu comme bénéficiaire et le fichier retenu sans que rien ne le signale.
+# Aucun n'est entré à ce jour, faute d'angle de découverte qui les atteigne :
+# le trou est réel mais inexploité. Élargir la découverte le rendrait vivant,
+# et un marché public compté en subvention est un mensonge, pas une lacune.
+#
+# Le marqueur est « CPV », et lui seul : c'est le vocabulaire commun des marchés
+# publics européens (règlement CE n° 213/2008), obligatoire dans les données
+# essentielles de la commande publique et impossible dans un fichier de
+# subventions.
+#
+# Le mot « marché » ne convient PAS, même accolé à « objet » — mesuré : le
+# rejeu de la règle sur les 1 230 en-têtes connus du dépôt sortait 18 fichiers
+# de « Subventions aux associations — Ville de Rennes », de 2020 à 2025, dont
+# l'export comptable porte une colonne « Objet marché GdA » à côté de ses
+# subventions. Ce sont de vraies subventions. Un marqueur de rejet a besoin
+# d'être plus étroit qu'un marqueur de reconnaissance : il efface, quand
+# l'autre se contente de ne pas voir.
+MOTS_COMMANDE_PUBLIQUE = (("cpv",),)
+
+
+# Colonnes qui trahissent un CATALOGUE DE DISPOSITIFS : la liste des aides
+# qu'un financeur PROPOSE, et non celles qu'il a versées. Son « montant » est un
+# plafond de dispositif et son « bénéficiaire » une catégorie (« PME,
+# associations »), pas un organisme nommé. `porte_des_subventions` ne voyait
+# aucune différence.
+#
+# Mesuré le 26/08/2026, et c'est la raison d'être de ce garde-fou : élargir la
+# découverte au mot « aide » fait entrer « Aides entreprises » de l'Institut
+# Supérieur des Métiers — **181,8 Md€ sur 2 436 lignes**, à comparer aux
+# 148,40 Md€ que le site affiche en tout — et « Aides aux entreprises en
+# Provence-Alpes-Côte d'Azur », 1,88 Md€ sur 500 lignes. Sans cette règle, le
+# gain de couverture se paierait d'un total faux d'un facteur deux.
+#
+# Le marqueur dit « ce qui serait ÉLIGIBLE », jamais « ce qui a été versé ». Un
+# versement n'a pas d'opérations éligibles : il a une date, un montant et un nom.
+#
+# Ni « conditions » ni « objectifs » ne conviennent, et c'est mesuré : le rejeu
+# sur les 1 230 en-têtes connus sortait **288 fichiers** avec le seul motif
+# `("conditions",)`, parce que `conditionsVersement` est une colonne du standard
+# SCDL lui-même. Même leçon que pour « objet marché » côté commande publique :
+# un marqueur de REJET doit être plus étroit qu'un marqueur de reconnaissance,
+# puisqu'il efface là où l'autre se contente de ne pas voir.
+MOTS_CATALOGUE_DE_DISPOSITIFS = (("operations", "eligibles"),
+                                 ("aid", "operations", "el"))
+
+
 def _correspond(mots, motif, disqualifiants):
     if any(d in mots for d in disqualifiants):
         return False
@@ -1435,4 +1485,16 @@ def porte_des_subventions(entete):
     # entrait sans que rien ne le signale.
     if benef == montant:
         return False, "en-tête d'une seule colonne (titre du rapport, pas un en-tête)"
+    # Un marché public a lui aussi un attributaire et un montant : il faut le
+    # dire explicitement, sans quoi il passe pour une subvention. Cf.
+    # MOTS_COMMANDE_PUBLIQUE.
+    tous = [mots_colonne(c) for c in entete if c]
+    if any(all(m in mots for m in motif)
+           for motif in MOTS_COMMANDE_PUBLIQUE for mots in tous):
+        return False, "marché public (commande publique), pas une subvention"
+    # Cf. MOTS_CATALOGUE_DE_DISPOSITIFS : un catalogue d'aides proposées n'est
+    # pas une liste de versements, et son montant est un plafond.
+    if any(all(m in mots for m in motif)
+           for motif in MOTS_CATALOGUE_DE_DISPOSITIFS for mots in tous):
+        return False, "catalogue de dispositifs d'aide (montants plafonds, pas des versements)"
     return True, None

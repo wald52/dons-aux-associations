@@ -47,6 +47,30 @@ RAW = os.path.join(ROOT, "data", "raw", "scdl")
 MANIFEST = os.path.join(ROOT, "data", "sources-manifest", "scdl.json")
 API = "https://www.data.gouv.fr/api/1/datasets/"
 
+# La recherche plein texte de data.gouv.fr apparie les jetons TELS QUELS : elle
+# ne rapproche pas le singulier du pluriel. Mesuré le 26/08/2026 :
+# « subvention » rend 684 jeux, « subventions » 545 ; « données essentielles
+# subvention » 74, le pluriel 32. Les six angles d'origine étaient tous au
+# pluriel, et la Région Bourgogne-Franche-Comté, qui publie un SCDL parfait
+# sous le titre « Données essentielles des conventions de subvention » et sans
+# aucun tag, était donc invisible.
+#
+# Deuxième trou du même ordre : tous les angles portaient le mot
+# « subvention ». Une collectivité — ou un opérateur — qui dit « aide » n'était
+# atteint par aucun. « Les aides financières de l'ADEME », 39 434 lignes au
+# schéma SCDL exact et sous Licence Ouverte, n'est étiquetée que `aides`.
+#
+# Mesure de l'élargissement, le 26/08/2026 : union des six angles d'origine
+# = 665 jeux ; union des angles ci-dessous = 1 279 ; 699 jeux jamais vus, dont
+# **115 retenus par `porte_des_subventions`**, venant de 47 organisations —
+# dont le Département du Lot, Toulouse Métropole, la Commune de Saint-Claude,
+# le Ministère de la Culture, l'ADEME et l'ASP.
+#
+# Le tag `donnees-essentielles` est VOLONTAIREMENT absent : il rend 2 034 jeux
+# qui sont presque tous des marchés publics (données essentielles de la
+# COMMANDE publique, publiées en JSON). Les y chercher revient à demander au
+# validateur de trancher 2 000 fois une question qu'un angle n'aurait jamais dû
+# poser. Cf. MOTS_COMMANDE_PUBLIQUE dans `common.py` pour le garde-fou.
 DECOUVERTE = [
     {"schema": "scdl/subventions"},
     {"tag": "subvention"},
@@ -54,6 +78,18 @@ DECOUVERTE = [
     {"q": "subventions associations"},
     {"q": "données essentielles subventions"},
     {"q": "subventions versées associations"},
+    # Le singulier, que les six angles d'origine ne couvraient pas.
+    {"q": "subvention"},
+    {"q": "données essentielles subvention"},
+    {"q": "conventions de subvention"},
+    # Le vocabulaire de l'aide, que personne ne cherchait.
+    {"tag": "aide"},
+    {"tag": "aides"},
+    {"q": "aide"},
+    # Le vocabulaire associatif, qui attrape les publieurs sans tag métier.
+    {"tag": "association"},
+    {"tag": "associations"},
+    {"tag": "vie-associative"},
 ]
 
 # La reconnaissance des colonnes vit dans `common.py` : elle est partagée avec

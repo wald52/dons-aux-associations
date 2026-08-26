@@ -1045,6 +1045,60 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   au contraire des versements individuels, pour 125 M€ sur 1 920 lignes. Aucun
   choix de colonne unique n'est défendable : ces ~13 000 lignes restent dehors.
 
+- **La recherche de data.gouv.fr n'apparie pas le singulier au pluriel, et les
+  six angles d'origine étaient tous au pluriel.** Mesuré le 26/08/2026 :
+  `q=subvention` rend **684** jeux, `q=subventions` **545** ; « données
+  essentielles subvention » 74 contre 32. La Région Bourgogne-Franche-Comté
+  publie un SCDL parfait sous le titre « Données essentielles des conventions
+  de **subvention** », sans aucun tag : aucun des six angles ne l'atteignait,
+  et elle serait une région de plus. Quand la couverture stagne, suspecter le
+  VOCABULAIRE de la découverte avant de conclure que le gisement est épuisé.
+
+- **Tous les angles portaient le mot « subvention » — personne ne cherchait
+  « aide ».** C'est le même angle mort, d'un cran plus haut : un financeur qui
+  intitule ses versements « aides » était hors d'atteinte des deux moissonneurs
+  à la fois. « Les aides financières de l'ADEME » — **39 434 lignes**, schéma
+  SCDL exact, Licence Ouverte, tag `aides` — n'a jamais été vue. Côté
+  Opendatasoft, ajouter « aide », « aides » et « soutien » à la recherche par
+  titre fait passer les jeux appariés de **602 à 1 311** sur les 47 portails.
+  Union des angles data.gouv.fr : 665 avant, 1 279 après ; **699 jeux jamais
+  vus, dont 115 retenus** par `porte_des_subventions`, venant de 47
+  organisations — le Département du Lot, Toulouse Métropole, le Ministère de la
+  Culture, la Commune de Saint-Claude, l'ASP.
+  **Apport net mesuré, garde-fous et doublons connus déduits : 105 jeux,
+  151 520 lignes, 17,34 Md€** — avant déduplication, qui en retirera une part
+  inconnue.
+
+- **Un marqueur de REJET doit être plus étroit qu'un marqueur de
+  reconnaissance** : il efface, quand l'autre se contente de ne pas voir. Deux
+  fois de suite, le motif « évident » a été mesuré comme faux :
+  `("objet", "marche")` pour repérer un marché public sortait **18 fichiers de
+  « Subventions aux associations — Ville de Rennes »**, dont l'export comptable
+  porte une colonne « Objet marché GdA » ; `("conditions",)` pour repérer un
+  catalogue de dispositifs en sortait **288**, parce que `conditionsVersement`
+  est une colonne du standard SCDL lui-même. Les marqueurs retenus sont
+  `("cpv",)` seul — le vocabulaire des marchés publics européens, impossible
+  ailleurs — et `("operations", "eligibles")`. Rejouer toute règle nouvelle sur
+  les **1 230 en-têtes connus** du dépôt avant de la garder : c'est le test qui
+  a rattrapé les deux.
+
+- **Un marché public a un attributaire et un montant : sans garde-fou, il passe
+  pour une subvention.** Vérifié sur les en-têtes de Nice, Nantes, du Doubs et
+  de l'Hérault — le titulaire est lu comme bénéficiaire et le fichier retenu
+  sans que rien ne le signale. Aucun n'est entré à ce jour, faute d'angle qui
+  les atteigne : le trou était réel mais inexploité, et élargir la découverte
+  le rendait vivant. D'où `MOTS_COMMANDE_PUBLIQUE`. Corollaire : le tag
+  `donnees-essentielles` est VOLONTAIREMENT hors de la découverte — il rend
+  **2 034 jeux presque tous de commande publique**, publiés en JSON.
+
+- **Un catalogue de dispositifs n'est pas une liste de versements, et il coûte
+  plus cher que tout le reste.** « Aides entreprises » de l'Institut Supérieur
+  des Métiers pèse **181,8 Md€ sur 2 436 lignes** — à comparer aux 148,40 Md€
+  que le site affiche EN TOUT. Son « montant » est le plafond d'un dispositif,
+  son « bénéficiaire » une catégorie (« PME, associations »), pas un organisme.
+  Élargir la découverte au mot « aide » sans `MOTS_CATALOGUE_DE_DISPOSITIFS`
+  aurait faussé le total d'un facteur deux.
+
 - **Les CSV bruts sont désindexés** (`data/*.csv` dans `.gitignore`). Ils sont
   re-téléchargeables, URLs dans `SOURCES.md`, et leurs données sont déjà dans
   `data/sources/`. Ne pas les recommiter.
