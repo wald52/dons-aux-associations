@@ -622,7 +622,86 @@ remplie pour **1 100 411 des 1 513 037 associations `92xx` (72,7 %)**. C'est le
 pont SIREN → RNA que le fichier RNA du ministère de l'Intérieur ne fournit pas.
 Il remplirait au passage la colonne `beneficiary_rna` du site, vide à 73,3 %.
 
-#### g. Ce qui reste à trancher
+#### g. LA MESURE EXACTE — SIRENE joint à la table, plus aucun échantillon
+
+Fait le 26/08/2026 une fois la frontière tranchée. Les colonnes `siren`,
+`categorieJuridiqueUniteLegale`, `identifiantAssociationUniteLegale` et
+`denominationUniteLegale` de SIRENE sont extraites en 43 secondes vers un
+Parquet local de 387 Mo, puis jointes à la table canonique. La règle des totaux
+appliquée est celle du pipeline — `compte_dans_les_totaux` de `common.py`, pas
+une réécriture — et elle retrouve **148,40 Md€**, ce qui valide la méthode.
+
+| Sur les 148,40 Md€ votés | lignes | montant | part |
+|---|---|---|---|
+| **Association ou fondation** — le périmètre retenu | 1 407 639 | **85,11 Md€** | 57,4 % |
+| **Vérifié NON associatif** — à sortir | 425 776 | **37,68 Md€** | **25,4 %** |
+| Sans identifiant — invérifiable | 609 570 | 25,48 Md€ | 17,2 % |
+| SIREN absent de SIRENE | 2 266 | 0,13 Md€ | 0,1 % |
+
+**Le total voté passerait de 148,40 à 110,71 Md€.**
+
+> *Correction d'un chiffre annoncé plus haut* : le §1h.b estimait « ~17,0 Md€ »
+> par échantillon. Ce n'était pas faux, c'était PARTIEL — il ne portait que sur
+> les lignes « association DEVINÉE portant un SIREN ». La mesure exacte porte
+> sur **toutes** les lignes qui entrent dans les totaux, et le chiffre est
+> **37,68 Md€**. Le §1h.b est conservé tel quel, avec sa réserve de méthode :
+> c'est la trace de la façon dont on y est arrivé.
+
+**D'où viennent ces 37,68 Md€** — et la troisième ligne est une surprise :
+
+| provenance de la nature | lignes | montant | exemples |
+|---|---|---|---|
+| devinée « association » | 232 147 | **21,14 Md€** | ASP, France Travail, ministère de l'Écologie |
+| devinée « inconnu » | 93 679 | **11,85 Md€** | Recette des finances de Toulouse, ASP |
+| **devinée « public_body »** | 99 217 | **4,59 Md€** | musée du Louvre, CCAS de Toulouse |
+| déclarée « association », contredite par l'INSEE | 733 | 0,10 Md€ | caisses de retraite (cj 8520) |
+
+**Le site devine déjà « établissement public » pour 4,59 Md€ — et les compte
+quand même.** Ce n'est pas un bogue : `est_un_don` n'écarte que si la nature est
+DÉCLARÉE non associative. L'asymétrie était juste tant qu'on ne savait pas ; on
+sait, maintenant.
+
+**Et la contradiction source/INSEE est négligeable : 733 lignes, 0,10 Md€.** La
+décision « l'INSEE prime » est donc sûre et sans effet de bord — elle ne
+renverse presque rien de ce que les publieurs déclarent.
+
+#### h. Composition du périmètre retenu — la différenciation à afficher
+
+Les 85,11 Md€ qui restent, par famille juridique. C'est exactement le découpage
+que la consigne « bien les différencier » demande de montrer :
+
+| famille | lignes | montant | part |
+|---|---|---|---|
+| Association déclarée (92xx courants) | 1 341 335 | 79,27 Md€ | **93,1 %** |
+| Association reconnue d'utilité publique (9230) | 19 393 | 3,01 Md€ | 3,5 % |
+| Association de droit local d'Alsace-Moselle (9260) | 37 920 | 2,06 Md€ | 2,4 % |
+| **Fondation / fonds de dotation (9300)** | 6 765 | **0,71 Md€** | 0,8 % |
+| **Groupement d'employeurs (9223)** | 2 226 | **0,06 Md€** | 0,1 % |
+
+**Les deux familles que vous avez explicitement fait entrer pèsent 0,77 Md€,
+soit 0,9 % du total.** Leur inclusion ne déplace donc presque rien — et c'est ce
+qui rend la consigne de différenciation facile à tenir : montrer ces lignes à
+part ne coûte rien au total et retire tout soupçon.
+
+#### i. Les quatre décisions (utilisateur, 26/08/2026)
+
+1. **Les 37,68 Md€ vérifiés non associatifs sortent des totaux, avec leur
+   motif** — exactement comme les prestations facturées : la ligne reste
+   ingérée, consultable, exportable, et son montant s'affiche grisé avec la
+   raison. Aucun mécanisme nouveau, la doctrine existante suffit.
+2. **Les 25,48 Md€ sans identifiant restent comptés, mais marqués « nature non
+   vérifiée »** en fiche et en export. La doctrine « l'erreur va vers la
+   sous-estimation » tient : exclure à tort effacerait des milliers de petites
+   associations communales qui n'ont jamais eu de SIRET publié.
+3. **Quand l'INSEE contredit la source, l'INSEE prime.** Une colonne de tableur
+   vaut moins que le registre national des personnes morales. Portée mesurée :
+   733 lignes, 0,10 Md€.
+4. **Différencier en croisant le Journal officiel**, déjà moissonné, qui
+   distingue associations loi 1901, fonds de dotation, fondations et fondations
+   d'entreprise, fondations partenariales — pour les 31 683 organismes
+   au-dessus de 153 000 €, les autres restant « type non précisé ».
+
+#### j. Ce qui reste à trancher
 
 Trois options, à trancher avant tout code :
 

@@ -556,6 +556,35 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   SIREN → RNA que le fichier du ministère de l'Intérieur ne donne pas, et il
   remplirait `beneficiary_rna`, vide à 73,3 %.
 
+- **Mesuré EXACTEMENT le 26/08/2026, SIRENE joint à la table : sortir les
+  bénéficiaires vérifiés non associatifs ferait passer le total voté de 148,40
+  à 110,71 Md€.** Répartition des 148,40 : **85,11 Md€ d'associations ou
+  fondations** (57,4 %), **37,68 Md€ vérifiés NON associatifs** (25,4 %),
+  25,48 Md€ sans identifiant donc invérifiables (17,2 %), 0,13 Md€ de SIREN
+  absents de SIRENE. La règle appliquée est `compte_dans_les_totaux` elle-même,
+  et elle retrouve 148,40 Md€ — c'est ce qui valide la mesure.
+  **Les 37,68 Md€ ne viennent pas d'où on croit** : 21,14 Md€ de lignes devinées
+  « association » (ASP, France Travail), 11,85 Md€ devinées « inconnu », et
+  **4,59 Md€ que le site devine DÉJÀ « établissement public » et compte quand
+  même** — musée du Louvre, CCAS de Toulouse. Ce n'est pas un bogue :
+  `est_un_don` n'écarte que sur une nature DÉCLARÉE. L'asymétrie était juste
+  tant qu'on ne savait pas.
+  **La contradiction source/INSEE est négligeable — 733 lignes, 0,10 Md€** :
+  faire primer l'INSEE ne renverse presque rien de ce que les publieurs
+  déclarent.
+  *Un chiffre de 17,0 Md€ circule plus haut dans ce fichier : il est PARTIEL,
+  issu d'un échantillon sur les seules lignes « association devinée avec
+  SIREN ». Le chiffre exact, toutes lignes comptées, est 37,68 Md€.*
+
+- **Les deux familles que l'utilisateur a fait entrer ne pèsent presque rien, et
+  c'est ce qui rend leur affichage séparé facile.** Sur les 85,11 Md€ du
+  périmètre : associations courantes 79,27 Md€ (93,1 %), reconnues d'utilité
+  publique 3,01 Md€ (3,5 %), droit local d'Alsace-Moselle 2,06 Md€ (2,4 %),
+  **fondations et fonds de dotation 0,71 Md€ (0,8 %), groupements d'employeurs
+  0,06 Md€ (0,1 %)**. Les montrer à part ne coûte rien au total et retire tout
+  soupçon — c'est exactement ce que demande la consigne « ne pas que le public
+  se sente trompé ».
+
 - **La nature n'est vérifiable que là où il y a un SIREN — 23,1 % du montant
   échappe.** Sur les 120,41 Md€ portés par des lignes « association »,
   92,58 Md€ (76,9 %) ont un SIREN exploitable ; **27,83 Md€ n'ont aucun
