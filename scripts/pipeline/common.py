@@ -695,6 +695,10 @@ CANONICAL_SCHEMA = pa.schema([
     # la source a dit reste ce que la source a dit, et le verdict de l'INSEE
     # voyage à côté. On peut donc toujours voir qui s'est trompé.
     ("beneficiary_legal_category", pa.int32()),
+    # Le RNA que SIRENE connaît, à côté de celui que la source publiait — jamais
+    # à sa place. SIRENE le porte pour 72,7 % des associations, et le site ne
+    # l'avait que sur 10,0 % de ses lignes.
+    ("beneficiary_rna_insee", pa.string()),
     ("beneficiary_is_associatif", pa.bool_()),
     ("beneficiary_family", pa.string()),
     ("beneficiary_type_jo", pa.string()),

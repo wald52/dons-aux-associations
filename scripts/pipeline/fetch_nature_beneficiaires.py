@@ -130,9 +130,23 @@ def main():
     ap.add_argument("--force", action="store_true",
                     help="refait le référentiel même s'il existe déjà")
     args = ap.parse_args()
+    # Le référentiel ne documente QUE les SIREN présents dans la table. Il
+    # devient donc faux dès que la table change : les bénéficiaires entrés
+    # depuis le dernier passage n'y seraient pas, et `enrich_nature.py` les
+    # marquerait « nature non vérifiée » — un verdict silencieusement faux, le
+    # pire des trois. On se refait donc dès que la table est plus récente,
+    # plutôt que de sauter parce que le fichier existe.
     if os.path.exists(SORTIE) and not args.force:
-        print(f"{SORTIE} existe déjà — --force pour le refaire.")
-        return
+        import glob as _glob
+        parts = _glob.glob(CANONIQUE)
+        a_jour = parts and os.path.getmtime(SORTIE) >= max(
+            os.path.getmtime(p) for p in parts)
+        if a_jour:
+            print(f"{SORTIE} est plus récent que la table — rien à refaire "
+                  "(--force pour le reprendre quand même).")
+            return
+        print("la table canonique a changé depuis le dernier référentiel — "
+              "on le refait.")
 
     import duckdb
     con = duckdb.connect()

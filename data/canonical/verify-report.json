@@ -1,0 +1,11 @@
+{
+ "genere_le": "2026-08-26T18:02:06Z",
+ "controles": 53,
+ "passes": 52,
+ "echecs": [
+  {
+   "nom": "conservation des lignes",
+   "detail": "0 parties − 1,199,819 dédupliquées = -1,199,819 (table : 2,811,070)"
+  }
+ ]
+}

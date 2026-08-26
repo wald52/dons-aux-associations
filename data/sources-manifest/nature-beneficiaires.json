@@ -1,5 +1,5 @@
 {
- "genere_le": "2026-08-26T16:36:20Z",
+ "genere_le": "2026-08-26T17:50:22Z",
  "sirene": {
   "jeu": "base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret",
   "ressource": "Sirene : Fichier StockUniteLegale - 01 août 2026 (format parquet)",
@@ -23,5 +23,5 @@
  "associatifs": 164375,
  "non_associatifs": 50848,
  "sans_verdict": 0,
- "octets": 4762555
+ "octets": 4765456
 }

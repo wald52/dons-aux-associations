@@ -1,5 +1,5 @@
 {
- "genere_le": "2026-08-26T16:37:27Z",
+ "genere_le": "2026-08-26T17:52:45Z",
  "referentiel": "data/referentiel/nature-beneficiaires.parquet",
  "frontiere": "associations INSEE 92xx + fondations 9300 — décision de l'utilisateur du 26/08/2026",
  "lignes": 2811070,
@@ -13,6 +13,8 @@
   "NON associatif": 37680800263.46,
   "non vérifié": 25608092580.9
  },
+ "rna_completes_par_sirene": 1183635,
+ "rna_divergents_laisses_tels_quels": 3680,
  "total_vote_avant_regle": 148395409531.42,
  "total_vote_apres_regle": 110714609267.96,
  "familles": {

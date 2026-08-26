@@ -98,7 +98,7 @@ COLS = [
     # Phase 15 — le verdict de l'INSEE et la famille juridique affichée. La
     # famille voyage jusqu'à la fiche : c'est elle qui tient la consigne
     # « bien les différencier pour ne pas que le public se sente trompé ».
-    "beneficiary_legal_category", "beneficiary_family",
+    "beneficiary_legal_category", "beneficiary_family", "beneficiary_rna_insee",
 ]
 
 # Ordre figé des échelons : l'index sert un MASQUE de bits, pas une liste de
@@ -252,7 +252,7 @@ def main():
         "n": 0, "montant": 0.0, "ecarte": 0.0, "annees": set(),
         "echelons": set(), "donateurs": set(),
         "par_donateur": collections.Counter(),
-        "siren": None, "rna": None, "norm": None,
+        "siren": None, "rna": None, "rna_insee": None, "norm": None,
     })
     natures = []
     cas = []
@@ -266,6 +266,8 @@ def main():
         if col["beneficiary_dep_code"][i]:
             g["deps"][col["beneficiary_dep_code"][i]] += 1
         g["kinds"][col["beneficiary_kind"][i]] += 1
+        if not g["rna_insee"] and col["beneficiary_rna_insee"][i]:
+            g["rna_insee"] = col["beneficiary_rna_insee"][i]
         if col["beneficiary_family"][i]:
             g["familles"][col["beneficiary_family"][i]] += 1
         elif col["beneficiary_legal_category"][i] is not None:
@@ -323,7 +325,12 @@ def main():
         resume[bid] = {
             "nom": texte(g["noms"].most_common(1)[0][0]),
             "nom_norm": g["norm"] or "",
-            "siren": g["siren"], "rna": g["rna"],
+            "siren": g["siren"],
+            # Le RNA de la source d'abord ; celui de SIRENE seulement à défaut,
+            # et la fiche dit alors d'où il vient. Le site ne remplace jamais un
+            # identifiant publié par un autre — il complète ce qui manquait.
+            "rna": g["rna"] or g["rna_insee"],
+            "rna_de_insee": 1 if (not g["rna"] and g["rna_insee"]) else 0,
             "dep": g["deps"].most_common(1)[0][0] if g["deps"] else None,
             "kind": g["kinds"].most_common(1)[0][0],
             # La famille juridique, telle qu'elle sera AFFICHÉE. Consigne de
@@ -439,7 +446,7 @@ def main():
                         resume[b]["ech"], resume[b]["echelons"], resume[b]["nbd"],
                         resume[b]["principal"] or "", resume[b]["part"],
                         resume[b]["publient_jusqu_a"] or 0,
-                        resume[b]["famille"]] for b in bids],
+                        resume[b]["famille"], resume[b]["rna_de_insee"]] for b in bids],
             "y": [col["year"][i] or 0 for i in lignes],
             "m": [nombre(col["amount_eur"][i]) for i in lignes],
             # Creux : 30 255 lignes sur 2,8 millions portent un montant écarté.

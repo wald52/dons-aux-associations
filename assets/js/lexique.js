@@ -64,7 +64,27 @@ export var MOTS = {
     "centimes lus comme des euros, une virgule décalée). Le site les met de " +
     "côté au lieu de les corriger : savoir qu'un chiffre est faux ne dit pas " +
     "quel est le vrai, et réécrire un montant publié par une administration " +
-    "n'est pas notre rôle."]
+    "n'est pas notre rôle."],
+  forme_juridique: ["Forme juridique",
+    "Ce qu'une personne morale EST en droit, tel que l'INSEE l'enregistre au " +
+    "répertoire SIRENE : association déclarée, fondation, société, " +
+    "établissement public… Le site ne la devine plus quand un identifiant " +
+    "permet de la lire. Quand il n'y en a pas, il l'écrit : « nature non " +
+    "vérifiée », et il compte quand même le versement — ne pas savoir n'est " +
+    "pas une raison d'effacer."],
+  fondation: ["Fondation et fonds de dotation",
+    "Une fondation affecte un patrimoine à une cause ; un fonds de dotation " +
+    "en est une forme plus souple, souvent créée par une entreprise. Ils " +
+    "comptent dans les totaux du site au même titre que les associations, " +
+    "mais ils sont AFFICHÉS À PART : mêler une association de quartier et un " +
+    "fonds de dotation d'entreprise dans un total unique serait exact et " +
+    "trompeur."],
+  rna: ["Numéro RNA",
+    "L'identifiant d'une association au Répertoire national des associations " +
+    "(un W suivi de neuf chiffres). Le site l'affiche quand la source le " +
+    "publie ; à défaut, il le reprend du répertoire SIRENE, et le signale " +
+    "alors par « (INSEE) ». Il ne remplace jamais un numéro publié par un " +
+    "autre."]
 };
 
 var ouvert = null;

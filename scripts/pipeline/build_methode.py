@@ -44,6 +44,18 @@ def nb(x):
     return f"{x:,}".replace(",", " ")
 
 
+def nombre_de_controles():
+    """Le compte des contrôles, lu là où `verify.py` l'écrit.
+
+    Un « 50 » en dur traînait ici, faux depuis que la phase 15 a porté le compte
+    à 53. Le compter dans le source ne marche pas non plus — plusieurs contrôles
+    sont émis dans des boucles, un par échelon ou par découpe, et un comptage
+    statique en trouve 43 au lieu de 53. Seule l'exécution sait, d'où
+    `data/canonical/verify-report.json`.
+    """
+    return lire("data/canonical/verify-report.json").get("controles", 0)
+
+
 def de(mot):
     """« de » ou « d' » selon l'initiale. Sans quoi la page engendrée écrit
     « 313,1 M€ de aides en nature »."""
@@ -224,6 +236,57 @@ def main():
         f"Ce chiffre est conforme à ce que publie la source ; le périmètre de "
         f"l'annexe cette année-là reste à vérifier.</li>"
         for a in ruptures)
+
+    nb_controles = nb(nombre_de_controles())
+
+    # --- ce que le site retient comme association, et ce qu'il écarte --------
+    # Engendré depuis `nature-juridique.json`, jamais écrit à la main : c'est la
+    # règle la plus lourde de conséquences du site (37,68 Md€ sortis des totaux),
+    # et la consigne est de DIFFÉRENCIER les familles retenues plutôt que de les
+    # fondre dans un total unique.
+    nat = lire("data/canonical/nature-juridique.json")
+    bloc_nature = ""
+    if nat:
+        fam = nat.get("familles", {})
+        interdits = ("nature non vérifiée",)
+        verifiees = {f: v for f, v in fam.items() if f not in interdits}
+        total_fam = sum(v["montant"] for v in fam.values()) or 1
+        lignes_fam = "\n".join(
+            f"      <tr><td>{f}</td><td class=\"num\">{nb(v['lignes'])}</td>"
+            f"<td class=\"num\">{eur(v['montant'])}</td>"
+            f"<td class=\"num\">{v['montant'] / total_fam * 100:.1f}&nbsp;%</td></tr>"
+            for f, v in sorted(verifiees.items(), key=lambda kv: -kv[1]["montant"]))
+        non_verifie = fam.get("nature non vérifiée", {})
+        mv = nat.get("montant_vote_par_verdict", {})
+        bloc_nature = f"""
+    <h2>Qui est une association&nbsp;? Ce n'est plus nous qui le devinons</h2>
+    <p>Une source qui ne déclare pas la nature juridique de son bénéficiaire ne dit pas
+       pour autant qu'il s'agit d'une association. Le site l'a longtemps supposé, faute de
+       mieux. Depuis, chaque bénéficiaire portant un identifiant est rapproché du
+       <strong>répertoire SIRENE de l'INSEE</strong>, qui donne la forme juridique de toute
+       personne morale immatriculée. Mesuré&nbsp;: <strong>{eur(mv.get('NON associatif'))}</strong>
+       allaient à des bénéficiaires qui ne sont ni des associations ni des fondations —
+       entreprises, établissements publics, syndicats. Ces versements restent consultables,
+       avec leur motif, mais n'entrent dans aucun total.</p>
+    <p>Comptent comme dons&nbsp;: les associations et les fondations, fondations d'entreprise
+       et fonds de dotation compris. <strong>Elles sont affichées séparément</strong>, ici comme
+       sur chaque fiche&nbsp;: un total unique qui mêlerait une association de quartier et un
+       fonds de dotation d'entreprise serait exact et trompeur.</p>
+    <table class="tableau">
+      <caption>Ce que le site retient, par forme juridique</caption>
+      <thead><tr><th>Forme juridique</th><th class="num">Versements</th>
+        <th class="num">Montant voté</th><th class="num">Part</th></tr></thead>
+      <tbody>
+{lignes_fam}
+      </tbody>
+    </table>
+    <p><strong>Et {eur(non_verifie.get('montant'))} restent invérifiables</strong>
+       ({nb(non_verifie.get('lignes', 0))} versements)&nbsp;: leur bénéficiaire n'a aucun
+       identifiant qui permette d'interroger un registre. Ils <em>restent comptés</em> et
+       portent la mention «&nbsp;nature non vérifiée&nbsp;». Ne pas savoir n'est pas un
+       non&nbsp;: les écarter effacerait des milliers de petites associations communales qui
+       n'ont jamais eu de SIRET publié.</p>
+"""
 
     page = f"""<!DOCTYPE html>
 <html lang="fr">
@@ -413,6 +476,7 @@ def main():
        s'apparier alors que la donnée existe. L'erreur va toujours vers la sous-estimation.
        Le détail figure sur la page <a href="couverture.html">Ce qu'on ne sait pas</a>.</p>
 
+{bloc_nature}
     <h2>Par rapport à quoi&nbsp;? Les totaux de contrôle</h2>
 {bloc_controle}
 
@@ -428,13 +492,14 @@ def main():
       <li><strong>la règle des totaux, écrite une seule fois</strong> —
         <code>compte_dans_les_totaux</code> dans <code>scripts/pipeline/common.py</code> ;
         c'est elle que suivent la carte, les fiches et les exports ;</li>
-      <li>les {nb(50)} contrôles de bout en bout — <code>scripts/pipeline/verify.py</code>.</li>
+      <li>les {nb_controles} contrôles de bout en bout — <code>scripts/pipeline/verify.py</code>.</li>
     </ul>
     <div class="encart">
       <h3>Emporter les chiffres</h3>
       <p>Chaque fiche d'association, chaque fiche communale, chaque département et chaque
          liste de résultats se télécharge en CSV. Ces fichiers portent <strong>une colonne de
-         montant par catégorie</strong> — voté, payé, hors don, agrégat, hors champ — plutôt
+         montant par catégorie</strong> — voté, payé, hors don, agrégat, hors champ déclaré
+         par la source, hors champ établi par l'INSEE — plutôt
          qu'une colonne unique assortie d'un drapeau : sommer une colonne y est juste par
          construction, et sommer deux colonnes se voit, puisqu'elles ne portent pas le même
          nom. C'est la même partition que celle vérifiée à chaque assemblage.</p>

@@ -534,9 +534,15 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   **Le correctif existe et ne devine rien** : SIRENE `StockUniteLegale` en
   Parquet (705 Mo, Licence Ouverte, 29 922 486 unités légales dont **1 513 037
   associations**) donne `categorieJuridiqueUniteLegale` par SIREN, et DuckDB le
-  lit en HTTP Range sans le télécharger. Le **RNA ne convient pas** : son
-  fichier `import` ne remplit jamais la colonne `siret` (0 sur 3 312 dans
-  l'Allier), il ne fait pas le pont SIREN → association.
+  lit en HTTP Range sans le télécharger. Le **fichier RNA du ministère de
+  l'Intérieur ne convient pas** : son fichier `import` ne remplit jamais la
+  colonne `siret` (0 sur 3 312 dans l'Allier), il ne fait pas le pont
+  SIREN → association. **C'est SIRENE qui le fait**, par sa colonne
+  `identifiantAssociationUniteLegale` — et elle a complété le RNA de
+  **1 183 635 lignes**, dont la couverture passe de 10,0 % à 52,1 %. On COMPLÈTE
+  sans jamais corriger : quand la source publie un RNA, c'est le sien qui reste,
+  même sur les 3 680 lignes où les deux diffèrent, et la fiche écrit
+  « (INSEE) » quand le numéro ne vient pas du publieur.
   **La frontière est tranchée (utilisateur, 26/08/2026)** : comptent les
   associations `92xx` — groupements d'employeurs `9223` et associations d'utilité
   publique `9230` compris — **plus les fondations `9300`**, qui couvrent les

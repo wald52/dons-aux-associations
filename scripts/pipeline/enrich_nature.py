@@ -67,7 +67,8 @@ def charger_referentiel():
     siren = t.column("siren").to_pylist()
     cj = t.column("categorie_juridique").to_pylist()
     jo = t.column("type_jo").to_pylist()
-    return {s: (c, j) for s, c, j in zip(siren, cj, jo)}
+    rna = t.column("rna_insee").to_pylist()
+    return {s: (c, j, r) for s, c, j, r in zip(siren, cj, jo, rna)}
 
 
 def main():
@@ -86,6 +87,9 @@ def main():
     verdict = collections.Counter()
     m_verdict = collections.defaultdict(float)
     total_lignes = 0
+    # [complétés, divergents] — le RNA que l'INSEE ajoute là où la source
+    # n'en donnait pas, et les cas où les deux ne disent pas la même chose.
+    completes = [0, 0]
     t0 = time.time()
 
     for chemin in fichiers:
@@ -99,15 +103,25 @@ def main():
         flags = table.column("quality_flags").to_pylist()
         objet = table.column("purpose_norm").to_pylist()
 
-        cj_col, asso_col, fam_col, jo_col = [], [], [], []
+        cj_col, asso_col, fam_col, jo_col, rna_col = [], [], [], [], []
+        rna_source = table.column("beneficiary_rna").to_pylist()
         for i, s in enumerate(sirens):
-            cj, type_jo = ref.get(s, (None, None)) if s else (None, None)
+            cj, type_jo, rna_insee = ref.get(s, (None, None, None)) if s else (None, None, None)
             asso = C.est_associatif(cj)
             fam = C.famille_du_beneficiaire(cj, type_jo)
             cj_col.append(cj)
             asso_col.append(asso)
             fam_col.append(fam)
             jo_col.append(type_jo)
+            # On COMPLÈTE, on ne corrige pas : quand la source a publié un RNA,
+            # c'est le sien qui reste dans `beneficiary_rna`. Celui de l'INSEE
+            # vit à côté et ne le remplace jamais, même quand les deux diffèrent
+            # (3 680 lignes). Fidélité maximale à la source.
+            rna_col.append(rna_insee)
+            if rna_insee and not rna_source[i]:
+                completes[0] += 1
+            elif rna_insee and rna_source[i] and rna_insee != rna_source[i]:
+                completes[1] += 1
 
             total_lignes += 1
             cle = {True: "associatif", False: "NON associatif"}.get(asso, "non vérifié")
@@ -133,6 +147,8 @@ def main():
                 colonnes[nom] = pa.array(fam_col, pa.string())
             elif nom == "beneficiary_type_jo":
                 colonnes[nom] = pa.array(jo_col, pa.string())
+            elif nom == "beneficiary_rna_insee":
+                colonnes[nom] = pa.array(rna_col, pa.string())
             else:
                 colonnes[nom] = table.column(nom)
         sortie = pa.table(colonnes)
@@ -172,11 +188,15 @@ def main():
             "montant_vote_par_verdict": {k: round(m_verdict[k], 2)
                                          for k in ("associatif", "NON associatif",
                                                    "non vérifié")},
+            "rna_completes_par_sirene": completes[0],
+            "rna_divergents_laisses_tels_quels": completes[1],
             "total_vote_avant_regle": round(total_vote, 2),
             "total_vote_apres_regle": round(apres_regle, 2),
             "familles": {f: {"lignes": familles[f], "montant": round(montants[f], 2)}
                          for f in sorted(familles, key=lambda x: -montants[x])},
         }, f, ensure_ascii=False, indent=1)
+    print(f"\nRNA : {completes[0]:,} lignes complétées par SIRENE, "
+          f"{completes[1]:,} divergences laissées telles quelles")
     print(f"\n{RAPPORT} écrit.")
 
 

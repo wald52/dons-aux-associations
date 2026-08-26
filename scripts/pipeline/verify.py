@@ -14,6 +14,7 @@ import collections
 import glob
 import io
 import json
+import time
 import os
 import sys
 
@@ -455,6 +456,21 @@ def main():
     print()
     failed = [r for r in results if not r[1]]
     print(f"  {len(results) - len(failed)}/{len(results)} contrôles passés")
+
+    # Le compte des contrôles est ÉCRIT, pas laissé à qui voudra le citer.
+    # `methode.html` l'annonçait « 50 » en dur, et se trompait dès que la liste
+    # bougeait ; le compter dans le source ne marche pas non plus, plusieurs
+    # contrôles étant émis dans des boucles (un par échelon, un par découpe).
+    # Seule l'exécution sait combien il y en a.
+    with open(os.path.join(ROOT, "data", "canonical", "verify-report.json"),
+              "w", encoding="utf-8") as f:
+        json.dump({
+            "genere_le": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "controles": len(results),
+            "passes": len(results) - len(failed),
+            "echecs": [{"nom": n, "detail": d} for n, _, d in failed],
+        }, f, ensure_ascii=False, indent=1)
+
     if failed:
         print("\n  ÉCHECS :")
         for name, _, detail in failed:

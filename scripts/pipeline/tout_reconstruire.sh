@@ -44,10 +44,19 @@ python3 scripts/pipeline/build_couverture.py  | tail -7
 python3 scripts/pipeline/build_denominateur.py | tail -6
 python3 scripts/pipeline/build_fiches_communes.py | tail -4
 python3 scripts/pipeline/build_angle_mort.py   | tail -5
-python3 scripts/pipeline/build_methode.py     | tail -2
 
 # Les contrôles viennent EN DERNIER : plusieurs d'entre eux comparent l'index
 # de recherche à la table canonique, et échoueraient tant qu'il n'est pas
 # reconstruit.
 etape "contrôles"
 python3 scripts/pipeline/verify.py | tail -5
+
+# `build_methode.py` passe APRÈS les contrôles, et non avant : la page annonce
+# le nombre de contrôles, et `verify.py` est le seul à le connaître — plusieurs
+# sont émis dans des boucles, un comptage statique du source en trouve 43 au
+# lieu de 53. Engendrée avant, la page citerait le compte de la publication
+# PRÉCÉDENTE, ce qui est exactement le genre de mensonge que cette page existe
+# pour empêcher. Conséquence assumée : un assemblage qui échoue à ses propres
+# contrôles ne republie pas sa page de méthode.
+etape "page de méthode (après les contrôles, qui lui donnent leur compte)"
+python3 scripts/pipeline/build_methode.py | tail -2

@@ -290,7 +290,9 @@ function dessinerFiche(fiche, b, vers) {
 
   var ident = [];
   if (b.siren) ident.push("SIREN " + b.siren);
-  if (b.rna) ident.push("RNA " + b.rna);
+  // Le RNA vient parfois de SIRENE et non de la source : on le dit, plutôt que
+  // de laisser croire que le publieur l'avait donné.
+  if (b.rna) ident.push("RNA " + b.rna + (b.rna_de_insee ? " (INSEE)" : ""));
   if (b.dep) ident.push(nomDep(b.dep));
   fiche.appendChild(el("p", "sous-titre", ident.join(" · ") ||
     "Sans identifiant national — reconnue par son nom et son département."));
