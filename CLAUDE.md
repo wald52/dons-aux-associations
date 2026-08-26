@@ -60,9 +60,9 @@ maintenant un index précalculé : **6,06 Mo au total, champ utilisable en
 association s'ouvre avec **une seule requête de ~120 Ko**, sans charger l'index.
 Détail et méthode dans `MESURE-PERF.md`.
 
-Données : **698 sources**, **110,71 Md€ de dons VOTÉS** et 10,43 Md€ de dons
+Données : **698 sources**, **112,90 Md€ de dons VOTÉS** et 10,43 Md€ de dons
 PAYÉS affichés côte à côte et jamais additionnés. *Le total voté a BAISSÉ de
-37,68 Md€ en phase 15, et c'est une correction* : le site comptait « association »
+35,49 Md€ en phase 15, et c'est une correction* : le site comptait « association »
 tout bénéficiaire dont la source ne disait rien, et SIRENE montre que 25,4 % du
 montant allait à des entreprises et des établissements publics — SNCF Voyageurs,
 l'AFP, le Pass Culture, l'ASP, le CNC, France Travail, le musée du Louvre.
@@ -543,6 +543,17 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   sans jamais corriger : quand la source publie un RNA, c'est le sien qui reste,
   même sur les 3 680 lignes où les deux diffèrent, et la fiche écrit
   « (INSEE) » quand le numéro ne vient pas du publieur.
+  **« L'INSEE prime » vaut DANS LES DEUX SENS**, et l'oublier coûtait cher : la
+  règle ne servait qu'à écarter, jamais à rattraper. Mesuré le 26/08/2026 —
+  **2 250,31 M€ sur 3 393 organismes** que le répertoire national reconnaît
+  comme associations ou fondations étaient exclus des totaux parce que leur
+  source portait une colonne de nature juridique dont la valeur ne se lisait
+  pas : elle ressortait `declared / inconnu`, et « déclaré » suffisait à
+  exclure. Y figuraient l'**Institut Pasteur** (386,0 M€), la **Fondation de
+  l'Armée du Salut** (405,3), la **Fondation nationale des sciences politiques**
+  (435,9), l'**Institut Curie** (54,3). La déclaration de la source ne tranche
+  donc plus que là où l'INSEE se tait.
+
   **La frontière est tranchée (utilisateur, 26/08/2026)** : comptent les
   associations `92xx` — groupements d'employeurs `9223` et associations d'utilité
   publique `9230` compris — **plus les fondations `9300`**, qui couvrent les
@@ -1459,7 +1470,7 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       Range, jamais téléchargés) et du Journal officiel ; `enrich_nature.py` pose
       quatre colonnes sur les 2 811 070 lignes sans retoucher `beneficiary_kind`,
       pour qu'on puisse toujours voir qui s'était trompé.
-      **Le total voté passe de 148,40 à 110,71 Md€** : 37,68 Md€ sortent, avec
+      **Le total voté passe de 148,40 à 112,90 Md€** : 37,68 Md€ sortent, avec
       leur motif, et restent consultables. 25,61 Md€ n'ont aucun identifiant,
       restent comptés, et sont marqués « nature non vérifiée » — ne pas savoir
       n'est pas un « non ».

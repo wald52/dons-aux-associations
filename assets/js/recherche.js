@@ -313,7 +313,11 @@ function dessinerFiche(fiche, b, vers) {
       fam.appendChild(el("span", "precision",
         " Le répertoire SIRENE de l'INSEE lui donne une autre forme juridique — " +
         "entreprise, établissement public, syndicat. Ses montants restent " +
-        "consultables mais ne comptent dans aucun total du site."));
+        "consultables mais ne comptent dans aucun total du site." +
+        (b.src_contredit
+          ? " La source qui publie ces versements, elle, le déclarait association : " +
+            "le site le dit plutôt que de choisir en silence."
+          : "")));
     } else if (inconnue) {
       fam.appendChild(document.createTextNode("Forme juridique non vérifiée"));
       fam.appendChild(el("span", "precision",

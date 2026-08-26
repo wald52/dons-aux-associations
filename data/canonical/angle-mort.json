@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-26T17:00:27Z",
+ "generated_at": "2026-08-26T19:07:38Z",
  "source": {
   "hote": "journal-officiel-datadila.opendatasoft.com",
   "dataset": "jo_associations",
@@ -17,14 +17,14 @@
  "depots": 227741,
  "depots_sans_siren": 561,
  "organismes": 31696,
- "reconnus": 18753,
+ "reconnus": 18805,
  "reconnus_par_siren": 18604,
- "reconnus_par_rna_seul": 149,
- "non_reconnus": 12943,
- "part_non_reconnus_pct": 40.8,
+ "reconnus_par_rna_seul": 201,
+ "non_reconnus": 12891,
+ "part_non_reconnus_pct": 40.7,
  "index_du_site": {
   "siren": 216052,
-  "rna": 69954
+  "rna": 147374
  },
  "par_departement": {
   "01": {
@@ -89,8 +89,8 @@
   },
   "13": {
    "organismes": 1506,
-   "reconnus": 918,
-   "part_reconnus_pct": 61.0
+   "reconnus": 922,
+   "part_reconnus_pct": 61.2
   },
   "14": {
    "organismes": 301,
@@ -129,8 +129,8 @@
   },
   "21": {
    "organismes": 275,
-   "reconnus": 166,
-   "part_reconnus_pct": 60.4
+   "reconnus": 167,
+   "part_reconnus_pct": 60.7
   },
   "22": {
    "organismes": 183,
@@ -179,8 +179,8 @@
   },
   "31": {
    "organismes": 674,
-   "reconnus": 454,
-   "part_reconnus_pct": 67.4
+   "reconnus": 457,
+   "part_reconnus_pct": 67.8
   },
   "32": {
    "organismes": 71,
@@ -189,8 +189,8 @@
   },
   "33": {
    "organismes": 875,
-   "reconnus": 569,
-   "part_reconnus_pct": 65.0
+   "reconnus": 570,
+   "part_reconnus_pct": 65.1
   },
   "34": {
    "organismes": 518,
@@ -209,8 +209,8 @@
   },
   "37": {
    "organismes": 286,
-   "reconnus": 203,
-   "part_reconnus_pct": 71.0
+   "reconnus": 204,
+   "part_reconnus_pct": 71.3
   },
   "38": {
    "organismes": 514,
@@ -224,8 +224,8 @@
   },
   "40": {
    "organismes": 138,
-   "reconnus": 71,
-   "part_reconnus_pct": 51.4
+   "reconnus": 72,
+   "part_reconnus_pct": 52.2
   },
   "41": {
    "organismes": 118,
@@ -244,18 +244,18 @@
   },
   "44": {
    "organismes": 693,
-   "reconnus": 504,
-   "part_reconnus_pct": 72.7
+   "reconnus": 507,
+   "part_reconnus_pct": 73.2
   },
   "45": {
    "organismes": 263,
-   "reconnus": 175,
-   "part_reconnus_pct": 66.5
+   "reconnus": 176,
+   "part_reconnus_pct": 66.9
   },
   "46": {
    "organismes": 83,
-   "reconnus": 47,
-   "part_reconnus_pct": 56.6
+   "reconnus": 48,
+   "part_reconnus_pct": 57.8
   },
   "47": {
    "organismes": 140,
@@ -269,13 +269,13 @@
   },
   "49": {
    "organismes": 428,
-   "reconnus": 296,
-   "part_reconnus_pct": 69.2
+   "reconnus": 297,
+   "part_reconnus_pct": 69.4
   },
   "50": {
    "organismes": 147,
-   "reconnus": 94,
-   "part_reconnus_pct": 63.9
+   "reconnus": 95,
+   "part_reconnus_pct": 64.6
   },
   "51": {
    "organismes": 249,
@@ -319,8 +319,8 @@
   },
   "59": {
    "organismes": 1201,
-   "reconnus": 761,
-   "part_reconnus_pct": 63.4
+   "reconnus": 765,
+   "part_reconnus_pct": 63.7
   },
   "60": {
    "organismes": 220,
@@ -344,8 +344,8 @@
   },
   "64": {
    "organismes": 339,
-   "reconnus": 196,
-   "part_reconnus_pct": 57.8
+   "reconnus": 198,
+   "part_reconnus_pct": 58.4
   },
   "65": {
    "organismes": 87,
@@ -369,8 +369,8 @@
   },
   "69": {
    "organismes": 1169,
-   "reconnus": 682,
-   "part_reconnus_pct": 58.3
+   "reconnus": 684,
+   "part_reconnus_pct": 58.5
   },
   "70": {
    "organismes": 81,
@@ -399,8 +399,8 @@
   },
   "75": {
    "organismes": 4699,
-   "reconnus": 2173,
-   "part_reconnus_pct": 46.2
+   "reconnus": 2193,
+   "part_reconnus_pct": 46.7
   },
   "76": {
    "organismes": 461,
@@ -414,8 +414,8 @@
   },
   "78": {
    "organismes": 492,
-   "reconnus": 235,
-   "part_reconnus_pct": 47.8
+   "reconnus": 237,
+   "part_reconnus_pct": 48.2
   },
   "79": {
    "organismes": 171,
@@ -424,8 +424,8 @@
   },
   "80": {
    "organismes": 207,
-   "reconnus": 157,
-   "part_reconnus_pct": 75.8
+   "reconnus": 158,
+   "part_reconnus_pct": 76.3
   },
   "81": {
    "organismes": 155,
@@ -434,8 +434,8 @@
   },
   "82": {
    "organismes": 120,
-   "reconnus": 70,
-   "part_reconnus_pct": 58.3
+   "reconnus": 71,
+   "part_reconnus_pct": 59.2
   },
   "83": {
    "organismes": 387,
@@ -489,8 +489,8 @@
   },
   "93": {
    "organismes": 655,
-   "reconnus": 433,
-   "part_reconnus_pct": 66.1
+   "reconnus": 435,
+   "part_reconnus_pct": 66.4
   },
   "94": {
    "organismes": 515,
@@ -556,11 +556,11 @@
  "par_type": {
   "Associations loi du 1er juillet 1901": {
    "organismes": 26851,
-   "reconnus": 18238
+   "reconnus": 18277
   },
   "Fonds de dotation": {
    "organismes": 3674,
-   "reconnus": 128
+   "reconnus": 141
   },
   "Fondations-Fondations d'entreprise": {
    "organismes": 720,
@@ -584,8 +584,8 @@
    "cle": "nom_et_departement",
    "libelle": "Reconnu par son nom et son département, sans identifiant commun",
    "explication": "Le site connaît un bénéficiaire du même nom normalisé dans le même département. C'est la règle d'identité que le site s'applique déjà à lui-même quand une source ne donne pas de SIREN.",
-   "organismes": 166,
-   "part_pct": 1.3,
+   "organismes": 155,
+   "part_pct": 1.2,
    "exemples": [
     {
      "nom": "MAISON FAMILIALE RURALE",
@@ -665,7 +665,7 @@
    "cle": "financement_prive",
    "libelle": "Fonds de dotation ou fondation — vit de dons privés",
    "explication": "Un fonds de dotation dépose ses comptes quel que soit son financement : le seuil de 153 000 € compte les DONS autant que les subventions. Qu'il soit absent d'un site de subventions publiques est normal, pas une lacune.",
-   "organismes": 3968,
+   "organismes": 3955,
    "part_pct": 30.7,
    "exemples": [
     {
@@ -746,7 +746,7 @@
    "cle": "nom_connu_ailleurs",
    "libelle": "Nom connu du site, mais dans un autre département",
    "explication": "Le site connaît ce nom, rattaché ailleurs. Le Journal officiel donne le département du SIÈGE, le site celui de l'adresse publiée par le financeur : les deux divergent pour les organismes à établissements multiples. Rapprochement possible, jamais automatique.",
-   "organismes": 536,
+   "organismes": 525,
    "part_pct": 4.1,
    "exemples": [
     {
@@ -908,7 +908,7 @@
    "cle": "territoire_peu_couvert",
    "libelle": "Territoire dont le site connaît moins de 1 % des subventions communales",
    "explication": "Un financeur publie quelque part dans ce département, mais pas celui qui compte : le site y connaît moins d'un centième de ce que les communes déclarent verser. Une association financée par sa commune y est invisible par construction.",
-   "organismes": 3362,
+   "organismes": 3356,
    "part_pct": 26.0,
    "exemples": [
     {
@@ -989,8 +989,8 @@
    "cle": "inexplique",
    "libelle": "Aucune explication automatique",
    "explication": "Ni fonds de dotation, ni homonyme ailleurs, ni territoire muet. Deux lectures restent possibles, et AUCUNE DONNÉE PUBLIQUE NE PERMET DE TRANCHER : l'organisme vit de dons privés — le seuil de 153 000 € les compte — ou bien il reçoit de l'argent public que personne ne publie. Ce n'est pas une liste de travail : c'est la mesure de ce qu'on ignore.",
-   "organismes": 4157,
-   "part_pct": 32.1,
+   "organismes": 4146,
+   "part_pct": 32.2,
    "exemples": [
     {
      "nom": "L ETOILE MATER CATHO PROVENCE",
@@ -1087,7 +1087,7 @@
   },
   "2010": {
    "organismes": 709,
-   "reconnus": 390
+   "reconnus": 391
   },
   "2011": {
    "organismes": 740,
@@ -1095,11 +1095,11 @@
   },
   "2012": {
    "organismes": 652,
-   "reconnus": 356
+   "reconnus": 357
   },
   "2013": {
    "organismes": 738,
-   "reconnus": 449
+   "reconnus": 450
   },
   "2014": {
    "organismes": 836,
@@ -1115,7 +1115,7 @@
   },
   "2017": {
    "organismes": 801,
-   "reconnus": 466
+   "reconnus": 467
   },
   "2018": {
    "organismes": 820,
@@ -1131,23 +1131,23 @@
   },
   "2021": {
    "organismes": 1486,
-   "reconnus": 858
+   "reconnus": 860
   },
   "2022": {
    "organismes": 1730,
-   "reconnus": 1016
+   "reconnus": 1019
   },
   "2023": {
    "organismes": 2437,
-   "reconnus": 1369
+   "reconnus": 1376
   },
   "2024": {
    "organismes": 5799,
-   "reconnus": 3555
+   "reconnus": 3569
   },
   "2025": {
    "organismes": 9381,
-   "reconnus": 5711
+   "reconnus": 5733
   },
   "2026": {
    "organismes": 56,
@@ -3100,18 +3100,6 @@
    "cause": "nom_et_departement"
   },
   {
-   "siren": "495077919",
-   "nom": "SAP ASSOCIATION LOCALE DE DEVELOPPEMENT SANITAIRE",
-   "departement": "78",
-   "depots": 20,
-   "exercices": [
-    "2007",
-    "2025"
-   ],
-   "type": "Associations loi du 1er juillet 1901",
-   "cause": "territoire_peu_couvert"
-  },
-  {
    "siren": "483180527",
    "nom": "SOPHIA ALPES MARITIMES PROMOTION",
    "departement": "06",
@@ -4498,18 +4486,6 @@
    "depots": 18,
    "exercices": [
     "2011",
-    "2025"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
-   "siren": "524719234",
-   "nom": "ARBORETUMS DE FRANCE FONDATION",
-   "departement": "45",
-   "depots": 18,
-   "exercices": [
-    "2010",
     "2025"
    ],
    "type": "Fonds de dotation",
@@ -6340,18 +6316,6 @@
    "cause": "inexplique"
   },
   {
-   "siren": "751895707",
-   "nom": "FOND DE DOTATION DU CERCLE DES NAGEURS DE MARSEILLE",
-   "departement": "13",
-   "depots": 17,
-   "exercices": [
-    "2010",
-    "2025"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
    "siren": "534721097",
    "nom": "FOND DE DOTATION GREENPEACE FRANCE",
    "departement": "75",
@@ -8130,18 +8094,6 @@
   {
    "siren": "518739792",
    "nom": "FONDS DE DOTATION DU MUSÉE DU LOUVRE",
-   "departement": "75",
-   "depots": 16,
-   "exercices": [
-    "2010",
-    "2025"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
-   "siren": "533438487",
-   "nom": "FONDS DE DOTATION DU SPORT FRANCAIS",
    "departement": "75",
    "depots": 16,
    "exercices": [
@@ -15328,18 +15280,6 @@
    "cause": "financement_prive"
   },
   {
-   "siren": "812809226",
-   "nom": "FONDS DE DOTATION ASSAMI",
-   "departement": "13",
-   "depots": 13,
-   "exercices": [
-    "2014",
-    "2025"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
    "siren": "751821711",
    "nom": "FONDS DE DOTATION AVISO",
    "departement": "92",
@@ -18394,18 +18334,6 @@
    "depots": 12,
    "exercices": [
     "2013",
-    "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
-   "siren": "750678856",
-   "nom": "FONDS DE DOTATION AUTISME EN FRANCE",
-   "departement": "75",
-   "depots": 12,
-   "exercices": [
-    "2012",
     "2024"
    ],
    "type": "Fonds de dotation",
@@ -22403,18 +22331,6 @@
    "exercices": [
     "2014",
     "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
-   "siren": "534177167",
-   "nom": "FONDS DE DOTATION ALLP",
-   "departement": "69",
-   "depots": 11,
-   "exercices": [
-    "2010",
-    "2025"
    ],
    "type": "Fonds de dotation",
    "cause": "financement_prive"
@@ -26764,18 +26680,6 @@
    "cause": "financement_prive"
   },
   {
-   "siren": "833088578",
-   "nom": "FONDS DE DOTATION FENELON",
-   "departement": "44",
-   "depots": 10,
-   "exercices": [
-    "2016",
-    "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
    "siren": "839994936",
    "nom": "FONDS DE DOTATION FETE LE MUR",
    "departement": "75",
@@ -27214,18 +27118,6 @@
    "depots": 10,
    "exercices": [
     "2015",
-    "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
-   "siren": "818278913",
-   "nom": "FONDS DOTATION DIACONIE DE LA BEAUTE",
-   "departement": "44",
-   "depots": 10,
-   "exercices": [
-    "2016",
     "2024"
    ],
    "type": "Fonds de dotation",
@@ -36928,18 +36820,6 @@
    "cause": "financement_prive"
   },
   {
-   "siren": "932910417",
-   "nom": "FONDS DE DOTATION FASHION GREEN SEED",
-   "departement": "75",
-   "depots": 8,
-   "exercices": [
-    "2023",
-    "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
    "siren": "829927847",
    "nom": "FONDS DE DOTATION FONDARPHA",
    "departement": "59",
@@ -38183,18 +38063,6 @@
    "exercices": [
     "2017",
     "2024"
-   ],
-   "type": "Fonds de dotation",
-   "cause": "financement_prive"
-  },
-  {
-   "siren": "849116173",
-   "nom": "HUMAN AND GO",
-   "departement": "75",
-   "depots": 8,
-   "exercices": [
-    "2019",
-    "2023"
    ],
    "type": "Fonds de dotation",
    "cause": "financement_prive"

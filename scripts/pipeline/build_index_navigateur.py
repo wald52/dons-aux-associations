@@ -99,6 +99,7 @@ COLS = [
     # famille voyage jusqu'à la fiche : c'est elle qui tient la consigne
     # « bien les différencier pour ne pas que le public se sente trompé ».
     "beneficiary_legal_category", "beneficiary_family", "beneficiary_rna_insee",
+    "beneficiary_is_associatif",
 ]
 
 # Ordre figé des échelons : l'index sert un MASQUE de bits, pas une liste de
@@ -253,6 +254,7 @@ def main():
         "echelons": set(), "donateurs": set(),
         "par_donateur": collections.Counter(),
         "siren": None, "rna": None, "rna_insee": None, "norm": None,
+        "src_disait_asso": False,
     })
     natures = []
     cas = []
@@ -266,6 +268,10 @@ def main():
         if col["beneficiary_dep_code"][i]:
             g["deps"][col["beneficiary_dep_code"][i]] += 1
         g["kinds"][col["beneficiary_kind"][i]] += 1
+        if (col["beneficiary_is_associatif"][i] is False
+                and col["beneficiary_kind_provenance"][i] == "declared"
+                and col["beneficiary_kind"][i] == "association"):
+            g["src_disait_asso"] = True
         if not g["rna_insee"] and col["beneficiary_rna_insee"][i]:
             g["rna_insee"] = col["beneficiary_rna_insee"][i]
         if col["beneficiary_family"][i]:
@@ -331,6 +337,10 @@ def main():
             # identifiant publié par un autre — il complète ce qui manquait.
             "rna": g["rna"] or g["rna_insee"],
             "rna_de_insee": 1 if (not g["rna"] and g["rna_insee"]) else 0,
+            # La source déclarait « association » et l'INSEE dit non. On ne le
+            # cache pas : « fidélité maximale à la source » veut qu'on dise ce
+            # qu'elle a écrit, même quand on ne la suit pas.
+            "src_contredit": 1 if g["src_disait_asso"] else 0,
             "dep": g["deps"].most_common(1)[0][0] if g["deps"] else None,
             "kind": g["kinds"].most_common(1)[0][0],
             # La famille juridique, telle qu'elle sera AFFICHÉE. Consigne de
@@ -446,7 +456,8 @@ def main():
                         resume[b]["ech"], resume[b]["echelons"], resume[b]["nbd"],
                         resume[b]["principal"] or "", resume[b]["part"],
                         resume[b]["publient_jusqu_a"] or 0,
-                        resume[b]["famille"], resume[b]["rna_de_insee"]] for b in bids],
+                        resume[b]["famille"], resume[b]["rna_de_insee"],
+                        resume[b]["src_contredit"]] for b in bids],
             "y": [col["year"][i] or 0 for i in lignes],
             "m": [nombre(col["amount_eur"][i]) for i in lignes],
             # Creux : 30 255 lignes sur 2,8 millions portent un montant écarté.

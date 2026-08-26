@@ -482,7 +482,7 @@ que le §1h rend beaucoup plus tranchants qu'ils ne le paraissaient ici :
 > le correctif est en place : `fetch_nature_beneficiaires.py`,
 > `enrich_nature.py`, quatre colonnes canoniques, la famille affichée sur la
 > fiche, un sixième montant à l'export et trois contrôles dans `verify.py`.
-> **Le total voté est passé de 148,40 à 110,71 Md€.** Ce qui reste ouvert est
+> **Le total voté est passé de 148,40 à 112,90 Md€.** Ce qui reste ouvert est
 > au §1g (Normandie, portails CKAN, agences de l'eau).
 
 Mesuré le 26/08/2026, après une remise en cause de l'utilisateur : « je cherche
@@ -791,6 +791,25 @@ La phase 15 fait cohabiter trois sources d'identité : ce que la source publie,
 ce que SIRENE enregistre, ce que le Journal officiel déclare. Elles ne disent
 pas toujours la même chose. Les deux divergences sont **mesurées, leurs causes
 nommées, et rien n'est corrigé** — comme partout ici, on signale.
+
+#### 0. Ce que l'analyse a corrigé en chemin — 2 250 M€ rendus aux totaux
+
+L'analyse des divergences a trouvé plus qu'elle ne cherchait. La règle « l'INSEE
+prime » ne jouait que dans un sens : elle écartait ce que la source croyait
+associatif, mais ne rattrapait pas ce qu'elle écartait à tort. **3 393
+organismes que le répertoire national reconnaît comme associations ou fondations
+restaient hors des totaux, pour 2 250,31 M€** — l'Institut Pasteur, la Fondation
+de l'Armée du Salut, la Fondation nationale des sciences politiques, l'Institut
+Curie, la Fondation d'Auteuil.
+
+La cause est étroite et se lit dans les données : ces sources portent bien une
+colonne de nature juridique, mais avec une valeur que le pipeline ne sait pas
+interpréter. Elle ressortait `declared / inconnu` — et le seul fait d'être
+« déclarée » suffisait à exclure. Le défaut PRÉEXISTAIT à la phase 15 ; c'est la
+décision « l'INSEE prime » qui le rend corrigeable.
+
+`est_un_don` a donc été repris : **la déclaration de la source ne tranche plus
+que là où l'INSEE se tait**. Total voté 110,71 → **112,90 Md€**.
 
 #### a. Le RNA — 384 organismes, 3 680 lignes, 694,5 M€
 

@@ -932,12 +932,20 @@ def est_un_don(granularity, kind, kind_provenance, concours,
     associatif = est_associatif(categorie_juridique)
     if associatif is False:
         return False
-    # Une nature seulement DEVINÉE ne suffit pas à exclure : se tromper en
-    # excluant efface une association réelle, se tromper en incluant laisse une
-    # ligne de trop qui reste visible et corrigeable. On penche du bon côté.
-    # Cette asymétrie ne vaut plus quand l'INSEE a tranché ci-dessus : elle
-    # avait été écrite parce qu'on n'avait que le nom pour deviner.
-    if kind_provenance == "declared" and kind not in (None, "association"):
+    # « L'INSEE prime » vaut DANS LES DEUX SENS. Il ne sert pas seulement à
+    # écarter ce que la source croyait associatif : il rattrape aussi ce qu'elle
+    # écartait à tort. Mesuré le 26/08/2026 : la règle d'avant sortait
+    # **2 250,31 M€ sur 3 393 organismes** que le répertoire national reconnaît
+    # comme associations ou fondations — l'Institut Pasteur (386,0 M€), la
+    # Fondation de l'Armée du Salut (405,3), la Fondation nationale des sciences
+    # politiques (435,9), l'Institut Curie (54,3). Leur source portait bien une
+    # colonne de nature juridique, mais avec une valeur que le pipeline ne sait
+    # pas lire : elle ressortait « declared / inconnu », et « déclaré » suffisait
+    # à exclure.
+    #
+    # La déclaration de la source ne tranche donc plus que là où l'INSEE se tait.
+    if associatif is None and kind_provenance == "declared" \
+            and kind not in (None, "association"):
         return False
     return concours == "don"
 
@@ -964,12 +972,15 @@ def compte_dans_les_totaux(granularity, measure, kind, kind_provenance, concours
 # complète passent par la fonction Python ci-dessus.
 SQL_EST_UN_DON = (
     "granularity IS DISTINCT FROM 'aggregate' "
-    "AND NOT (beneficiary_kind_provenance = 'declared' "
+    # Le verdict de l'INSEE d'abord : `IS DISTINCT FROM FALSE` laisse passer le
+    # NULL, car ne pas savoir n'est pas un « non ».
+    "AND (beneficiary_is_associatif IS DISTINCT FROM FALSE) "
+    # La déclaration de la source ne tranche que là où l'INSEE se tait — même
+    # ordre que `est_un_don` ci-dessus, dont ceci est la transcription.
+    "AND NOT (beneficiary_is_associatif IS NULL "
+    "         AND beneficiary_kind_provenance = 'declared' "
     "         AND beneficiary_kind IS NOT NULL "
-    "         AND beneficiary_kind <> 'association') "
-    # Le verdict de l'INSEE, quand la colonne existe. `IS NOT FALSE` laisse
-    # passer le NULL : ne pas savoir n'est pas un « non ».
-    "AND (beneficiary_is_associatif IS DISTINCT FROM FALSE)"
+    "         AND beneficiary_kind <> 'association')"
 )
 SQL_COMPTE_DANS_LES_TOTAUX = (
     SQL_EST_UN_DON + " AND measure IS DISTINCT FROM 'verse'"

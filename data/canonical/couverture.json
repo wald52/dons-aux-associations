@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T16:48:34Z",
+  "generated_at": "2026-08-26T19:06:48Z",
   "methode": "Chaque libellé de donateur est rapproché du référentiel INSEE et désigne AU PLUS UNE collectivité — en cas d'homonymie, aucune. La couverture affichée est donc un minimum : un libellé inhabituel échoue à s'apparier alors que la donnée existe, mais aucune collectivité n'est comptée à tort.",
   "etats": {
     "donnees": "des subventions versées par cette collectivité sont présentes",
@@ -1522,7 +1522,7 @@
     ],
     "etat": [
       1873947,
-      81980045050.86
+      84165506507.85
     ],
     "operateur": [
       64676,

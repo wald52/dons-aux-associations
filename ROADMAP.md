@@ -392,7 +392,13 @@ sente trompé ».
    FORME JURIDIQUE, le JO le TYPE DÉCLARÉ. La frontière reste à l'INSEE, le
    libellé vient du JO, et les deux voyagent.
 
-**Le total voté baisse de 25,4 %, et c'est une correction** — le même mouvement
+**Le total voté passe de 148,40 à 112,90 Md€** — 37,68 Md€ sortent parce que
+l'INSEE les déclare non associatifs, et 2,25 Md€ RENTRENT parce que la même
+règle, appliquée dans les deux sens, rattrape l'Institut Pasteur, l'Institut
+Curie et la Fondation de l'Armée du Salut, que la déclaration illisible de leur
+source excluait.
+
+**La baisse nette est une correction** — le même mouvement
 que la phase 11, qui avait fait baisser le total de 1,34 Md€ en gagnant
 23 sources.
 

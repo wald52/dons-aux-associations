@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T18:33:34Z",
+  "generated_at": "2026-08-26T18:59:21Z",
   "parts": [
     "data/canonical/parts/legacy-agglo-grand-chambery.parquet",
     "data/canonical/parts/legacy-agglo-lorient.parquet",
@@ -1175,10 +1175,10 @@
     "data/canonical/parts/scdl-6a4dbdae-42f4754e.parquet"
   ],
   "rows_total": 2811070,
-  "amount_individual_eur": 110714609267.96,
+  "amount_individual_eur": 112900174224.95,
   "amount_aggregate_eur": 2123238129.26,
-  "amount_not_summed_eur": 65071381714.05,
-  "rows_not_summed": 770610,
+  "amount_not_summed_eur": 62885816757.06,
+  "rows_not_summed": 763072,
   "by_concours": {
     "don": {
       "rows": 2678787,
@@ -8731,10 +8731,10 @@
     },
     "ods-d2a514a77e7a": {
       "rows": 1717,
-      "amount_individual_eur": 4220587.14,
+      "amount_individual_eur": 4324087.14,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 21011702.43,
-      "rows_not_summed": 1545,
+      "amount_not_summed_eur": 20908202.43,
+      "rows_not_summed": 1532,
       "years": [
         2020,
         2021,
@@ -9283,10 +9283,10 @@
     },
     "plf-jaune-2018": {
       "rows": 56497,
-      "amount_individual_eur": 4631338282.6,
+      "amount_individual_eur": 4640719555.95,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 55529499.34,
-      "rows_not_summed": 619,
+      "amount_not_summed_eur": 46148225.99,
+      "rows_not_summed": 535,
       "years": [
         2016
       ],
@@ -9306,10 +9306,10 @@
     },
     "plf-jaune-2019": {
       "rows": 70064,
-      "amount_individual_eur": 5035839235.23,
+      "amount_individual_eur": 5298908268.72,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 286518385.01,
-      "rows_not_summed": 771,
+      "amount_not_summed_eur": 23449351.52,
+      "rows_not_summed": 353,
       "years": [
         2017
       ],
@@ -9329,10 +9329,10 @@
     },
     "plf-jaune-2020": {
       "rows": 92606,
-      "amount_individual_eur": 6686520275.71,
+      "amount_individual_eur": 6992684333.25,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 555664792.36,
-      "rows_not_summed": 23187,
+      "amount_not_summed_eur": 249500734.82,
+      "rows_not_summed": 22493,
       "years": [
         2018
       ],
@@ -9354,10 +9354,10 @@
     },
     "plf-jaune-2021": {
       "rows": 96746,
-      "amount_individual_eur": 7040731305.68,
+      "amount_individual_eur": 7382719738.46,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 693806098.14,
-      "rows_not_summed": 29807,
+      "amount_not_summed_eur": 351817665.36,
+      "rows_not_summed": 29103,
       "years": [
         2019
       ],
@@ -9376,10 +9376,10 @@
     },
     "plf-jaune-2022": {
       "rows": 95820,
-      "amount_individual_eur": 8269366635.88,
+      "amount_individual_eur": 8633918011.95,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 725234638.13,
-      "rows_not_summed": 24425,
+      "amount_not_summed_eur": 360683262.06,
+      "rows_not_summed": 23714,
       "years": [
         2020
       ],
@@ -9399,10 +9399,10 @@
     },
     "plf-jaune-2023": {
       "rows": 102619,
-      "amount_individual_eur": 9747529816.04,
+      "amount_individual_eur": 10139572213.13,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 795860324.8,
-      "rows_not_summed": 23208,
+      "amount_not_summed_eur": 403817927.71,
+      "rows_not_summed": 22452,
       "years": [
         2021
       ],
@@ -9421,10 +9421,10 @@
     },
     "plf-jaune-2025": {
       "rows": 112722,
-      "amount_individual_eur": 10820277451.18,
+      "amount_individual_eur": 11328542337.85,
       "amount_aggregate_eur": 0.0,
-      "amount_not_summed_eur": 945428024.47,
-      "rows_not_summed": 29867,
+      "amount_not_summed_eur": 437163137.8,
+      "rows_not_summed": 25709,
       "years": [
         2023
       ],
