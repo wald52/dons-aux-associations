@@ -1,0 +1,43 @@
+{
+  "name": "Dons publics aux associations",
+  "short_name": "Dons associations",
+  "description": "Qui finance les associations en France : l'État, ses opérateurs, les régions, les départements, les intercommunalités et les communes.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["minimal-ui"],
+  "orientation": "any",
+  "background_color": "#f7f8fa",
+  "theme_color": "#ffffff",
+  "categories": ["government", "finance", "education"],
+  "icons": [
+    { "src": "assets/icones/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icones/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icones/icone-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Chercher une association",
+      "short_name": "Une association",
+      "description": "Qui finance une association, tous échelons confondus",
+      "url": "./recherche.html",
+      "icons": [{ "src": "assets/icones/icone-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Ma commune",
+      "short_name": "Ma commune",
+      "description": "Ce que votre commune verse aux associations",
+      "url": "./commune.html",
+      "icons": [{ "src": "assets/icones/icone-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Ce qu'on ne sait pas",
+      "short_name": "Couverture",
+      "description": "Ce que le site ignore, et pourquoi",
+      "url": "./couverture.html",
+      "icons": [{ "src": "assets/icones/icone-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}

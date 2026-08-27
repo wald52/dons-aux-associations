@@ -108,10 +108,11 @@ de ces chiffres n'entre jamais dans ses totaux :
 | D751 INSEE — versé par les APU aux ISBLSM en 2023 | **45,60 Md€** |
 | Ce que le site retrouve sur le même exercice | **24,0 Md€** (52,6 %) |
 
-**50 contrôles sur 50 dans `verify.py`** au dernier assemblage complet. Hors
-d'un assemblage, « conservation des lignes » échoue faute de
-`data/canonical/parts/`, qui n'est pas versionné : 49/50 est donc le score
-normal quand on n'a pas rejoué les normaliseurs.
+**59 contrôles dans `verify.py`**, tous verts au dernier assemblage complet.
+Hors d'un assemblage, « conservation des lignes » échoue faute de
+`data/canonical/parts/`, qui n'est pas versionné : 58/59 est donc le score
+normal quand on n'a pas rejoué les normaliseurs. Six d'entre eux ne touchent
+pas aux données : ils tiennent l'application installable (phase 16).
 
 **Ce qui reste à faire est dans `RESTE-A-FAIRE.md`**, chiffré et priorisé.
 
@@ -154,7 +155,9 @@ du volume.
 .
 ├── index.html                  # champ unique + carte ; une seule balise <script>
 ├── commune.html                # « ma commune » — page à part entière
+├── manifest.webmanifest        # application installable — adresses RELATIVES
 ├── sw.js                       # service worker — bumper CACHE à chaque publication
+├── assets/icones/              # engendrées, jamais dessinées à la main
 ├── assets/css/style.css
 ├── assets/js/
 │   ├── commun.js               # utilitaires, état d'URL, états de page
@@ -184,7 +187,9 @@ du volume.
 │   ├── geo/*.geojson.gz        # contours, source de la carte
 │   └── raw/                    # téléchargements bruts — NON versionné
 ├── scripts/pipeline/           # le pipeline (Python)
+├── scripts/build_icones.py     # les icônes, tracées depuis les couleurs du site
 ├── scripts/bench/measure.js    # banc de mesure
+├── scripts/bench/verifier_pwa.js # l'application installable, en navigateur réel
 ├── bench/v0.json, phase2.json  # relevés
 ├── ROADMAP.md, SCHEMA.md, MESURE-PERF.md, SOURCES.md
 ```
@@ -366,6 +371,49 @@ l'historique : `git checkout 0b14348 -- data/sources`.
   (« toute ligne tombe dans une case et une seule ») : l'export reprend
   l'invariant du pipeline au lieu d'en inventer un autre. Ne jamais y ajouter
   une colonne `montant_eur` fourre-tout, elle annulerait tout le dispositif.
+
+- **`addAll` du service worker est ATOMIQUE, et son échec est muet.** Un seul
+  chemin faux dans `PRECACHE` et l'installation échoue en entier : le site
+  continue de s'afficher parfaitement, mais il n'a plus ni hors-ligne ni
+  installation, et rien nulle part ne le dit. `verify.py` vérifie donc que
+  chacun de ces chemins existe sur le disque. Même famille que « un rejet qui
+  ne laisse pas de trace est pire qu'un mauvais rejet ».
+
+- **Installée, l'application n'a plus de barre d'adresse — et tout le site est
+  bâti sur des adresses partageables.** `#a`, `#insee`, `#dep`, `#annee` : la
+  phase 13 a fait de l'URL le moyen de transmettre une association ou un
+  département, et le mode `standalone` la retire de l'écran. D'où
+  `"display_override": ["minimal-ui"]`, que Chrome sur Android honore en gardant
+  l'adresse visible ; iOS l'ignore et ouvre en `standalone`. Y répondre vraiment
+  demande un bouton « copier le lien » dans les pages — une décision
+  d'interface, laissée à l'utilisateur. Ne pas passer en `standalone` seul sans
+  l'avoir tranchée.
+
+- **`start_url` et `scope` doivent être RELATIFS.** Le site est publié sous
+  `…github.io/dons-aux-associations/` : un `"/"` absolu enverrait l'application
+  installée à la racine du domaine, où il n'y a rien. Le banc
+  `verifier_pwa.js` sert donc le dossier PARENT du dépôt, pour que le
+  sous-chemin soit celui de la publication et qu'une adresse absolue se voie.
+
+- **Les grandes icônes ne sont pas préchargées, et c'est délibéré.** 57 Ko que
+  le navigateur ne demande qu'au moment d'installer. Les mettre dans `PRECACHE`
+  les ferait payer à tout le monde, pour un service rendu à presque personne —
+  même règle que l'index de suggestion chargé à l'intention. Seuls le manifeste
+  et l'icône de 32 px y sont : **+1,4 Ko sur le premier écran**, mesuré.
+
+- **Un test « hors ligne » qui ne coupe pas vraiment le réseau ne prouve rien.**
+  Deux pièges cumulés : `context.setOffline(true)` de Playwright n'atteint pas
+  toujours les requêtes émises par le SERVICE WORKER — le serveur répondait, son
+  404 bien réel passait pour un repli réussi ; et `spawn('npx', ['http-server'])`
+  survit à `kill()`, qui ne tue que `npx`. On appelle donc `http-server`
+  directement et on le TUE. Corollaire : attendre
+  `navigator.serviceWorker.controller` avant de couper, sinon on mesure une
+  première visite où le préchargement n'était pas fini.
+
+- **`methode.html` étant engendrée, tout ajout dans un `<head>` va AUSSI dans
+  `build_methode.py`.** Le lien du manifeste y a été posé des deux côtés ; sans
+  cela, la page l'aurait perdu à la publication suivante, sans erreur. Un
+  contrôle de `verify.py` exige que les cinq pages le déclarent.
 
 - **Le navigateur ne peut PAS recalculer la règle des totaux, et il l'a fait
   pendant toute la phase 13.** `compte_dans_les_totaux` dépend de la nature
@@ -1497,6 +1545,22 @@ l'historique : `git checkout 0b14348 -- data/sources`.
       `Collectivité = "v"` sur 15 099 lignes dont **toutes** ont une jumelle
       exacte ailleurs — **722,4 M€ comptés deux fois** (`RESTE-A-FAIRE.md` §3b).
 
+- [x] **Phase 16** — l'application installable. Le service worker était là
+      depuis la phase 2 ; il manquait un manifeste, des icônes, leur déclaration
+      dans les pages et un repli hors ligne — quatre absences dont aucune ne
+      produit d'erreur, le navigateur se contentant de ne pas proposer
+      l'installation. `manifest.webmanifest` (adresses RELATIVES : le site vit
+      sous un sous-chemin), cinq icônes **tracées** par `scripts/build_icones.py`
+      depuis les couleurs de `style.css` — dont une masquable pour Android et une
+      opaque pour iOS —, trois raccourcis, et l'accueil rendu quand une
+      navigation échoue. **Coût mesuré : +1,4 Ko** sur le premier écran ; les
+      57 Ko de grandes icônes ne sont pas préchargés.
+      Vérifié dans un Chromium servi depuis un sous-chemin, **serveur tué** :
+      les cinq pages s'ouvrent hors ligne, l'accueil trace ses 101 départements
+      avec ses données, une adresse inconnue retombe sur l'accueil, aucune
+      requête n'échoue (`node scripts/bench/verifier_pwa.js`). **58/59
+      contrôles**, six nouveaux, le compte normal hors assemblage complet.
+
 Détail de chaque phase dans `ROADMAP.md`.
 
 ---
@@ -1534,6 +1598,11 @@ scripts/pipeline/tout_reconstruire.sh` rejoue toute la chaîne dans le bon
 ordre, les moissonnages exceptés (ils ont leur propre cache). **`verify.py` y
 vient EN DERNIER** : plusieurs de ses contrôles comparent l'index de recherche
 à la table canonique et échouent tant que l'index n'est pas reconstruit.
+
+L'application installable a son propre banc, hors pipeline :
+`python3 scripts/build_icones.py` retrace les icônes, et
+`node scripts/bench/verifier_pwa.js` vérifie dans un vrai navigateur que le
+manifeste est lu et que le site tourne réellement sans réseau.
 
 `refresh_rapport.py` recalcule `quality-report.json` et `coverage.json` depuis
 la table canonique quand les parties d'assemblage ne sont pas là — cf. le piège

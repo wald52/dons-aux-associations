@@ -166,6 +166,35 @@ Les 0,01 Mo de plus sont `export.js`. La reconstruction des 512 shards de
 fiches, qui portent une colonne de plus (le verdict des totaux), les fait
 passer de 59,1 à 59,4 Mo au total — la fiche médiane reste à 118 Ko.
 
+## Après phase 16 — l'application installable (26/08/2026)
+
+Une application que l'on pose sur son écran d'accueil ne doit rien coûter à qui
+ne l'installe pas. `bench/phase16-accueil.json` :
+
+| Mesure | phase 14 | phase 16 |
+|---|---|---|
+| Octets transférés | 0,23 Mo | **0,24 Mo** |
+| Requêtes | 13 | **14** |
+| Premier affichage | 0,08 s | **0,11 s** |
+| Données exploitables | 0,60 s | **0,65 s** |
+| Mémoire JS | 3 Mo | **3 Mo** |
+
+La requête de plus, et les 1,4 Ko qui vont avec, sont l'icône de 32 px — qui
+remplace un `<link rel="icon" href="data:,">` sans contenu. Le manifeste et les
+grandes icônes n'apparaissent pas ici : le manifeste est demandé par le service
+worker, hors du chemin critique, et les **57 Ko** des icônes de 180 à 512 px ne
+sont **pas préchargés** du tout, le navigateur ne les réclamant qu'au moment
+d'installer. Les écarts de temps sont dans le bruit d'une machine à l'autre :
+rien n'a été ajouté au chemin critique.
+
+**Vérification, et non mesure** : `node scripts/bench/verifier_pwa.js` monte le
+site sous un SOUS-CHEMIN (comme GitHub Pages), attend que le service worker
+contrôle la page, puis **tue le serveur** — `setOffline` de Playwright n'atteint
+pas toujours les requêtes du service worker, et un 404 bien réel passerait pour
+un repli réussi. Les cinq pages s'ouvrent alors sans réseau, l'accueil trace ses
+101 départements avec ses données, une adresse inconnue retombe sur l'accueil,
+et aucune requête n'échoue.
+
 ## Page recherche (phase 3, architecture retirée)
 
 Coûts mesurés en local, serveur sans gzip (en ligne, le wasm se comprime ~×3) :

@@ -1,0 +1,74 @@
+{
+  "label": "phase16-accueil",
+  "date": "2026-08-26T22:16:32.845Z",
+  "url": "http://127.0.0.1:8101/index.html",
+  "timeoutSeconds": 300,
+  "timings": {
+    "firstContentfulPaintSeconds": 0.11,
+    "dataReadySeconds": 0.65,
+    "dataReady": true,
+    "wallClockSeconds": 0.65
+  },
+  "network": {
+    "requests": 14,
+    "failed": 0,
+    "transferredMB": 0.24,
+    "byType": {
+      "gz": {
+        "requests": 5,
+        "MB": 0.12
+      },
+      "js": {
+        "requests": 6,
+        "MB": 0.08
+      },
+      "css": {
+        "requests": 1,
+        "MB": 0.04
+      },
+      "html": {
+        "requests": 1,
+        "MB": 0.01
+      },
+      "png": {
+        "requests": 1,
+        "MB": 0
+      }
+    },
+    "heaviest": [
+      {
+        "url": "/data/aggregates/map-departements.json.gz",
+        "MB": 0.08,
+        "ms": 62
+      },
+      {
+        "url": "/assets/css/style.css",
+        "MB": 0.04,
+        "ms": 21
+      },
+      {
+        "url": "/assets/js/app.js",
+        "MB": 0.03,
+        "ms": 21
+      },
+      {
+        "url": "/data/aggregates/cube.json.gz",
+        "MB": 0.02,
+        "ms": 59
+      },
+      {
+        "url": "/assets/js/index-recherche.js",
+        "MB": 0.02,
+        "ms": 54
+      }
+    ]
+  },
+  "memory": {
+    "usedMB": 3,
+    "limitMB": 4096
+  },
+  "data": {
+    "records": null,
+    "scriptTags": 1
+  }
+}
